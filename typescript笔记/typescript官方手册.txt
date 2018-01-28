@@ -1,0 +1,3163 @@
+﻿一.基础类型
+1.定义数组的两种方式
+let list: number[] = [1, 2, 3];
+let list: Array<number> = [1, 2, 3]; //数组泛型
+
+2.元组：
+let x: [string, number];  
+x = ['hello', 10]; // OK
+x = [10, 'hello']; // Error
+console.log(x[0].substr(1)); // OK
+console.log(x[1].substr(1)); // Error, 'number' does not have 'substr'
+//当访问越界元素的时候
+x[3] = 'world'; // OK, 字符串可以赋值给(string | number)类型
+console.log(x[5].toString()); // OK, 'string' 和 'number' 都有 toString
+x[6] = true; // Error, 布尔不是(string | number)类型
+
+3.枚举
+默认情况下，从0开始为元素编号,可以手动指定
+enum Color {Red = 1, Green, Blue}
+let c: Color = Color.Green; //2
+let colorName: string = Color[2]; //Green 
+
+alert(colorName);  // 显示'Green'因为上面代码里它的值是2
+
+4.Null 和 Undefined
+默认情况下null和undefined是所有类型的子类型
+5.Never
+没有类型是never的子类型或可以赋值给never类型（除了never本身之外）即使 any也不可以赋值给never
+6.类型断言
+第一种
+let someValue: any = "this is a string";
+let strLength: number = (<string>someValue).length;
+第二种
+let someValue: any = "this is a string";
+let strLength: number = (someValue as string).length;
+
+二.变量声明
+1.const是对let的一个增强，它能阻止对一个变量再次赋值。
+2.var声明可以在包含它的函数，模块，命名空间或全局作用域内部任何位置被访问
+function f(shouldInitialize: boolean) {
+    if (shouldInitialize) {
+        var x = 10;
+    }
+    return x;
+}
+f(true);  // returns '10'
+f(false); // returns 'undefined'
+
+3.let作用域块：作用域变量在包含它们的块或for循环之外是不能访问的
+4.拥有块级作用域的变量的另一个特点是，它们不能在被声明之前读或写
+5.重定义及屏蔽
+let x = 10;
+let x = 20; // 错误，不能在1个作用域里多次声明`x`
+在一个嵌套作用域里引入一个新名字的行为称做屏蔽
+function sumMatrix(matrix: number[][]) {
+    let sum = 0;
+    for (let i = 0; i < matrix.length; i++) {
+        var currentRow = matrix[i];
+        for (let i = 0; i < currentRow.length; i++) {
+            sum += currentRow[i];
+        }
+    }
+    return sum;
+}
+当let声明出现在循环体里时拥有完全不同的行为。 
+不仅是在循环里引入了一个新的变量环境，而是针对 每次迭代都会创建这样一个新作用域。 
+for (let i = 0; i < 10 ; i++) {
+    setTimeout(function() {console.log(i); }, 100 * i);
+}
+6.const 声明
+它们拥有与 let相同的作用域规则，但是不能对它们重新赋值。
+实际上const变量的内部状态是可修改的。 幸运的是，TypeScript允许你将对象的成员设置成只读的。
+7.解构
+解构赋值
+let input = [1, 2];
+let [first, second] = input;
+console.log(first); // outputs 1
+console.log(second); // outputs 2
+创建剩余变量
+let [first, ...rest] = [1, 2, 3, 4];
+console.log(first); // outputs 1
+console.log(rest); // outputs [ 2, 3, 4 ]
+忽略其他变量
+let [first] = [1, 2, 3, 4];
+console.log(first); // outputs 1
+let [, second, , fourth] = [1, 2, 3, 4];
+8.对象解构
+这通过 o.a and o.b 创建了 a 和 b 。 注意，如果你不需要 c 你可以忽略它
+let o = {
+    a: "foo",
+    b: 12,
+    c: "bar"
+};
+let { a, b } = o;
+你可以将 a: newName1 读做 "a 作为 newName1"。 这里的冒号不是指示类型的。
+let { a: newName1, b: newName2 } = o;
+相当于
+let newName1 = o.a;
+let newName2 = o.b;
+指定类型完整模式
+let {a, b}: {a: string, b: number} = o;
+默认值
+function keepWholeObject(wholeObject: { a: string, b?: number }) {
+    let { a, b = 1001 } = wholeObject;
+}
+
+8.展开操作符
+let first = [1, 2];
+let second = [3, 4];
+let bothPlus = [0, ...first, ...second, 5];
+这会令bothPlus的值为[0, 1, 2, 3, 4, 5]。 展开操作创建了 first和second的一份浅拷贝。
+
+9.展开对象后面的属性会覆盖前面的属性
+let defaults = { food: "spicy", price: "$$", ambiance: "noisy" };
+let search = { food: "rich", ...defaults };
+当你展开一个对象实例时，你会丢失其方法
+class C {
+  p = 12;
+  m() {
+  }
+}
+let c = new C();
+let clone = { ...c };
+clone.p; // ok
+clone.m(); // error!
+
+三.接口
+1.类型检查器不会去检查属性的顺序，只要相应的属性存在并且类型也是对的就可以。
+interface LabelledValue {
+  label: string;
+}
+function printLabel(labelledObj: LabelledValue) {
+  console.log(labelledObj.label);
+}
+let myObj = {size: 10, label: "Size 10 Object"};
+printLabel(myObj);
+
+2.可选属性(部分属性赋值)
+interface SquareConfig {
+  color?: string;
+  width?: number;
+}
+
+function createSquare(config: SquareConfig): {color: string; area: number} {
+  let newSquare = {color: "white", area: 100};
+  if (config.color) {
+    newSquare.color = config.color;
+  }
+  if (config.width) {
+    newSquare.area = config.width * config.width;
+  }
+  return newSquare;
+}
+
+let mySquare = createSquare({color: "black"});
+
+3.readonly来指定只读属性
+interface Point {
+    readonly x: number;
+    readonly y: number;
+}
+let p1: Point = { x: 10, y: 20 };
+p1.x = 5; // error!
+
+4.TypeScript具有ReadonlyArray<T>类型,确保数组创建后不能再被修改
+let a: number[] = [1, 2, 3, 4];
+let ro: ReadonlyArray<number> = a;
+ro[0] = 12; // error!
+ro.push(5); // error!
+ro.length = 100; // error!
+a = ro; // error!
+
+使用类型断言后就可以修改了
+a = ro as number[];
+做为变量使用的话用 const，若做为属性则使用readonly。
+
+5.额外的属性检查
+interface SquareConfig {
+    color?: string;
+    width?: number;
+}
+
+function createSquare(config: SquareConfig): { color: string; area: number } {
+    // ...
+}
+
+let mySquare = createSquare({ colour: "red", width: 100 }); //报错参数拼写为colour而不是color
+
+最佳解决方案:添加一个字符串索引签名
+interface SquareConfig {
+    color?: string;
+    width?: number;
+    [propName: string]: any;
+}
+跳过检查方式的方法
+let squareOptions = { colour: "red", width: 100 };//squareOptions不会经过额外属性检查
+let mySquare = createSquare(squareOptions);
+
+6.函数类型
+7.可索引的类型
+interface StringArray {
+  [index: number]: string;
+}
+
+let myArray: StringArray;
+myArray = ["Bob", "Fred"];
+
+let myStr: string = myArray[0];
+100（一个number）去索引等同于使用"100"（一个string）去索引，因此两者需要保持一致
+
+interface NumberDictionary {
+  [index: string]: number;
+  length: number;    // 可以，length是number类型
+  name: string       // 错误，`name`的类型与索引类型返回值的类型不匹配
+}
+8.设置索引明是只读的
+interface ReadonlyStringArray {
+    readonly [index: number]: string;
+}
+let myArray: ReadonlyStringArray = ["Alice", "Bob"];
+myArray[2] = "Mallory"; // error!
+
+8.类类型
+明确的强制一个类去符合某种契约
+interface ClockInterface {
+    currentTime: Date;
+}
+
+class Clock implements ClockInterface {
+    currentTime: Date;
+    constructor(h: number, m: number) { }
+}
+
+接口描述一个方法并在类中实现
+interface ClockInterface {
+    currentTime: Date;
+    setTime(d: Date);
+}
+
+class Clock implements ClockInterface {
+    currentTime: Date;
+    setTime(d: Date) {
+        this.currentTime = d;
+    }
+    constructor(h: number, m: number) { }
+}
+
+9.类静态部分与实例部分的区别 ##
+10.继承接口
+interface Shape {
+    color: string;
+}
+
+interface Square extends Shape {
+    sideLength: number;
+}
+
+let square = <Square>{};
+square.color = "blue";
+square.sideLength = 10;
+
+11.合并多个接口
+interface Shape {
+    color: string;
+}
+
+interface PenStroke {
+    penWidth: number;
+}
+
+interface Square extends Shape, PenStroke {
+    sideLength: number;
+}
+
+let square = <Square>{};
+square.color = "blue";
+square.sideLength = 10;
+square.penWidth = 5.0;
+
+12.混合类型
+在使用JavaScript第三方库的时候，你可能需要像下面那样去完整地定义类型。
+interface Counter {
+    (start: number): string;
+    interval: number;
+    reset(): void;
+}
+
+function getCounter(): Counter {
+    let counter = <Counter>function (start: number) { };
+    counter.interval = 123;
+    counter.reset = function () { };
+    return counter;
+}
+
+let c = getCounter();
+c(10);
+c.reset();
+c.interval = 5.0;
+
+13.接口继承类
+class Control {
+    private state: any;
+}
+
+interface SelectableControl extends Control {
+    select(): void;
+}
+
+class Button extends Control implements SelectableControl {
+    select() { }
+}
+
+class TextBox extends Control {
+
+}
+
+// 错误：“Image”类型缺少“state”属性。
+class Image implements SelectableControl {
+    select() { }
+}
+
+class Location {
+
+}
+
+四.类
+1.一个使用类的例子
+class Greeter {
+    greeting: string;
+    constructor(message: string) {
+        this.greeting = message;
+    }
+    greet() {
+        console.log("Hello, " + this.greeting);
+        return "Hello, " + this.greeting;
+    }
+}
+
+let greeter = new Greeter("world");//创建一个 Greeter类型的新对象，并执行构造函数初始化它。
+greeter.greet();
+2.基本继承
+派生类通常被称作 子类，基类通常被称作 超类。
+class Animal {
+    move(distanceInMeters: number = 0) {
+        console.log(`Animal moved ${distanceInMeters}m.`);
+    }
+}
+
+class Dog extends Animal {
+    bark() {
+        console.log('Woof! Woof!');
+    }
+}
+
+const dog = new Dog();
+dog.bark();
+dog.move(10);
+dog.bark();
+
+3.派生类通过super()执行基类的构造方法
+在构造函数里访问 this的属性之前，我们 一定要调用 super()。 这个是TypeScript强制执行的一条重要规则。
+class Animal {
+    name: string;
+    constructor(theName: string) { this.name = theName; }
+    move(distanceInMeters: number = 0) {
+        console.log(`${this.name} moved ${distanceInMeters}m.`);
+    }
+}
+
+class Snake extends Animal {
+    constructor(name: string) { super(name); }
+    move(distanceInMeters = 5) {
+        console.log("Slithering...");
+        super.move(distanceInMeters);
+    }
+}
+
+class Horse extends Animal {
+    constructor(name: string) { super(name); }
+    move(distanceInMeters = 45) {
+        console.log("Galloping...");
+        super.move(distanceInMeters);
+    }
+}
+
+let sam = new Snake("Sammy the Python");
+let tom: Animal = new Horse("Tommy the Palomino");
+
+sam.move();
+tom.move(34);
+
+4.公共，私有与受保护的修饰符
+在TypeScript里，成员都默认为 public。
+你可以明确将类中的成员标记为public
+class Animal {
+    public name: string;
+    public constructor(theName: string) { this.name = theName; }
+    public move(distanceInMeters: number) {
+        console.log(`${this.name} moved ${distanceInMeters}m.`);
+    }
+}
+5.当成员被标记成 private时，它就不能在声明它的类的外部访问
+class Animal {
+    private name: string;
+    constructor(theName: string) { this.name = theName; }
+}
+new Animal("Cat").name; // 错误: 'name' 是私有的.
+
+6.private,protected成员，它们都是来自同一处声明时，我们才认为这两个类型是兼容的。
+class Animal {
+    private name: string;
+    constructor(theName: string) { this.name = theName; }
+}
+
+class Rhino extends Animal {
+    constructor() { super("Rhino"); }
+}
+
+class Employee {
+    private name: string;
+    constructor(theName: string) { this.name = theName; }
+}
+
+let animal = new Animal("Goat");
+let rhino = new Rhino();
+let employee = new Employee("Bob");
+
+animal = rhino;
+animal = employee; // 错误: Animal 与 Employee 不兼容.
+
+7.protected修饰符与 private修饰符的行为很相似，但有一点不同， protected成员在派生类中仍然可以访问。
+class Person {
+    protected name: string;
+    constructor(name: string) { this.name = name; }
+}
+
+class Employee extends Person {
+    private department: string;
+
+    constructor(name: string, department: string) {
+        super(name)
+        this.department = department;
+    }
+
+    public getElevatorPitch() {
+        return `Hello, my name is ${this.name} and I work in ${this.department}.`;
+    }
+}
+
+let howard = new Employee("Howard", "Sales");
+console.log(howard.getElevatorPitch());
+console.log(howard.name); // 错误
+
+8.构造函数也可以被标记成 protected。 这意味着这个类不能在包含它的类外被实例化，但是能被继承
+class Person {
+    protected name: string;
+    protected constructor(theName: string) { this.name = theName; }
+}
+
+// Employee 能够继承 Person
+class Employee extends Person {
+    private department: string;
+
+    constructor(name: string, department: string) {
+        super(name);
+        this.department = department;
+    }
+
+    public getElevatorPitch() {
+        return `Hello, my name is ${this.name} and I work in ${this.department}.`;
+    }
+}
+
+let howard = new Employee("Howard", "Sales");
+let john = new Person("John"); // 错误: 'Person' 的构造函数是被保护的.
+
+9.readonly修饰符
+readonly关键字将属性设置为只读的。 只读属性必须在声明时或构造函数里被初始化
+class Octopus {
+    readonly name: string;
+    readonly numberOfLegs: number = 8;
+    constructor (theName: string) {
+        this.name = theName;
+    }
+}
+let dad = new Octopus("Man with the 8 strong legs");
+dad.name = "Man with the 3-piece suit"; // 错误! name 是只读的.
+
+10.参数属性
+class Animal {
+    constructor(private name: string) { }
+    move(distanceInMeters: number) {
+        console.log(`${this.name} moved ${distanceInMeters}m.`);
+    }
+}
+11.存取器
+只带有 get不带有 set的存取器自动被推断为 readonly。
+let passcode = "secret passcode";
+
+class Employee {
+    private _fullName: string;
+
+    get fullName(): string {
+        return this._fullName;
+    }
+
+    set fullName(newName: string) {
+        if (passcode && passcode == "secret passcode") {
+            this._fullName = newName;
+        }
+        else {
+            console.log("Error: Unauthorized update of employee!");
+        }
+    }
+}
+
+let employee = new Employee();
+employee.fullName = "Bob Smith";
+if (employee.fullName) {
+    alert(employee.fullName);
+}
+
+12.静态属性
+class Grid {
+    static origin = {x: 0, y: 0};
+    calculateDistanceFromOrigin(point: {x: number; y: number;}) {
+        let xDist = (point.x - Grid.origin.x);
+        let yDist = (point.y - Grid.origin.y);
+        return Math.sqrt(xDist * xDist + yDist * yDist) / this.scale;
+    }
+    constructor (public scale: number) { }
+}
+
+let grid1 = new Grid(1.0);  // 1x scale
+let grid2 = new Grid(5.0);  // 5x scale
+
+console.log(grid1.calculateDistanceFromOrigin({x: 10, y: 10}));
+console.log(grid2.calculateDistanceFromOrigin({x: 10, y: 10}));
+
+13.抽象类
+abstract class Department {
+
+    constructor(public name: string) {
+    }
+
+    printName(): void {
+        console.log('Department name: ' + this.name);
+    }
+
+    abstract printMeeting(): void; // 必须在派生类中实现
+}
+
+class AccountingDepartment extends Department {
+
+    constructor() {
+        super('Accounting and Auditing'); // 在派生类的构造函数中必须调用 super()
+    }
+
+    printMeeting(): void {
+        console.log('The Accounting Department meets each Monday at 10am.');
+    }
+
+    generateReports(): void {
+        console.log('Generating accounting reports...');
+    }
+}
+
+let department: Department; // 允许创建一个对抽象类型的引用
+department = new Department(); // 错误: 不能创建一个抽象类的实例
+department = new AccountingDepartment(); // 允许对一个抽象子类进行实例化和赋值
+department.printName();
+department.printMeeting();
+department.generateReports(); // 错误: 方法在声明的抽象类中不存在
+
+14.高级技巧
+class Greeter {
+    static standardGreeting = "Hello, there";
+    greeting: string;
+    greet() {
+        if (this.greeting) {
+            return "Hello, " + this.greeting;
+        }
+        else {
+            return Greeter.standardGreeting;
+        }
+    }
+}
+
+let greeter1: Greeter;
+greeter1 = new Greeter();
+console.log(greeter1.greet());
+
+let greeterMaker: typeof Greeter = Greeter;//构造函数的类型。 这个类型包含了类的所有静态成员和构造函数。 
+greeterMaker.standardGreeting = "Hey there!";
+
+let greeter2: Greeter = new greeterMaker();
+console.log(greeter2.greet());
+
+15.把类当做接口使用
+类定义会创建两个东西：类的实例类型和一个构造函数。
+class Point {
+    x: number;
+    y: number;
+}
+
+interface Point3d extends Point {
+    z: number;
+}
+let point3d: Point3d = {x: 1, y: 2, z: 3};
+
+五.函数
+1.我们可以给每个参数添加类型之后再为函数本身添加返回值类型,通常省略它。
+function add(x: number, y: number): number {
+    return x + y;
+}
+
+let myAdd = function(x: number, y: number): number { return x + y; };
+
+2.书写完整函数类型
+let myAdd: (x: number, y: number) => number =
+    function(x: number, y: number): number { return x + y; };
+3.可选参数和默认参数
+传递给一个函数的参数个数必须与函数期望的参数个数一致。
+function buildName(firstName: string, lastName: string) {
+    return firstName + " " + lastName;
+}
+
+let result1 = buildName("Bob");                  // error, too few parameters
+let result2 = buildName("Bob", "Adams", "Sr.");  // error, too many parameters
+let result3 = buildName("Bob", "Adams");         // ah, just right
+
+4.实现可选参数的功能
+可选参数必须跟在必须参数后面
+function buildName(firstName: string, lastName?: string) {
+    if (lastName)
+        return firstName + " " + lastName;
+    else
+        return firstName;
+}
+
+let result1 = buildName("Bob");  // works correctly now
+let result2 = buildName("Bob", "Adams", "Sr.");  // error, too many parameters
+let result3 = buildName("Bob", "Adams");  // ah, just right
+
+5.默认初始化的参数
+与可选参数一样，在调用函数的时候可以省略。 也就是说可选参数与末尾的默认参数共享参数类型。
+带默认值的参数不需要放在必须参数的后面
+function buildName(firstName: string, lastName = "Smith") {
+    return firstName + " " + lastName;
+}
+
+let result1 = buildName("Bob");                  // works correctly now, returns "Bob Smith"
+let result2 = buildName("Bob", undefined);       // still works, also returns "Bob Smith"
+let result3 = buildName("Bob", "Adams", "Sr.");  // error, too many parameters
+let result4 = buildName("Bob", "Adams");         // ah, just right
+
+6.用户必须明确的传入 undefined值来获得默认值,如果默认值参数在前的话
+function buildName(firstName = "Will", lastName: string) {
+    return firstName + " " + lastName;
+}
+
+let result1 = buildName("Bob");                  // error, too few parameters
+let result2 = buildName("Bob", "Adams", "Sr.");  // error, too many parameters
+let result3 = buildName("Bob", "Adams");         // okay and returns "Bob Adams"
+let result4 = buildName(undefined, "Adams");     // okay and returns "Will Adams"
+
+8.剩余参数
+使用 arguments来访问所有传入的参数
+编译器创建参数数组，名字是你在省略号（ ...）后面给定的名字，你可以在函数体内使用这个数组。
+function buildName(firstName: string, ...restOfName: string[]) {
+  return firstName + " " + restOfName.join(" ");
+}
+
+let employeeName = buildName("Joseph", "Samuel", "Lucas", "MacKinzie");//Joseph Samuel Lucas MacKinzie
+
+9.this
+this和箭头函数
+//下面函数会因为this的指向问题而报错
+顶级的非方法式调用会将 this视为window。 （注意：在严格模式下， this为undefined而不是window）。
+let deck = {
+    suits: ["hearts", "spades", "clubs", "diamonds"],
+    cards: Array(52),
+    createCardPicker: function() {
+        return function() {
+            let pickedCard = Math.floor(Math.random() * 52);
+            let pickedSuit = Math.floor(pickedCard / 13);
+
+            return {suit: this.suits[pickedSuit], card: pickedCard % 13}; 
+        }
+    }
+}
+
+let cardPicker = deck.createCardPicker();
+let pickedCard = cardPicker(); //单独调用而使得this指向window,严格模式下是undefined
+
+alert("card: " + pickedCard.card + " of " + pickedCard.suit);
+
+//箭头函数能保存函数创建时的 this值，而不是调用时的值：
+如果你给编译器设置了--noImplicitThis标记。 它会指出 this.suits[pickedSuit]里的this的类型为any
+let deck = {
+    suits: ["hearts", "spades", "clubs", "diamonds"],
+    cards: Array(52),
+    createCardPicker: function() {
+        // NOTE: the line below is now an arrow function, allowing us to capture 'this' right here
+        return () => {
+            let pickedCard = Math.floor(Math.random() * 52);
+            let pickedSuit = Math.floor(pickedCard / 13);
+
+            return {suit: this.suits[pickedSuit], card: pickedCard % 13};
+        }
+    }
+}
+
+let cardPicker = deck.createCardPicker();
+let pickedCard = cardPicker();
+
+alert("card: " + pickedCard.card + " of " + pickedCard.suit);
+
+//this是Deck类型的，而非any，因此--noImplicitThis不会报错了。
+interface Card {
+    suit: string;
+    card: number;
+}
+interface Deck {
+    suits: string[];
+    cards: number[];
+    createCardPicker(this: Deck): () => Card;
+}
+let deck: Deck = {
+    suits: ["hearts", "spades", "clubs", "diamonds"],
+    cards: Array(52),
+    // NOTE: The function now explicitly specifies that its callee must be of type Deck
+    createCardPicker: function(this: Deck) {
+        return () => {
+            let pickedCard = Math.floor(Math.random() * 52);
+            let pickedSuit = Math.floor(pickedCard / 13);
+
+            return {suit: this.suits[pickedSuit], card: pickedCard % 13};
+        }
+    }
+}
+
+let cardPicker = deck.createCardPicker();
+let pickedCard = cardPicker();
+
+alert("card: " + pickedCard.card + " of " + pickedCard.suit);
+
+10.this参数在回调函数里
+箭头函数不会捕获this，所以你总是可以把它们传给期望this: void的函数
+class Handler {
+    info: string;
+    onClickGood = (e: Event) => { this.info = e.message }
+}
+
+11.重载
+//重载的pickCard函数在调用的时候会进行正确的类型检查。
+//function pickCard(x): any并不是重载列表的一部分，因此这里只有两个重载：一个是接收对象另一个接收数字。
+let suits = ["hearts", "spades", "clubs", "diamonds"];
+
+function pickCard(x: {suit: string; card: number; }[]): number;
+function pickCard(x: number): {suit: string; card: number; };
+function pickCard(x): any {
+    // Check to see if we're working with an object/array
+    // if so, they gave us the deck and we'll pick the card
+    if (typeof x == "object") {
+        let pickedCard = Math.floor(Math.random() * x.length);
+        return pickedCard;
+    }
+    // Otherwise just let them pick the card
+    else if (typeof x == "number") {
+        let pickedSuit = Math.floor(x / 13);
+        return { suit: suits[pickedSuit], card: x % 13 };
+    }
+}
+
+let myDeck = [{ suit: "diamonds", card: 2 }, { suit: "spades", card: 10 }, { suit: "hearts", card: 4 }];
+let pickedCard1 = myDeck[pickCard(myDeck)];
+alert("card: " + pickedCard1.card + " of " + pickedCard1.suit);
+
+let pickedCard2 = pickCard(15);
+alert("card: " + pickedCard2.card + " of " + pickedCard2.suit);
+
+六.泛型
+1.使用泛型来创建可重用的组件，一个组件可以支持多种类型的数据。 
+参数类型与返回值类型是相同
+function identity<T>(arg: T): T {
+    return arg;
+}
+//let output = identity<string>("myString");//第一种是，传入所有的参数，包含类型参数：
+let output = identity("myString"); //利用了类型推论，编译器自动确认类型
+console.log(output);
+
+2.使用泛型变量
+传入数字数组，将返回一个数字数组，因为此时 T的的类型为number。 
+function loggingIdentity<T>(arg: T[]): T[] {
+    console.log(arg.length);  // Array has a .length, so no more error
+    return arg;
+}
+第二中写法
+function loggingIdentity<T>(arg: Array<T>): Array<T> {
+    console.log(arg.length);  // Array has a .length, so no more error
+    return arg;
+}
+
+3.泛型类型
+第一个泛类型接口
+interface GenericIdentityFn {
+    <T>(arg: T): T;
+}
+
+function identity<T>(arg: T): T {
+    return arg;
+}
+
+let myIdentity: GenericIdentityFn = identity;
+
+把非泛型函数签名作为泛型类型一部分
+interface GenericIdentityFn<T> {
+    (arg: T): T;
+}
+
+function identity<T>(arg: T): T {
+    return arg;
+}
+
+let myIdentity: GenericIdentityFn<number> = identity;
+
+可以创建泛型类。 注意，无法创建泛型枚举和泛型命名空间。
+
+4.泛型类
+泛型类指的是实例部分的类型，所以类的静态属性不能使用这个泛型类型。
+class GenericNumber<T> {
+    zeroValue: T;
+    add: (x: T, y: T) => T;
+}
+
+let myGenericNumber = new GenericNumber<number>();
+myGenericNumber.zeroValue = 0;
+myGenericNumber.add = function(x, y) { return x + y; };
+
+//使用字符串类型
+class GenericNumber<T> {
+    zeroValue: T;
+    add: (x: T, y: T) => T;
+}
+
+let stringNumeric = new GenericNumber<string>();
+stringNumeric.zeroValue = "";
+stringNumeric.add = function(x, y) { return x + y; };
+
+alert(stringNumeric.add(stringNumeric.zeroValue, "test"));
+
+5.泛型约束
+个接口和extends关键字还实现约束：
+interface Lengthwise {
+    length: number;
+}
+
+function loggingIdentity<T extends Lengthwise>(arg: T): T {
+    console.log(arg.length);  // Now we know it has a .length property, so no more error
+    return arg;
+}
+loggingIdentity(3);  // 报错Error, number doesn't have a .length property
+loggingIdentity({length: 10, value: 3});
+
+6.在泛型约束中使用类型参数 ##
+function getProperty(obj: T, key: K) {
+    return obj[key];
+}
+
+let x = { a: 1, b: 2, c: 3, d: 4 };
+
+getProperty(x, "a"); // okay
+getProperty(x, "m"); // error: Argument of type 'm' isn't assignable to 'a' | 'b' | 'c' | 'd'.
+
+7.在泛型里使用类类型##
+使用原型属性推断并约束构造函数与类实例的关系
+class BeeKeeper {
+    hasMask: boolean;
+}
+
+class ZooKeeper {
+    nametag: string;
+}
+
+class Animal {
+    numLegs: number;
+}
+
+class Bee extends Animal {
+    keeper: BeeKeeper;
+}
+
+class Lion extends Animal {
+    keeper: ZooKeeper;
+}
+
+function createInstance<A extends Animal>(c: new () => A): A {
+    return new c();
+}
+
+createInstance(Lion).keeper.nametag;  // typechecks!
+createInstance(Bee).keeper.hasMask;   // typechecks!
+
+七.枚举
+1.使用枚举我们可以定义一些有名字的数字常量
+enum Direction {
+    Up = 1,
+    Down,
+    Left,
+    Right
+}
+2.一个枚举类型可以包含零个或多个枚举成员。 枚举成员具有一个数字值
+//枚举值到枚举名进行反向映射
+enum Enum {
+    A
+}
+let a = Enum.A;
+let nameOfA = Enum[a]; // "A"
+
+3.常数枚举是在 enum关键字前使用const修饰符。避免生成多余的代码和间接引用
+const enum Enum {
+    A = 1,
+    B = A * 2
+}
+
+4.常数枚举不可能有计算成员
+const enum Directions {
+    Up,
+    Down,
+    Left,
+    Right
+}
+
+let directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right]
+最后生成的代码
+var directions = [0 /* Up */, 1 /* Down */, 2 /* Left */, 3 /* Right */];
+
+5.外部枚举
+外部枚举用来描述已经存在的枚举类型的形状。
+对于非常数的外部枚举而言，没有初始化方法时被当做需要经过计算的。
+declare enum Enum {
+    A = 1,
+    B,
+    C = 2
+}
+
+八.类型推论
+1.变量x的类型被推断为数字。 这种推断发生在初始化变量和成员，设置默认参数值和决定函数返回值时。
+let x = 3;
+2.当候选类型不能使用的时候我们需要明确的指出类型：
+let zoo: Animal[] = [new Rhino(), new Elephant(), new Snake()];
+如果没有找到最佳通用类型的话，类型推断的结果为联合数组类型，(Rhino | Elephant | Snake)[]。
+3.上下文类型
+上下文类型表达式包含了明确的类型信息，上下文的类型被忽略
+window.onmousedown = function(mouseEvent: any) {
+    console.log(mouseEvent.button);  //<- Now, no error is given 不会报错了
+};
+4.最佳通用类型有4个候选者：Animal，Rhino，Elephant和Snake。 当然， Animal会被做为最佳通用类型。
+function createZoo(): Animal[] {
+    return [new Rhino(), new Elephant(), new Snake()];
+}
+
+九.类型兼容性
+1.TypeScript里的类型兼容性是基于结构子类型的。
+结构类型是一种只使用其成员来描述类型的方式
+2.使用结构类型系统来描述这些类型比使用名义类型系统更好
+interface Named {
+    name: string;
+}
+
+class Person {
+    name: string;
+}
+
+let p: Named;
+// OK, because of structural typing
+p = new Person();
+
+3.TypeScript结构化类型系统的基本规则是，如果x要兼容y，那么y至少具有与x相同的属性
+y必须包含名字是name的string类型成员。y满足条件，因此赋值正确。
+interface Named {
+    name: string;
+}
+
+let x: Named;
+// y's inferred type is { name: string; location: string; }
+let y = { name: 'Alice', location: 'Seattle' };
+x = y;
+
+//函数参数也使用相同的规则
+function greet(n: Named) {
+    alert('Hello, ' + n.name);
+}
+greet(y); // OK
+
+注意，y有个额外的location属性，但这不会引发错误。 只有目标类型（这里是 Named）的成员会被一一检查是否兼容。
+
+4.比较两个函数
+检查的是类型
+let x = (a: number) => 0;
+let y = (b: number, s: string) => 0;
+
+y = x; // OK x的每个参数在y中都能找到对应的参数，所以允许赋值
+x = y; // Error y有个必需的第二个参数，但是x并没有，所以不允许赋值
+
+5.忽略额外参数
+let items = [1, 2, 3];
+// Don't force these extra arguments
+items.forEach((item, index, array) => console.log(item));
+// Should be OK!
+items.forEach((item) => console.log(item));
+
+6.类型系统强制源函数的返回值类型必须是目标函数返回值类型的子类型。
+let x = () => ({name: 'Alice'});
+let y = () => ({name: 'Alice', location: 'Seattle'});
+
+x = y; // OK
+y = x; // Error because x() lacks a location property
+
+7.函数参数双向协变 ##
+8.可选参数及剩余参数 
+源类型上有额外的可选参数不是错误，目标类型的可选参数在源类型里没有对应的参数也不是错误。
+function invokeLater(args: any[], callback: (...args: any[]) => void) {
+}
+
+invokeLater([1, 2], (x, y) => console.log(x + ', ' + y));
+invokeLater([1, 2], (x?, y?) => console.log(x + ', ' + y));
+9.函数重载
+源函数的每个重载都要在目标函数上找到对应的函数签名。 这确保了目标函数可以在所有源函数可调用的地方调用。
+10.枚举
+枚举类型与数字类型兼容，并且数字类型与枚举类型兼容。不同枚举类型之间是不兼容的
+enum Status { Ready, Waiting };
+enum Color { Red, Blue, Green };
+
+let status = Status.Ready;
+status = Color.Green;  //error
+11.类
+只有实例的成员会被比较。 静态成员和构造函数不在比较的范围内。
+class Animal {
+    feet: number;
+    constructor(name: string, numFeet: number) { }
+}
+
+class Size {
+    feet: number;
+    constructor(numFeet: number) { }
+}
+
+let a: Animal;
+let s: Size;
+
+a = s;  //OK
+s = a;  //OK
+
+12.类的私有成员
+如果目标类型包含一个私有成员，那么源类型必须包含来自同一个类的这个私有成员。 
+这允许子类赋值给父类，但是不能赋值给其它有同样类型的类。
+x和y是兼容的，因为它们的结构使用类型参数时并没有什么不同
+interface Empty<T> {
+}
+let x: Empty<number>;
+let y: Empty<string>;
+
+x = y;  // okay, y matches structure of x
+
+在这里，泛型类型在使用时就好比不是一个泛型类型。
+interface NotEmpty<T> {
+    data: T;
+}
+let x: NotEmpty<number>;
+let y: NotEmpty<string>;
+
+x = y;  // error, x and y are not compatible
+
+对于没指定泛型类型的泛型参数时，会把所有泛型参数当成any比较
+let identity = function<T>(x: T): T {
+    // ...
+}
+
+let reverse = function<U>(y: U): U {
+    // ...
+}
+
+identity = reverse;  // Okay because (x: any)=>any matches (y: any)=>any
+
+13.高级主题
+子类型与赋值
+类型兼容性是由赋值兼容性来控制的，即使在implements和extends语句也不例外
+
+十.高级类型  
+1.交叉类型（Intersection Types）##
+function extend<T, U>(first: T, second: U): T & U {
+    let result = <T & U>{};
+    for (let id in first) {
+        (<any>result)[id] = (<any>first)[id];
+    }
+    for (let id in second) {
+        if (!result.hasOwnProperty(id)) {
+            (<any>result)[id] = (<any>second)[id];
+        }
+    }
+    return result;
+}
+
+class Person {
+    constructor(public name: string) { }
+}
+interface Loggable {
+    log(): void;
+}
+class ConsoleLogger implements Loggable {
+    log() {
+        // ...
+    }
+}
+var jim = extend(new Person("Jim"), new ConsoleLogger());
+var n = jim.name;
+jim.log();
+
+2.联合类型（Union Types）
+个代码库希望传入 number或 string类型的参数。 例如下面的函数：
+function padLeft(value: string, padding: any) {
+    if (typeof padding === "number") {
+        return Array(padding + 1).join(" ") + value;
+    }
+    if (typeof padding === "string") {
+        return padding + value;
+    }
+    throw new Error(`Expected string or number, got '${padding}'.`);
+}
+
+padLeft("Hello world", 4); // returns "    Hello world"
+
+let indentedString = padLeft("Hello world", true); // 编译阶段通过，运行时报错
+
+//代替 any， 我们可以使用 联合类型做为 padding的参数
+们用竖线（ |）分隔每个类型，所以 number | string | boolean表示一个值可以是 number， string，或 boolean。
+function padLeft(value: string, padding: string | number) {
+}
+let indentedString = padLeft("Hello world", true); // errors during compilation
+
+3.只能访问联合参数共有的参数
+interface Bird {
+    fly();
+    layEggs();
+}
+
+interface Fish {
+    swim();
+    layEggs();
+}
+
+function getSmallPet(): Fish | Bird {
+    // ...
+}
+
+let pet = getSmallPet();
+pet.layEggs(); // okay
+pet.swim();    // errors
+
+4.类型保护与区分类型（Type Guards and Differentiating Types）##
+我们只能访问联合类型中共同拥有的成员
+let pet = getSmallPet();
+
+// 每一个成员访问都会报错
+if (pet.swim) {
+    pet.swim();
+}
+else if (pet.fly) {
+    pet.fly();
+}
+
+使用类型断言
+let pet = getSmallPet();
+
+if ((<Fish>pet).swim) {
+    (<Fish>pet).swim();
+}
+else {
+    (<Bird>pet).fly();
+}
+
+5.用户自定义的类型保护
+要定义一个类型保护，我们只要简单地定义一个函数，它的返回值是一个 类型谓词：
+function isFish(pet: Fish | Bird): pet is Fish {
+    return (<Fish>pet).swim !== undefined;
+}
+TypeScript会将变量缩减为那个具体的类型，只要这个类型与变量的原始类型是兼容的。
+// 'swim' 和 'fly' 调用都没有问题了
+
+if (isFish(pet)) {
+    pet.swim();
+}
+else {
+    pet.fly();
+}
+
+6.typeof类型保护
+像下面这样利用类型断言来写
+function isNumber(x: any): x is number {
+    return typeof x === "number";
+}
+
+function isString(x: any): x is string {
+    return typeof x === "string";
+}
+
+function padLeft(value: string, padding: string | number) {
+    if (isNumber(padding)) {
+        return Array(padding + 1).join(" ") + value;
+    }
+    if (isString(padding)) {
+        return padding + value;
+    }
+    throw new Error(`Expected string or number, got '${padding}'.`);
+}
+
+7.因为TypeScript可以将它识别为一个类型保护。 也就是说我们可以直接在代码里检查类型了。
+typeof v === "typename"和 typeof v !== "typename"， "typename"必须是 "number"， "string"， "boolean"或 "symbol"。
+function padLeft(value: string, padding: string | number) {
+    if (typeof padding === "number") {
+        return Array(padding + 1).join(" ") + value;
+    }
+    if (typeof padding === "string") {
+        return padding + value;
+    }
+    throw new Error(`Expected string or number, got '${padding}'.`);
+}
+
+8.instanceof类型保护
+instanceof类型保护是通过构造函数来细化类型的一种方式。
+instanceof的右侧要求是一个构造函数，TypeScript将细化为：
+    此构造函数的 prototype属性的类型，如果它的类型不为 any的话
+    构造签名所返回的类型的联合
+interface Padder {
+    getPaddingString(): string
+}
+
+class SpaceRepeatingPadder implements Padder {
+    constructor(private numSpaces: number) { }
+    getPaddingString() {
+        return Array(this.numSpaces + 1).join(" ");
+    }
+}
+
+class StringPadder implements Padder {
+    constructor(private value: string) { }
+    getPaddingString() {
+        return this.value;
+    }
+}
+
+function getRandomPadder() {
+    return Math.random() < 0.5 ?
+        new SpaceRepeatingPadder(4) :
+        new StringPadder("  ");
+}
+
+// 类型为SpaceRepeatingPadder | StringPadder
+let padder: Padder = getRandomPadder();
+
+if (padder instanceof SpaceRepeatingPadder) {
+    padder; // 类型细化为'SpaceRepeatingPadder'
+}
+if (padder instanceof StringPadder) {
+    padder; // 类型细化为'StringPadder'
+}
+
+9.可以为null的类型
+类型检查器认为 null与 undefined可以赋值给任何类型。 null与 undefined是所有其它类型的一个有效值。
+--strictNullChecks标记：当你声明一个变量时，它不会自动地包含 null或 undefined。
+let s = "foo";
+s = null; // 错误, 'null'不能赋值给'string'
+let sn: string | null = "bar"; //使用联合声明明确地包含他们
+sn = null; // 可以
+sn = undefined; // error, 'undefined'不能赋值给'string | null'
+
+TypeScript会把 null和 undefined区别对待。 string | null， string | undefined和 string | undefined | null是不同的类型。
+
+10.可选参数和可选属性
+使用了 --strictNullChecks，可选参数会被自动地加上 | undefined:
+function f(x: number, y?: number) {
+    return x + (y || 0);
+}
+f(1, 2);
+f(1);
+f(1, undefined);
+f(1, null); // error, 'null' is not assignable to 'number | undefined'
+
+//可选的属性也是可以同样处理的
+class C {
+    a: number;
+    b?: number;
+}
+let c = new C();
+c.a = 12;
+c.a = undefined; // error, 'undefined' is not assignable to 'number'
+c.b = 13;
+c.b = undefined; // ok
+c.b = null; // error, 'null' is not assignable to 'number | undefined'
+
+11.类型保护和类型断言
+法知道函数在哪里被调用，就无法知道调用时 name的类型。
+使用类型保护来去除 null
+function f(sn: string | null): string {
+    return sn || "default";
+}
+12.类型别名
+起别名不会新建一个类型 - 它创建了一个新 名字来引用那个类型。
+type Name = string;
+type NameResolver = () => string;
+type NameOrResolver = Name | NameResolver;
+function getName(n: NameOrResolver): Name {
+    if (typeof n === 'string') {
+        return n;
+    }
+    else {
+        return n();
+    }
+}
+
+12.类型别名也可以是泛型 
+type Container<T> = { value: T };
+使用类型别名来在属性里引用自己
+type Tree<T> = {
+    value: T;
+    left: Tree<T>;
+    right: Tree<T>;
+}
+与交叉类型一起使用，我们可以创建出一些十分稀奇古怪的类型。
+type LinkedList<T> = T & { next: LinkedList<T> };
+interface Person {
+    name: string;
+}
+
+var people: LinkedList<Person>;
+var s = people.name;
+var s = people.next.name;
+var s = people.next.next.name;
+var s = people.next.next.next.name;
+
+类型别名不能出现在声明右侧的任何地方
+type Yikes = Array<Yikes>; // error
+接口创建了一个新的名字，可以在其它任何地方使用。 类型别名并不创建新名字
+type Alias = { num: number }
+interface Interface {
+    num: number;
+}
+declare function aliased(arg: Alias): Alias;
+declare function interfaced(arg: Interface): Interface;
+另一个重要区别是类型别名不能被 extends和 implements（自己也不能 extends和 implements其它类型）。 
+软件中的对象应该对于扩展是开放的，但是对于修改是封闭的，你应该尽量去使用接口代替类型别名。
+
+13.字符串字面量类型
+实现类似枚举类型的字符串
+type Easing = "ease-in" | "ease-out" | "ease-in-out";
+class UIElement {
+    animate(dx: number, dy: number, easing: Easing) {
+        if (easing === "ease-in") {
+            // ...
+        }
+        else if (easing === "ease-out") {
+        }
+        else if (easing === "ease-in-out") {
+        }
+        else {
+            // error! should not pass null or undefined.
+        }
+    }
+}
+
+let button = new UIElement();
+button.animate(0, 0, "ease-in");
+button.animate(0, 0, "uneasy"); // error: "uneasy" is not allowed here
+字符串字面量类型还可以用于区分函数重载：
+function createElement(tagName: "img"): HTMLImageElement;
+function createElement(tagName: "input"): HTMLInputElement;
+// ... more overloads ...
+function createElement(tagName: string): Element {
+    // ... code goes here ...
+}
+
+14.数字字面量类型
+function rollDie(): 1 | 2 | 3 | 4 | 5 | 6 {
+    // ...
+}
+我们很少直接这样使用，但它们可以用在缩小范围调试bug的时候：
+function foo(x: number) {
+    if (x !== 1 || x !== 2) {
+        //         ~~~~~~~
+        // Operator '!==' cannot be applied to types '1' and '2'.
+    }
+}
+换句话说，当 x与 2进行比较的时候，它的值必须为 1，这就意味着上面的比较检查是非法的。
+15.枚举成员类型
+当每个枚举成员都是用字面量初始化的时候枚举成员是具有类型的
+
+16.可辨识联合（Discriminated Unions）
+interface Square {
+    kind: "square";
+    size: number;
+}
+interface Rectangle {
+    kind: "rectangle";
+    width: number;
+    height: number;
+}
+interface Circle {
+    kind: "circle";
+    radius: number;
+}
+type Shape = Square | Rectangle | Circle;
+//现在我们使用可辨识联合:
+function area(s: Shape) {
+    switch (s.kind) {
+        case "square": return s.size * s.size;
+        case "rectangle": return s.height * s.width;
+        case "circle": return Math.PI * s.radius ** 2;
+    }
+}
+
+16.完整性检查
+17.多态的 this类型
+多态的 this类型表示的是某个包含类或接口的 子类型。
+
+class BasicCalculator {
+    public constructor(protected value: number = 0) { }
+    public currentValue(): number {
+        return this.value;
+    }
+    public add(operand: number): this {
+        this.value += operand;
+        return this;
+    }
+    public multiply(operand: number): this {
+        this.value *= operand;
+        return this;
+    }
+    // ... other operations go here ...
+}
+
+let v = new BasicCalculator(2)
+            .multiply(5)
+            .add(1)
+            .currentValue();
+
+//由于这个类使用了 this类型，你可以继承它，新的类可以直接使用之前的方法，不需要做任何的改变
+class ScientificCalculator extends BasicCalculator {
+    public constructor(value = 0) {
+        super(value);
+    }
+    public sin() {
+        this.value = Math.sin(this.value);
+        return this;
+    }
+    // ... other operations go here ...
+}
+
+let v = new ScientificCalculator(2)
+        .multiply(5)
+        .sin()
+        .add(1)
+        .currentValue();
+ScientificCalculator就不能够在继承 BasicCalculator的同时还保持接口的连贯性。 
+multiply将会返回 BasicCalculator，它并没有 sin方法。 
+然而，使用 this类型， multiply会返回 this，在这里就是 ScientificCalculator。
+
+18.索引类型（Index types）
+通过 索引类型查询和 索引访问操作符：
+function pluck<T, K extends keyof T>(o: T, names: K[]): T[K][] {
+  return names.map(n => o[n]);
+}
+
+interface Person {
+    name: string;
+    age: number;
+}
+let person: Person = {
+    name: 'Jarid',
+    age: 35
+};
+let strings: string[] = pluck(person, ['name']); // ok, string[]
+首先是 keyof T， 索引类型查询操作符。 对于任何类型 T， keyof T的结果为 T上已知的公共属性名的联合
+let personProps: keyof Person; // 'name' | 'age'
+第二个操作符是 T[K]， 索引访问操作符。
+function getProperty<T, K extends keyof T>(o: T, name: K): T[K] {
+    return o[name]; // o[name] is of type T[K]
+}
+
+getProperty的返回值类型会随着你需要的属性改变
+let name: string = getProperty(person, 'name');
+let age: number = getProperty(person, 'age');
+let unknown = getProperty(person, 'unknown'); // error, 'unknown' is not in 'name' | 'age'
+
+索引类型和字符串索引签名
+nterface Map<T> {
+    [key: string]: T;
+}
+let keys: keyof Map<number>; // string
+let value: Map<number>['foo']; // number
+
+19.映射类型
+你可以令每个属性成为 readonly类型或可选的。 下面是一些例子：
+type Readonly<T> = {
+    readonly [P in keyof T]: T[P];
+}
+type Partial<T> = {
+    [P in keyof T]?: T[P];
+}
+
+type PersonPartial = Partial<Person>;
+type ReadonlyPerson = Readonly<Person>;
+
+type Keys = 'option1' | 'option2';
+type Flags = { [K in Keys]: boolean };
+
+T[P]被包装在 Proxy<T>类里：
+
+type Proxy<T> = {
+    get(): T;
+    set(value: T): void;
+}
+type Proxify<T> = {
+    [P in keyof T]: Proxy<T[P]>;
+}
+function proxify<T>(o: T): Proxify<T> {
+   // ... wrap proxies ...
+}
+let proxyProps = proxify(props);
+
+20.由映射类型进行推断
+注意这个拆包推断只适用于同态的映射类型。
+function unproxify<T>(t: Proxify<T>): T {
+    let result = {} as T;
+    for (const k in t) {
+        result[k] = t[k].get();
+    }
+    return result;
+}
+
+let originalProps = unproxify(proxyProps);
+
+十一.Symbols
+1.symbol类型的值是通过Symbol构造函数创建的。
+let sym1 = Symbol();
+let sym2 = Symbol("key"); // 可选的字符串key
+
+2.Symbols是不可改变且唯一的。
+let sym2 = Symbol("key");
+let sym3 = Symbol("key");
+sym2 === sym3; // false, symbols是唯一的
+
+3.像字符串一样，symbols也可以被用做对象属性的键。
+let sym = Symbol();
+let obj = {
+    [sym]: "value"
+};
+console.log(obj[sym]); // "value"
+
+Symbols也可以与计算出的属性名声明相结合来声明对象的属性和类成员。
+const getClassNameSymbol = Symbol();
+class C {
+    [getClassNameSymbol](){
+       return "C";
+    }
+}
+
+let c = new C();
+let className = c[getClassNameSymbol](); // "C"
+console.log(className);
+
+4.众所周知的Symbols
+Symbol.hasInstance：被instanceof运算符调用。构造器对象用来识别一个对象是否是其实例
+Symbol.isConcatSpreadable 当在一个对象上调用Array.prototype.concat时，这个对象的数组元素是否可展开
+Symbol.iterator：方法，被for-of语句调用。返回对象的默认迭代器。
+Symbol.match：方法，被String.prototype.match调用。正则表达式用来匹配字符串。
+Symbol.replace：方法，被String.prototype.replace调用。正则表达式用来替换字符串中匹配的子串。
+Symbol.search：被String.prototype.search调用。正则表达式返回被匹配部分在字符串中的索引。
+Symbol.species：函数值，为一个构造函数。用来创建派生对象。
+Symbol.split ：方法，被String.prototype.split调用。正则表达式来用分割字符串。
+Symbol.toPrimitive：被ToPrimitive抽象操作调用。把对象转换为相应的原始值。
+Symbol.toStringTag ： 被内置方法Object.prototype.toString调用。返回创建对象时默认的字符串描述
+Symbol.unscopables ：对象，它自己拥有的属性会被with作用域排除在外。
+
+十二.迭代器和生成器
+1.for..of 语句
+for..of会遍历可迭代的对象，调用对象上的Symbol.iterator方法。
+let someArray = [1, "string", false];
+for (let entry of someArray) {
+    console.log(entry); // 1, "string", false
+}
+2.for..in迭代的是对象的 键 的列表，而for..of则迭代对象的键对应的值。
+let list = [4, 5, 6];
+
+for (let i in list) {
+    console.log(i); // "0", "1", "2",
+}
+
+for (let i of list) {
+    console.log(i); // "4", "5", "6"
+}
+
+3.另一个区别是for..in可以操作任何对象；它提供了查看对象属性的一种方法。 但是 for..of关注于迭代对象的值。
+let pets = new Set(["Cat", "Dog", "Hamster"]);
+pets["species"] = "mammals";
+
+for (let pet in pets) {
+    console.log(pet); // "species"
+}
+
+for (let pet of pets) {
+    console.log(pet); // "Cat", "Dog", "Hamster"
+}
+
+十三.模块
+1.模块在其自身的作用域里执行，而不是在全局作用域里；
+2.两个模块之间的关系是通过在文件级别上使用imports和exports建立的
+3.大家最熟知的JavaScript模块加载器是服务于Node.js的 CommonJS和服务于Web应用的Require.js
+4.导出声明
+添加export关键字来导出
+//Validation.ts
+export interface StringValidator {
+    isAcceptable(s: string): boolean;
+}
+//ZipCodeValidator.ts
+export const numberRegexp = /^[0-9]+$/;
+export class ZipCodeValidator implements StringValidator {
+    isAcceptable(s: string) {
+        return s.length === 5 && numberRegexp.test(s);
+    }
+}
+
+5.导出语句
+class ZipCodeValidator implements StringValidator {
+    isAcceptable(s: string) {
+        return s.length === 5 && numberRegexp.test(s);
+    }
+}
+export { ZipCodeValidator };
+export { ZipCodeValidator as mainValidator };  //我们可能需要对导出的部分重命名
+
+6.重新导出
+重新导出功能并不会在当前模块导入那个模块或定义一个新的局部变量。
+//ParseIntBasedZipCodeValidator.ts
+export class ParseIntBasedZipCodeValidator {
+    isAcceptable(s: string) {
+        return s.length === 5 && parseInt(s).toString() === s;
+    }
+}
+
+// 导出原先的验证器但做了重命名
+export {ZipCodeValidator as RegExpBasedZipCodeValidator} from "./ZipCodeValidator";
+
+7.内容联合在一起导出通过语法：export * from "module"
+export * from "./StringValidator"; // exports interface StringValidator
+export * from "./LettersOnlyValidator"; // exports class LettersOnlyValidator
+export * from "./ZipCodeValidator";  // exports class ZipCodeValidator
+
+8.导入
+//导入一个模块中的某个导出内容
+import { ZipCodeValidator } from "./ZipCodeValidator";
+let myValidator = new ZipCodeValidator();
+//可以对导入内容重命名
+import { ZipCodeValidator as ZCV } from "./ZipCodeValidator";
+let myValidator = new ZCV();
+//将整个模块导入到一个变量，并通过它来访问模块的导出部分
+import * as validator from "./ZipCodeValidator";
+let myValidator = new validator.ZipCodeValidator();
+//具有副作用的导入模块:一些模块会设置一些全局状态供其它模块使用。
+import "./my-module.js";
+
+9.默认导出
+默认导出使用 default关键字标记；并且一个模块只能够有一个default导出。 
+
+//JQuery.d.ts
+declare let $: JQuery;
+export default $;
+
+//App.ts
+import $ from "JQuery";
+$("button.continue").html( "Next Step..." );
+
+10.类和函数声明可以直接被标记为默认导出。 标记为默认导出的类和函数的名字是可以省略的。
+//ZipCodeValidator.ts
+export default class ZipCodeValidator {
+    static numberRegexp = /^[0-9]+$/;
+    isAcceptable(s: string) {
+        return s.length === 5 && ZipCodeValidator.numberRegexp.test(s);
+    }
+}
+//Test.ts
+import validator from "./ZipCodeValidator";
+let myValidator = new validator();
+
+//或者
+//StaticZipCodeValidator.ts
+const numberRegexp = /^[0-9]+$/;
+export default function (s: string) {
+    return s.length === 5 && numberRegexp.test(s);
+}
+//Test.ts
+import validate from "./StaticZipCodeValidator";
+let strings = ["Hello", "98052", "101"];
+// Use function validate
+strings.forEach(s => {
+  console.log(`"${s}" ${validate(s) ? " matches" : " does not match"}`);
+});
+
+11.default导出也可以是一个值
+//OneTwoThree.ts
+export default "123";
+//Log.ts
+import num from "./OneTwoThree";
+console.log(num); // "123"
+
+12.export = 和 import = require()
+TypeScript模块支持 export =语法以支持传统的CommonJS和AMD的工作流模型。
+若要导入一个使用了export =的模块时，必须使用TypeScript提供的特定语法import module = require("module")。
+//ZipCodeValidator.ts
+let numberRegexp = /^[0-9]+$/;
+class ZipCodeValidator {
+    isAcceptable(s: string) {
+        return s.length === 5 && numberRegexp.test(s);
+    }
+}
+export = ZipCodeValidator;
+
+//Test.ts
+import zip = require("./ZipCodeValidator");  //导入模块
+// Some samples to try
+let strings = ["Hello", "98052", "101"];
+// Validators to use
+let validator = new zip();
+// Show whether each string passed each validator
+strings.forEach(s => {
+  console.log(`"${ s }" - ${ validator.isAcceptable(s) ? "matches" : "does not match" }`);
+});
+
+13.生成模块代码 ##
+14.可选的模块加载和其它高级加载场景
+有时候，你只想在某种条件下才加载某个模块。
+如果一个模块标识符只在类型注解部分使用，并且完全没有在表达式中使用时，就不会生成 require这个模块的代码
+typeof关键字，当在表示类型的地方使用时，会得出一个类型值，这里就表示模块的类型。
+
+//示例：Node.js里的动态模块加载
+declare function require(moduleName: string): any;
+
+import { ZipCodeValidator as Zip } from "./ZipCodeValidator";
+
+if (needZipValidation) {
+    let ZipCodeValidator: typeof Zip = require("./ZipCodeValidator");
+    let validator = new ZipCodeValidator();
+    if (validator.isAcceptable("...")) { /* ... */ }
+}
+
+//示例：require.js里的动态模块加载
+declare function require(moduleNames: string[], onLoad: (...args: any[]) => void): void;
+
+import  * as Zip from "./ZipCodeValidator";
+
+if (needZipValidation) {
+    require(["./ZipCodeValidator"], (ZipCodeValidator: typeof Zip) => {
+        let validator = new ZipCodeValidator.ZipCodeValidator();
+        if (validator.isAcceptable("...")) { /* ... */ }
+    });
+}
+
+//示例：System.js里的动态模块加载
+declare const System: any;
+
+import { ZipCodeValidator as Zip } from "./ZipCodeValidator";
+
+if (needZipValidation) {
+    System.import("./ZipCodeValidator").then((ZipCodeValidator: typeof Zip) => {
+        var x = new ZipCodeValidator();
+        if (x.isAcceptable("...")) { /* ... */ }
+    });
+}
+
+15.使用其它的JavaScript库
+要想描述非TypeScript编写的类库的类型，我们需要声明类库所暴露出的API。
+我们叫它声明因为它不是“外部程序”的具体实现。 它们通常是在 .d.ts文件里定义的
+
+16.外部模块
+在Node.js里大部分工作是通过加载一个或多个模块实现的。
+//node.d.ts (simplified excerpt)
+declare module "url" {
+    export interface Url {
+        protocol?: string;
+        hostname?: string;
+        pathname?: string;
+    }
+
+    export function parse(urlStr: string, parseQueryString?, slashesDenoteHost?): Url;
+}
+
+declare module "path" {
+    export function normalize(p: string): string;
+    export function join(...paths: any[]): string;
+    export let sep: string;
+}
+// <reference path="node.d.ts"/>
+import * as URL from "url";
+let myUrl = URL.parse("http://www.typescriptlang.org");
+
+17.外部模块简写
+假如你不想在使用一个新模块之前花时间去编写声明，你可以采用声明的简写形式以便能够快速使用它。
+//declarations.d.ts
+declare module "hot-new-module";
+//简写模块里所有导出的类型将是any。
+import x, {y} from "hot-new-module";
+x(y);
+
+18.模块声明通配符
+某些模块加载器如SystemJS 和 AMD支持导入非JavaScript内容。
+declare module "*!text" {
+    const content: string;
+    export default content;
+}
+// Some do it the other way around.
+declare module "json!*" {
+    const value: any;
+    export default value;
+}
+
+//现在你可以就导入匹配"*!text"或"json!*"的内容了。
+import fileContent from "./xyz.txt!text";
+import data from "json!http://example.com/data.json";
+console.log(data, fileContent);
+
+19.UMD模块
+有些模块被设计成兼容多个模块加载器，或者不使用模块加载器（全局变量）。
+//math-lib.d.ts
+export function isPrime(x: number): boolean;
+export as namespace mathLib;
+//之后，这个库可以在某个模块里通过导入来使用：
+import { isPrime } from "math-lib";
+isPrime(2);
+mathLib.isPrime(2); // ERROR: can't use the global definition from inside a module
+脚本是指一个不带有导入或导出的文件。
+
+20.创建模块结构指导
+尽可能地在顶层导出
+如果仅导出单个 class 或 function，使用 export default
+//MyClass.ts
+export default class SomeType {
+  constructor() { ... }
+}
+//MyFunc.ts
+export default function getThing() { return 'thing'; }
+//Consumer.ts
+import t from "./MyClass";
+import f from "./MyFunc";
+let x = new t();
+console.log(f());
+
+如果要导出多个对象，把它们放在顶层里导出
+//MyThings.ts
+export class SomeType { /* ... */ }
+export function someFunc() { /* ... */ }
+
+//明确地列出导入的名字Consumer.ts
+import { SomeType, SomeFunc } from "./MyThings";
+let x = new SomeType();
+let y = someFunc();
+
+使用命名空间导入模式当你要导出大量内容的时候
+//MyLargeModule.ts
+export class Dog { ... }
+export class Cat { ... }
+export class Tree { ... }
+export class Flower { ... }
+
+//Consumer.ts
+import * as myLargeModule from "./MyLargeModule.ts";
+let x = new myLargeModule.Dog();
+
+使用重新导出进行扩展
+//推荐的方案是 不要去改变原来的对象，而是导出一个新的实体来提供新的功能。
+//Calculator.ts
+export class Calculator {
+    private current = 0;
+    private memory = 0;
+    private operator: string;
+
+    protected processDigit(digit: string, currentValue: number) {
+        if (digit >= "0" && digit <= "9") {
+            return currentValue * 10 + (digit.charCodeAt(0) - "0".charCodeAt(0));
+        }
+    }
+
+    protected processOperator(operator: string) {
+        if (["+", "-", "*", "/"].indexOf(operator) >= 0) {
+            return operator;
+        }
+    }
+
+    protected evaluateOperator(operator: string, left: number, right: number): number {
+        switch (this.operator) {
+            case "+": return left + right;
+            case "-": return left - right;
+            case "*": return left * right;
+            case "/": return left / right;
+        }
+    }
+
+    private evaluate() {
+        if (this.operator) {
+            this.memory = this.evaluateOperator(this.operator, this.memory, this.current);
+        }
+        else {
+            this.memory = this.current;
+        }
+        this.current = 0;
+    }
+
+    public handelChar(char: string) {
+        if (char === "=") {
+            this.evaluate();
+            return;
+        }
+        else {
+            let value = this.processDigit(char, this.current);
+            if (value !== undefined) {
+                this.current = value;
+                return;
+            }
+            else {
+                let value = this.processOperator(char);
+                if (value !== undefined) {
+                    this.evaluate();
+                    this.operator = value;
+                    return;
+                }
+            }
+        }
+        throw new Error(`Unsupported input: '${char}'`);
+    }
+
+    public getResult() {
+        return this.memory;
+    }
+}
+
+export function test(c: Calculator, input: string) {
+    for (let i = 0; i < input.length; i++) {
+        c.handelChar(input[i]);
+    }
+
+    console.log(`result of '${input}' is '${c.getResult()}'`);
+}
+
+//TestCalculator.ts
+import { Calculator, test } from "./Calculator";
+let c = new Calculator();
+test(c, "1+2*33/11="); // prints 9
+
+现在扩展它，添加支持输入其它进制（十进制以外），让我们来创建ProgrammerCalculator.ts。
+//ProgrammerCalculator.ts
+import { Calculator } from "./Calculator";
+
+class ProgrammerCalculator extends Calculator {
+    static digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"];
+
+    constructor(public base: number) {
+        super();
+        if (base <= 0 || base > ProgrammerCalculator.digits.length) {
+            throw new Error("base has to be within 0 to 16 inclusive.");
+        }
+    }
+
+    protected processDigit(digit: string, currentValue: number) {
+        if (ProgrammerCalculator.digits.indexOf(digit) >= 0) {
+            return currentValue * this.base + ProgrammerCalculator.digits.indexOf(digit);
+        }
+    }
+}
+
+// Export the new extended calculator as Calculator
+export { ProgrammerCalculator as Calculator };
+
+// Also, export the helper function
+export { test } from "./Calculator";
+
+//TestProgrammerCalculator.ts
+import { Calculator, test } from "./ProgrammerCalculator";
+let c = new Calculator(2);
+test(c, "001+010="); // prints 3
+
+模块里不要使用命名空间，命名空间在使用模块时几乎没什么价值
+模块本身已经存在于文件系统之中，这是必须的
+
+危险信号
+以下均为模块结构上的危险信号。重新检查以确保你没有在对模块使用命名空间：
+文件的顶层声明是export namespace Foo { ... } （删除Foo并把所有内容向上层移动一层）
+文件只有一个export class或export function （考虑使用export default）
+多个文件的顶层具有同样的export namespace Foo { （不要以为这些会合并到一个Foo中！）
+
+十四.命名空间
+1.任何使用 module关键字来声明一个内部模块的地方都应该使用namespace关键字来替换。
+所有的验证器都放在一个文件里
+interface StringValidator {
+    isAcceptable(s: string): boolean;
+}
+
+let lettersRegexp = /^[A-Za-z]+$/;
+let numberRegexp = /^[0-9]+$/;
+
+class LettersOnlyValidator implements StringValidator {
+    isAcceptable(s: string) {
+        return lettersRegexp.test(s);
+    }
+}
+
+class ZipCodeValidator implements StringValidator {
+    isAcceptable(s: string) {
+        return s.length === 5 && numberRegexp.test(s);
+    }
+}
+
+// Some samples to try
+let strings = ["Hello", "98052", "101"];
+
+// Validators to use
+let validators: { [s: string]: StringValidator; } = {};
+validators["ZIP code"] = new ZipCodeValidator();
+validators["Letters only"] = new LettersOnlyValidator();
+
+// Show whether each string passed each validator
+for (let s of strings) {
+    for (let name in validators) {
+        let isMatch = validators[name].isAcceptable(s);
+        console.log(`'${ s }' ${ isMatch ? "matches" : "does not match" } '${ name }'.`);
+    }
+}
+
+2.使用命名空间的验证器
+namespace Validation {
+    export interface StringValidator {
+        isAcceptable(s: string): boolean;
+    }
+
+    const lettersRegexp = /^[A-Za-z]+$/;
+    const numberRegexp = /^[0-9]+$/;
+
+    export class LettersOnlyValidator implements StringValidator {
+        isAcceptable(s: string) {
+            return lettersRegexp.test(s);
+        }
+    }
+
+    export class ZipCodeValidator implements StringValidator {
+        isAcceptable(s: string) {
+            return s.length === 5 && numberRegexp.test(s);
+        }
+    }
+}
+
+// Some samples to try
+let strings = ["Hello", "98052", "101"];
+
+// Validators to use
+let validators: { [s: string]: Validation.StringValidator; } = {};
+validators["ZIP code"] = new Validation.ZipCodeValidator();
+validators["Letters only"] = new Validation.LettersOnlyValidator();
+
+// Show whether each string passed each validator
+for (let s of strings) {
+    for (let name in validators) {
+        console.log(`"${ s }" - ${ validators[name].isAcceptable(s) ? "matches" : "does not match" } ${ name }`);
+    }
+}
+
+3.多文件中的命名空间
+//Validation.ts
+namespace Validation {
+    export interface StringValidator {
+        isAcceptable(s: string): boolean;
+    }
+}
+//LettersOnlyValidator.ts
+/// <reference path="Validation.ts" />
+namespace Validation {
+    const lettersRegexp = /^[A-Za-z]+$/;
+    export class LettersOnlyValidator implements StringValidator {
+        isAcceptable(s: string) {
+            return lettersRegexp.test(s);
+        }
+    }
+}
+//ZipCodeValidator.ts
+/// <reference path="Validation.ts" />
+namespace Validation {
+    const numberRegexp = /^[0-9]+$/;
+    export class ZipCodeValidator implements StringValidator {
+        isAcceptable(s: string) {
+            return s.length === 5 && numberRegexp.test(s);
+        }
+    }
+}
+//Test.ts
+/// <reference path="Validation.ts" />
+/// <reference path="LettersOnlyValidator.ts" />
+/// <reference path="ZipCodeValidator.ts" />
+
+// Some samples to try
+let strings = ["Hello", "98052", "101"];
+
+// Validators to use
+let validators: { [s: string]: Validation.StringValidator; } = {};
+validators["ZIP code"] = new Validation.ZipCodeValidator();
+validators["Letters only"] = new Validation.LettersOnlyValidator();
+
+// Show whether each string passed each validator
+for (let s of strings) {
+    for (let name in validators) {
+        console.log(""" + s + "" " + (validators[name].isAcceptable(s) ? " matches " : " does not match ") + name);
+    }
+}
+
+第一种方式，把所有的输入文件编译为一个输出文件，需要使用--outFile标记：
+tsc --outFile sample.js Test.ts
+编译器会根据源码里的引用标签自动地对输出进行排序。你也可以单独地指定每个文件。
+tsc --outFile sample.js Validation.ts LettersOnlyValidator.ts ZipCodeValidator.ts Test.ts
+
+按顺序引入
+<script src="Validation.js" type="text/javascript" />
+<script src="LettersOnlyValidator.js" type="text/javascript" />
+<script src="ZipCodeValidator.js" type="text/javascript" />
+<script src="Test.js" type="text/javascript" />
+
+4.别名
+另一种简化命名空间操作的方法是使用import q = x.y.z给常用的对象起一个短的名字。
+namespace Shapes {
+    export namespace Polygons {
+        export class Triangle { }
+        export class Square { }
+    }
+}
+
+import polygons = Shapes.Polygons;
+let sq = new polygons.Square(); // Same as "new Shapes.Polygons.Square()"
+
+5.外部命名空间
+为了让TypeScript编译器识别它的类型，我们使用外部命名空间声明。
+//D3.d.ts (部分摘录)
+declare namespace D3 {
+    export interface Selectors {
+        select: {
+            (selector: string): Selection;
+            (element: EventTarget): Selection;
+        };
+    }
+
+    export interface Event {
+        x: number;
+        y: number;
+    }
+
+    export interface Base extends Selectors {
+        event: Event;
+    }
+}
+
+declare var d3: D3.Base;
+
+十五.命名空间和模块
+1.命名空间是位于全局命名空间下的一个普通的带有名字的JavaScript对象。
+2.全局命名空间污染一样，它很难去识别组件之间的依赖关系，尤其是在大型的应用中。
+3.像命名空间一样，模块可以包含代码和声明。 不同的是模块可以 声明它的依赖。
+模块会把依赖添加到模块加载器上（例如CommonJs / Require.js）。
+4.编译器首先尝试去查找相应路径下的.ts，.tsx再或者.d.ts。 
+如果这些文件都找不到，编译器会查找 外部模块声明。 回想一下，它们是在 .d.ts文件里声明的。
+//myModules.d.ts
+// In a .d.ts file or .ts file that is not a module:
+declare module "SomeModule" {
+    export function fn(): string;
+}
+
+//myOtherModule.ts
+import * as m from "SomeModule";
+
+5.不必要的命名空间
+如果你想把命名空间转换为模块，它可能会像下面这个文件一件：
+//shapes.ts
+export namespace Shapes {
+    export class Triangle { /* ... */ }
+    export class Square { /* ... */ }
+}
+TypeScript里模块的一个特点是不同的模块永远也不会在相同的作用域内使用相同的名字。
+不应该对模块使用命名空间，使用命名空间是为了提供逻辑分组和避免命名冲突。 
+改进：
+//shapes.ts
+export class Triangle { /* ... */ }
+export class Square { /* ... */ }
+//shapeConsumer.ts
+import * as shapes from "./shapes";
+let t = new shapes.Triangle();
+
+当目标模块系统为 commonjs或umd时，无法使用outFile选项，但是在TypeScript 1.8以上的版本能够使用outFile当目标为amd或system。
+
+十六.模块解析
+1. 编译会遵循下列二种策略之一： Classic或Node。
+2.相对 vs. 非相对模块导入
+相对导入
+import Entry from "./components/Entry";
+import { DefaultHeaders } from "../constants/http";
+import "/mod";
+非相对导入
+import * as $ from "jQuery";
+import { Component } from "@angular/core";
+
+非相对模块的导入可以相对于baseUrl或通过路径映射来进行解析。
+它们还可以被解析能 外部模块声明。 使用非相对路径来导入你的外部依赖。
+3.Classic
+这种策略以前是TypeScript默认的解析策略。 现在，它存在的理由主要是为了向后兼容。
+moduleB的非相对导入import { b } from "moduleB"，它是在/root/src/folder/A.ts文件里,通过下面来定位
+/root/src/folder/moduleB.ts
+/root/src/folder/moduleB.d.ts
+/root/src/moduleB.ts
+/root/src/moduleB.d.ts
+/root/moduleB.ts
+/root/moduleB.d.ts
+/moduleB.ts
+/moduleB.d.ts
+
+4.Node
+这个解析策略试图在运行时模仿Node.js模块解析机制。
+Node.js会根据 require的是相对路径还是非相对路径做出不同的行为。
+相对路径很简单。 例如，假设有一个文件路径为 /root/src/moduleA.js，包含了一个导入var x = require("./moduleB"); 
+Node.js以下面的顺序解析这个导入：
+将/root/src/moduleB.js视为文件，检查是否存在。
+将/root/src/moduleB视为目录，检查是否它包含package.json文件并且其指定了一个"main"模块。 在我们的例子里，
+如果Node.js发现文件 /root/src/moduleB/package.json包含了{ "main": "lib/mainModule.js" }，
+那么Node.js会引用/root/src/moduleB/lib/mainModule.js。
+将/root/src/moduleB视为目录，检查它是否包含index.js文件。 这个文件会被隐式地当作那个文件夹下的"main"模块。
+
+/root/src/node_modules/moduleB.js
+/root/src/node_modules/moduleB/package.json (如果指定了"main"属性)
+/root/src/node_modules/moduleB/index.js 
+
+/root/node_modules/moduleB.js
+/root/node_modules/moduleB/package.json (如果指定了"main"属性)
+/root/node_modules/moduleB/index.js 
+
+/node_modules/moduleB.js
+/node_modules/moduleB/package.json (如果指定了"main"属性)
+/node_modules/moduleB/index.js
+
+5.TypeScript如何解析模块
+TypeScript在Node解析逻辑基础上增加了TypeScript源文件的扩展名（ .ts，.tsx和.d.ts）。 同时，TypeScript在 
+package.json里使用字段"types"来表示类似"main"的意义 - 编译器会使用它来找到要使用的"main"定义文件。
+有一个导入语句import { b } from "./moduleB"在/root/src/moduleA.ts里，会以下面的流程来定位"./moduleB"：
+/root/src/moduleB.ts
+/root/src/moduleB.tsx
+/root/src/moduleB.d.ts
+/root/src/moduleB/package.json (如果指定了"types"属性)
+/root/src/moduleB/index.ts
+/root/src/moduleB/index.tsx
+/root/src/moduleB/index.d.ts
+
+6./root/src/moduleA.ts文件里的import { b } from "moduleB"会以下面的查找顺序解析
+
+/root/src/node_modules/moduleB.ts
+/root/src/node_modules/moduleB.tsx
+/root/src/node_modules/moduleB.d.ts
+/root/src/node_modules/moduleB/package.json (如果指定了"types"属性)
+/root/src/node_modules/moduleB/index.ts
+/root/src/node_modules/moduleB/index.tsx
+/root/src/node_modules/moduleB/index.d.ts 
+
+/root/node_modules/moduleB.ts
+/root/node_modules/moduleB.tsx
+/root/node_modules/moduleB.d.ts
+/root/node_modules/moduleB/package.json (如果指定了"types"属性)
+/root/node_modules/moduleB/index.ts
+/root/node_modules/moduleB/index.tsx
+/root/node_modules/moduleB/index.d.ts 
+
+/node_modules/moduleB.ts
+/node_modules/moduleB.tsx
+/node_modules/moduleB.d.ts
+/node_modules/moduleB/package.json (如果指定了"types"属性)
+/node_modules/moduleB/index.ts
+/node_modules/moduleB/index.tsx
+/node_modules/moduleB/index.d.ts
+
+7.Base URL
+设置baseUrl来告诉编译器到哪里去查找模块。 所有非相对模块导入都会被当做相对于 baseUrl。
+命令行中baseUrl的值（如果给定的路径是相对的，那么将相对于当前路径进行计算）
+‘tsconfig.json’里的baseUrl属性（如果给定的路径是相对的，那么将相对于‘tsconfig.json’路径进行计算
+注意相对模块的导入不会被设置的baseUrl所影响，因为它们总是相对于导入它们的文件。
+
+8.路径映射
+TypeScript编译器通过使用tsconfig.json文件里的"paths"来支持这样的声明映射。 
+{
+  "compilerOptions": {
+    "baseUrl": ".", // This must be specified if "paths" is.
+    "paths": {
+      "jquery": ["node_modules/jquery/dist/jquery"] // 此处映射是相对于"baseUrl"
+    }
+  }
+}
+
+编译器所有匹配"*"（所有的值）模式的模块导入会在以下两个位置查找：
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "*",
+        "generated/*"
+      ]
+    }
+  }
+}
+"*"： 表示名字不发生改变，所以映射为<moduleName> => <baseUrl>/<moduleName>
+"generated/*"表示模块名添加了“generated”前缀，所以映射为<moduleName> => <baseUrl>/generated/<moduleName>
+
+9.利用rootDirs指定虚拟目录
+利用rootDirs，可以告诉编译器生成这个虚拟目录的roots； 因此编译器可以在“虚拟”目录下解析相对模块导入，
+就 好像它们被合并在了一起一样。
+//工程结构如下：
+ src
+ └── views
+     └── view1.ts (imports './template1')
+     └── view2.ts
+
+ generated
+ └── templates
+         └── views
+             └── template1.ts (imports './view2')
+//tsconfig.json
+{
+  "compilerOptions": {
+    "rootDirs": [
+      "src/views",
+      "generated/templates/views"
+    ]
+  }
+}
+
+利用rootDirs我们可以让编译器了解这个映射关系，从而也允许编译器能够安全地解析./#{locale}/messages，
+就算这个目录永远都不存在。比如，使用下面的tsconfig.json：
+{
+  "compilerOptions": {
+    "rootDirs": [
+      "src/zh",
+      "src/de",
+      "src/#{locale}"
+    ]
+  }
+}
+编译器现在可以将import messages from './#{locale}/messages'解析为import messages from './zh/messages'用做工具支持的目的，
+并允许在开发时不必了解区域信息。
+10.通过 --traceResolution启用编译器的模块解析跟踪，它会告诉我们在模块解析过程中发生了什么。
+11.使用--noResolve
+正常来讲编译器会在开始编译之前解析模块导入。 每当它成功地解析了对一个文件 import，
+这个文件被会加到一个文件列表里，以供编译器稍后处理。
+12--noResolve编译选项告诉编译器不要添加任何不是在命令行上传入的文件到编译列表。 
+编译器仍然会尝试解析模块，但是只要没有指定这个文件，那么它就不会被包含在内。
+//app.ts
+import * as A from "moduleA" // OK, moduleA passed on the command-line
+import * as B from "moduleB" // Error TS2307: Cannot find module 'moduleB'.
+
+tsc app.ts moduleA.ts --noResolve
+可能正确找到moduleA，因为它在命令行上指定了。
+找不到moduleB，因为没有在命令行上传递。
+
+13.为什么在exclude列表里的模块还会被编译器使用
+因此，要从编译列表中排除一个文件，你需要在排除它的同时，
+还要排除所有对它进行import或使用了/// <reference path="..." />指令的文件。
+
+十七.声明合并
+“声明合并”是指编译器将针对同一个名字的两个独立声明合并为单一声明。 
+合并后的声明同时拥有原先两个声明的特性。 任何数量的声明都可被合并；不局限于两个声明。
+1.TypeScript中的声明会创建以下三种实体之一：命名空间，类型或值。
+2.合并接口
+最简单也最常见的声明合并类型是接口合并。 从根本上说，合并的机制是把双方的成员放到一个同名的接口里。
+interface Box {
+    height: number;
+    width: number;
+}
+
+interface Box {
+    scale: number;
+}
+
+let box: Box = {height: 5, width: 6, scale: 10};
+如果两个接口中同时声明了同名的非函数成员且它们的类型不同，则编译器会报错。
+
+3.对于函数成员，每个同名函数声明都会被当成这个函数的一个重载。 
+同时需要注意，当接口 A与后来的接口 A合并时，后面的接口具有更高的优先级。
+//合并前
+interface Cloner {
+    clone(animal: Animal): Animal;
+}
+
+interface Cloner {
+    clone(animal: Sheep): Sheep;
+}
+
+interface Cloner {
+    clone(animal: Dog): Dog;
+    clone(animal: Cat): Cat;
+}
+//合并后
+interface Cloner {
+    clone(animal: Dog): Dog;
+    clone(animal: Cat): Cat;
+    clone(animal: Sheep): Sheep;
+    clone(animal: Animal): Animal;
+}
+注意每组接口里的声明顺序保持不变，但各组接口之间的顺序是后来的接口重载出现在靠前位置。
+
+4.如果签名里有一个参数的类型是 单一的字符串字面量（比如，不是字符串字面量的联合类型），
+那么它将会被提升到重载列表的最顶端。
+//合并前
+interface Document {
+    createElement(tagName: any): Element;
+}
+interface Document {
+    createElement(tagName: "div"): HTMLDivElement;
+    createElement(tagName: "span"): HTMLSpanElement;
+}
+interface Document {
+    createElement(tagName: string): HTMLElement;
+    createElement(tagName: "canvas"): HTMLCanvasElement;
+}
+//合并后
+interface Document {
+    createElement(tagName: "canvas"): HTMLCanvasElement;
+    createElement(tagName: "div"): HTMLDivElement;
+    createElement(tagName: "span"): HTMLSpanElement;
+    createElement(tagName: string): HTMLElement;
+    createElement(tagName: any): Element;
+}
+
+5.合并命名空间
+与接口相似，同名的命名空间也会合并其成员。
+如果当前已经存在给定名字的命名空间，那么后来的命名空间的导出成员会被加到已经存在的那个模块里。
+//合并前
+namespace Animals {
+    export class Zebra { }
+}
+
+namespace Animals {
+    export interface Legged { numberOfLegs: number; }
+    export class Dog { }
+}
+//合并后
+namespace Animals {
+    export interface Legged { numberOfLegs: number; }
+
+    export class Zebra { }
+    export class Dog { }
+}
+
+非导出成员仅在其原有的（合并前的）命名空间内可见。这就是说合并之后，从其它命名空间合并进来的成员无法访问非导出成员。
+namespace Animal {
+    let haveMuscles = true;
+
+    export function animalsHaveMuscles() {
+        return haveMuscles;
+    }
+}
+
+namespace Animal {
+    export function doAnimalsHaveMuscles() {
+        return haveMuscles;  // <-- error, haveMuscles is not visible here 报错了
+    }
+}
+
+6.命名空间与类和函数和枚举类型合并
+合并命名空间和类
+class Album {
+    label: Album.AlbumLabel;
+}
+namespace Album {
+    export class AlbumLabel { }
+}
+TypeScript使用声明合并来达到这个目的并保证类型安全。
+function buildLabel(name: string): string {
+    return buildLabel.prefix + name + buildLabel.suffix;
+}
+
+namespace buildLabel {
+    export let suffix = "";
+    export let prefix = "Hello, ";
+}
+
+alert(buildLabel("Sam Smith"));
+
+7.相似的，命名空间可以用来扩展枚举型：
+enum Color {
+    red = 1,
+    green = 2,
+    blue = 4
+}
+
+namespace Color {
+    export function mixColor(colorName: string) {
+        if (colorName == "yellow") {
+            return Color.red + Color.green;
+        }
+        else if (colorName == "white") {
+            return Color.red + Color.green + Color.blue;
+        }
+        else if (colorName == "magenta") {
+            return Color.red + Color.blue;
+        }
+        else if (colorName == "cyan") {
+            return Color.green + Color.blue;
+        }
+    }
+}
+
+8.非法的合并： 目前，类不能与其它类或变量合并。
+9.模块扩展
+虽然JavaScript不支持合并，但你可以为导入的对象打补丁以更新它们。让我们考察一下这个玩具性的示例：
+// observable.js
+export class Observable<T> {
+    // ... implementation left as an exercise for the reader ...
+}
+
+// map.js
+import { Observable } from "./observable";
+Observable.prototype.map = function (f) { //但编译器对 Observable.prototype.map一无所知。 你可以使用扩展模块来将它告诉编译器：
+    // ... another exercise for the reader
+}
+
+// observable.ts stays the same
+// map.ts
+import { Observable } from "./observable";
+declare module "./observable" {
+    interface Observable<T> {
+        map<U>(f: (x: T) => U): Observable<U>;
+    }
+}
+Observable.prototype.map = function (f) {
+    // ... another exercise for the reader
+}
+
+
+// consumer.ts
+import { Observable } from "./observable";
+import "./map";
+let o: Observable<number>;
+o.map(x => x.toFixed());
+但是，你不能在扩展中声明新的顶级声明－仅可以扩展模块中已经存在的声明。
+
+10.全局扩展
+你也以在模块内部添加声明到全局作用域中。
+// observable.ts
+export class Observable<T> {
+    // ... still no implementation ...
+}
+
+declare global {
+    interface Array<T> {
+        toObservable(): Observable<T>;
+    }
+}
+
+Array.prototype.toObservable = function () {
+    // ...
+}
+
+全局扩展与模块扩展的行为和限制是相同的。
+
+十八.JSX
+1.TypeScript支持内嵌，类型检查和将JSX直接编译为JavaScript。
+你可以通过在命令行里使用 --jsx标记或 tsconfig.json里的选项来指定模式
+preserve	<div />	<div />	.jsx
+react	<div />	React.createElement("div")	.js
+react-native	<div />	<div />	.js
+2.as操作符
+var foo = <foo>bar;  //这里我们断言 bar变量是 foo类型的。
+TypeScript在 .tsx文件里禁用了使用尖括号的类型断言。
+使用 as操作符改写：
+var foo = bar as foo;
+as操作符在 .ts和 .tsx里都可用，并且与其它类型断言行为是等价的。
+
+3.类型检查
+TypeScript使用 与React相同的规范 来区别它们。 固有元素总是以一个小写字母开头，基于值的元素总是以一个大写字母开头。
+//接口存在，那么固有元素的名字需要在 JSX.IntrinsicElements接口的属性里查找
+declare namespace JSX {
+    interface IntrinsicElements {
+        foo: any
+    }
+}
+
+<foo />; // 正确
+<bar />; // 错误
+
+//可以在 JSX.IntrinsicElements上指定一个用来捕获所有字符串索引：
+declare namespace JSX {
+   interface IntrinsicElements {
+       [elemName: string]: any;
+   }
+}
+
+4.基于值的元素会简单的在它所在的作用域里按标识符查找。
+import MyComponent from "./myComponent";
+
+<MyComponent />; // 正确
+<SomeOtherComponent />; // 错误
+
+5.无状态函数组件
+interface FooProp {
+  name: string;
+  X: number;
+  Y: number;
+}
+
+declare function AnotherComponent(prop: {name: string});
+function ComponentFoo(prop: FooProp) {
+  return <AnotherComponent name=prop.name />;
+}
+
+const Button = (prop: {value: string}, context: { color: string }) => <button>
+
+6.由于无状态函数组件是简单的JavaScript函数，所以我们还可以利用函数重载。
+interface ClickableProps {
+  children: JSX.Element[] | JSX.Element
+}
+
+interface HomeProps extends ClickableProps {
+  home: JSX.Element;
+}
+
+interface SideProps extends ClickableProps {
+  side: JSX.Element | string;
+}
+
+function MainButton(prop: HomeProps): JSX.Element;
+function MainButton(prop: SideProps): JSX.Element {
+  ...
+}
+7.类组件
+元素类的类型和 元素实例的类型。
+class MyComponent {
+  render() {}
+}
+
+// 使用构造签名
+var myComponent = new MyComponent();
+
+// 元素类的类型 => MyComponent
+// 元素实例的类型 => { render: () => void }
+
+function MyFactoryFunction() {
+  return {
+    render: () => {
+    }
+  }
+}
+
+// 使用调用签名
+var myComponent = MyFactoryFunction();
+
+// 元素类的类型 => FactoryFunction
+// 元素实例的类型 => { render: () => void }
+
+8. 默认的 JSX.ElementClass为 {}，但是它可以被扩展用来限制JSX的类型以符合相应的接口。
+declare namespace JSX {
+  interface ElementClass {
+    render: any;
+  }
+}
+
+class MyComponent {
+  render() {}
+}
+function MyFactoryFunction() {
+  return { render: () => {} }
+}
+
+<MyComponent />; // 正确
+<MyFactoryFunction />; // 正确
+
+class NotAValidComponent {}
+function NotAValidFactoryFunction() {
+  return {};
+}
+
+<NotAValidComponent />; // 错误
+<NotAValidFactoryFunction />; // 错误
+
+9.属性类型检查
+//对于固有元素，这是 JSX.IntrinsicElements属性的类型。
+declare namespace JSX {
+  interface IntrinsicElements {
+    foo: { bar?: boolean }
+  }
+}
+
+// `foo`的元素属性类型为`{bar?: boolean}`
+<foo bar />;
+
+10.对于基于值的元素，就稍微复杂些。 它取决于先前确定的在元素实例类型上的某个属性的类型。
+declare namespace JSX {
+  interface ElementAttributesProperty {
+    props; // 指定用来使用的属性名
+  }
+}
+
+class MyComponent {
+  // 在元素实例类型上指定属性
+  props: {
+    foo?: string;
+  }
+}
+
+// `MyComponent`的元素属性类型为`{foo?: string}`
+<MyComponent foo="bar" />
+
+11.元素属性类型用于的JSX里进行属性的类型检查。 支持可选属性和必须属性。
+declare namespace JSX {
+  interface IntrinsicElements {
+    foo: { requiredProp: string; optionalProp?: number }
+  }
+}
+
+<foo requiredProp="bar" />; // 正确
+<foo requiredProp="bar" optionalProp={0} />; // 正确
+<foo />; // 错误, 缺少 requiredProp
+<foo requiredProp={0} />; // 错误, requiredProp 应该是字符串
+<foo requiredProp="bar" unknownProp />; // 错误, unknownProp 不存在
+<foo requiredProp="bar" some-unknown-prop />; // 正确, `some-unknown-prop`不是个合法的标识符
+
+12.如果一个属性名不是个合法的JS标识符（像 data-*属性），并且它没出现在元素属性类型里时不会当做一个错误。
+延展操作符也可以使用：
+var props = { requiredProp: 'bar' };
+<foo {...props} />; // 正确
+
+var badProps = {};
+<foo {...badProps} />; // 错误
+
+13.子孙类型检查
+JSX.ElementChildrenAttribute来决定 children名。 JSX.ElementChildrenAttribute应该被声明在单一的属性(property)里。
+declare namespace JSX {
+  interface ElementChildrenAttribute {
+    children: {};  // specify children name to use
+  }
+}
+
+14.如不特殊指定子孙的类型，我们将使用 React typings里的默认类型。
+
+<div>
+  <h1>Hello</h1>
+</div>;
+
+<div>
+  <h1>Hello</h1>
+  World
+</div>;
+
+const CustomComp = (props) => <div>props.children</div>
+<CustomComp>
+  <div>Hello World</div>
+  {"This is just a JS expression..." + 1000}
+</CustomComp>
+
+15.你也可以像其它属性一样指定 children的类型。下面我们重写 React typings里的默认类型。
+interface PropsType {
+  children: JSX.Element
+  name: string
+}
+
+class Component extends React.Component<PropsType, {}> {
+  render() {
+    return (
+      <h2>
+        this.props.children
+      </h2>
+    )
+  }
+}
+
+// OK
+<Component>
+  <h1>Hello World</h1>
+</Component>
+
+// Error: children is of type JSX.Element not array of JSX.Element
+<Component>
+  <h1>Hello World</h1>
+  <h2>Hello World</h2>
+</Component>
+
+// Error: children is of type JSX.Element not array of JSX.Element or string.
+<Component>
+  <h1>Hello</h1>
+  World
+</Component>
+
+16.默认地JSX表达式结果的类型为 any。
+JSX允许你使用 { }标签来内嵌表达式。
+var a = <div>
+  {['foo', 'bar'].map(i => <span>{i / 2}</span>)}
+</div>
+
+17.要想一起使用JSX和React，你应该使用 React类型定义。 这些类型声明定义了 JSX合适命名空间来使用React。
+interface Props {
+  foo: string;
+}
+
+class MyComponent extends React.Component<Props, {}> {
+  render() {
+    return <span>{this.props.foo}</span>
+  }
+}
+
+<MyComponent foo="bar" />; // 正确
+<MyComponent foo={0} />; // 错误
+
+十九.装饰器
+1.若要启用实验性的装饰器特性，你必须在命令行或tsconfig.json里启用experimentalDecorators编译器选项：
+//命令行:
+tsc --target ES5 --experimentalDecorators
+//tsconfig.json:
+{
+    "compilerOptions": {
+        "target": "ES5",
+        "experimentalDecorators": true
+    }
+}
+装饰器是一种特殊类型的声明，它能够被附加到类声明，方法， 访问符，属性或参数上。 装饰器使用 @expression这种形式，
+expression求值后必须为一个函数，它会在运行时被调用，被装饰的声明信息做为参数传入。
+例如，有一个@sealed装饰器，我们会这样定义sealed函数：
+function sealed(target) {
+    // do something with "target" ...
+}
+
+2.装饰器工厂
+//它返回一个表达式，以供装饰器在运行时调用。
+function color(value: string) { // 这是一个装饰器工厂
+    return function (target) { //  这是装饰器
+        // do something with "target" and "value"...
+    }
+}
+
+3.装饰器组合
+书写在同一行上：@f @g x
+4.书写在多行上：
+@f
+@g
+x
+
+同样的，在TypeScript里，当多个装饰器应用在一个声明上时会进行如下步骤的操作：
+由上至下依次对装饰器表达式求值。
+求值的结果会被当作函数，由下至上依次调用。
+function f() {
+    console.log("f(): evaluated");
+    return function (target, propertyKey: string, descriptor: PropertyDescriptor) {
+        console.log("f(): called");
+    }
+}
+
+function g() {
+    console.log("g(): evaluated");
+    return function (target, propertyKey: string, descriptor: PropertyDescriptor) {
+        console.log("g(): called");
+    }
+}
+
+class C {
+    @f()
+    @g()
+    method() {}
+}
+//在控制台里会打印出如下结果：
+f(): evaluated
+g(): evaluated
+g(): called
+f(): called
+
+5.装饰器求值
+类中不同声明上的装饰器将按以下规定的顺序应用：
+
+参数装饰器，然后依次是方法装饰器，访问符装饰器，或属性装饰器应用到每个实例成员。
+参数装饰器，然后依次是方法装饰器，访问符装饰器，或属性装饰器应用到每个静态成员。
+参数装饰器应用到构造函数。
+类装饰器应用到类。
+
+6.类装饰器
+类装饰器在类声明之前被声明（紧靠着类声明）。 类装饰器应用于类构造函数，可以用来监视，修改或替换类定义。
+类装饰器不能用在声明文件中( .d.ts)，也不能用在任何外部上下文中（比如declare的类）。
+类装饰器表达式会在运行时当作函数被调用，类的构造函数作为其唯一的参数。
+如果类装饰器返回一个值，它会使用提供的构造函数来替换类的声明。
+
+类装饰器(@sealed)的例子，应用在Greeter类
+@sealed
+class Greeter {
+    greeting: string;
+    constructor(message: string) {
+        this.greeting = message;
+    }
+    greet() {
+        return "Hello, " + this.greeting;
+    }
+}
+//我们可以这样定义@sealed装饰器：
+function sealed(constructor: Function) {
+    Object.seal(constructor);
+    Object.seal(constructor.prototype);
+}
+当@sealed被执行的时候，它将密封此类的构造函数和原型。
+
+
+7.一个重载构造函数的例子。
+function classDecorator<T extends {new(...args:any[]):{}}>(constructor:T) {
+    return class extends constructor {
+        newProperty = "new property";
+        hello = "override";
+    }
+}
+
+@classDecorator
+class Greeter {
+    property = "property";
+    hello: string;
+    constructor(m: string) {
+        this.hello = m;
+    }
+}
+
+console.log(new Greeter("world"));
+
+8.方法装饰器
+//下面是一个方法装饰器（@enumerable）的例子，应用于Greeter类的方法上：
+class Greeter {
+    greeting: string;
+    constructor(message: string) {
+        this.greeting = message;
+    }
+
+    @enumerable(false)
+    greet() {
+        return "Hello, " + this.greeting;
+    }
+}
+//我们可以用下面的函数声明来定义@enumerable装饰器：
+function enumerable(value: boolean) {
+    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+        descriptor.enumerable = value;
+    };
+}
+
+9.访问器装饰器
+下面是使用了访问器装饰器（@configurable）的例子，应用于Point类的成员上：
+class Point {
+    private _x: number;
+    private _y: number;
+    constructor(x: number, y: number) {
+        this._x = x;
+        this._y = y;
+    }
+
+    @configurable(false)
+    get x() { return this._x; }
+
+    @configurable(false)
+    get y() { return this._y; }
+}
+//我们可以通过如下函数声明来定义@configurable装饰器：
+function configurable(value: boolean) {
+    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+        descriptor.configurable = value;
+    };
+}
+
+10.属性装饰器
+属性描述符只能用来监视类中是否声明了某个名字的属性。
+//它来记录这个属性的元数据
+class Greeter {
+    @format("Hello, %s")
+    greeting: string;
+
+    constructor(message: string) {
+        this.greeting = message;
+    }
+    greet() {
+        let formatString = getFormat(this, "greeting");
+        return formatString.replace("%s", this.greeting);
+    }
+}
+//然后定义@format装饰器和getFormat函数
+import "reflect-metadata";
+const formatMetadataKey = Symbol("format");
+function format(formatString: string) {
+    return Reflect.metadata(formatMetadataKey, formatString);
+}
+
+function getFormat(target: any, propertyKey: string) {
+    return Reflect.getMetadata(formatMetadataKey, target, propertyKey);
+}
+
+11.参数装饰器
+参数装饰器（@required）并应用于Greeter类方法的一个参数：
+class Greeter {
+    greeting: string;
+
+    constructor(message: string) {
+        this.greeting = message;
+    }
+
+    @validate
+    greet(@required name: string) {
+        return "Hello " + name + ", " + this.greeting;
+    }
+}
+//然后我们使用下面的函数定义 @required 和 @validate 装饰器：
+import "reflect-metadata";
+
+const requiredMetadataKey = Symbol("required");
+
+function required(target: Object, propertyKey: string | symbol, parameterIndex: number) {
+    let existingRequiredParameters: number[] = Reflect.getOwnMetadata(requiredMetadataKey, target, propertyKey) || [];
+    existingRequiredParameters.push(parameterIndex);
+    Reflect.defineMetadata(requiredMetadataKey, existingRequiredParameters, target, propertyKey);
+}
+
+function validate(target: any, propertyName: string, descriptor: TypedPropertyDescriptor<Function>) {
+    let method = descriptor.value;
+    descriptor.value = function () {
+        let requiredParameters: number[] = Reflect.getOwnMetadata(requiredMetadataKey, target, propertyName);
+        if (requiredParameters) {
+            for (let parameterIndex of requiredParameters) {
+                if (parameterIndex >= arguments.length || arguments[parameterIndex] === undefined) {
+                    throw new Error("Missing required argument.");
+                }
+            }
+        }
+
+        return method.apply(this, arguments);
+    }
+}
+
+
+TypeScript支持为带有装饰器的声明生成元数据。 你需要在命令行或 tsconfig.json里启用emitDecoratorMetadata编译器选项。
+tsc --target ES5 --experimentalDecorators --emitDecoratorMetadata
+//tsconfig.json:
+{
+    "compilerOptions": {
+        "target": "ES5",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
+    }
+}
+
+//当启用后，只要reflect-metadata库被引入了，设计阶段添加的类型信息可以在运行时使用。
+import "reflect-metadata";
+
+class Point {
+    x: number;
+    y: number;
+}
+
+class Line {
+    private _p0: Point;
+    private _p1: Point;
+
+    @validate
+    set p0(value: Point) { this._p0 = value; }
+    get p0() { return this._p0; }
+
+    @validate
+    set p1(value: Point) { this._p1 = value; }
+    get p1() { return this._p1; }
+}
+
+function validate<T>(target: any, propertyKey: string, descriptor: TypedPropertyDescriptor<T>) {
+    let set = descriptor.set;
+    descriptor.set = function (value: T) {
+        let type = Reflect.getMetadata("design:type", target, propertyKey);
+        if (!(value instanceof type)) {
+            throw new TypeError("Invalid type.");
+        }
+        set(value);
+    }
+}
+
+//TypeScript编译器可以通过@Reflect.metadata装饰器注入设计阶段的类型信息
+class Line {
+    private _p0: Point;
+    private _p1: Point;
+
+    @validate
+    @Reflect.metadata("design:type", Point)
+    set p0(value: Point) { this._p0 = value; }
+    get p0() { return this._p0; }
+
+    @validate
+    @Reflect.metadata("design:type", Point)
+    set p1(value: Point) { this._p1 = value; }
+    get p1() { return this._p1; }
+}
+
+注意  装饰器元数据是个实验性的特性并且可能在以后的版本中发生破坏性的改变（breaking changes）。
+
+
+单词：
+tuple 元组 数组
+total 总计的 全部数量
+bag 袋
+grid 网格
+abstract 抽象的 摘要
+enum 枚举
+declare 声明
+Okay 可以
+Intersection 交叉 
+mixins 混入
+guard 警卫
+instanceof 运算符
+strict 严格的 
+bound 跳跃 界限
+symbols 符号
+iterator 迭代器
+species 物种
+primitive 原始的
+shape 性状 身材 模型
+node 节
+resolution 分辨率 解决 决心
+preserve 保存
+props 道具
+decorator 装饰
+experimental 实验的
+expression 表达
+seal 密封 印章
+mixin 混合 混入
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
