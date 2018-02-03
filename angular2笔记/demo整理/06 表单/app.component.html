@@ -1,0 +1,46 @@
+<h1>{{hero.name}}</h1>
+<div class="form-group" *ngIf="!submitted">
+  <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+    <label for="power">英雄技能</label>
+    <select class="form-control" id="power" required>
+      <option *ngFor="let pow of powers" [value]="pow">{{pow}}</option>
+    </select>
+    <input type="text" class="form-control" id="name" required [(ngModel)]="hero.name" name="name" #name="ngModel"/>
+    <div *ngIf="!name.valid&&!name.pristine" class="alert alert-danger">名字是必填的哦！</div>
+    <input type="text" class="form-control"  [(ngModel)]="hero.age" name="age" #age="ngModel"/>
+    <div *ngIf="!age.valid&&!age.pristine" class="alert alert-danger">年龄是必填的哦！</div>
+    <p>修改了英雄的名字：{{hero.name}}</p>
+    <p>模板引擎类名状态name.className变化值：{{name.className}}</p>
+    <p>{{heroForm.form.valid}}</p>
+    <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">提交内容</button>
+  </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

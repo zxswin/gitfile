@@ -1,0 +1,608 @@
+一.广发内部教程：
+
+汤桂川推荐的脚手架：
+https://github.com/mgechev/angular2-seed
+Awesome ng2 - 中文版本
+https://github.com/gf-rd/awesome-ng2
+AngularJS2.0教程（一）快速上手
+http://cnodejs.org/topic/55af2bc4911fb957520eacef
+angular2分享.rar
+Angular2系列教程
+https://github.com/lewis617/angular2-tutorial
+
+二.引入模块类：
+1.app.module.ts：用于添加外部模板列表
+
+2.虽然NgModel是一个有效的Angular指令，但它默认情况下却是不可用的。 它属于一个可选模块FormsModule。
+
+  import { NgModule }      from '@angular/core';
+  import { BrowserModule } from '@angular/platform-browser';
+  import { FormsModule }   from '@angular/forms';
+
+  import { AppComponent }  from './app.component';
+
+
+
+三.案例
+1.双向绑定：<input [(ngModel)]="hero.name" placeholder="name">
+
+2.通过*ngFor循环列表
+  <li *ngFor="let hero of heroes">
+     <span class="badge">{{hero.id}}</span>{{hero.name}}
+  </li>
+
+3.定义一个常量数组：Hero为已经定义好的数据类型
+  const HEROES: Hero[] = [
+      {id:11,name:"Mr.Nice"},
+      {id:12,name:"Narco"},
+   ]
+
+4.@Component装饰器的styles属性设置为下列 CSS 类
+   styles: [`
+    .selected {
+      background-color: #CFD8DC !important;
+      color: white;
+    }`]
+
+5.点击事件的绑定
+  <li *ngFor="let hero of heroes" (click)="onSelect(hero)"></li>
+
+6.使用 ngIf 隐藏空的详情
+  <div *ngIf="selectedHero"></div>
+
+
+7.添加样式类：
+[class.selected]="hero === selectedHero"
+当表达式(hero === selectedHero)为true时，Angular会添加一个CSS类selected。为false时则会移除selected类。
+
+8.组件的风格指南
+   HeroDetailComponent类应该放在hero-detail.component.ts文件中
+   而Angular风格指南建议每个文件中只有一个类。
+
+9.父组件通过属性向子组件传递信息
+  <hero-detail [hero]="selectedHero"></hero-detail>
+  通过在hero属性前面加上@Input装饰器，来表明它是一个输入属性。
+  @Input() hero: Hero;
+
+10.在AppModule中声明HeroDetailComponent
+   NgModule装饰器中的
+   declarations: [
+     AppComponent,
+     HeroDetailComponent
+   ],
+   declarations数组包含应用中属于该模块的组件、管道和指令的列表。 组件在被其它组件引用之前必须先在一个模块中声明过。
+
+
+11.可注入的服务
+   我们导入了 Angular 的Injectable函数，并作为@Injectable()装饰器使用这个函数。
+   @Injectable()
+      export class HeroService {
+         getHeroes(): void {} // stub
+       }
+
+12.创建HeroService的实例
+   constructor(private heroService: HeroService) { }
+   @Component组件的元数据底部添加providers数组属性如下：
+    providers: [HeroService]（添加供应商）
+
+
+13.ngOnInit 生命周期钩子
+   import { OnInit } from '@angular/core';
+
+     ngOnInit(): void {
+        this.getHeroes();
+      }
+
+
+15.路由：
+   基地址：
+     <head>
+       <base href="/">
+   路由设置放在@NgModule里
+   @NgModule({
+       imports: [
+    RouterModule.forRoot([
+      {
+        path: 'heroes',
+        component: HeroesComponent
+      }
+    ])
+  ]
+    })
+
+   路由链接及路由出口：
+   <a routerLink="/heroes">Heroes</a>
+   <router-outlet></router-outlet>
+   添加重定向路由：
+    {
+      path: '',
+      redirectTo: '/dashboard',
+      pathMatch: 'full'
+    },
+
+
+三.angular应用的基本构造块。
+   1.我们是这样写 Angular 应用的：用 Angular 扩展语法编写 HTML 模板，
+     用组件类管理这些模板，用服务添加应用逻辑， 用模块打包发布组件与服务。
+
+   2.每个 Angular 应用至少有一个模块（根模块），习惯上命名为AppModule。
+     @NgModule装饰器的类
+     NgModule是一个装饰器函数，它接收一个用来描述模块属性的元数据对象。其中最重要的属性是：
+
+    declarations - 声明本模块中拥有的视图类。Angular 有三种视图类：组件、指令和管道。
+    exports - declarations 的子集，可用于其它模块的组件模板。
+    imports - 本模块声明的组件模板需要的类所在的其它模块。
+    providers - 服务的创建者，并加入到全局服务列表中，可用于应用任何部分。
+    bootstrap - 指定应用的主视图（称为根组件），它是所有其它视图的宿主。只有根模块才能设置bootstrap属性。
+
+    AppComponent的export语句只是用于演示如何导出的，它在这个例子中并不是必须的。根模块不需要导出任何东西
+    ，因为其它组件不需要导入根模块。
+
+
+   3.我们通过引导根模块来启动应用。 在开发期间，你通常在一个main.ts文件中引导AppModule，就像这样：
+    import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+    import { AppModule } from './app/app.module';
+    platformBrowserDynamic().bootstrapModule(AppModule);
+
+
+  4.每个 Angular 库的名字都带有@angular前缀。
+    用 npm 包管理工具安装它们，用 JavaScript 的import语句导入其中某些部件。
+
+  5.组件负责控制屏幕上的一小块区域，我们称之为视图。
+  6.元数据：元数据告诉 Angular 如何处理一个类。
+    @Component装饰器，它把紧随其后的类标记成了组件类。
+    selector： CSS 选择器
+    templateUrl：组件 HTML 模板的模块相对地址
+    providers：所需服务的依赖注入提供商数组
+  7.Angular 支持数据绑定，一种让模板的各部分与组件的各部分相互合作的机制
+    {{hero.name}}插值表达式在<li>标签中显示组件的hero.name属性的值。
+    [hero]属性绑定把父组件HeroListComponent的selectedHero的值传到子组件HeroDetailComponent的hero属性中。
+    (click) 事件绑定在用户点击英雄的名字时调用组件的selectHero方法。
+  8.双向数据绑定是重要的第四种绑定形式，它使用ngModel指令组合了属性绑定和事件绑定的功能。
+    Angular 在每个 JavaScript 事件循环中处理所有的数据绑定，它会从组件树的根部开始，递归处理全部子组件。
+
+  9.指令：Angular 模板是动态的。当 Angular 渲染它们时，它会根据指令提供的操作对 DOM 进行转换。
+    组件是一个带模板的指令；@Component装饰器实际上就是一个@Directive装饰器，只是扩展了一些面向模板的特性。
+    结构型指令通过在 DOM 中添加、移除和替换元素来修改布局。
+       *ngFor告诉 Angular 为heroes列表中的每个英雄生成一个<li>标签。
+        <hero-detail *ngIf="selectedHero"></hero-detail>
+    属性型指令修改一个现有元素的外观或行为。 在模板中，它们看起来就像是标准的 HTML 属性，故名
+    ngModel指令就是属性型指令的一个例子，它实现了双向数据绑定。
+    像HeroListComponent这样的组件就是一种自定义指令。
+
+  10.服务是一个广义范畴，包括：值、函数，或应用所需的特性。
+     几乎任何东西都可以是一个服务。 典型的服务是一个类，具有专注的、明确的用途。它应该做一件特定的事情，并把它做好。
+
+   11.“依赖注入”是提供类的新实例的一种方式，还负责处理好类所需的全部依赖。大多数依赖都是服务。
+       Angular 使用依赖注入来提供新组件以及组件所需的服务。
+       Angular 通过查看构造函数的参数类型得知组件需要哪些服务。
+
+       注入器维护了一个服务实例的容器，存放着以前创建的实例。 如果所请求的服务实例不在容器中，
+       注入器就会创建一个服务实例，并且添加到容器中，然后把这个服务返回给 Angular。
+       当所有请求的服务都被解析完并返回时，Angular 会以这些服务为参数去调用组件的构造函数。 这就是依赖注入 。
+       但通常会把提供商添加到根模块上，以便在任何地方都使用服务的同一个实例。
+       providers: [
+          BackendService,
+          HeroService,
+          Logger
+       ],
+       或者，也可以在@Component元数据中的providers属性中把它注册在组件层：
+        @Component({
+           selector:    'hero-list',
+           templateUrl: './hero-list.component.html',
+           providers:  [ HeroService ]
+        })
+       注入器负责维护一个容器，用于存放它创建过的服务实例。
+       注入器能使用提供商创建一个新的服务实例。
+       提供商是一个用于创建服务的配方。
+       把提供商注册到注入器。
+
+三.AppModule:跟模块
+   1.@NgModule装饰器将AppModule标记为 Angular 模块类（也叫NgModule类）。
+     @NgModule接受一个元数据对象，告诉 Angular 如何编译和启动应用。
+
+     imports — BrowserModule，这个和每个在浏览器中运行应用都需要它。
+     declarations — 应用的唯一组件，它同时也是...
+     bootstrap — 根组件，Angular 创建它并插入index.html宿主页面。
+
+
+   2.每个浏览器中运行的应用都需要@angular/platform-browser里的BrowserModule。
+     所以每个这样的应用都在其根AppModule的imports数组中包含BrowserModule。
+     imports数组中应该只有NgModule类。不要放置其它类型的类。
+
+   3.模块的imports数组是@NgModule元数据中独有的。它告诉 Angular 特定 Angular
+     模块的信息 — 用@NgModule装饰的类 — 应用需要它们来正常工作。
+
+   4.通过将其列到AppModule模块的declarations数组中，可以告诉 Angular
+      哪个组件属于AppModule。 在创建更多组件的过程中，逐步将它们添加到declarations中。
+
+   5.只有*可以声明的 — 组件、指令和管道 — 属于declarations数组。
+     不要将其他类型的类添加到declarations中，例如NgModule类, 服务类，模型类。
+   6.bootstrap 数组
+     通过引导根AppModule来启动应用。 在启动过程中，
+     其中一步是创建列在bootstrap数组的组件， 并将它们每一个都插入到浏览器的DOM中。
+
+   7.在main.ts中引导
+      import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+      import { AppModule } from './app/app.module';
+      platformBrowserDynamic().bootstrapModule(AppModule);
+      上面的代码为动态 (JiT) 编译创建浏览器平台，并引导上面提到的AppModule。
+      引导过程搭建运行环境，从模块的bootstrap数组中提出根AppComponent，
+      创建该组件的实例，并将其插入到组件selector标识的元素标签中。
+
+四.显示数据
+   1.使用插值表达式显示组件属性
+   2.严格来说，“重新显示”是在某些与视图有关的异步事件之后发生的，例如，
+     按键、定时器完成或对 HTTP 请求的响应
+   3.当我们通过main.ts中的AppComponent类启动时，Angular 在index.html中查找一个<my-app>元素，
+     然后实例化一个AppComponent，并将其渲染到<my-app>标签中。
+   4.你可以在两种地方存放组件模板。 你可以使用template属性把它定义为内联的，或者把模板定义在一个独立的
+     HTML 文件中， 再通过@Component装饰器中的templateUrl属性， 在组件元数据中把它链接到组件。
+
+五.用户输入。
+   1.一个事件绑定，它实现了一个点击事件处理器
+     <button (click)="onClickMe()">Click me!</button>
+
+   2.通过 $event 对象取得用户输入
+     <input (keyup)="onKey($event)">
+     所有标准 DOM 事件对象都有一个target属性， 引用触发该事件的元素。
+    在本例中，target是<input>元素， event.target.value返回该元素的当前内容。
+
+   3. onKey(event: KeyboardEvent)
+     $event的类型现在是KeyboardEvent。 不是所有的元素都有value属性，所以它将target转换为输入元素。
+      OnKey方法更加清晰的表达了它期望从模板得到什么，以及它是如何解析事件的。
+      模板（用户看到的）和组件（应用如何处理用户数据）之间的分离关注原则
+
+   4.从一个模板引用变量中获得用户输入
+    在标识符前加上井号 (#) 就能声明一个模板引用变量。
+      <input #box (keyup)="0">
+       <p>{{box.value}}</p>
+
+   6. 从模板变量获得输入框比通过$event对象更加简单。 下面的代码重写了之前keyup示例，它使用变量来获得用户输入。
+   <input #box (keyup)="onKey(box.value)">
+
+   7.按键事件过滤（通过key.enter）
+      <input #box (keyup.enter)="onEnter(box.value)">
+       只有键值是回车键时才采取行动。
+
+    8.失去焦点事件 (blur)
+       <input #box
+      (keyup.enter)="update(box.value)"
+      (blur)="update(box.value)">
+
+6.表单：
+  1.使用特点的Angular CSS类来更新控件,以反映当前的状态。
+     ng-touched	   ng-untouched   是否获取焦点
+     ng-dirty	   ng-pristine     控件的值是否变化了。
+     ng-valid	   ng-invalid     控件的值是否有效。
+  2.模板引用变量可以访问模板中输入框的 Angular 控件。 这里，创建了名叫name的变量，并且赋值为 "ngModel"。
+    <input type="text" class="form-control" id="name" required
+     [(ngModel)]="model.name" name="name"  #name="ngModel">
+    这里把name设置为ngModel是因为ngModel指令的exportAs属性设置成了 “ngModel”。
+     当控件是有效的 (valid) 或全新的 (pristine) 时，隐藏消息。
+  3.要的总结：
+    <div [hidden]="submitted"></div>----submitted=false时隐藏
+    <form (ngSubmit)="onSubmit()" #heroForm="ngForm"></form>
+             (ngSubmit)="onSubmit()---绑定提交时执行的函数
+             #heroForm="ngForm"---控件与模板指令绑定
+      <input [(ngModel)]="model.name" #name="ngModel">----模板引用变量与模板绑定
+      <div [hidden]="name.valid || name.pristine"> </div>--模板变量name就可以访问ngModel下面的属性
+     <button type="submit" [disabled]="!heroForm.form.valid"></button>
+             [disabled]="!heroForm.form.valid"----不是有效值时候把按钮状态设置为不可用
+     <button type="button" (click)="newHero(); heroForm.reset()"></button>
+              heroForm.reset()--绑定了事件并重置了表单。
+     <button (click)="submitted=false"></button>
+              (click)="submitted=false"-----绑定变量设置变量的值。
+
+七.依赖注入：简称为 DI
+   1.配置注入器：不需要创建 Angular 注入器。 Angular 在启动过程中自动为我们创建一个应用级注入器。
+   platformBrowserDynamic().bootstrapModule(AppModule);
+   或者在 NgModule 中注册提供商，或者在应用组件中。
+   2.在一个注入器的范围内，依赖都是单例的。
+   3.@Injectable() 标识一个类可以被注入器实例化。
+     在试图实例化没有被标识为@Injectable()的类时，注入器会报错。
+     使用useExisting选项指定别名。
+   4.于是可以通过useValue选项来注册提供商，它会让这个对象直接扮演 logger 的角色。
+     [{ provide: Logger, useValue: silentLogger }]
+   5.告诉 Angular 该依赖是可选的
+    constructor(@Optional() private logger: Logger) {
+      if (this.logger) {
+         this.logger.log(some_message);
+       }
+      }
+    6.建议每个文件只放一个类
+
+
+八.模板语法
+   1.插值表达式
+   2.Angular 对所有双花括号中的表达式求值，把求值的结果转换成字符串，
+    并把它们跟相邻的字符串字面量连接起来。最后，把这个组合出来的插值结果赋给元素或指令的属性。
+
+   3.模板上下文中的变量名的优先级高于组件上下文中的变量名。
+     在上面的deleteHero(hero)中，hero是一个模板输入变量，而不是组件中的hero属性。
+     <button (click)="onSave($event)">Save</button>
+     <button *ngFor="let hero of heroes" (click)="deleteHero(hero)">{{hero.name}}</button>
+     <form #heroForm (ngSubmit)="onSubmit(heroForm)"> ... </form>
+    4.设置 DOM 元素、组件和指令的 property
+      attribute 初始化 DOM property，然后它们的任务就完成了。
+      property 的值可以改变；attribute 的值不能改变。
+      HTML attribute value指定了初始值；DOM value property 是当前值。
+      模板绑定是通过 property 和事件来工作的，而不是 attribute。
+
+
+   4.数据方向
+     单向从数据源到视图目标
+      {{expression}}
+      [target]="expression"
+      bind-target="expression"
+     单向从视图目标到数据源
+      (target)="statement"
+       on-target="statement"
+     双向
+      [(target)]="expression"
+      bindon-target="expression"
+
+    5.绑定目标
+      数据绑定的目标是 DOM 中的某些东西。
+
+      property
+         元素的 property  <img [src]="heroImageUrl">
+         组件的 property  <hero-detail [hero]="currentHero"></hero-detail>
+         指令的 property  <div [ngClass]="{special: isSpecial}"></div>
+
+      事件
+         元素的事件:<button (click)="onSave()">Save</button>
+         组件的事件：<hero-detail (deleteRequest)="deleteHero()"></hero-detail>
+         指令的事件：<div (myClick)="clicked=$event" clickable>click me</div>
+
+      双向
+          事件与 property  <input [(ngModel)]="name">
+
+      Attribute
+          attribute（例外情况） <button [attr.aria-label]="help">help</button>
+
+      class property
+          <div [class.special]="isSpecial">Special</div>
+
+      样式 style property
+           <button [style.color]="isSpecial ? 'red' : 'green'">
+
+
+     2.属性绑定：
+       最常用的属性绑定是把元素属性设置为组件属性的值
+       image 元素的src属性会被绑定到组件的heroImageUrl属性上
+       <img [src]="heroImageUrl">
+       <button [disabled]="isUnchanged">Cancel is disabled</button>
+
+       设置指令的属性
+        <div [ngClass]="classes">[ngClass] binding to the classes property</div>
+
+        还有另一个例子是设置自定义组件的模型属性（这是父子组件之间通讯的重要途径）：
+        <hero-detail [hero]="currentHero"></hero-detail>
+
+        单向输入
+        人们经常把属性绑定描述成单向数据绑定，因为值的流动是单向的，从组件的数据属性流动到目标元素的属性。
+        不能使用属性绑定来从目标元素拉取值，也不能绑定到目标元素的属性来读取它。只能设置它。
+
+        有些人喜欢用bind-前缀的可选形式，并称之为规范形式：
+        <img bind-src="heroImageUrl">
+        如果忘了加方括号，Angular 会把这个表达式当做字符串常量看待，并用该字符串来初始化目标属性。
+        它不会计算这个字符串。
+
+        下列这几对绑定做的事情完全相同：
+         <p><img src="{{heroImageUrl}}"> is the <i>interpolated</i> image.</p>
+         <p><img [src]="heroImageUrl"> is the <i>property bound</i> image.</p>
+
+         <p><span>"{{title}}" is the <i>interpolated</i> title.</span></p>
+         <p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
+
+
+      3.attribute、class 和 style 绑定
+         attribute 绑定的语法与属性绑定类似。 但方括号中的部分不是元素的属性名，而是由attr前缀，
+         一个点 (.) 和 attribute 的名字组成。 可以通过值为字符串的表达式来设置 attribute 的值。
+          <tr><td [attr.colspan]="1 + 1">One-Two</td></tr>
+
+      4.虽然这是切换单一类名的好办法，但我们通常更喜欢使用 NgClass指令 来同时管理多个类名。
+        <div class="special" [class.special]="!isSpecial">This one is not so special</div>
+
+      5.通过样式绑定，可以设置内联样式。
+        <button [style.color]="isSpecial ? 'red': 'green'">Red</button>
+        <button [style.background-color]="canSave ? 'cyan': 'grey'" >Save</button>
+
+      6.有些样式绑定中的样式带有单位。在这里，以根据条件用 “em” 和 “%” 来设置字体大小的单位。
+        <button [style.font-size.em]="isSpecial ? 3 : 1" >Big</button>
+        <button [style.font-size.%]="!isSpecial ? 150 : 50" >Small</button>
+        式属性命名方法可以用中线命名法，像上面的一样 也可以用驼峰式命名法，如fontSize。
+
+       7.事件绑定：
+          反向的数据流：从元素到组件。
+          有些人更喜欢带on-前缀的备选形式，称之为规范形式：
+          <button on-click="onSave()">On Save</button>
+
+          $event就是 DOM事件对象
+          <input [value]="currentHero.name"
+          (input)="currentHero.name=$event.target.value" >
+
+       8.使用 EventEmitter 实现自定义事件
+         删除这个英雄会更新模型，还可能触发其它修改，包括向远端服务器的查询和保存。
+         这些变更通过系统进行扩散，并最终显示到当前以及其它视图中。
+
+       9.双向绑定语法实际上是属性绑定和事件绑定的语法糖。
+         <my-sizer [size]="fontSizePx" (sizeChange)="fontSizePx=$event"></my-sizer>
+         <my-sizer [(size)]="fontSizePx"></my-sizer>
+
+       10.原生 HTML 元素不遵循x值和xChange事件的模式。幸运的是，Angular 以 NgModel 指令为桥梁，
+          允许在表单元素上使用双向数据绑定。
+
+       11.内置属性型指令
+         NgClass - 添加或移除一组CSS类
+             <div [ngClass]="currentClasses">This div is initially saveable, unchanged, and special</div>
+
+                 currentClasses: {};
+                 setCurrentClasses() {
+                 this.currentClasses =  {
+                     saveable: this.canSave,
+                     modified: !this.isUnchanged,
+                    special:  this.isSpecial
+                 };
+               }
+
+
+
+         NgStyle - 添加或移除一组CSS样式
+             <div [ngStyle]="currentStyles"></div>
+              currentStyles: {};
+             setCurrentStyles() {
+
+             this.currentStyles = {
+               'font-style':  this.canSave      ? 'italic' : 'normal',
+              'font-weight': !this.isUnchanged ? 'bold'   : 'normal',
+               'font-size':   this.isSpecial    ? '24px'   : '12px'
+            };
+       }
+
+
+
+         NgModel - 双向绑定到HTML表单元素
+         <input [(ngModel)]="currentHero.name">
+         在使用ngModel指令进行双向数据绑定之前，我们必须导入FormsModule并把它添加到Angular模块的imports列表中
+
+
+     12.内置结构型指令
+        结构型指令的职责是HTML布局。 它们塑造或重塑DOM的结构，这通常是通过添加、移除和操纵它们所附加到的宿主元素来实现的。
+        我们只能往一个元素上应用一个结构型指令。
+
+         NgIf - 根据条件把一个元素添加到DOM中或从DOM移除
+            当NgIf为false时，Angular 从 DOM 中物理地移除了这个元素子树。
+            它销毁了子树中的组件及其状态，也潜在释放了可观的资源，最终让用户体验到更好的性能。
+
+
+         NgFor - 对列表中的每个条目重复套用一个模板
+             带索引的*ngFor
+             <div *ngFor="let hero of heroes; let i=index">{{i + 1}} - {{hero.name}}</div>
+            如果给它指定一个trackBy，Angular 就可以避免这种折腾。 我们往组件中添加一个方法，
+            它会返回NgFor应该追踪的值。 在这里，这个值就是英雄的id。
+
+             <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
+                ({{hero.id}}) {{hero.name}}
+             </div>
+
+
+         NgSwitch - 一组指令，用于切换一组视图
+             <div [ngSwitch]="currentHero.emotion">
+             <happy-hero    *ngSwitchCase="'happy'"    [hero]="currentHero"></happy-hero>
+             <sad-hero      *ngSwitchCase="'sad'"      [hero]="currentHero"></sad-hero>
+             <confused-hero *ngSwitchCase="'confused'" [hero]="currentHero"></confused-hero>
+             <unknown-hero  *ngSwitchDefault           [hero]="currentHero"></unknown-hero>
+             </div>
+          绑定到[ngSwitch]。如果试图用*ngSwitch的形式使用它就会报错，这是因为NgSwitch是一个属性型指令，而不是结构型指令。
+          它要修改的是所在元素的行为，而不会直接接触DOM结构。
+
+          绑定到*ngSwitchCase和*ngSwitchDefault NgSwitchCase 和 NgSwitchDefault 指令都是结构型指令，
+          因为它们会从DOM中添加或移除元素。
+
+      13.模板引用变量 ( #var )
+          我们也可以用ref-前缀代替#。 下面的例子中就用把fax变量声明成了ref-fax而不是#fax。
+          <input ref-fax placeholder="fax number">
+           <button (click)="callFax(fax.value)">Fax</button>
+
+
+      14.输入输出属性 ( @Input 和 @Output )所有组件皆为指令。
+         访问目标指令中的成员则受到限制。 只能绑定到那些显式标记为输入或输出的属性。
+         @Input()  hero: Hero;
+         @Output() deleteRequest = new EventEmitter<Hero>();
+         另外，还可以在指令元数据的inputs或outputs数组中标记出这些成员。比如这个例子：
+         //既可以通过装饰器，也可以通过元数据数组来指定输入/输出属性。但别同时用！
+         @Component({
+            inputs: ['hero'],
+            outputs: ['deleteRequest'],
+         })
+         从HeroDetailComponent角度来看，HeroDetailComponent.hero是个输入属性， 因为数据流从模板绑定表达式流入那个属性。
+
+        从HeroDetailComponent角度来看，HeroDetailComponent.deleteRequest是个输出属性，
+        因为事件从那个属性流出，流向模板绑定语句中的处理器。
+
+        把别名传进@Input/@Output装饰器，就可以为属性指定别名，就像这样：
+        @Output('myClick') clicks = new EventEmitter<string>();
+
+        也可在inputs和outputs数组中为属性指定别名。 可以写一个冒号 (:) 分隔的字符串，
+         左侧是指令中的属性名，右侧则是公开的别名。
+         @Directive({
+           outputs: ['clicks:myClick']  // propertyName:alias
+          })
+
+
+      14.管道操作符 ( | )
+         <div>Title through uppercase pipe: {{title | uppercase}}</div>
+         管道串联表达式：
+          {{title | uppercase | lowercase}}
+         还能对它们使用参数
+          <div>Birthdate: {{currentHero?.birthdate | date:'longDate'}}</div>
+         json管道对调试绑定特别有用：
+          <div>{{currentHero | json}}</div>
+
+      15.安全导航操作符 ( ?. ) 和空属性路径
+          保护视图渲染器，让它免于失败。
+           The current hero's name is {{currentHero?.name}}
+
+           或者可以尝试通过&&来把属性路径的各部分串起来，让它在遇到第一个空值的时候，就返回空。
+           The null hero's name is {{nullHero && nullHero.name}}
+
+
+
+九.风格指南。
+
+十.词汇表
+   预 (ahead-of-time, AoT) 编译
+   Angular模块
+   注解（Annotation）
+   属性型指令 (attribute directive)
+   封装桶 (barrel)
+   绑定 (binding)
+   启动/引导 (bootstrap)
+   驼峰式命名法 (camelCase)
+   组件 (component)
+   中线命名法 (dash-case)
+   数据绑定 (data binding)
+   装饰器 (decorator | decoration)
+   依赖注入 (dependency injection)
+   指令 (directive)
+   ECMAScript
+   注入器 (injector)
+   插值表达式 (interpolation)
+   即时 (just-in-time, JiT) 编译
+   烤串命名法 (kebab-case)
+   生命周期钩子 (lifecycle hook)
+   模块 (module)
+   可观察对象 (observable)
+   输出属性 (output)
+   Pascal 命名法 (PascalCase)
+   管道 (pipe)
+   提供商 (provider)
+   响应式表单 (reactive forms)
+   路由器 (router)
+   路由器模块 (router module)
+   路由组件 (routing component)
+   范围化包 (scoped package)
+   服务 (service)
+   蛇形命名法
+   Structural directives
+   模板 (template)
+   模板驱动表单 (template-driven forms)
+   模板表达式 (template expression)
+   转译（transpile)
+   TypeScript
+   视图 (view)
+   区域 (zo
+
+单词：
+declarations：声明
+exports：出口
+imports：进口
+providers：供应商
+bootstrap：自举，引导程序
+injector：注射器;喷嘴
+touched：接触，触摸
+dirty：变脏，污染
+valid：有效的
+pristine：原始的

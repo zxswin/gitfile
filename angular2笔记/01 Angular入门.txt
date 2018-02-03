@@ -1,0 +1,122 @@
+内容纲要
+一.Angular历史八卦
+   1.迭代之路
+     -12年06月,AngularJS1.0.0正式版推出
+     .亮点功能基本齐备,如双向绑定,依赖注入,指令等。
+    -AngularJS 1.3.x放弃支持IE8浏览器
+     .推出了单次绑定语法
+    -AngularJS 1.5.x增加类似组件式书写体验
+     .主要是为过度Angular2做铺垫。
+   2.AngularJS 1.x的困境
+     -饱受诟病的性能问题
+     -落后与当前Web发展理念(如组件开发方式)
+     -对手机端支持不够友好
+   3.Angular2萌生
+     -早在2014年3月,官方博客就有提及新Angular的开发计划
+     -2014年9月下旬的NG-Europe大会上
+       Angular2正式亮相
+     -2016年9月15号,Angular2正式版本发布了。
+     -Angular2迁移。
+      Angular2并不能向下兼容Angular1
+   4.Angular2新特性
+     -移除controller+$scope设计,改用组件式开发(更容易上手)
+     -性能更好(渲染更快,变化监测效率更高)
+     -优先为移动应用设计(Angular Mobile Toolkit)
+     -更加贴合未来的标准(如ES6/7,WebComponent)
+   5.无缝升级方案-UpgradeAdapter
+     -adapter
+二.Angular2核心概念
+   1.八大核心
+     -模块Modules
+     -组件Components
+     -元数据Metadata
+     -模板Templates
+     -数据绑定Data binding
+     -服务Services
+     -指令Directives Injection
+     -依赖注入Dependency
+     -模块Modules
+
+   2.全生命周期支持
+     -Constructor  构造器初始化
+     -OnChanges 第一次触发数据变化钩子
+     -OnInit  组件初始化
+     -OnChanges 运行期间触发数据变化钩子
+     -OnDestroy 组件销毁前
+
+   3.一个示例
+     @Component({//装饰器
+         //元数据
+         selector:'hello',
+         template:'<p>{{greeting}}</p>'//模板,templateUrl:"path/to/hello.html",插值(interpolation)
+
+     });
+     export class HelloComponent{//组件类
+        private greeting:string;
+        constructor(){
+            this.greeting='Hello,Angular 2!'
+        };
+     };
+   4.数据绑定
+     -属性绑定-"[value]"
+       <input [value]="myData"/>
+     -事件绑定-"(keyup)"
+       <input (keyup)="handle($event)"/>
+     -双向绑定-"[(ngModel)]"
+       <input [(ngModel)]="myData"/>
+
+   5.指令
+     -示例
+      template:"<p [style.color]="textColor">{greeting}</p>
+    6.服务于依赖注入
+      -服务是实现专一目的逻辑单元,如日志服务
+      -依赖注入是主机引入外部构建(如服务)的一种机制
+        providers:[LoggerService]//依赖注入的配置
+        constructor(logger:loggerService){};//自动传入 LoggerService实例
+
+   6.模块
+     -文件模块使用
+     import{Http} from "@angular/http"
+     -应用模块
+      .declarations包装组件或指令等
+      .providers依赖注入
+      .imports:导入其他模块
+      .bootstrap:设置根组件
+      .export:带入组件或指令
+
+三.Angular2快速上手
+   1.开发环境准备
+     -Node.js
+      推荐使用6.0以上的版本
+     -webpack
+      npm install -g webpack
+     -开发IDE工具(VS Code)
+      微软推出的免费跨平台的编辑器,支持TypeScript语法高亮及提升
+
+   2.Hello Angular2快速上手
+     1.简单文案展示
+     2.内置指令使用(ngIf)
+     3.自定义指令使用(HighlightDirective)
+     4.日志服务的使用(LoggerService)
+     5.父子组件通信示例
+     6.项目地址：
+       https://github.com/lizhonghui/angular2-demo
+     7.推荐使用：http://www.vscode.org/#download(VCode编辑器)
+
+
+adapter：适配器
+Modules:模块
+Components:组件
+Metadata:元数据
+Templates:模板
+binding:捆绑
+Services:服务
+directive:指令
+Dependency:从属
+Injection:注射器
+Modules:模块
+contact：通讯
+Constructor:构造函数
+interpolation:插值
+declarations：声明
+pack:包裹

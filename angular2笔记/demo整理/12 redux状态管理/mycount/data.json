@@ -1,0 +1,29 @@
+{
+  "data": [
+    {
+      "name": "小明",
+      "age": "20",
+      "state": false
+    },
+    {
+      "name": "小花",
+      "age": "21",
+      "state": false
+    },
+    {
+      "name": "小李",
+      "age": "22",
+      "state": true
+    },
+    {
+      "name": "小林",
+      "age": "23",
+      "state": false
+    },
+    {
+      "name": "小青",
+      "age": "24",
+      "state": false
+    }
+  ]
+}

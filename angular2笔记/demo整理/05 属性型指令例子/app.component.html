@@ -1,0 +1,12 @@
+<h1>{{title}}</h1>
+<h2>点击可改变鼠标悬停的颜色</h2>
+<div>
+  <input type="radio" name="colors" (click)="color='lightgreen'">Green
+  <input type="radio" name="colors" (click)="color='yellow'">Yellow
+  <input type="radio" name="colors" (click)="color='cyan'">Cyan
+</div>
+
+<p [myHighlight]="color">鼠标悬停改变背景色</p>
+<p [myHighlight]="color" defaultColor="violet">
+  鼠标悬停改变背景色(使用了默认颜色)
+</p>
