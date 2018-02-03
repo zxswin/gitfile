@@ -1,0 +1,522 @@
+
+一，选择题：
+1、函数返回的类型
+    //数组和类数组都会返回object;
+   (function(){
+      return typeof arguments;
+   })();
+
+2、非标准的函数写法
+   var f=function g(){
+      return 23;
+   };
+   typeof g();//非标准，返回Error
+
+3、delete是不能删除参数的
+   (function(x){
+      delete x;//不能删除参数，还是会返回1
+      return x;
+   })(1);
+
+4、赋值运算是从右往左，typeof 返回的是字符串
+   //x的值是"undefined";
+   var y=1,x=y=typeof x;
+   x;
+
+4、typeof为number
+   (function f(f){
+     return typeof f();
+   }(function(){return 1;}));
+
+5、this指向问题
+  //答案是'undefined'
+   var foo={
+      bar : function(){return this.baz;},
+      baz:1
+   };
+   (function()){
+      return typeof arguments[0]();
+   }(foo.bar);
+
+6、分组选择符
+var a=(1,2,3);
+alert(a);//弹出了3
+
+
+7、函数声明是不允许写在运算符中的。
+
+   var x=1;
+   if(function f(){}){//真，会执行里面的函数
+     x+=typeof f;
+   }
+   x:'1undefined'
+
+8、typeof 必然是返回字符串类型
+
+    var x=[typeof x,typeof y][1];
+    typeof typeof x;//返回'string';
+
+9、不会找到foo下面的bar
+   //答案：'undefined';
+   (function(foo){
+   return typeof foo.bar;
+   })({foo:{bar:1}});
+
+10,最后一个执行，返回的是2
+   (function f(){
+      function f(){ return 1;}
+      return f();
+      function f(){return 2};
+   })();
+
+
+11、构造函数中return的结果会覆盖掉它
+    function f(){return f;}
+    new f() instanceof f;//false;
+
+12、length是表示了函数的参数个数
+
+    //函数的参数个数是3
+    function test(num1,num2,num3){
+    };
+    alert(test.length);
+
+    with(function(x,undefined){})  length;
+
+
+二、笔试题(函数运行结果部分)
+    1.外层的变量，内层可以找到(全局)，内层的变量，外层找不到(局部)
+        //全局变量与局部变量
+             var a=10;
+             function aaa(){
+                 alert(a);
+             };//只能找到内部的全局a,找不到外部的。
+
+             function bbb(){
+                 var a=20;
+                 aaa();
+             };
+
+    2.当var不加的时候，会自动生成全局的变量（不建议这样写，最好把所有要定义的变量加上var）
+        //全局变量与局部变量
+        function aaa(){
+           var a=b=10;
+        };
+        alert(a);//找不到
+        alert(b);//10;
+
+
+    3.变量的查找时就近原则去查找的，var定义的变量，当就近没有找到的话就，查找外层。
+        var a=10;
+        function aaa(){
+           alert(a);//undefined;
+           var a=20;
+        };
+        aaa();
+        //有一个称之为预解析的过程
+        var a;
+        alert(a);
+        a=20;
+
+        //再来一个例子
+        var a=10;
+
+        function aaa(){
+           bbb();
+           alert(a);
+
+           function bbb(){
+               var a=20;
+           };
+        };
+        aaa();//10
+
+    4.当参数跟局部变量重名的时候，优先级是等同的。
+    5、参数和局部变量的概念是一样的，也是找不到的。
+       var a=10;
+       function aaa(a){
+          a+=3;
+       };
+       aaa(a);
+       alert(a);
+
+
+三、笔试题（问答题）
+
+    1.写一个字符串转成驼峰的方法
+    -例如：border-bottom-color->borderBottomColor;
+
+      //普通的解法
+      var str = 'border-bottom-color';
+            function test(str){
+                var arr=str.split('-');//字符串分割成数组[border,bottom,color];
+                for(var i= 1;i<arr.length;i++){
+                    arr[i]=arr[i].charAt(0).toUpperCase()+arr[i].substring(1);//[border,Botttom,Color]
+                };
+                return arr.join('');
+
+            };
+            alert(test(str));
+
+        //使用正则的解发
+              var str = 'border-bottom-color';
+              function test(str){
+                  var re=/-(\w)/g;
+                  return str.replace(re,function($0,$1){
+                      //$0表示整体正则
+                      //$1表示第一个子项，即是用括号括起来的那个。
+                      return $1.toUpperCase();
+                  });
+              };
+              alert(test(str));
+
+
+    2、查找字符串中出现最多的字符和个数
+       -例如：sdiksfssscfssdd->字符最多的是s，出现了7次；
+
+       //普通解法
+        var str='sdjksfsscfssdd';
+               function test(str){
+                   var obj={};
+                   var num=0;
+                   var value='';
+
+                   for(var i=0;i<str.length;i++){
+                       if(!obj[str[i]]){
+                           obj[str[i]]=[];
+                       };
+                       obj[str[i]].push(str[i]);
+                   };
+                   for(var attr in obj){
+                       if(num<obj[attr].length){
+                           num=obj[attr].length;
+                           value=obj[attr][0];
+                       };
+                   };
+                   return '最多的字符是：'+value+',出现了：'+num;
+               };
+               alert(test(str));
+
+               //使用正则的解法
+                var str='sdjksfsscfssdd';
+                       function test(str){
+                           var arr=str.split('');
+                           arr.sort();//对数组进行排序
+                           str=arr.join('');
+
+                           var re=/(\w)\1+/g;//  \1表示和前面的一样，+表示1个或者多个，g表示全局匹配
+                           var num=0;
+                           var value=0;
+
+                           str.replace(re,function($0,$1){
+                               if(num<$0.length){
+                                   num=$0.length;//$0表示匹配的整体
+                                   value=$1;//$1表示子项
+                               };
+                           });
+
+                           return '最多的字符是：'+value+',出现了：'+num+'str'+str;
+                       };
+
+                       alert(test(str));
+
+
+
+    4.如何给字符串加千分符：
+
+
+        var str='883562123761';
+
+        function test(str){
+            var iNum=str.length%3;
+            var prev='';
+            var arr=[];
+            var iNow=0;
+            var tmp='';
+
+            if(iNum!=0){
+                prev=str.substring(0,iNum);
+                arr.push(prev);
+            };
+
+            str=str.substring(iNum);
+            for(var i=0;i<str.length;i++){
+                iNow++;
+                tmp+=str[i];
+
+                if(iNow==3&&tmp){
+                    arr.push(tmp);
+                    tmp='';
+                    iNow=0;
+                };
+            };
+            return arr.join(',');
+        };
+
+        alert(test(str));
+
+        //前向声明和反前向声明
+        //(?=):前向声明
+        //(?!):反前向声明
+
+        var str='abacad';
+        var re=/a(?!b)/g;
+        str=str.replace(re,'*');
+
+        alert(str);
+
+        //正则解法
+      var str='883562123761';
+      function test(str){
+          var re=/(?=(?!\b)(\d{3})+$)/g
+          return str.replace(re,',');
+      };
+      alert(test(str));
+
+    //正则表达式知识点
+    \b:表示独立部分，比如开始、结束、空格部分
+    (?=):前向声明
+    (?!):反前向声明
+     \1表示和前面的一样，+表示1个或者多个，g表示全局匹配
+     $0表示匹配的整体
+     $1表示子项
+
+
+四、限制条件补全代码
+
+    1.题目一：a b 两个变量 不用第三个变量来切换两个变量值
+    var a=5;
+    var b=6;
+
+    a=a+b;
+    b=a-b;
+    a=a-b;
+
+    alert(a);
+    alert(b);
+
+    //适用性更广的做法
+    var a='hello';
+    var b='hi';
+
+    a=[a,b];//利用了数组
+    b=a[0];
+    a=a[1];
+
+    alert(a);
+    alert(b);
+
+
+
+    2.题目二：有一个数n=5,不用for循环，怎么返回[1,2,3,4,5]这样一个数组
+              //可以利用递归来实现
+              function show(n){
+                        var arr=[];
+                        return (function(){
+                            arr.unshift(n);
+                            n--;
+                            if(n!=0){
+                                arguments.callee();
+                            };
+                            return arr;
+                        })();
+                    };
+
+                    alert(show(5));
+              //利用正则去实现
+                    var n=5;
+                      function show(n){
+                          var arr=[];
+                          arr.length=n+1;
+                          var str=arr.join('a');
+                          var arr2=[];
+                          str.replace(/a/g,function(){
+                              arr2.unshift(n--);
+                          });
+                          return arr2;
+                      };
+
+                      alert(show(n));
+
+    3.题目三：一个数n,当n小于100就返回n,否则就返回100;
+    不让用if else  ?: swich Math   []  for (while do while) {} for in
+
+    //使用if else;
+      var n=150;
+        function show(n){
+            if(n<100){
+                return n;
+            }else{
+                return 100;
+            };
+        }
+        alert(show(n));
+
+    //使用for
+      var n=50;
+            function show(n){
+                var m=''+n;
+                for(var i=2;i< m.length&&n>0;i++){
+                    return 100;
+                };
+                return n;
+            };
+            alert(show(n))
+
+      //使用switch
+         var n=50;
+              function show(n){
+                 switch(n<100){
+                     case true:
+                         return n;
+                     break;
+                     case false:
+                         return 100;
+                     break;
+                 };
+              }
+              alert(show(n));
+
+      //使用Math.min()
+      return Math.min(n,100);
+
+      //使用数组arr[];
+       var n=150;
+              function show(n){
+                  var arr=[n,100];
+                  arr.sort(function(n1,n2){
+                      return n1-n2;
+                  });
+                  return arr[0];
+
+              }
+              alert(show(n));
+    //使用json:
+       var n=50;
+            function show(n){
+               var json={name:'hello'};
+                var m=n<100||json;
+                for(var attr in m){
+                    return 100;
+                };
+                return n;
+
+            }
+            alert(show(n));
+    //使用||
+       var n=150;
+            function show(n){
+               var m=n>=100&&100;
+               return m=m||n;
+            }
+            alert(show(n));
+
+
+四、算法题：
+    1.裴波那契数列 1,1,2,3,5,8,13,21
+
+    //第一种解法
+      function aaa(n){
+                if(n<=2){
+                    return 1;
+                };
+                return aaa(n-1) + aaa(n-2);
+            };
+            alert(aaa(8));
+
+
+      //第二种解法
+      function aaa(n){
+                  var num1=1;
+                  var num2=1;
+                  var num3=0;
+
+                  for(var i=0;i<n-2;i++){
+                      num3=num1+num2;
+                      num1=num2;
+                      num2=num3;
+                  };
+                  return num3;
+              };
+              alert(aaa(8))
+
+    2、数组排序
+       //冒泡排序
+             function aaa(arr){
+                   for(var i=0;i<arr.length;i++){
+                       for(var j=0;j<arr.length-i;j++){
+                           toCon(j,j+1);
+                       }
+                   };
+
+                   function toCon(prev,next){
+                       var tmp='';
+                       if(arr[prev]>arr[next]){
+                           tmp=arr[prev];
+                           arr[prev]=arr[next];
+                           arr[next]=tmp;
+                       };
+                   };
+                   return arr;
+               };
+               alert(aaa([3,2,5,1,4]));
+
+       //选择排序
+        function aaa(arr){
+                   if(arr.length==1){
+                       return arr;
+                   };
+                   var iMin=arr[0];
+                   var iIndex=0;
+
+                   for(var i=0;i<arr.length;i++){
+                       if(arr[i]<iMin){
+                           iMin=arr[i];
+                           iIndex=i;
+                       };
+                   };
+                   var prev=arr.splice(iIndex,1);
+                   return prev.concat(aaa(arr));
+               };
+               alert(aaa([3,2,5,1,4]))
+
+        4.数组去重
+
+           //普通方法
+           function aaa(arr){
+                    var result=[arr[0]];
+                    for(var i=0;i<arr.length;i++){
+                        if(toCon(arr[i])){
+                            result.push(arr[i]);
+                        };
+                    };
+
+                    function toCon(val){
+                        for(var i=0;i<result.length;i++){
+                            if(result[i]==val){
+                                return false;
+                            };
+                        };
+                        return true;
+                    };
+                    return result;
+                };
+                alert(aaa([3,2,5,1,4,3,4,5]))
+
+           //json方法
+            function aaa(arr){
+                       var result=[];
+                       var obj={};
+
+                       for(var i=0;i<arr.length;i++){
+                           if(!obj[arr[i]]){
+                               result.push(arr[i]);
+                               obj[arr[i]]=1;
+                           };
+                       };
+                       return result;
+                   };
+
+                   alert(aaa([3,2,5,1,4,3,4,5]));
+
+
