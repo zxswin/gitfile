@@ -1,0 +1,562 @@
+一.课程内容介绍
+   1.学习TypeScript的好处
+   2.安装TypeScript开发环境
+   3.TypeScript概念,语法和特效介绍
+
+二.前置知识
+   1.理解ES5,ES6,JavaScript,TypeScript的概念和关系
+   2.有基础的javaScript开发经验。
+三.TypeScript的优势
+   1.支持ES6规范
+   2.强大的IDE支持
+   3.Angular2的开发语言
+
+四.搭建TypeScript开发环境
+   1.什么是compliler?为什么需要compiler?
+     -转换为javascript,才可以在浏览器中跑
+   2.使用在线compiler开发
+     typescript官方网站：http://www.typescriptlang.org/
+     -点击playground在线编译
+   3.使用本地compiler开发
+     -使用npm进行安装
+     -npm --version//查看版本号
+     -npm install -g typescript//在线安装
+     -tsc --version//查看tsc版本号
+     -tsc ts.ts//编译ts.ts文件
+
+   4.使用webstrom直接编译
+     -重装webstrom
+     -nodejs安装路径 D:\tool\nodejs\node.exe
+     -点击设置->enable
+五.字符串新特性
+   1.多行字符串,使用撇号,位于1左边的键
+       var c = `aaa
+       ccc
+       ccc
+       ddd`;
+   2.字符串模板
+     -变量使用${变量名/方法};
+     var myname="zhai liang";
+     var getName=function(){
+        return "zhai liang";
+     };
+     console.log(`hello ${myname}`);
+
+   3.自动拆分字符串
+   function test(template,name,age){
+       console.log(template);
+       console.log(name);
+       console.log(age);
+    };
+    var myname="zhai liang";
+    var getAge=function(){
+        return 18;
+    }
+    test`hello my name is ${myname},i am ${getAge()}` ;
+    //最终结果
+    Array[3]//第一个参数template
+       0: "hello my name is "
+       1: ",i am "
+       2: ""
+    zhai liang//第二个参数 myname
+    18//第三个参数 getAge;
+
+六.参数新特性
+   1.参数类型：
+     -在参数名称后面使用冒号来指定参数的类型
+     var myname:string="zhai liang";
+     var alias:any="xixi";//可以是任何类型
+     var age:number=13;
+     var man:boolean=true;
+     function test(name:string):void{
+     //:void表示不需要任何返回值
+     }
+      function test(name:string):string{
+          //string表示字符串
+      }
+   2.自定义类型
+    class Person{
+       name:string;
+       age:number;
+    }
+    var zhangsan:Person=new Person();
+    zhangsan.name="zhailiang";
+    zhangsan.age=18;
+
+    3.默认参数：
+     -在参数声明后面用等号来指定参数的默认值
+     var myname:string="zhai liang";
+
+     function test(a:string,b:string,c:string="jojo"){
+        //带默认参数的需要放在最后面
+         console.log(a);
+         console.log(b);
+         console.log(c);
+     }
+     test('xxx','yyy','zzz');
+     test('xxx','yyy');
+
+    4. 可选参数：
+       -在方法的参数声明后面用问号来标明此参数为可选参数。
+       function test(a:string,b?:string,c:string="jojo"){
+           //可选参数必须声明在必选参数之后
+           console.log(a);
+           console.log(b.length);
+           console.log(c);
+       };
+       test('xxx');
+
+    5.Rest and Spread操作符
+      -用来声明任意数量的方法和属性
+      function func1(...args){
+          args.forEach(function(arg){
+             console.log(arg);
+          });
+      };
+      func1(1,2,3);
+      func1(7,8,9,10,11,12);
+
+      //反过来的用法,只有最新是支持的
+      function func1(a,b,c){
+         console.log(a);
+         console.log(b);
+         console.log(c);
+      }
+      var args=[1,2];
+      func1(...args);
+      var arg2=[7,8,9,10,11];
+      func1(...arg2);
+
+    6.generator函数
+      -控制函数的执行过程,手工暂停和恢复代码执行
+      -另一个编辑器：babel
+      http://babeljs.cn/
+      -是一个类似于设置断点这样的一个操作
+      function* doSomething(){
+          console.log('start');
+          yield;//断点
+          console.log('finish');
+      };
+      var func1=doSomething();
+      func1.next();
+      func1.next();
+
+      //获取最低的股票价格并买入的例子
+      function* getStockPrice(stock){
+         while(true){
+           yield Math.random()*100;
+         };
+      };
+      var priceGenerator=getStockPrice("IBM");
+      var limitPrice=15;
+      var price=100;
+
+      while(price>limitPrice){
+         price=priceGenerator.next().value;
+         console.log(`the generator return ${price}`);
+      }
+      console.log(`the generator return ${price}`);
+    7.destructuring析构表达式：
+      -通过表达式将对象或数组拆解成任意数量的变量
+      function getStock(){
+         return {
+            code:"IBM",
+            price:100
+         }
+      };
+      var {code,price}=getStock();
+      console.log(code);
+      console.log(price);
+
+      //获取嵌套对象里的某一个属性
+      function getStock(){
+          return {
+             code:"IBM",
+             price:{
+                price1:200,
+                price2:400
+             }
+          }
+      };
+      var {code:codex,price:{price2}}=getStock();
+      console.log(codex);
+      console.log(price2);
+      //析构表单式解析数组
+      var array1=[1,2,3,4];
+      var [number1,,,number2]=array1;
+      console.log(number1);
+      console.log(number2);
+
+      //析构表达式和rest操作符一使用
+      var array1=[1,2,3,4];
+      var [number1,number2,...others]=array1;
+
+      console.log(number1);
+      console.log(number2);
+      console.log(others);//[3,4]的数组
+
+      //析构表达式与函数结合
+      var array1=[1,2,3,4];
+      function doSomething([number1,number2,...others]){
+         console.log(number1);
+         console.log(number2);
+         console.log(others);
+      };
+      doSomething(array1);
+
+
+七.表达式和循环
+   1.箭头表达式：
+     -用来声明匿名函数,消除传统匿名函数的this指针问题。
+     var sum=(arg1,arg2)=>arg1+arg2;
+     //声明一个匿名方法
+     var sum=()=>{
+     };
+     //当只有一个参数的时候(是不需要写括号的...)
+     var sum=arg1=>{
+        console.log(arg1);
+     }
+     //filter()函数结合使用
+     var myArray=[1,2,3,4,5];
+     console.log(myArray.filter(value=>value%2==0));
+
+     var numArr = [1, 2, 3, 4, 5, 6, 7];
+     console.log(numArr.filter(function (value) {
+         return value % 2 == 0;
+     }));
+
+     //在传统的es5中this的问题
+     function getStock(name:string){
+         this.name=name;
+          setInterval(function(){
+             console.log("name is:"+this.name);//空值
+          },1000);
+     };
+
+     var stock=new getStock('IBM');
+
+     //ES6指向写法维持this指向
+       function getStock(name:string){
+              this.name=name;
+               setInterval(()=>{
+                  console.log("name is:"+this.name);//'IBM'
+               },1000);
+          };
+
+          var stock=new getStock('IBM');
+      2.forEach(),for in 和for of;
+        -forEach()不支持中断循环,会忽略属性值
+        var myArray=[1,2,3,4];
+        myArray.desc="four number";
+        myArray.forEach(value=>console.log(value));
+        -for in 循环
+        var myArray=[1,2,3,4];
+        myArray.desc="four number";
+
+        for (var n in myArray){
+           console.log(myArray[n]);
+        };
+        -for of循环是可以中途被打断的
+         var myArray=[1,2,3,4];
+                myArray.desc="four number";
+
+                for (var n of myArray){
+                   if(n>2) break;
+                   console.log(n);
+                };
+          //打印字符串的每一个值
+          for (var n of "four number"){
+             console.log(n);
+          }
+
+
+八.面向对象特性。
+   1.类(Class)
+   类是TypeScript的核心,使用TypeScript开发时,大部分代码都是写在类里面的。
+   这里会介绍类的定义,构造函数，以及类的继承。
+   class Person{
+      //constructor:实例化时候被调用一次,在外部是不可以被访问的
+      constructor(){
+         console.log('haha');
+      };
+      name;
+      eat(){
+         console.log(this.name);
+      };
+   };
+   var p1=new Person();
+   p1.name="batman";
+   p1.eat();
+
+   var p2=new Person();
+   p2.name="superman";
+   p2.eat();
+   console.log(p2.eat()==p1.eat());//来自同一个引用地址
+
+   //constructor
+  class Person{
+
+       constructor(public name:string){
+       };
+       eat(){
+          console.log(this.name);
+       }
+     };
+     var p1=new Person('batman');
+     p1.eat();
+     var p2=new Person('superman');
+     p2.eat();
+
+     //类的继承extends
+     class Employee extends Person {
+         code:string;
+         work(){
+
+         };
+     };
+     var e1=new Employee('name');
+     e1.eat();
+
+     //super用来调用父类的构造方法
+     class Employee extends Person{
+         constructor(name:string,code:string){
+            super(name);//调用了父类的构造方法
+            this.code=code;
+         };
+         code:string;
+         work(){
+            super.eat();//调用了父类的方法
+            this.doWork();
+         };
+         //私有化doWork不能在外部调用
+         private doWork(){
+            console.log("i am working");
+         };
+     };
+     var e1=new Employee("name","1")
+     e1.work();
+   2.泛型(generic)
+     -参数化的类型,一般用类限制集合的内容。
+     var workers:Array<Person>=[];//尖括号里表示只能放Person类型的数据
+     workers[0]=new Person("zhangsan");
+     workers[1]=new Employee('lise','2')
+     workers[2]=2;//报错,不是Person类型。
+
+  3.接口(Interface)
+    用来建立某种代码约定,使得其他开发者在调用某个方法或创建新的类时必须遵循接口
+    所定义的代码约定
+    interface IPerson{
+       name:string;
+       age:number;
+    };
+    class Person{
+       constructor(public config:IPerson){
+       };
+    };
+    var p1=new Person({//多传或少传都会报错
+        name:"zhangsan",
+        age:18
+    });
+    //第二种实现接口
+    interface Animal{
+       eat();
+    };
+    class Sheep implements Animal{
+        eat(){
+           console.log("i eat grass");//实现了这个接口方法
+        }
+    };
+
+     class Tiger implements Animal{
+            eat(){
+               console.log("i eat meat");//实现了这个接口方法
+            }
+        };
+        var n1 = new Sheep();
+            n1.eat();
+
+  4.模块(Module)
+    -模块可以帮助开发者将代码分割为可重用的单元.开发者可以自己决定将模块中的那些资源(类,方法，变量)暴露出去供
+    外部使用,那些资源只在模块内使用
+    //export对外暴露一些东西
+    //import引入外部的一些东西
+    import{prop1,func1,Clazz1} from "./a";
+    console.log(prop1);
+    func1();
+    new Clazz1();
+    export function func3(){};
+
+  5.注解(annotation)
+    -注解为程序的元素(类,方法,变量)加上更直观更明了的说明,这些说明信息与程序的业务逻辑无关
+    而是指定的工具或框架使用的。
+    //angular2框架为例子
+    import {Component} from '@angular/core';
+    @Component({//注解用来告诉框架,当调用一个类的时候要去做什么
+         selector:'app-root',
+         templateUrl:'./app.component.html',
+         styleUrls:['./app.component.css']
+    });
+    export class AppComponent{
+       title='app works';
+    }
+  6.类型定义文件(*.d.ts);
+    -类型定义文件用来帮助开发者在TypeScript中使用已有的JavaScript的工具包
+    如：JQuery;
+    //jquery的类型定义文件下载
+    https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/jquery
+
+
+九：一些补充
+1.TypeScript 中数组使用“[]”来声明,代码如下:
+var list: number[] = [1, 2, 3];
+var name: string[] = ["阿龙","阿猫","阿狗"];
+//可以通过下标去访问
+var list: number[] = [1, 2, 3];
+alert(list[0]));
+
+2.我们也可以定义任意类型的数组,关键字为Array.
+var arr:Array = [1,2,3,"a","b","c"]; // 任意类型数组
+alert(arr[1]);
+
+3.enum枚举类型
+enum Color {
+  Red,　　　//枚举元素列表
+  Green,
+  Blue
+};
+var c: Color = Color.Green;
+上面 Red 的值就是 0，然后每一项都增加一，即 Green 是 1，Blue 是 2
+
+4.any类型
+和 JavaScript 中变量的默认类型一样，指代是动态的,能够赋予任意类型
+var notSure: any = 4;
+notSure = "maybe a string instead";
+notSure = false;  // 定义为boolen型
+//和数组配合使用
+var list: any[] = [1, true, "free"];
+list[1] = 100; //更改list[1]的值
+
+5.void
+将函数的返回类型指定为 void，表示该函数不返回任何值。代码如下:
+function warnUser(): void {
+  alert("This is my warning message");
+}
+
+6.定义返回值为number类型的函数
+function add(x: number, y: number): number {
+    return x+y;
+}
+add(5,6);
+
+7.可选参数
+冒号前面添加一个问号，则表明该参数是可选的
+function buildName(firstName: string, lastName?: string) { //lastName为可选参数
+  if (lastName)
+      return firstName + " " + lastName;
+  else
+      return firstName;
+}
+var result1 = buildName("Bob");  //正确调用 Bob
+var result2 = buildName("Bob", "Adams"); //正确调用 Bob Adams
+
+8.默认参数
+在参数名后直接给定一个值，如果这个值没有被传入，那么将会被赋值为默认值。
+function buildName(firstName: string, lastName = "Smith") {
+  return firstName + " " + lastName;
+}
+var result1 = buildName("Bob");  //没有传入第二个参数，则被赋值为默认的smith,结果为:Bob Smith
+var result2 = buildName("Bob", "Adams");  //结果为:Bob Adams
+
+9.class类
+class 类名{
+  name:string;  //定义类的属性
+ 
+  fun(){ //定义类的方法
+           //定义该方法所要实现的功能
+  }
+}
+
+10.静态属性
+class calc{
+  static count=10;
+  add(data1:number):number{
+    var sum=calc.count+data1;
+    return sum;
+  }
+}
+var test=new calc();
+document.write(test.add(20));
+//类成员的静态属性我们可以直接调用,调用方式为如上例的count的调用方式：
+calc.count。而不能用this.count在类的内部使用。
+
+11.构造函数constructor来实现
+class student{  //定义student类
+  name:string;  //定义类的属性
+  constructor(myname:string){ //定义构造函数
+      this.name=myname;
+  }
+  study(){ //定义类的方法
+           //定义该方法所要实现的功能
+  }
+}
+可以通过this关键字来访问当前类体中的属性和方法。
+
+12.类的实例化
+class student{  //定义student类
+  name:string;  //定义类的属性
+  constructor(myname:string){ //定义带参数的构造函数
+      this.name=myname;
+  }
+   study(){ //定义类的方法
+      document.write("<h1> My name is "+this.name+".</h1>");
+  }
+   write():string{
+           return "write name:"+this.name;
+  }
+}
+var s1=new student("Jim");
+document.write("<h1>"+s1.name+"</h1>"); //获取name属性
+s1.study();   // 调用study方法  
+document.write("<h1>"+s1.write()+"</h1>");
+
+3.模块的声明
+module Validation {   //定义模块
+  export interface StringValidator {  //声明接口对外部可以使用
+    isAcceptable(s: string): boolean;
+  }
+ 
+  var lettersRegexp = /^[A-Za-z]+$/;
+  var numberRegexp = /^[0-9]+$/;
+ 
+  export class LettersOnlyValidator implements StringValidator {  //声明类对外部可用
+    isAcceptable(s: string) {
+      return lettersRegexp.test(s);
+    }
+  }
+ 
+  export class ZipCodeValidator implements StringValidator {
+    isAcceptable(s: string) {
+      return s.length === 5 && numberRegexp.test(s);
+    }
+  }
+}
+
+调用模块中的接口、类、方法等。调用方法简单，就是用模块名后面跟一个点来调用类、接口、方法等。
+
+注：单词
+compiler：编译器
+rest：休息
+spread:展开,传播
+generator：发电机
+babel：嘈杂音
+yield:投降,退让,量产
+destructuring：解构
+generic 通用的
+Interface:接口
+implements：实现了
+export：出口,输出
+import：进口,输入
+annotation:注解
+enum:枚举
+void：无效
+
