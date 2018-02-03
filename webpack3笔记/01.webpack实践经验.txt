@@ -1,0 +1,904 @@
+>>>>>>>>>>>>>>>>>静态资源路径问题1<<<<<<<<<<<<<<<<<<
+静态资源路径问题：开发环境和生成环境资源引用路径分别配置
+开发环境：
+output: {
+    filename: 'bundle-[hash].js',
+    path:path.resolve(__dirname, 'dist'),
+    publicPath: '/'
+  },
+生产环境：
+output: {
+    filename: 'bundle-[hash].js',
+    path:path.resolve(__dirname, 'dist'),
+    publicPath:'/dist/'
+  },
+
+>>>>>>>>>>>>>>>>>js文件处理问题<<<<<<<<<<<<<<<<<<
+{
+        test: /\.(js|jsx)/,
+        use:[
+          'babel-loader'
+        ],
+        exclude:path.resolve(__dirname, 'node_modules')
+      },
+>>>>>>>>>>>>>>>>>less,sass,css样式转换问题<<<<<<<<<<<<<<<<<<
+  {
+    test: /\.less$/,
+    use: ExtractTextPlugin.extract({
+      fallback: 'style-loader',
+      use: [{
+          loader: 'css-loader',
+          options: { 
+            sourceMap: true, 
+            importLoaders: 1,
+            minimize: true,
+          }
+        }, 
+        {
+          loader: 'postcss-loader',
+          options: {
+            sourceMap: true,
+            ident: 'postcss',
+            plugins: [
+                require('autoprefixer')({
+                    broswers:['last 5 versions']
+                })
+              ]
+          }
+        },
+        {
+          loader: 'less-loader',
+          options: { sourceMap: true }
+        }
+      ]
+    })
+  }
+
+>>>>>>>>>>>>>>>>>图片等资源文件处理<<<<<<<<<<<<<<<<<<
+  {
+    test: /\.(png|jpg|jpeg|svg|gif)/,
+    loaders: [
+      'url-loader?sourceMap=true&limit=100&name=img/[name]-[hash:8].[ext]',
+      'image-webpack-loader'
+    ]
+  }
+
+>>>>>>>>>>>>>>>>>雪碧图合成问题<<<<<<<<<<<<<<<<<<
+1.cnpm i webpack-spritesmith -D  安装
+2.const SpritesmithPlugin = require('webpack-spritesmith'); 引入
+3.插件配置
+  new SpritesmithPlugin({
+    // 目标小图标
+    src: {
+        cwd: path.resolve(__dirname, './src/static/icon'),
+        glob: '*.png'
+    },
+    // 输出雪碧图文件及样式文件
+    target: {
+        image: path.resolve(__dirname, './src/static/sprites/sprite.png'),
+        css: path.resolve(__dirname, './src/static/sprites/sprite.css')
+    },
+    // 样式文件中调用雪碧图地址写法
+    apiOptions: {
+        cssImageRef: '../sprites/sprite.png'
+    },
+    spritesmithOptions: {
+        algorithm: 'top-down'
+    }
+  }),
+
+>>>>>>>>>>>>>>>>>js文件压缩问题<<<<<<<<<<<<<<<<<<
+1.webpack内置js压缩功能配置 去掉console.log
+new webpack.optimize.UglifyJsPlugin({  
+      compress: {  
+        warnings: false,  
+        drop_debugger: true,  
+        drop_console: true  
+      }  
+    }),
+2.完美压缩
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+new UglifyJSPlugin({
+      uglifyOptions: {
+        compress:{
+          warnings: false,  
+          drop_debugger: true,  
+          drop_console: true  
+        }
+      }
+    }),
+>>>>>>>>>>>>>>>>>pug编译工具安装<<<<<<<<<<<<<<<<<<
+1.安装支持pug依赖
+npm install pug pug-loader pug-filters -D
+2.安装支持jade依赖
+npm install jade jade-loader -D
+
+>>>>>>>>>>>>>>>>>TypeScript编译工具安装<<<<<<<<<<<<<<<<<<
+1.安装typescript
+npm i typescript -D
+2.安装ts-loader
+npm i ts-loader --save-dev
+3.tsconfig.json
+{
+    "compilerOptions": {
+        "outDir": "dist/app.js",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "target": "es5",
+        "jsx": "react",
+        "allowJs": true
+    },
+    "files": [
+        "src/App.ts"
+    ]
+}
+4.入口文件配置
+entry: ['babel-polyfill','./src/App.ts'],
+5.添加resolve.extensions来指示webpack在解析Typescript模块时使用什么文件扩展名
+resolve: {
+    extensions: [".tsx", ".ts", ".js"]
+  },
+6.sourceMap属性设置为true来完成内联源映射输出到我们编译的JavaScript文件
+7.您可以从@types存储库,安装第三方库定义。
+npm install --save-dev @types/lodash
+8.TypeScript加载程序创建了一个awesome-typescript-loader和ts-loader的加载器
+9.@Types 安装方式获取第三方插件类型定义文件,比如jquery
+cnpm i @types/jquery -S
+
+>>>>>>>>>>>>>>>>>ProvidePlugin<<<<<<<<<<<<<<<<<<
+1.使用ProvidePlugin加载的模块在使用时将不再需要import和require进行引入
+new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      'window.$':'jquery',
+      'window.jQuery':'jquery'
+    }),
+
+>>>>>>>>>>>>>>>>>bootstrap安装及引入<<<<<<<<<<<<<<<<<<
+1.安装bootstrap
+cnpm i bootstrap -S
+2.js在页面中引入
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+3.webpack.config.js中配置
+{
+  test: /\.(less|css)$/,
+  use: ExtractTextPlugin.extract({
+    fallback: 'style-loader',
+    use: [{
+        loader: 'css-loader',
+        options: { 
+          sourceMap: true, 
+          importLoaders: 1,
+          minimize: true,
+        }
+      }, 
+      {
+        loader: 'postcss-loader',
+        options: {
+          sourceMap: true,
+          ident: 'postcss',
+          plugins: [
+              require('autoprefixer')({
+                  broswers:['last 5 versions']
+              })
+            ]
+        }
+      },
+      {
+        loader: 'less-loader',
+        options: { sourceMap: true }
+      }
+    ]
+  })
+}, 
+{ test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader" },
+{ test: /\.(woff|woff2)$/, loader:"url-loader?prefix=font/&limit=5000" },
+{ test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url-loader?limit=10000&mimetype=application/octet-stream" },
+{ test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url-loader?limit=10000&mimetype=image/svg+xml" }
+
+>>>>>>>>>>>>>>>>>vue与webpack环境搭建<<<<<<<<<<<<<<<<<<
+1.安装插件
+vue：vue主程序<br/>
+cnpm i vue -S
+vue-loader：编译写入.vue文件<br/>
+cnpm i vue-loader -D
+vue-template-compiler:编译vue的template部分<br/>
+cnpm i vue-template-compiler -D
+vue-html-loader：编译vue的template部分<br/>
+cnpm i vue-html-loader -D
+vue-style-loader：编译vue的样式部分<br/>
+cnpm i vue-style-loader -D
+vue-hot-reload-api：webpack对vue实现热替换<br/>
+cnpm i vue-hot-reload-api -D
+
+2.webpack.config.js设置
+{
+  test: /\.vue$/,
+  use:[
+    'vue-loader'
+  ],
+},
+
+3.main.js中引入
+import Vue from 'vue'
+import App from './App.vue'
+
+
+>>>>>>>>>>>>>>>>>webpack.common.js的配置<<<<<<<<<<<<<<<<<<
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const config = {
+  entry: ['babel-polyfill','./src/App.ts'],
+  plugins: [
+    new HtmlWebpackPlugin({
+      title:'React简易开发环境',
+      template: 'html-withimg-loader!./src/index.html',
+      filename: 'index.html',
+      minify:{
+        removeComments:true, 
+        collapseWhitespace:true
+      }
+    }),
+  ]
+}
+
+module.exports = config;
+
+
+>>>>>>>>>>>>>>>>>externals配置问题<<<<<<<<<<<<<<<<<<
+Webpack 可以配置 externals 来将依赖的库指向全局变量，从而不再打包这个库
+externals: {
+        'React': 'window.React'
+  },
+等于让 Webpack 知道，对于 react 这个模块就不要打包啦，直接指向 window.React 就好。
+不过别忘了加载 react.min.js，让全局中有 React 这个变量。
+
+
+>>>>>>>>>>>>>>>>>动态链接库（ddl)模块加载优化<<<<<<<<<<<<<<<<<<
+1.一个dll包，就是一个很纯净的依赖库，它本身不能运行，是用来给你的 app 或者业务代码引用的。
+2.webpack中已经集成 webpack.DllPlugin  webpack.DllReferencePlugin
+3.打包过程可分为两步走
+打包ddl包
+引用ddl包，打包业务代码
+4.新建webpack.dll.config.js文件,单独生成vendor.js和mainifest.json文件
+const path    = require('path');
+const webpack = require('webpack');
+
+const vendors = [
+  'react-dom',
+  'react'
+];
+
+module.exports = {
+  output: {
+    path: __dirname,
+    filename: 'src/static/vendor/[name].[chunkhash].js',
+    library: '[name]_[chunkhash]',
+  },
+  entry: {
+    vendor: vendors,
+  },
+  resolve: {  //静态资源路径指定,这个很重要
+    modules:["node_modules",__dirname]
+  },
+  plugins: [
+    new webpack.DllPlugin({
+      path: 'src/static/vendor/manifest.json',
+      name: '[name]_[chunkhash]',
+      context: __dirname,
+    }),
+  ],
+};
+5.webpack.config.js中的配置
+new webpack.DllReferencePlugin({
+      context: path.resolve(__dirname, 'node_modules'),
+      manifest: require('./src/static/vendor/manifest.json'),
+
+    }),
+
+
+>>>>>>>>>>>>>>>>>CommonsChunk提取不同入口的公用代码打包为一个独立的文件<<<<<<<<<<<<<<<<<<<<
+1.CommonsChunk 插件的作用就是提取代码中的公共代码，把多个入口共同的依赖都给定义成一个新入口
+####单一入口（意义不大）####
+只有在多入口，模块重复引用时，使用 CommonsChunkPlugin 才能提取出重复打包的模块。
+当然，也可以在单入口时，提取出某些框架的代码，减少请求次数
+1.单一入口，提取框架模块
+
+####多个入口文件####
+1.webpack的资源入口通常是以entry为单元进行编译提取
+2.它是以module为单位进行提取。
+
+####明确第三方库 chunk的做法####
+1.设置入口公用库
+entry: {
+    a:['babel-polyfill','./src/a.js'],
+    b:['babel-polyfill','./src/b.js'],
+    c:['babel-polyfill','./src/c.js'],
+    vendor: ["react-dom", "react"],  //公用库
+  },
+
+2.webpack.config.js中的配置
+new webpack.optimize.CommonsChunkPlugin({  
+      name: "vendor",
+      filename: "vendor.js",
+      // (给 chunk 一个不同的名字)
+
+      minChunks: Infinity,
+      // (随着 entry chunk 越来越多，
+      // 这个配置保证没其它的模块会打包进 vendor chunk)
+    }),
+3.在模板中引入库文件
+<script src="vendor.js" charset="utf-8"></script>
+4.配置参数
+new webpack.optimize.CommonsChunkPlugin({
+      name: "commons",
+      // ( 公共chunk(commnons chunk) 的名称)
+      filename: "commons.js",
+      // ( 公共chunk 的文件名)
+      // minChunks: 3,
+      // (模块必须被3个 入口chunk 共享)
+      // chunks: ["pageA", "pageB"],
+      // (只使用这些 入口chunk)
+    }),
+
+
+>>>>>>>>>>>>>>>>>>>>>分析包插件webpack-bundle-analyzer的使用<<<<<<<<<<<<<<<<<<<<<<
+1.安装插件
+npm install --save-dev webpack-bundle-analyzer
+2.webpack.config.js 文件中配置
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+new BundleAnalyzerPlugin({
+      //  可以是`server`，`static`或`disabled`。
+      //  在`server`模式下，分析器将启动HTTP服务器来显示软件包报告。
+      //  在“静态”模式下，会生成带有报告的单个HTML文件。
+      //  在`disabled`模式下，你可以使用这个插件来将`generateStatsFile`设置为`true`来生成Webpack Stats JSON文件。
+      analyzerMode: 'server',
+      //  将在“服务器”模式下使用的主机启动HTTP服务器。
+      analyzerHost: '127.0.0.1',
+      //  将在“服务器”模式下使用的端口启动HTTP服务器。
+      analyzerPort: 8888, 
+      //  路径捆绑，将在`static`模式下生成的报告文件。
+      //  相对于捆绑输出目录。
+      reportFilename: 'report.html',
+      //  模块大小默认显示在报告中。
+      //  应该是`stat`，`parsed`或者`gzip`中的一个。
+      //  有关更多信息，请参见“定义”一节。
+      defaultSizes: 'parsed',
+      //  在默认浏览器中自动打开报告
+      openAnalyzer: true,
+      //  如果为true，则Webpack Stats JSON文件将在bundle输出目录中生成
+      generateStatsFile: false, 
+      //  如果`generateStatsFile`为`true`，将会生成Webpack Stats JSON文件的名字。
+      //  相对于捆绑输出目录。
+      statsFilename: 'stats.json',
+      //  stats.toJson（）方法的选项。
+      //  例如，您可以使用`source：false`选项排除统计文件中模块的来源。
+      //  在这里查看更多选项：https：  //github.com/webpack/webpack/blob/webpack-1/lib/Stats.js#L21
+      statsOptions: null,
+      logLevel: 'info' //日志级别。可以是'信息'，'警告'，'错误'或'沉默'。
+    }),
+
+3.生成stats.json文件
+webpack --profile --json > stats.json
+4.启动
+npm run dev
+
+
+>>>>>>>>>>>>>>>>>>引入未模块化的库<<<<<<<<<<<<<<<<<<<<<
+1.安装zepto
+cnpm i zepto -S
+2.exports-loader 和 script-loader 安装使用
+script-loader：提升全局作用域
+exports-loader:模块化
+$ npm i -D script-loader exports-loader
+3.require.resolve() 是 nodejs 用来查找模块位置的方法，返回模块的入口文件，
+如 require.resolve('zepto') => ./node_modules/zepto/dist/zepto.js。
+4.webpack.config.js中的配置
+  {
+    test: require.resolve('zepto'),
+    loader: 'exports-loader?window.Zepto!script-loader'
+  }, 
+
+  new webpack.ProvidePlugin({  //使用别名
+      $: 'zepto',
+      Zepto: 'zepto',
+      'window.Zepto': 'zepto'
+  }),
+
+
+>>>>>>>>>>>>>>>>>>>>>>>通过externals配置来提取常用库<<<<<<<<<<<<<<<<<<<
+能更好的利用CDN来实现缓存
+1.external就是把我们的依赖资源声明为一个外部依赖
+2.通过配置后可以告知webapck遇到此类变量名时就可以不用解析和编译至模块的内部文件中
+
+###从 CDN 引入 jQuery，而不是把它打包：###
+1.index.html模板页面中引入静态资源
+<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+2.webpack.config.js中设置externals
+externals: {
+    jquery: 'jQuery'
+  },
+3.在入口文件中引入,执行构建后文件不会被打包
+import $ from 'jquery'; //可以不引入 
+
+####注意要点####
+1.第一种形式
+externals: {
+    jquery: 'jQuery'
+  },
+2.第二种形式
+import $ from 'jquery'; //可以不引入，引入需要加libraryTarget: 'umd'
+externals: {
+    jquery: {
+      amd: 'jquery',
+      root: 'jQuery',
+      commonjs: 'jquery',
+      commonjs2: 'jquery'
+    },
+  },
+output: {  //需要再加libraryTarget: 'umd'
+    filename: '[name]/build-[hash].js',
+    path:path.resolve(__dirname, 'dist'),
+    publicPath: '/',
+    libraryTarget: 'umd'
+  },
+
+
+>>>>>>>>>>>>>>>>Happypack 加速你的代码构建<<<<<<<<<<<<<<<
+1.针对资源的编译过程和速度优化
+2.多线程编译文件
+3.单一进程的形式扩展多进程模式，原本的流程保持不变
+
+####Happypack使用步骤####
+1.安装happypack
+npm install --save-dev happypack
+2.引入happypack
+const HappyPack = require('happypack');
+const os = require('os')
+const HappyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length}); // 启动线程池});
+3.loader中的设置
+  {
+    test: /\.(js|jsx)/,
+    use: 'happypack/loader?id=jsx',
+    include :path.resolve(__dirname, 'src'),
+    exclude:path.resolve(__dirname, 'node_modules')
+  },
+
+4.plugins中的设置
+  new HappyPack({
+    id: 'jsx',
+    cache: true,
+    threadPool: HappyThreadPool,
+    loaders: ['babel-loader']
+    //loaders: [ 'style-loader', 'css-loader', 'less-loader' ]
+  }),
+
+>>>>>>>>>>>>>>>>>>>Tree-shaking & Scope Hoisting(适用于生产环境代码优化)<<<<<<<<<<<<<<<<<<<<
+1.Scope Hoisting 需要分析出模块之间的依赖关系，因此源码必须采用 ES6 模块化语句，不然它将无法生效
+2.实现 Code Splitting（包括按需加载）、模块热替换等功能。
+3.提升作用域的好处
+文件体积比之前更小。
+运行代码时创建的函数作用域也比之前少了，开销也随之变小。
+4.暂不支持 CommonJS 模块语法(因为其具有动态加载的属性)
+5.但是大部分 NPM 中的模块仍然是 CommonJS 语法，webpack执行默认打包方式（还有下面原因）
+  使用了 ProvidePlugin
+  使用了 eval() 函数
+  你的项目有多个 entry
+6.模块热替换将不起作用（仅在代码优化中使用）
+7.查看项目无法使用 Scope Hoisting 的原因
+webpack --display-optimization-bailout
+8.推荐使用Rollup
+
+######Tree-shaking & Scope Hoisting的使用#######
+resolve: {
+    // 针对 Npm 中的第三方模块优先采用 jsnext:main 中指向的 ES6 模块化语法的文件
+    mainFields: ['jsnext:main', 'browser', 'main']
+  },
+
+new webpack.optimize.ModuleConcatenationPlugin(),
+
+>>>>>>>>>>>>>>>>>>resolve的使用<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+1.配置模块如何解析(路径相关)
+#####resolve.alias创建别名####
+alias: {
+  Utilities: path.resolve(__dirname, 'src/utilities/'),
+  Templates: path.resolve(__dirname, 'src/templates/')
+}
+使用：import Utility from 'Utilities/utility';
+精准匹配：
+alias: {
+  xyz$: path.resolve(__dirname, 'path/to/file.js')
+}
+
+####resolve.aliasFields指定字段解析####
+指定一个字段，例如 browser，根据此规范进行解析。
+默认：aliasFields: ["browser"]
+
+####resolve.cacheWithContext####
+####resolve.descriptionFiles 指定package.json描述文件####
+用于描述的 JSON 文件。
+默认：descriptionFiles: ["package.json"]
+
+####resolve.enforceExtension 不允许没有拓展名的文件#####
+1.是 true，将不允许无扩展名(extension-less)文件
+默认：enforceExtension: false
+
+#####resolve.enforceModuleExtension模块扩展#####
+对模块是否需要使用的扩展（例如 loader）。默认：
+enforceModuleExtension: false
+
+####resolve.extensions 自动解析默认的扩展#####
+自动解析确定的扩展。默认值为：
+extensions: [".js", ".json"]
+
+####resolve.mainFields####
+1.当从 npm 包中导入模块时（例如，import * as D3 from "d3"）
+此选项将决定在 package.json 中使用哪个字段导入模块
+当 target 属性设置为 webworker, web 或者没有指定，默认值为：
+mainFields: ["browser", "module", "main"]
+对于其他任意的 target（包括 node），默认值为：
+mainFields: ["module", "main"]
+
+####resolve.mainFiles####
+解析目录时要使用的文件名。默认：
+mainFiles: ["index"]
+
+####resolve.modules解析文件时候使用的目录####
+1.使用绝对路径，将只在给定目录中搜索。
+默认
+modules: ["node_modules"]
+2.如果你想要添加一个目录到模块搜索目录，此目录优先于 node_modules/ 搜索：
+modules: [path.resolve(__dirname, "src"), "node_modules"]
+
+####resolve.unsafeCache模块缓存####
+1.启用，会主动缓存模块，但并不安全。传递 true 将缓存一切。默认：
+unsafeCache: true
+
+####resolve.plugins####
+1.应该使用的额外的解析插件列表。它允许插件，如 DirectoryNamedWebpackPlugin。
+plugins: [new DirectoryNamedWebpackPlugin()]
+#####resolve.symlinks####
+是否将符号链接(symlink)解析到它们的符号链接位置(symlink location)。
+默认：
+symlinks: true
+
+####resolve.cachePredicate####
+1.决定请求是否应该被缓存的函数。函数传入一个带有 path 和 request 属性的对象。默认：
+cachePredicate: function() { return true }
+
+####resolveLoader.moduleExtensions####
+1.在解析模块（例如，loader）时尝试使用的扩展。默认是一个空数组。
+如果你想要不带 -loader 后缀使用 loader，你可以使用：
+moduleExtensions: ['-loader']
+
+
+>>>>>>>>>>>>>>>>hash 和 chunkhash<<<<<<<<<<<<<<<<<<<<
+1.区别
+hash:每次构建都不一样
+chunkhash：仅仅在文件有改动的情况下文件名才会变化
+2.使用
+生成环境：chunkhash 同时不能启用热更新 否则 会报错
+开发环境: 使用hash 浏览器开启热更新即可
+3.概念
+chunk可以理解为文件级别的代码块，编译出来后就是个单独的js文件可以被入口文件引用。
+module则是chunk内部的一个个代码段落.
+module又分为normalModule和contextModule两种
+  normalModule很好理解，就是普通的模块代码，es6 export翻译成es5的形式后包裹使用
+  contextModule比较特殊，是非入口文件暴露内部模块的一段代码
+moduleID的稳定webpack.HashedModuleIdsPlugin 插件根据代码内容生成普通模块的id,确保源码不变
+chunkID和contextModuleID还是会自增的,乱动的
+4.解决方案
+解决方法也很简单，把chunkID,contextModuleID回乱变的数字用稳定不重复的方式替代
+####CommonsChunkPlugin 提取公用文件chunckhash变化问题解决#####
+1.入口文件
+entry: {
+    a:['babel-polyfill','./src/a.js'],
+    b:['babel-polyfill','./src/b.js'],
+    c:['babel-polyfill','./src/c.js'],
+    vendor: ["react-dom", "react","babel-polyfill"],
+  },
+2.webpack.config.js中的配置
+new webpack.HashedModuleIdsPlugin(),
+new webpack.optimize.CommonsChunkPlugin({
+  name: "vendor",
+  minChunks: Infinity,
+}),
+new webpack.optimize.CommonsChunkPlugin({
+  name: 'manifest',
+  chunks: ['vendor']
+}),
+3.HtmlWebpackPlugin 中的配置
+new HtmlWebpackPlugin({
+  title:'a',
+  template: 'html-withimg-loader!./src/index.html',
+  filename: 'index.html',
+  chunks:['a','manifest','vendor'],
+  minify:{
+    removeComments:true, 
+    collapseWhitespace:true
+  }
+}),
+new HtmlWebpackPlugin({
+  title:'b',
+  template: 'html-withimg-loader!./src/index.html',
+  filename: 'b.html',
+  chunks:['b','manifest','vendor'],
+  minify:{
+    removeComments:true, 
+    collapseWhitespace:true
+  }
+}),
+new HtmlWebpackPlugin({
+  title:'c',
+  template: 'html-withimg-loader!./src/index.html',
+  filename: 'c.html',
+  chunks:['c','manifest','vendor'],
+  minify:{
+    removeComments:true, 
+    collapseWhitespace:true
+  }
+})
+
+>>>>>>>>>>>>>>>>>compression-webpack-plugin Zgip压缩<<<<<<<<<<<<<<<<<<<<<<<<<
+1.安装插件
+npm i -D compression-webpack-plugin
+2.webpack.config.js中的配置
+  new CompressionPlugin({
+    asset: "[path]",
+    algorithm: "gzip",
+    test: /\.js$|\.html$/,
+    threshold: 10240,
+    minRatio: 0.8
+  }),
+
+
+>>>>>>>>>>>>>>>>>webpack项目构建优化<<<<<<<<<<<<<<<<<<
+1. 使用 exclude，大胆地屏蔽掉 npm 里的包
+exclude:path.resolve(__dirname, 'node_modules')
+{
+  test: /\.tsx?$/,
+  use:[
+    'ts-loader'
+  ],
+  exclude:path.resolve(__dirname, 'node_modules')
+},
+{
+  test: /\.(js|jsx)/,
+  use:[
+    'babel-loader'
+  ],
+  exclude:path.resolve(__dirname, 'node_modules')
+},
+2.include使用 include 来限定 loader 的使用范围，进一步提高效率。
+include :path.resolve(__dirname, 'src'),
+{
+  test: /\.(js|jsx)/,
+  use:[
+    'babel-loader'
+  ],
+  include :path.resolve(__dirname, 'src'),
+  exclude:path.resolve(__dirname, 'node_modules')
+},
+
+3.SourceMaps 直接在源代码上进行查看和调试 有七种模式可选
+eval-source-map
+虽然带上 eval 参数的可以快更多，但是这种 sourceMap 只能看，不能调试
+推荐使用：devtool:'cheap-source-map',
+
+4.开发环境下尽量不要使用以下前端性能优化插件
+UglifyJsPlugin
+OccurrenceOrderPlugin
+DedupePlugin
+
+5.使用CommonsChunk 解决多个文件引用同一个脚本 程序重复构建的问题
+
+6.DLL & DllReference插件
+前置这些依赖包的构建，来提高真正的 ,如果依赖不变动 就不需要每次都重新构建
+
+7.HappyPack 让 loader 多进程去处理文件 同时还利用缓存来使得 rebuild 更快
+
+8.缓存 Cache
+webpack.cache 默认开启 效果不明显
+babel-loader.cacheDirectory
+HappyPack.cache
+
+
+
+>>>>>>>>>>>>>>>>>>>>>>珍藏版webpack.config.js配置文件<<<<<<<<<<<<<<<<<<<<<<
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const StyleExtHtmlWebpackPlugin = require('style-ext-html-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+ 
+const staticSourcePath = path.join(__dirname, 'static');
+const sourcePath = path.join(__dirname, 'src');
+const buildPath = path.join(__dirname, 'dist');
+ 
+module.exports = {
+    devtool: 'cheap-module-source-map',
+    entry: {
+        base: path.resolve(staticSourcePath, 'src/sass/base.scss'),
+        app: path.resolve(sourcePath, 'index.js')
+    },
+    output: {
+        path: path.join(__dirname, 'dist'),
+        filename: '[name].[chunkhash].js',
+        publicPath: '/'
+    },
+    resolve: {
+        extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],
+        modules: [
+            sourcePath,
+            path.resolve(__dirname, 'node_modules')
+        ]
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('production')
+        }),
+        new webpack.optimize.ModuleConcatenationPlugin(),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            filename: 'vendor.[chunkhash].js',
+            minChunks (module) {
+                return module.context && module.context.indexOf('node_modules') >= 0;
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false,
+                screw_ie8: true,
+                conditionals: true,
+                unused: true,
+                comparisons: true,
+                sequences: true,
+                dead_code: true,
+                evaluate: true,
+                if_return: true,
+                join_vars: true
+            },
+            output: {
+                comments: false
+            }
+        }),
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                postcss: [
+                    autoprefixer({
+                        browsers: [
+                            'last 3 version',
+                            'ie >= 10'
+                        ]
+                    })
+                ],
+                context: staticSourcePath
+            }
+        }),
+        new webpack.HashedModuleIdsPlugin(),
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, 'index.ejs'),
+            path: buildPath,
+            excludeChunks: ['base'],
+            filename: 'index.html',
+            minify: {
+                collapseWhitespace: true,
+                collapseInlineTagWhitespace: true,
+                removeComments: true,
+                removeRedundantAttributes: true
+            }
+        }),
+        new PreloadWebpackPlugin({
+            rel: 'preload',
+            as: 'script',
+            include: 'all',
+            fileBlacklist: [/\.(css|map)$/, /base?.+/]
+        }),
+        new ScriptExtHtmlWebpackPlugin({
+            defaultAttribute: 'defer'
+        }),
+        new ExtractTextPlugin({
+            filename: '[name].[contenthash].css',
+            allChunks: true
+        }),
+        new StyleExtHtmlWebpackPlugin({
+            minify: true
+        }),
+        new CompressionPlugin({
+            asset: '[path].gz[query]',
+            algorithm: 'gzip',
+            test: /\.js$|\.css$|\.html$|\.eot?.+$|\.ttf?.+$|\.woff?.+$|\.svg?.+$/,
+            threshold: 10240,
+            minRatio: 0.8
+        })
+    ],
+    module: {
+        rules: [
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: [
+                    'babel-loader'
+                ],
+                include: sourcePath
+            },
+            {
+                test: /\.scss$/,
+                exclude: /node_modules/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        { loader: 'css-loader', options: { minimize: true } },
+                        'postcss-loader',
+                        'sass-loader'
+                    ]
+                })
+            },
+            {
+                test: /\.(eot?.+|svg?.+|ttf?.+|otf?.+|woff?.+|woff2?.+)$/,
+                use: 'file-loader?name=assets/[name]-[hash].[ext]'
+            },
+            {
+                test: /\.(png|gif|jpg|svg)$/,
+                use: [
+                    'url-loader?limit=20480&name=assets/[name]-[hash].[ext]'
+                ],
+                include: staticSourcePath
+            }
+        ]
+    }
+};
+
+提高构建效率相关文章：
+1.彻底解决Webpack打包慢的问题 https://segmentfault.com/a/1190000006087638
+2.webpack 构建性能优化策略小结 https://segmentfault.com/a/1190000007891318
+3.webpack3 工程化实践 https://taikongfeizhu.github.io/webpack3-in-action/index.html
+4.淘宝前端团队 http://taobaofed.org/
+5.前端构建性能优化策略：https://segmentfault.com/a/1190000007891318
+6.文章集合：https://github.com/webpack-china/awesome-webpack-cn
+7.使用 Webpack 打包单页应用的正确姿势
+http://geek.csdn.net/news/detail/135599
+8.电子书下载平台：威锋论坛
+https://bbs.feng.com/thread-htm-fid-224-page-2.html
+
+工具推荐
+1.wepback的可视化资源分析工具 webpack-bundle-analyzer 
+
+>>>>>>>>>>>>>>>>>webpack重要概念<<<<<<<<<<<<<<<<<<
+
+entry: 就是告诉webpack从哪里开始并通过依赖关系图得知要哪些文件要打包
+output: 指定构建好的资源文件如何写入到指定目录，只能有一个出口 (path，publicPath，filenname)
+loaders: 加载器，加载器用于将资源代码转换成模块。它允许您在导入或“加载”它们时预处理文件，支持各种语言和预处理器编写模块(jsx=>js, less=>css, img=>base64等)
+plugins: 插件，服务于编译期间，是一个具有apply属性的JavaScript对象，其apply属性会被webpack compiler调用，并且compiler对象可在整个编译生命周期访问
+chunk ：被entry所依赖的额外的代码块，同样可以包含一个或者多个文件，所有的资源都以模块的形式存在
+modules: webpack中放置loaders的地方，可集中在rules数组中进行管理
+resolve：设置对资源的寻址和解析规则，可通过alias和extensions来进行解析规则定制
+externals：从输出的 bundle 中排除依赖，多在 library 开发或者加载中使用
+manifest：文件清单,当编译器(compiler)开始执行、解析和映射应用程序时，它会保留所有模块的详细要点,使用 manifest 中的数据，runtime 将能够查询模块标识符，检索出背后对应的模块。
+
+
+>>>>>>>>>>>>>>>>一些api<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+1.require.resolve() 是 nodejs 用来查找模块位置的方法，返回模块的入口文件，
+如 require.resolve('zepto') => ./node_modules/zepto/dist/zepto.js。
+
+>>>>>>>>>>>>>>>>>修改日志2018/01/17<<<<<<<<<<<<<<<<<<
+$ npm i -D script-loader exports-loader
+$ npm i -S zepto
+npm install --save-dev happypack
+npm i -D compression-webpack-plugin
+npm i -D zopfli-webpack-plugin
+
+单词
+scoped 作用域
+mapped 映射
+thread 线
+shim 垫片
+
+
