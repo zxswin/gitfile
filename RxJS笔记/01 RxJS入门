@@ -1,0 +1,641 @@
+
+一.概念
+1.通过 observable 序列异步和基于事件的可以把异步事件作为集合来处理和管理事件序列
+//一个简单的例子：注册事件监听器
+import {Observable} from 'rxjs/Rx'  //引入可观察对象模块
+
+let button = document.querySelector('button'); //获取按钮元素
+let input$ = Observable.fromEvent(button, 'click'); //注册事件监听器
+input$.subscribe(()=>{ //订阅流事件
+    console.log('Clicked!');
+});
+
+二.特性
+1.纯净性 (Purity)
+//代码示例(count不能加运算,待修复)???
+let button = document.querySelector('button');
+let $button = Observable.fromEvent(button,'click');
+$button.scan(count => count=1,0).subscribe(count => console.log(`Clicked ${count} times`));
+
+**scan 操作符**
+暴露给回调函数当参数的初始值。每次回调函数运行后的返回值会作为下次回调函数运行时的参数。
+
+2.流动性 (Flow)
+//代码示例：控制一秒钟只能点击一次
+let button = document.querySelector('button');
+let $button = Observable.fromEvent(button,'click');
+$button.throttleTime(1000)
+.scan(count => count,0)
+.subscribe(count => console.log(`Clicked ${count} times`));
+
+其他流程控制操作符有 filter、delay、debounceTime、take、takeUntil、distinct、distinctUntilChanged 等等。
+
+3.值 (Values)
+//代码示例：累计每次点击鼠标x坐标
+let button = document.querySelector('button');
+let $button = Observable.fromEvent(button,'click');
+$button.throttleTime(1000)
+.map(event => event['clientX'])
+.scan((count,event) => count +event,10000)
+.subscribe(count => console.log('event',count)); //每次回调函数都是以它上一个的 返回值 作为 参数
+
+4.Observable (可观察对象)
+//代码示例： 同步推送1, 2, 3 一秒后推送4 完成流
+let observable = Observable.create(observer=>{
+    observer.next(1);
+    observer.next(2);
+    observer.next(3);
+    setTimeout(()=>{
+        observer.next(4);
+        observer.complete();
+    },1000);
+});
+observable.subscribe({
+    next:x =>console.log('get value' + x),
+    error:err =>console.error('something wrong occurred:' + err),
+    complete:()=>console.log('done'),
+});
+console.log('just after subscribe');
+
+5.拉取 (Pull) vs. 推送 (Push)
+-拉取	生产者=>被动的: 当被请求时产生数据。   消费者=>主动的: 决定何时请求数据。
+-推送	生产者=>主动的: 按自己的节奏产生数据。 消费者=>被动的: 对收到的数据做出反应。
+-Function 是惰性的评估运算，调用时会同步地返回一个单一值。
+-Generator 是惰性的评估运算，调用时会同步地返回零到(有可能的)无限多个值。
+-Promise 是最终可能(或可能不)返回单个值的运算。
+-Observable 是惰性的评估运算，它可以从它被调用的时刻起同步或异步地返回零到(有可能的)无限多个值。
+
+6.Observables 作为函数的泛化
+-Observables 像是没有参数, 但可以泛化为多个值的函数。
+-函数和 Observables 都是惰性运算。如果你不调用函数，就不会执行
+-Observables不会共享副作用并且是延迟执行。
+-订阅完全是同步的，就像函数一样。Observables 传递值可以是同步的，也可以是异步的。
+-Observable 可以随着时间的推移“返回”多个值
+let foo = Observable.create(function(observer){
+    console.log("Hello");
+    observer.next(42);
+});
+
+foo.subscribe(function(x){
+    console.log(x);
+});
+
+foo.subscribe(function(y){
+    console.log(y);
+});
+
+//代码示例：同步返回多个值
+let foo = Observable.create(function(observer){
+    console.log('Hello');
+    observer.next(42);
+    observer.next(100);
+    observer.next(200);
+});
+
+console.log('before');
+foo.subscribe(function(x){
+    console.log(x);
+});
+console.log('after');
+
+//代码示例:异步返回值
+let foo = Observable.create(function(observer){
+    console.log('Hello');
+    observer.next(42);
+    observer.next(100);
+    observer.next(200);
+    setTimeout(()=>{
+    observer.next(300);  //异步执行
+    },1000);
+});
+
+console.log('before');
+foo.subscribe(function(x){
+    console.log(x);
+});
+console.log('after');
+
+7.Observable 剖析
+-创建 Observables
+-订阅 Observables
+-执行 Observables
+-清理 Observables
+
+**创建 Observables**
+Rx.Observable.create 是 Observable 构造函数的别名，它接收一个参数：subscribe 函数。
+//代码示例：创建了一个 Observable，它每隔一秒会向观察者发送字符串 'hi' 
+let observable = Observable.create(function subscribe(observer){
+    let id = setInterval(()=>{
+        observer.next('hi')
+    },1000);
+});
+
+**订阅 Observables**
+-observable.subscribe(x => console.log(x));
+-observable.subscribe 和 
+Observable.create(function subscribe(observer) {...}) 
+中的 subscribe 有着同样的名字,但是它们是不同的
+-subscribe 调用是启动 “Observable 执行”的一种简单方式， 并将值或事件传递给本次执行的观察者。
+
+**执行 Observables**
+在 Observable 执行中, 可能会发送零个到无穷多个 "Next" 通知。
+如果发送的是 "Error" 或 "Complete" 通知的话，那么之后不会再发送任何通知了。
+Observable 执行可以传递三种类型的值：
+-"Next" 通知： 发送一个值，比如数字、字符串、对象，等等。
+-"Error" 通知： 发送一个 JavaScript 错误 或 异常。
+-"Complete" 通知： 不再发送任何值。
+
+//代码示例：使用try/catch代码块来包裹任意代码似乎不错的主意
+let observable = Observable.create(function subscribe(observer){
+    try{
+        observer.next(1);
+        observer.next(2);
+        observer.next(3);
+        observer.complete();
+        observer.next(4); //因为违反规约,所以不会发送
+    }catch(err){
+        observer.error(err); //如果捕获到异常发送一个错误
+
+    }
+});
+
+8.清理 Observable 执行
+当你订阅了 Observable，你会得到一个 Subscription ，它表示进行中的执行。只要调用 unsubscribe() 方法就可以取消执行。
+//代码示例：取消订阅
+let observable = Observable.from([10,20,30]);
+let subscription = observable.subscribe(x=>console.log(x));
+subscription.unsubscribe();
+
+//代码示例：清理使用了 setInterval 的 interval 执行集合
+let observable = Observable.create(function subscribe(observer){
+    //追踪interval资源
+    var intervalID = setInterval(()=>{
+        observer.next('hi');
+    },1000);
+    //提供取消和清理interval资源的方法
+    return function unsubscribe(){
+        clearInterval(intervalID);
+    };
+});
+
+9.Observer (观察者)
+-观察者只是有三个回调函数的对象，每个回调函数对应一种 Observable 发送的通知类型。
+//代码示例：一个典型的观察者对象：
+let observer = {
+  next: x => console.log('Observer got a next value: ' + x),
+  error: err => console.error('Observer got an error: ' + err),
+  complete: () => console.log('Observer got a complete notification'),
+};
+
+10.Subscription (订阅)
+-Subscription 基本上只有一个 unsubscribe() 函数，这个函数用来释放资源或去取消 Observable 执行。
+-Subscriptions 还有一个 remove(otherSubscription) 方法，用来撤销一个已添加的子 Subscription 。
+//代码示例：多个Subscription对象 合 在一起调用unsubscribe()方法   
+let observable1 = Observable.interval(400);
+let observable2 = Observable.interval(300);
+
+let subscription = observable1.subscribe(x=>console.log('first: ' +x));
+let childSubscription = observable2.subscribe(x=>console.log('second: ' + x));
+
+subscription.add(childSubscription);
+
+setTimeout(()=>{
+    //subscription 和 childSubscription 都会取消订阅
+    subscription.unsubscribe();
+},1000);
+
+11.Subject (主体)
+-Subject 像是 Observalbe，但是可以多播给多个观察者。Subject 还像是 EventEmitters，维护着多个监听器的注册表。
+-将给定的观察者注册到观察者列表中，每个 Subject 都是观察者。 对象： next(v)、error(e) 和 complete() 。
+-Subject 是观察者
+-Subjects 是将任意 Observable 执行共享给多个观察者的唯一方式。
+//代码示例：Subject 添加两个观察者
+import { Subject } from 'rxjs/Subject';  //引入Subject
+
+let subject = new Subject();
+subject.subscribe({
+    next:(v)=> console.log('observerA: '+v)
+});
+subject.subscribe({
+    next:(v)=>console.log('observerB:' +v)
+});
+
+subject.next(1);
+subject.next(2);
+
+//代码示例：提供一个 Subject 进行订阅
+let subject = new Subject();
+subject.subscribe({
+    next:v=> console.log('observerA: '+v)
+});
+subject.subscribe({
+    next:v=>console.log('observerB: ' +v)
+});
+
+let observable = Observable.from([1,2,3]);
+observable.subscribe(subject); //你可以提供一个Subject进行订阅
+
+**多播的 Observables**
+-多播 Observable 在底层是通过使用 Subject 使得多个观察者可以看见同一个 Observable 执行。
+-connect() 方法十分重要，它决定了何时启动共享的 Observable 执行。
+-它返回的是 Subscription，你可以取消订阅以取消共享的 Observable 执行
+
+let source = Observable.from([1,2,3]);
+let subject = new Subject();
+let multicasted = source.multicast(subject);
+
+//在底层使用了 subject.subscribe({...})
+multicasted.subscribe({
+    next:v=>console.log('observerA: ' +v)
+});
+multicasted.subscribe({
+    next:v=>console.log('observerB: ' + v)
+});
+
+//在底层使用source.subscribe(subject)
+multicasted.connect();
+
+12.引用计数
+-refCount 的作用是，当有第一个订阅者时，多播 Observable 会自动地启动执行，
+而当最后一个订阅者离开时，多播 Observable 会自动地停止执行。
+
+//示例代码
+let source = Observable.interval(500);
+let subject = new Subject();
+let refCounted = source.multicast(subject).refCount();
+let subscription1 , subscription2, subscriptionConnect;
+
+//这里其实调用了connect(),因为refCounted有了第一个订阅者
+console.log('obsserverA subscribed');
+subscription1 = refCounted.subscribe({
+    next: v => console.log('observerA: ' + v)
+});
+
+setTimeout(()=>{
+    console.log('observerB subscribed');
+    subscription2 = refCounted.subscribe({
+        next:v => console.log('observerB: ' +v)
+    });
+},600);
+
+setTimeout(()=>{
+    console.log('observerA unsubscribed')
+    subscription1.unsubscribe();
+},1200);
+
+//这里共享的observable执行会停止
+//因为此后refCounted将不会再有订阅者了
+
+setTimeout(()=>{
+    console.log('observerB unsubscribed');
+    subscription2.unsubscribe();
+},2000);
+
+**BehaviorSubject**
+-BehaviorSubjects 适合用来表示“随时间推移的值”。即是“当前值”,它保存了发送给消费者的最新值
+举例来说，生日的流是一个 Subject，但年龄的流应该是一个 BehaviorSubject 。
+//示例代码：新的订阅者从BehaviorSubject 那接收到“当前值”
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';  //引入BehaviorSubject
+
+let subject = new BehaviorSubject(0); //初始值是0
+subject.subscribe({
+    next:v=> console.log('observerA: ' + v)
+});
+subject.next(1);
+subject.next(2);
+
+subject.subscribe({
+    next:v => console.log('observerB: '+ v)
+});
+
+subject.next(3);
+
+**ReplaySubject**
+-ReplaySubject 记录 Observable 执行中的多个值并将其回放给新的订阅者。
+let subject = new ReplaySubject(3);  //为新的订阅者缓冲3个值
+subject.subscribe({
+    next:v=>console.log('observerA: ' +v)
+});
+
+subject.next(1);
+subject.next(2);
+subject.next(3);
+subject.next(4);
+
+subject.subscribe({
+    next:v=>console.log('observerB: ' +v)
+});
+
+subject.next(5);
+
+//代码示例：第二个观察者得到的值是3、4、5，这三个值是订阅发生前的500毫秒内发生的
+//我们使用了较大的缓存数量100，但 window time 参数只设置了500毫秒。
+import { ReplaySubject } from 'rxjs/ReplaySubject'; //引入ReplaySubject
+let subject = new ReplaySubject(100,500/*windowTime*/);
+subject.subscribe({
+    next:v => console.log('observerA: ' +v)
+});
+
+let i =1;
+setInterval(()=>{
+    subject.next(i++)
+},200);
+
+setTimeout(()=>{
+    subject.subscribe({
+        next:v=>console.log('observerB:' +v)
+    });
+},1000);
+
+**AsyncSubject**
+-AsyncSubject 是另一个 Subject 变体，只有当 Observable 执行完成时(执行 complete())，它才会将执行的最后一个值发送给观察者。
+//代码示例： AsyncSubject 和 last() 操作符类似，因为它也是等待 complete 通知，以发送一个单个值。
+let subject = new AsyncSubject();
+subject.subscribe({
+    next:v=>console.log('observerA: '+ v)
+});
+
+subject.next(1);
+subject.next(2);
+subject.next(3);
+subject.next(4);
+
+subject.subscribe({
+    next:v=>console.log('observerB: '+v)
+});
+
+subject.next(5);
+subject.complete();
+
+12.Operators (操作符)
+-操作符是函数，它基于当前的 Observable 创建一个新的 Observable。这是一个无副作用的操作：前面的 Observable 保持不变。
+-注意，订阅 output 会导致 input Observable 也被订阅。我们称之为“操作符订阅链”。
+
+**实例操作符 vs. 静态操作符**
+-示例操作符： 是Observable 实例上的方法
+-静态操作符: 附加到 Observalbe 类上的纯函数，通常用来从头开始创建 Observalbe 。
+-组合操作符: 将多个 Observables 作为输入，而不仅仅是一个
+
+//代码示例:静态操作符  
+let observable = Observable.interval(1000/*毫秒数*/);
+observable.subscribe(function(v){
+    console.log(v);
+})
+
+//代码示例：组合操作符
+
+**Marble diagrams (弹珠图)**
+-在弹珠图中，时间流向右边，图描述了在 Observable 执行中值(“弹珠”)是如何发出的。
+
+**选择操作符**
+-创建操作符
+ajax
+bindCallback
+bindNodeCallback
+create
+defer
+empty
+from
+fromEvent
+fromEventPattern
+fromPromise
+generate
+interval
+never
+of
+repeat
+repeatWhen
+range
+throw
+timer
+
+-转换操作符
+buffer
+bufferCount
+bufferTime
+bufferToggle
+bufferWhen
+concatMap
+concatMapTo
+exhaustMap
+expand
+groupBy
+map
+mapTo
+mergeMap
+mergeMapTo
+mergeScan
+pairwise
+partition
+pluck
+scan
+switchMap
+switchMapTo
+window
+windowCount
+windowTime
+windowToggle
+windowWhen
+
+-过滤操作符
+debounce
+debounceTime
+distinct
+distinctKey
+distinctUntilChanged
+distinctUntilKeyChanged
+elementAt
+filter
+first
+ignoreElements
+audit
+auditTime
+last
+sample
+sampleTime
+single
+skip
+skipLast
+skipUntil
+skipWhile
+take
+takeLast
+takeUntil
+takeWhile
+throttle
+throttleTime
+
+-组合操作符
+combineAll
+combineLatest
+concat
+concatAll
+exhaust
+forkJoin
+merge
+mergeAll
+race
+startWith
+switch
+withLatestFrom
+zip
+zipAll
+
+-多播操作符
+cache
+multicast
+publish
+publishBehavior
+publishLast
+publishReplay
+share
+
+-错误处理操作符
+catch
+retry
+retryWhen
+
+-工具操作符
+do
+delay
+delayWhen
+dematerialize
+finally
+let
+materialize
+observeOn
+subscribeOn
+timeInterval
+timestamp
+timeout
+timeoutWith
+toArray
+toPromise
+
+-条件和布尔操作符
+defaultIfEmpty
+every
+find
+findIndex
+isEmpty
+
+-数学和聚合操作符
+count
+max
+min
+reduce
+
+**Scheduler (调度器)**
+-调度器可以让你规定 Observable 在什么样的执行上下文中发送通知给它的观察者。
+-使用 subscribeOn 来调度 subscribe() 调用在什么样的上下文中执行
+//代码示例：got value... 在 just after subscribe 之后才发送
+
+
+三.安装
+1.npm 安装
+npm install rxjs
+导入核心功能
+import Rx from 'rxjs/Rx';
+通过打补丁的方式只导入所需要的(这对于减少 bundling 的体积是十分有用的)：
+import { Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/map';
+
+Observable.of(1,2,3).map(x => x + '!!!'); // 等等
+
+2.通过 npm 安装 CommonJS 版本
+npm install rxjs
+
+导入所有核心功能:
+var Rx = require('rxjs/Rx');
+Rx.Observable.of(1,2,3); // 等等
+
+通过打补丁的方式只导入所需要的(这对于减少 bundling 的体积是十分有用的)：
+var Observable = require('rxjs/Observable').Observable;
+// 使用适合的方法在 Observable 上打补丁
+require('rxjs/add/observable/of');
+require('rxjs/add/operator/map');
+
+Observable.of(1,2,3).map(function (x) { return x + '!!!'; }); // 等等
+
+导入操作符并手动地使用它们(这对于减少 bundling 的体积也十分有用)：
+var of = require('rxjs/observable/of').of;
+var map = require('rxjs/operator/map').map;
+map.call(of(1,2,3), function (x) { return x + '!!!'; });
+
+3.使用 TypeScript 的 CommonJS 模式
+需要安装额外的 typings 
+typings install es6-shim --ambient
+如果没有使用 typings 的话，可以从 /es6-shim/es6-shim.d.ts 拷贝定义好的接口。
+
+4.通过 npm 所有全模块类型 (CJS/ES6/AMD/TypeScript)
+npm install @reactivex/rxjs
+
+
+单词：
+observable 观察得到的
+scheduler 调度程序
+subject 主题 提供
+extra 额外的
+reactive 反应的 活性的
+subscription  订阅
+operators 操作
+purity 纯度 纯洁
+consumer 消费者
+iterator 迭代器
+generator 发电机 生成者
+multicast 组播
+behavior 行为 态度
+replay 重播
+marbles 弹珠 
+diagram 图表 示意图
+sample 样品
+throttle 节流阀
+defer 延迟
+interval 间隔
+range 范围
+buffer 缓冲区
+toggle 切换
+exhaust 耗尽 排出
+expand 扩张 
+pairwise 两两
+partition 分隔 分开 
+pluck 摘下
+debounce 消抖 
+distinct 不同的 明显的
+audit 审计 
+skip 跳
+take 拿
+combine 结合
+fork 叉
+race 比赛
+cache 隐藏物
+publish 出版
+behavior 行为
+share 分享
+retry 重试
+dematerialize 非物质化 消失
+materialize 具体化 实现
+promise 承诺
+reduce 减少
+scheduler 调节程序
+queue 队列
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

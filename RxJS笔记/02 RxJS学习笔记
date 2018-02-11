@@ -1,0 +1,715 @@
+一.基础
+1.创建observables
+-使用 Subject，你可以从任何地方触发新事件，并且将已存在的 observables 和它进行连接。
+//代码示例：在外部产生新事件
+let myObservable = new Subject();
+myObservable.subscribe(v=>console.log(v));
+myObservable.next('foo');
+
+//代码示例：在内部产生新事件
+let myObservable = Observable.create(observer=>{
+    observer.next('foo');
+    setTimeout(()=>{
+        observer.next('bar')
+    },1000);
+});
+myObservable.subscribe(observer=>console.log(observer));
+
+2.控制流动
+let input = Observable.fromEvent(document.querySelector('input'),'input');
+
+**代码示例：过滤小于3个字符长度的目标值
+input.filter(event =>event['target'].value.length > 2)
+.map(event => event['target'].value)
+.subscribe(value => console.log(value));
+
+**代码示例： 延迟事件 
+input.delay(2000)
+.map(event => event['target'].value)
+.subscribe(value=> console.log(value));
+
+**代码示例：每2000ms只能通过一个事件
+input.throttleTime(2000)
+.map(event=>event['target'].value)
+.subscribe(value => console.log(value));
+
+**代码示例：停止输入后2000ms 方能通过行的那个事件
+input.debounceTime(2000)
+.map(event => event['target'].value)
+.subscribe(value => console.log(value));
+
+**代码示例：三次事件后停止事件流
+input.take(3)
+.map(event => event['target'].value)
+.subscribe(value => console.log(value));
+
+**代码示例：直到其他observable触发事件才停止事件流
+let stopStream = Observable.fromEvent(document.querySelector('button'),'click');
+input.takeUntil(stopStream)
+.map(event => event['target'].value)
+.subscribe(value => console.log(value));
+
+2.生产值
+**代码示例：传递一个新的值
+input.map(event =>event['target'].value)
+.subscribe(value => console.log(value));
+
+**代码示例：通过提取属性传递一个新的值
+input.pluck('target','value')
+.subscribe(value=>console.log(value));
+
+**代码示例：传递之前的两个值
+input.pluck('target','value').pairwise()
+.subscribe(value=>console.log(value));
+
+**代码示例：只会通过唯一的值
+input.pluck('data').distinct()
+.subscribe(value => console.log(value));
+
+**不会传递重复的值
+input.pluck('data').distinctUntilChanged()
+.subscribe(value => console.log(value));
+
+3.创建应用
+**代码示例：按钮点击后count自增1 并显示出来
+let button = document.querySelector('button');
+Observable.fromEvent(button,'click')
+//对流进行scan(reduce) 操作,以获取count值
+.scan(count => Number(count) + 1,0)
+.subscribe(count => {
+    //每次改变时都在元素上设置count
+    let pEle = document.querySelector('#count');
+    pEle.innerHTML = ''+ count;
+    console.log(count + '-' + pEle);
+})
+
+4.状态和存储 (State Store)
+**代码示例：是多个 observables 可以更新同一个状态存储
+let button = document.querySelector('button');
+let observable = Observable.fromEvent(button,'click');
+//我们映射到一个函数,它会改变状态，将点击事件映射成改变状态的函数
+observable.map(()=>state=>Object.assign({},state,{count:state.count +1}));
+
+**代码示例：状态储存
+let button1 = document.querySelector('#b1');
+let observable1 = Observable.fromEvent(button1,'click')
+    .map(()=>state=>Object.assign({},state,{count:state.count +1}));
+
+let button2 = document.querySelector('#b2');
+let observable2 = Observable.fromEvent(button2,'click')
+    .map(()=>state=>Object.assign({},state,{count:state.count -1}));
+
+let inputEle = document.querySelector('input');
+let input = Observable.fromEvent(inputEle,'keypress')
+    .map(event => state => Object.assign({},state,{inputValue:event['target'].value}));
+
+let state = Observable.merge(
+    observable1,
+    observable2,
+    input
+).scan((state,changeFn)=>changeFn(state),{count:0,inputValue:''});
+
+state.subscribe((state)=>{
+    let count1 = document.querySelector('#count1');
+    let count2 = document.querySelector('#count2');
+
+    count1.innerHTML= ''+state.count;
+    count2.innerHTML= ''+state.inputValue;
+})
+
+
+二.操作符示例
+1.repeat：重复 count 次，源 Observable 发出的值。
+//代码示例
+let source = Observable
+.zip(Observable.from(['a','b','c','d']),Observable.interval(500),(x,y)=>x);
+
+let example = source.repeat(2);  //重复两次
+
+example.subscribe({
+    next: (value) => console.log(value),
+    error:(err) => console.log('Error: ' + err),
+    complete:() =>console.log("complete")
+});
+
+**zip** 用于合并两个或两个以上的流 两个流都有数据才返回
+
+2.map：对 Observable 对象发出的每个值，使用指定的 project 函数，进行映射处理。
+//代码示例
+let source = Observable.interval(1000);
+let source.map(x=>x+2)
+.subscribe((x)=>console.log(x));
+
+3.mapTo：对 Observable 对象发出的每个值，映射成固定的值。
+//代码示例：
+let source = Observable.interval(1000);
+source.mapTo(2)
+.subscribe(x=>console.log(x));
+
+4.对 Observable 发出值，执行 accumulator(储能器) 指定的运算
+scan 最终返回的一定是一个 Observable 对象
+//代码示例
+let source = Observable.zip(Observable.from('hello'),Observable.interval(600),(x,y)=>x);
+source.scan((origin,next)=> origin + next,'0')
+.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error',err),
+    complete:()=> console.log('complete')
+});
+
+5.buffer：缓冲源 Observable 对象已发出的值，直到 closingNotifier 触发后，才统一输出缓存的元素。
+//代码示例  
+let source = Observable.interval(300);
+let source2 = Observable.interval(1000);
+let example = source.buffer(source2);
+
+example.subscribe({
+    next:v => console.log(v),
+    error:err => console.log('Error: ' ,err),
+    complete: ()=> console.log('complete')
+});
+
+6.bufferTime：设定源 Observable 对象已发出的值的缓冲时间。
+//代码示例  
+let source = Observable.interval(300);
+let example = source.bufferTime(1000);
+
+example.subscribe({
+    next:v => console.log(v),
+    error:err => console.log('Error', err),
+    complete:()=> console.log('complete')
+});
+
+7.bufferCount ：缓冲源 Observable对象已发出的值，直到大小达到给定的最大 bufferSize 。
+//代码示例  
+let source = Observable.interval(300);
+let example = source.bufferCount(3);
+
+example.subscribe({
+    next: v => console.log(v),
+    error:err => console.log('Error',err),
+    complete:()=> console.log('complete')
+});
+
+8.concatMap:对每个 Observable 对象发出的值，进行映射处理，并进行合并。
+该操作符也会先处理前一个 Observable 对象，在处理下一个 Observable 对象。
+//代码示例：  
+let source = Observable.fromEvent(document.body,'click');
+let source2 = Observable.from(['1X','2X','3X','4X','5X','6X']);
+let example = source2.concatMap(e => Observable.interval(100).take(1));
+
+example.subscribe({
+    next:v=> console.log(v),
+    error:err =>console.log('Error',err),
+    complete:()=> console.log('complete')
+});
+
+9.switchMap :对源 Observable 对象发出的值，做映射处理。若有新的 Observable 对象出现，会在新的 Observable 对象发出新值后，退订前一个未处理完的 Observable 对象。
+//代码示例：
+let source = Observable.fromEvent(document.body,'click');
+let source2 = Observable.from(['1X','2X','3X','4X','5X','6X']);
+let example = source2.switchMap(e => Observable.interval(100).take(3));
+
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error',err),
+    complete:()=> console.log('complete')
+});
+
+10.filter：对 Observable 对象发出的每个值，作为参数调用指定的 predicate 函数，
+若该函数的返回值为 true，则表示保留该项，若返回值为 false，则舍弃该值。
+//代码示例：  
+let source = Observable.interval(1000);
+source.filter(x =>x%2 === 0)
+.subscribe(x => console.log(x))
+
+11.take:用于获取 Observable 对象发出的前 n 项值，取完后就结束。
+//示例代码
+let source = Observable.interval(1000)
+.take(3);
+source.subscribe({
+    next:v => console.log(v),
+    error:err => console.log('Error: ',err),
+    complete:()=> console.log('complete')
+});
+
+12.first ：用于获取 Observable 对象发出的第一个元素，取完后就结束。
+//代码示例：
+let source = Observable.interval(1000).first();
+source.subscribe({
+    next:v => console.log(v),
+    error:err => console.log('Error',err),
+    complete:()=>console.log('complete')
+});
+
+12.takeUntil ：当 takeUntil 传入的 notifier 发出值时，源 Observable 对象就会直接进入完成状态。
+//代码示例
+let source = Observable.interval(1000);
+let click = Observable.fromEvent(document.body,'click');
+
+let example = source.takeUntil(click);
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error:'+ err),
+    complete:()=> console.log('complete')
+});
+
+13.skip : 跳过源 Observable 对象前 count 项，并返回新的 Observable 对象。
+let source = Observable.interval(1000);
+let example = source.skip(3);
+
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error:'+ err),
+    complete:()=> console.log('complete')
+});
+
+14.takeLast :获取源 Observable 对象发出的，后面 count 项的值。
+//代码示例 
+let source = Observable.interval(1000).take(6);
+let example = source.takeLast(2);
+
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error:'+ err),
+    complete:()=> console.log('complete')
+});
+
+15.last ：获取源 Observable 对象发出的最后一项的值
+//代码示例：  
+let source = Observable.interval(1000).take(6);
+let example = source.last();
+
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error:'+ err),
+    complete:()=> console.log('complete')
+});
+
+16.debounceTime :在设定的时间跨度内，若源 Observable 对象没有再发出新值，则返回最近一次发出的值。
+let source = Observable.interval(300).take(5);
+let example = source.debounceTime(1000);
+
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error:'+ err),
+    complete:()=> console.log('complete')
+});
+
+17.throttleTime:从源 Observable 对象发出第一个值开始，忽略等待时间内发出的值，
+等待时间过后再发出新值。与 debounceTime 不同的是，throttleTime 一开始就会发出值，
+在等待时间内不会发出任何值，等待时间过后又会发出新的值。
+
+//代码示例  
+let source = Observable.interval(300).take(5);
+let example = source.throttleTime(1000);
+
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error:'+ err),
+    complete:()=> console.log('complete')
+});
+
+18.distinct :过滤源 Observable 发出的值，确保不会发出重复出现的值。
+//代码示例  
+let source = Observable.zip( 
+    Observable.from(['a','b','c','a','b']),
+    Observable.interval(300),(x,y)=>x
+);
+let example = source.distinct();
+
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error:'+ err),
+    complete:()=> console.log('complete')
+});
+
+19.distinctUntilChanged ：过滤源 Observable 发出的值，若当前发出的值与前一次值不一致，则发出该值。
+//代码示例： 
+let source = Observable.zip( 
+    Observable.from(['a','b','c','c','b']),
+    Observable.interval(300),(x,y)=>x
+);
+let example = source.distinctUntilChanged();
+
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error:'+ err),
+    complete:()=> console.log('complete')
+});
+
+
+20.concat：把多个 Observable 对象合并为一个 Observable 对象，Observable 对象会依次执行，
+即需等前一个 Observable 对象完成后，才会继续订阅下一个
+//代码示例  
+let source = Observable.interval(1000).take(3);
+let source2 = Observable.of(3);
+let source3 = Observable.of(4,5,6);
+let example = source.concat(source2,source3);
+
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error:'+ err),
+    complete:()=> console.log('complete')
+});
+
+23.concatAll :合并多个 Observable 对象，并在上一个 Observable 对象完成后订阅下一个 Observable 对象。
+//代码示例：  
+let obs1 = Observable.interval(1000).take(5);
+let obs2 = Observable.interval(500).take(2);
+let obs3 = Observable.interval(2000).take(1);
+
+let source = Observable.of(obs1,obs2,obs3);
+let example = source.concatAll();
+
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error:'+ err),
+    complete:()=> console.log('complete')
+});
+
+24.startWith : 在开始发出源 Observable 数据之前发出已设置的参数值，并返回新的 Observable 对象。
+//代码示例 
+let source = Observable.interval(1000);
+let example = source.startWith(0);
+
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error:'+ err),
+    complete:()=> console.log('complete')
+});
+
+25.merge : 合并 Observable 对象，并按给定的时序发出对应值。
+//代码示例
+let source= Observable.interval(500).take(3);
+let source2 = Observable.interval(300).take(6);
+
+let example = source.merge(source2);
+
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error:'+ err),
+    complete:()=> console.log('complete')
+});
+
+
+26.mergeAll:将高阶 Observable 对象转换为一阶Observable 对象，并同时处理所有的 Observable 对象。
+//代码示例： 并行处理多个 Observable 对象
+let click = Observable.fromEvent(document.body,'click');
+let source = click.map(e => Observable.interval(1000));
+let example = source.mergeAll();
+
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error:'+ err),
+    complete:()=> console.log('complete')
+});
+
+27.combineLatest :用于合并输入的 Observable 对象，当源 Observable 对象和 other Observable 对象都发出值后，才会调用 project 函数。
+//代码示例 ： 
+let source = Observable.interval(500).take(3);
+let source2 = Observable.interval(300).take(6);
+let example = source.combineLatest(source2,(x,y)=>x+y);
+
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error:'+ err),
+    complete:()=> console.log('complete')
+});
+
+28.zip:根据每个输入 Observable 对象的输出顺序，产生一个新的 Observable 对象。
+//代码示例
+let source = Observable.interval(500).take(3);
+let source2 = Observable.interval(300).take(6);
+
+let example = Observable.zip(source,source2,(x,y)=>x+y);
+
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error:'+ err),
+    complete:()=> console.log('complete')
+});
+
+29.withLatestFrom:当源 Observable 发出新值的时候，根据 project 函数，合并 other Observable 对象此前发出的最新值。
+代码示例：
+let main = Observable.from('hello').zip(Observable.interval(500),(x,y)=>x);
+let some = Observable.from([0,1,0,0,0,1]).zip(Observable.interval(300),(x,y)=>x);
+let example = main.withLatestFrom(some,(x,y)=>{
+    return y ===1 ? x.toUpperCase() : x;
+});
+
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error:'+ err),
+    complete:()=> console.log('complete')
+});
+
+30.switch ：切换为最新的 Observable 数据源，并退订前一个 Observable 数据源。
+代码示例：  
+let click = Observable.fromEvent(document.body,'click');
+let source = click.map(e => Observable.interval(1000));
+let example = source.switch();
+
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error:'+ err),
+    complete:()=> console.log('complete')
+});
+
+31.delay :延迟源 Observable 对象，发出第一个元素的时间点。
+//代码示例：
+let source = Observable.interval(300).take(5);
+let example = source.delay(500);
+
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error:'+ err),
+    complete:()=> console.log('complete')
+});
+
+32.delayWhen :跟 delay 操作符类似，最大的区别是 delayWhen 会影响每个元素，而且调用的时候需要
+设置 delayDurationSelector 函数，该函数的返回值是 Observable 对象。
+//代码示例:
+let source = Observable.interval(300).take(5);
+let example = source.delayWhen(x=>Observable.interval(100*x).take(1))
+
+example.subscribe({
+    next:v => console.log(v),
+    error: err => console.log('Error:'+ err),
+    complete:()=> console.log('complete')
+});
+
+33.multicast :用于挂载 Subject 对象，并返回一个可链接 (connectable) 的 Observable 对象。
+当调用 source 对象的 connect() 方法后才会真正的订阅 source 对象
+退订观察者:realSubscription.unsubscribe();
+//代码示例
+let source = Observable.interval(1000).take(3)
+            .multicast(new Subject());
+let observerA = {
+    next:v =>console.log('A next: ' +v),
+    error:err => console.log('A error: ' + err),
+    complete:()=> console.log('A complete')
+}
+let observerB = {
+    next:v =>console.log('B next: ' +v),
+    error:err => console.log('B error: ' + err),
+    complete:()=> console.log('B complete')
+}
+
+source.subscribe(observerA);
+source.connect();
+
+setTimeout(()=>{
+    source.subscribe(observerB);
+},1000);
+
+
+34.refCount: 必须搭配 multicast 一起使用，在调用 multicast 操作符后，
+接着调用 refCount() 。这样只要有订阅就会自动进行 connect (链接) 操作。
+同样只要订阅数变成 0，就会自动停止发送。
+//代码示例：
+let source = Observable.interval(1000).do(x=>console.log('send:'+x))
+            .multicast(new Subject())
+            .refCount();
+let observerA = {
+    next:v =>console.log('A next: ' +v),
+    error:err => console.log('A error: ' + err),
+    complete:()=> console.log('A complete')
+}
+let observerB = {
+    next:v =>console.log('B next: ' +v),
+    error:err => console.log('B error: ' + err),
+    complete:()=> console.log('B complete')
+}
+
+let subscriptionA = source.subscribe(observerA);
+
+let subscriptionB;
+
+
+setTimeout(()=>{
+    subscriptionB=source.subscribe(observerB);
+});
+
+setTimeout(()=>{
+    subscriptionA.unsubscribe();
+    subscriptionB.unsubscribe();
+},3000);
+
+35.publish:用于挂载 Subject 对象，并返回一个可链接 (connectable) 的 Observable 对象。
+即 publish 操作符与 multicast(new Rx.Subject()) 是等价的。
+//代码示例：publish
+var source = Rx.Observable.interval(1000)
+             .publish() 
+             .refCount();
+             
+var source = Rx.Observable.interval(1000)
+             .multicast(new Rx.Subject()) 
+             .refCount();
+
+//代码示例：publishReplay
+var source = Rx.Observable.interval(1000)
+             .publishReplay(1) 
+             .refCount();
+             
+var source = Rx.Observable.interval(1000)
+            .multicast(new Rx.ReplaySubject(1)) 
+            .refCount();
+
+//代码示例：publishBehavior
+var source = Rx.Observable.interval(1000)
+             .publishBehavior(0) 
+             .refCount();
+             
+var source = Rx.Observable.interval(1000)
+             .multicast(new Rx.BehaviorSubject(0)) 
+             .refCount();
+
+//代码示例：publishLast
+var source = Rx.Observable.interval(1000)
+             .publishLast() 
+             .refCount();
+             
+var source = Rx.Observable.interval(1000)
+             .multicast(new Rx.AsyncSubject(1)) 
+             .refCount();
+
+36.share:publish + refCount 的简写。
+var source = Rx.Observable.interval(1000)
+             .share();
+             
+var source = Rx.Observable.interval(1000)
+             .publish()
+             .refCount();
+
+var source = Rx.Observable.interval(1000)
+             .multicast(new Rx.Subject()) 
+             .refCount();
+
+
+37.catch:用于捕获异常，同时可以返回一个 Observable 对象，用于发出新的值。
+当错误发生时，我们可以返回一个 empty 的 Observable 对象来直接结束源 Observable 对象。
+//代码示例：
+let source = Observable.from(['a','b','c','d'])
+        .zip(Observable.interval(500), (x,y) => x);
+
+let example = source.map(x => x.toUpperCase())
+                    .catch(error => Observable.of('h'));
+
+example.subscribe({
+    next: (value) => { console.log(value); },
+    error: (err) => { console.log('Error: ' + err); },
+    complete: () => { console.log('complete'); }
+}); 
+
+38.retry：发生错误后，重试 count 次数
+//代码示例
+var source = Rx.Observable.from(['a','b','c','d',2])
+               .zip(Rx.Observable.interval(500), (x,y) => x);
+
+var example = source.map(x => x.toUpperCase())
+                    .retry(1);
+
+example.subscribe({
+    next: (value) => { console.log(value); },
+    error: (err) => { console.log('Error: ' + err); },
+    complete: () => { console.log('complete'); }
+}); 
+
+39.retryWhen：捕获异常 Observable 对象，进行异常处理后，可重新订阅源 Observable 对象。
+//代码示例
+var source = Rx.Observable.from(['a','b','c','d',2])
+               .zip(Rx.Observable.interval(500), (x,y) => x);
+
+var example = source.map(x => x.toUpperCase())
+                    .retryWhen(errorObs => errorObs.delay(1000));
+
+example.subscribe({
+    next: (value) => { console.log(value); },
+    error: (err) => { console.log('Error: ' + err); },
+    complete: () => { console.log('complete'); }
+}); 
+
+
+
+
+参考文档：
+RxJS Operators 详解:https://segmentfault.com/a/1190000008834251 
+
+
+注意：
+**Object.assign() ：用于对象的浅拷贝 及 合并多个对象
+//后面的对象会覆盖前面的对象
+var target = { a: 1, b: 1 };  
+var source1 = { b: 2, c: 2 };  
+var source2 = { c: 3 };  
+Object.assign(target, source1, source2);  
+target // {a:1, b:2, c:3}    
+
+
+单词：
+observable 观察得到的
+scheduler 调度程序
+subject 主题 提供
+extra 额外的
+reactive 反应的 活性的
+subscription  订阅
+operators 操作
+purity 纯度 纯洁
+consumer 消费者
+iterator 迭代器
+generator 发电机 生成者
+multicast 组播
+behavior 行为 态度
+replay 重播
+marbles 弹珠 
+diagram 图表 示意图
+sample 样品
+throttle 节流阀
+defer 延迟
+interval 间隔
+range 范围
+buffer 缓冲区
+toggle 切换
+exhaust 耗尽 排出
+expand 扩张 
+pairwise 两两
+partition 分隔 分开 
+pluck 摘下
+debounce 消抖 
+distinct 不同的 明显的
+audit 审计 
+skip 跳
+take 拿
+combine 结合
+fork 叉
+race 比赛
+cache 隐藏物
+publish 出版
+behavior 行为
+share 分享
+retry 重试
+dematerialize 非物质化 消失
+materialize 具体化 实现
+promise 承诺
+reduce 减少
+scheduler 调节程序
+queue 队列
+assign 分配
+immutable 不可改变的
+review 回顾
+project 项目
+accumulator 储能器
+notifier 通知人
+predicate 断言  
+combination 结合体 
+
+
+
+
+
+
+
+
+
+
