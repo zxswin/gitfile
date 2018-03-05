@@ -1,0 +1,401 @@
+<?php
+    header("content-type: text/html; charset=utf-8");
+    init();
+    function init(){
+    	tokenCheck();
+    };
+    //微信token验证
+    function tokenCheck(){
+    	//获取参数 signatrue nonce token timestamp echostr
+    	$nonce=$_GET['nonce'];
+    	$token="zxsweixin";
+    	$timestamp=$_GET['timestamp'];
+    	$echostr=$_GET['echostr'];
+    	$signature=$_GET['signature'];
+    	//形成数组,然后按字典排序
+    	$array=array();
+    	$array=array($nonce,$timestamp,$token);
+    	sort($array);
+    	//拼接成字符串,sha1加密,然后与signature进行校验
+    	$str=sha1(implode('',$array));
+    	if($str==$signature&&$echostr){
+    		//第一次接入weixin api接口的时候
+    		echo $echostr;
+    		exit;
+    	}else{
+    		definedItem();
+    		reponseMsg();
+    	}
+    };
+    
+    //返回access_token
+    function getWxAccessToken(){
+    	//将access_token存在session/cookie中
+    	if($_SESSION['access_token'] && $_SESSION['expire_time']>time()){
+    		//如果access_token在session中并没有过期
+    		return $_SESSION['access_token'];
+    	}else{
+    		//如果access_token不存在或者已经过期,重新获取access_token;
+    		$appid='wx8641d68a7946bfbe';
+    		$appsecret='f971ce4b35b0cb09d4170b6bb9fa3aa0';
+    		$url="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
+    		$res=http_url($url,'get','json');
+    		$access_token=$res['access_token'];
+    		//将重新获取到的access_token存到session
+    		$_SESSION['access_token']=$access_token;
+    		$_SESSION['expire_time']=time()+7000;
+    		return $access_token;
+    	};
+    };
+    //自定义菜单
+    function definedItem(){
+    	//创建微信菜单
+    	//目前微信接口的调用方式都是通过curl post/get
+    	$access_token=getWxAccessToken();
+    	$url="https://api.weixin.qq.com/cgi-bin/menu/create?access_token=".$access_token;
+    	$postArr=array(
+    			'button'=>array(
+    					array(
+    							//第一个一级菜单
+    							'name'=>urlencode('菜单一'),
+    							'type'=>'click',
+    							'key'=>'item1',
+    					),
+    					array(
+    							//第二个一级菜单
+    							'name'=>urlencode('菜单二'),
+    							'sub_button'=>array(
+    									array(
+    											'name'=>urlencode('歌曲'),
+    											'type'=>'click',
+    											'key'=>'songs',
+    							        ),
+    									array(
+    											'name'=>urlencode('电影'),
+    											'type'=>'view',
+    											'url'=>'http://www.szdhan.com/'
+    							        )
+    			                 )
+    					
+    					),
+    					array(
+    							//第三个一级菜单
+    							'name'=>urlencode('菜单三'),
+    							'type'=>'view',
+    							'url'=>'http://www.szdhan.com/'
+    					),
+    	        )
+    	);
+    	$postArr=urldecode(json_encode($postArr));
+    	$result =http_url($url,"post","json",$postArr);
+        var_dump($result);
+    };
+    
+    
+    //接口调用函数封装
+    /*
+     * $url 接口url string
+     * $type 请求类型 string
+     * $res 返回数据类型 string
+     * $arr post 请求参数 string
+     * */
+    function http_url($url,$type="get",$res="json",$arr=""){
+    	//1.初始化curl
+    	$ch=curl_init();
+    	//2.设置curl的参数
+    	curl_setopt($ch, CURLOPT_URL,$url);
+    	curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+    	if($type=="post"){
+    		curl_setopt($ch,CURLOPT_POST,1);
+    	    curl_setopt($ch,CURLOPT_POSTFIELDS,$arr);
+    	};
+    	//3.采集
+    	$output=curl_exec($ch);
+    	//4.关闭
+    	curl_close($ch);
+    	if($res=="json"){
+    		if(curl_errno($ch)){
+    			return curl_error($ch);
+    		}else{
+    			return json_decode($output,true);
+    		}
+    	};
+    };
+    //接收事件推送并回复
+    function reponseMsg(){
+    	//1.获取到微信推送过来的post数据(xml格式)
+    	$postArr=$GLOBALS['HTTP_RAW_POST_DATA'];
+    	//2.处理消息类型,并设置回复类型和内容
+    	$postObj=simplexml_load_string($postArr);
+    	//3.判断该数据包是否是订阅的事件推送
+    	if(strtolower($postObj->MsgType)=='event'){
+    		//菜单点击事件
+    		if(strtolower($postObj->Event)=='click'){
+    			//如果是自定义菜单中的event ->click
+    			if(strtolower($postObj->EventKey)=='item1'){
+    				$content="这是item1菜单的事件推送";
+    				$template="<xml>
+                           <ToUserName><![CDATA[%s]]></ToUserName>
+                           <FromUserName><![CDATA[%s]]></FromUserName>
+                           <CreateTime>%s</CreateTime>
+                           <MsgType><![CDATA[%s]]></MsgType>
+                           <Content><![CDATA[%s]]></Content>
+                           </xml>";
+    				$fromUser=$postObj->ToUserName;
+    				$toUser=$postObj->FromUserName;
+    				$time=time();
+    				$msgtype='text';
+    				$info=sprintf($template,$toUser,$fromUser,$time,$msgtype,$content);
+    				echo $info;
+    			}
+    			if(strtolower($postObj->EventKey)=='songs'){
+    				$content="这是歌曲菜单的事件推送";
+    				$template="<xml>
+                           <ToUserName><![CDATA[%s]]></ToUserName>
+                           <FromUserName><![CDATA[%s]]></FromUserName>
+                           <CreateTime>%s</CreateTime>
+                           <MsgType><![CDATA[%s]]></MsgType>
+                           <Content><![CDATA[%s]]></Content>
+                           </xml>";
+    				$fromUser=$postObj->ToUserName;
+    				$toUser=$postObj->FromUserName;
+    				$time=time();
+    				$msgtype='text';
+    				$info=sprintf($template,$toUser,$fromUser,$time,$msgtype,$content);
+    				echo $info;
+    			}
+    		};
+    		//如果是关注subscribe事件
+    		if(strtolower($postObj->Event=='subscribe')){
+    			$toUser=$postObj->FromUserName;
+    			$fromUser=$postObj->ToUserName;
+    			$arr=array(
+    					array(
+    							'title'=>'多汗日记：从这张手足多汗症手术票据说起',
+    							'description'=>'多汗日记：从这张手足多汗症手术票据说起',
+    							'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg01.jpg',
+    							'url'=>'http://www.szdhan.com/m/a/diary/szdh150.html',
+    					),
+    					array(
+    							'title'=>'科比做客艾伦秀爆多汗症是真的还是整蛊医生',
+    							'description'=>'科比做客艾伦秀爆多汗症 是真的还是整蛊医生',
+    							'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg02.jpg',
+    							'url'=>'http://www.szdhan.com/m/a/video/szdh39.html',
+    					),
+    					array(
+    							'title'=>'国外多汗症视频多汗症发病原因手术全分析',
+    							'description'=>'手足多汗症视频 多汗症发病原因手术全分析',
+    							'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg03.jpg',
+    							'url'=>'http://www.szdhan.com/m/a/video/szdh38.html',
+    					),
+    					array(
+    							'title'=>'多汗日记：多汗症手术后的一些切身感受',
+    							'description'=>'多汗日记：多汗症手术后的一些切身感受',
+    							'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg04.jpg',
+    							'url'=>'http://www.szdhan.com/m/a/diary/szdh55.html',
+    					),
+    					array(
+    							'title'=>'多汗症健身锻炼黄金时间那个时间段锻炼效果最好',
+    							'description'=>'多汗症健身锻炼黄金时间那个时间段锻炼效果最好',
+    							'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg05.jpg',
+    							'url'=>'http://www.szdhan.com/m/a/bodybuilding/szdh92.html',
+    					),
+    			);
+    			$template="<xml>
+                       <ToUserName><![CDATA[%s]]></ToUserName>
+                       <FromUserName><![CDATA[%s]]></FromUserName>
+                       <CreateTime>%s</CreateTime>
+                       <MsgType><![CDATA[%s]]></MsgType>
+                       <ArticleCount>".count($arr)."</ArticleCount>
+                       <Articles>";
+    			foreach($arr as $k=>$v){
+    				$template.="<item>
+                           <Title><![CDATA[".$v['title']."]]></Title>
+                           <Description><![CDATA[".$v['description']."]]></Description>
+                           <PicUrl><![CDATA[".$v['picUrl']."]]></PicUrl>
+                           <Url><![CDATA[".$v['url']."]]></Url>
+                           </item>";
+    			};
+    			$template.="</Articles>
+                         </xml>";
+    			echo sprintf($template,$toUser,$fromUser,time(),'news');
+    		};
+    	};
+    	//用户发送关键字的时候,回复图文信息,进行多图文发送时,子图文个数不能超过10个
+    	if(strtolower($postObj->MsgType)=='text'&&trim($postObj->Content)=='多汗'){
+    		$toUser=$postObj->FromUserName;
+    		$fromUser=$postObj->ToUserName;
+    		$arr=array(
+    				array(
+    						'title'=>'多汗日记：从这张手足多汗症手术票据说起',
+    						'description'=>'多汗日记：从这张手足多汗症手术票据说起',
+    						'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg01.jpg',
+    						'url'=>'http://www.szdhan.com/m/a/diary/szdh150.html',
+    				),
+    				array(
+    						'title'=>'科比做客艾伦秀爆多汗症是真的还是整蛊医生',
+    						'description'=>'科比做客艾伦秀爆多汗症 是真的还是整蛊医生',
+    						'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg02.jpg',
+    						'url'=>'http://www.szdhan.com/m/a/video/szdh39.html',
+    				),
+    				array(
+    						'title'=>'国外多汗症视频多汗症发病原因手术全分析',
+    						'description'=>'手足多汗症视频 多汗症发病原因手术全分析',
+    						'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg03.jpg',
+    						'url'=>'http://www.szdhan.com/m/a/video/szdh38.html',
+    				),
+    				array(
+    						'title'=>'多汗日记：多汗症手术后的一些切身感受',
+    						'description'=>'多汗日记：多汗症手术后的一些切身感受',
+    						'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg04.jpg',
+    						'url'=>'http://www.szdhan.com/m/a/diary/szdh55.html',
+    				),
+    				array(
+    						'title'=>'多汗症健身锻炼黄金时间那个时间段锻炼效果最好',
+    						'description'=>'多汗症健身锻炼黄金时间那个时间段锻炼效果最好',
+    						'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg05.jpg',
+    						'url'=>'http://www.szdhan.com/m/a/bodybuilding/szdh92.html',
+    				),
+    		);
+    		$template="<xml>
+                       <ToUserName><![CDATA[%s]]></ToUserName>
+                       <FromUserName><![CDATA[%s]]></FromUserName>
+                       <CreateTime>%s</CreateTime>
+                       <MsgType><![CDATA[%s]]></MsgType>
+                       <ArticleCount>".count($arr)."</ArticleCount>
+                       <Articles>";
+    		foreach($arr as $k=>$v){
+    			$template.="<item>
+                           <Title><![CDATA[".$v['title']."]]></Title>
+                           <Description><![CDATA[".$v['description']."]]></Description>
+                           <PicUrl><![CDATA[".$v['picUrl']."]]></PicUrl>
+                           <Url><![CDATA[".$v['url']."]]></Url>
+                           </item>";
+    		};
+    		$template.="</Articles>
+                         </xml>";
+    		echo sprintf($template,$toUser,$fromUser,time(),'news');
+    	}else{
+    		//回复信息
+    		switch (trim($postObj->Content)){
+    			case 1:
+    				$content='http://www.szdhan.com/';
+    				break;
+    			case 2:
+    				$content='您输入的数字是2';
+    				break;
+    		};
+    		$template="<xml>
+                           <ToUserName><![CDATA[%s]]></ToUserName>
+                           <FromUserName><![CDATA[%s]]></FromUserName>
+                           <CreateTime>%s</CreateTime>
+                           <MsgType><![CDATA[%s]]></MsgType>
+                           <Content><![CDATA[%s]]></Content>
+                           </xml>";
+    		$fromUser=$postObj->ToUserName;
+    		$toUser=$postObj->FromUserName;
+    		$time=time();
+    		$msgtype='text';
+    		$info=sprintf($template,$toUser,$fromUser,$time,$msgtype,$content);
+    		echo $info;
+    	};
+    	
+    };
+    //微信自定义菜单使用的接口
+    // $jsonmenu = '{
+    //       "button":[
+    //       {
+    //             "name":"天气预报",
+    //            "sub_button":[
+    //             {
+    //                "type":"click",
+    //                "name":"北京天气",
+    //                "key":"天气北京"
+    //             },
+    //             {
+    //                "type":"click",
+    //                "name":"上海天气",
+    //                "key":"天气上海"
+    //             },
+    //             {
+    //                "type":"click",
+    //                "name":"广州天气",
+    //                "key":"天气广州"
+    //             },
+    //             {
+    //                "type":"click",
+    //                "name":"深圳天气",
+    //                "key":"天气深圳"
+    //             },
+    //             {
+    //                 "type":"view",
+    //                 "name":"本地天气",
+    //                 "url":"http://m.hao123.com/a/tianqi"
+    //             }]
+     
+     
+    //        },
+    //        {
+    //            "name":"方倍工作室",
+    //            "sub_button":[
+    //             {
+    //                "type":"click",
+    //                "name":"公司简介",
+    //                "key":"company"
+    //             },
+    //             {
+    //                "type":"click",
+    //                "name":"趣味游戏",
+    //                "key":"游戏"
+    //             },
+    //             {
+    //                 "type":"click",
+    //                 "name":"讲个笑话",
+    //                 "key":"笑话"
+    //             }]
+    
+     
+    //        }]
+    //  }';
+//     function https_request($url,$data = null){
+//     	$curl = curl_init();
+//     	curl_setopt($curl, CURLOPT_URL, $url);
+//     	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+//     	curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+//     	if (!empty($data)){
+//     		curl_setopt($curl, CURLOPT_POST, 1);
+//     		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+//     	}
+//     	curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+//     	$output = curl_exec($curl);
+//     	curl_close($curl);
+//     	return $output;
+//     }
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

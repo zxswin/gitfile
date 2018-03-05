@@ -1,0 +1,115 @@
+//如果是重扫二维码
+    		if(strtolower($postObj->Event=='scan')){
+    			$toUser=$postObj->FromUserName;
+    			$fromUser=$postObj->ToUserName;
+    			if($postObj->EventKey==2000){
+    				//如果是临时二维码扫描
+    			    $tmp='临时二维码欢迎你';
+    			};
+    			if($postObj->EventKey==3000){
+    				//如果是永久二维码扫描
+    				$tmp='永久二维码欢迎你';
+    			};
+    			$arr=array(
+    					array(
+    							'title'=>$tmp,
+    							'description'=>'多汗日记：从这张手足多汗症手术票据说起',
+    							'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg01.jpg',
+    							'url'=>'http://www.szdhan.com/m/a/diary/szdh150.html',
+    					),
+    					array(
+    							'title'=>'科比做客艾伦秀爆多汗症是真的还是整蛊医生',
+    							'description'=>'科比做客艾伦秀爆多汗症 是真的还是整蛊医生',
+    							'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg02.jpg',
+    							'url'=>'http://www.szdhan.com/m/a/video/szdh39.html',
+    					),
+    					array(
+    							'title'=>'国外多汗症视频多汗症发病原因手术全分析',
+    							'description'=>'手足多汗症视频 多汗症发病原因手术全分析',
+    							'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg03.jpg',
+    							'url'=>'http://www.szdhan.com/m/a/video/szdh38.html',
+    					),
+    					array(
+    							'title'=>'多汗日记：多汗症手术后的一些切身感受',
+    							'description'=>'多汗日记：多汗症手术后的一些切身感受',
+    							'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg04.jpg',
+    							'url'=>'http://www.szdhan.com/m/a/diary/szdh55.html',
+    					),
+    					array(
+    							'title'=>'多汗症健身锻炼黄金时间那个时间段锻炼效果最好',
+    							'description'=>'多汗症健身锻炼黄金时间那个时间段锻炼效果最好',
+    							'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg05.jpg',
+    							'url'=>'http://www.szdhan.com/m/a/bodybuilding/szdh92.html',
+    					),
+    			);
+    			$template="<xml>
+                       <ToUserName><![CDATA[%s]]></ToUserName>
+                       <FromUserName><![CDATA[%s]]></FromUserName>
+                       <CreateTime>%s</CreateTime>
+                       <MsgType><![CDATA[%s]]></MsgType>
+                       <ArticleCount>".count($arr)."</ArticleCount>
+                       <Articles>";
+    			foreach($arr as $k=>$v){
+    				$template.="<item>
+                           <Title><![CDATA[".$v['title']."]]></Title>
+                           <Description><![CDATA[".$v['description']."]]></Description>
+                           <PicUrl><![CDATA[".$v['picUrl']."]]></PicUrl>
+                           <Url><![CDATA[".$v['url']."]]></Url>
+                           </item>";
+    			};
+    			$template.="</Articles>
+                         </xml>";
+    			echo sprintf($template,$toUser,$fromUser,time(),'news');
+    		};
+    		
+    		
+    		
+    		
+    		
+   //获取临时二维码接口
+    function getTimeQrCode(){
+    	//1.获取ticket票据
+    	//全局票据access_token 网页授权access_token 微信js-SDK jsa
+    	$access_token=getWxAccessToken();
+    	$url="https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=".$access_token;
+    	//{"expire_seconds": 604800, "action_name": "QR_SCENE", "action_info": {"scene": {"scene_id": 123}}}
+    	$postArr=array(
+    		'expire_seconds'=>'604800',//24*60*60*7
+    		'action_name'=>'QR_SCENE',
+    		'action_info'=>array(
+    		     'scene'=>array('scene_id'=>2000),
+    	     ),
+    	);
+    	$postJson=json_encode($postArr);
+    	$res=http_url($url,'post','json',$postJson);
+    	$ticket=$res['ticket'];
+    	//2.使用ticket获取二维码图片
+    	$url="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=".urlencode($ticket);
+    	//$res=http_url($url);
+    	echo "临时二维码";
+    	//直接展示
+    	echo "<img src='".$url."'/>";
+    };
+    //获取永久二维码接口
+    function getQrCode(){
+    	//1.获取ticket票据
+    	//全局票据access_token 网页授权access_token 微信js-SDK jsa
+    	$access_token=getWxAccessToken();
+    	$url="https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=".$access_token;
+    	//{"action_name": "QR_LIMIT_SCENE", "action_info": {"scene": {"scene_id": 123}}}
+    	$postArr=array(
+    			'action_name'=>'QR_SCENE',
+    			'action_info'=>array(
+    					'scene'=>array('scene_id'=>3000),
+    			),
+    	);
+    	$postJson=json_encode($postArr);
+    	$res=http_url($url,'post','json',$postJson);
+    	$ticket=$res['ticket'];
+    	//2.使用ticket获取二维码图片
+    	$url="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=".urlencode($ticket);
+    	//$res=http_url($url);
+    	echo "永久二维码";
+    	//直接展示
+    	echo "<img src='".$url."'/>";
+    };

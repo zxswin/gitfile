@@ -1,0 +1,2 @@
+一.接口调用:天气查询接口
+http://v.juhe.cn/weather/forecast3h.php?cityname=%E4%B8%8A%E6%B5%B7&key=686d3a48d808c425183b7411ab0f2601

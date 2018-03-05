@@ -1,0 +1,46 @@
+    //js-sdk获取有效的jsapi_ticket
+    function getJsApiTicket(){
+    	//如果session中保存有效的jsapi_ticket
+    	if($_SESSION['jsapi_ticket_expire_time']>time()&&$_SESSION['jsapi_ticket']){
+    		$jsapi_ticket=$_SESSION['jsapi_ticket'];
+    	}else{
+    		$access_token=getWxAccessToken();
+    		$url="https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=".$access_token."&type=jsapi";
+    		$res=http_url($url);
+    		$$jsapi_ticket=$res['ticket'];
+    		$_SESSION['jsapi_ticket']=$jsapi_ticket;
+    		$_SESSION['jsapi_ticket_expire_time']=time()+7000;
+    	};
+    	return $jsapi_ticket;
+    };
+    //获取随机码
+    function getRandCode($num=16){
+    	$array=array(
+    		'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+    		'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+    		'0','1','2','3','4','5','6','7','8','9'
+    	);
+    	$tmpstr='';
+    	$max=count($array);
+    	for($i=1;$i<=$num;$i++){
+    		$key=rand(0, $max-1);
+    		$tmpstr.=$array[$key];
+    	};
+    	return $tmpstr;
+    };
+    //分享朋友圈
+    function shareWx(){
+    	//1.获取jsapi_ticket票据
+    	$jsapi_ticket=getJsApiTicket();
+    	$timestamp=time();
+    	$noncestr=getRandCode();
+    	$url="http://www.szdhan.com/zxswx/wxtest.php";
+    	//2.获取signature
+    	$signature=$jsapi_ticket."&noncestr=".$noncestr."&timestamp=".$timestamp."&url=".$url;
+    	$signature=sha1($signature);
+    	//tp生成模板变量
+    	assign('timestamp',$timestamp);
+    	assign('noncestr',$noncestr);
+    	assign('signature',$signature);
+    	display(share);
+    };

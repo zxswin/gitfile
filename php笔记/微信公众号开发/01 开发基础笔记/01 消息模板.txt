@@ -1,0 +1,163 @@
+<?php
+    header("Content-type: text/html; charset=utf-8");
+    init();
+    function init(){
+    	tokenCheck();
+    	reponseMsg();
+    };
+    //微信token验证
+    function tokenCheck(){
+    	//获取参数 signatrue nonce token timestamp echostr
+    	$nonce=$_GET['nonce'];
+    	$token="zxsweixin";
+    	$timestamp=$_GET['timestamp'];
+    	$echostr=$_GET['echostr'];
+    	$signature=$_GET['signature'];
+    	//形成数组,然后按字典排序
+    	$array=array();
+    	$array=array($nonce,$timestamp,$token);
+    	sort($array);
+    	//拼接成字符串,sha1加密,然后与signature进行校验
+    	$str=sha1(implode('',$array));
+    	if($str==$signature&&$echostr){
+    		//第一次接入weixin api接口的时候
+    		echo $echostr;
+    		exit;
+    	}else{
+    		reponseMsg();
+    	};
+    };
+    //接收事件推送并回复
+    function reponseMsg(){
+    	//1.获取到微信推送过来的post数据(xml格式)
+    	$postArr=$GLOBALS['HTTP_RAW_POST_DATA'];
+    	//2.处理消息类型,并设置回复类型和内容
+    	$postObj=simplexml_load_string($postArr);
+    	//3.判断该数据包是否是订阅的事件推送
+    	if(strtolower($postObj->MsgType)=='event'){
+    		//如果是关注subscribe事件
+    		if(strtolower($postObj->Event=='subscribe')){
+    			//回复用户信息
+    			$toUser=$postObj->FromUserName;
+    			$fromUser=$postObj->ToUserName;
+    			$time=time();
+    			$msgtype='text';
+    			$content='欢迎关注我们的微信公众账号';
+    			$template="<xml>
+                           <ToUserName><![CDATA[%s]]></ToUserName>
+                           <FromUserName><![CDATA[%s]]></FromUserName>
+                           <CreateTime>%s</CreateTime>
+                           <MsgType><![CDATA[%s]]></MsgType>
+                           <Content><![CDATA[%s]]></Content>
+                           </xml>";
+    			$info=sprintf($template,$toUser,$fromUser,$time,$msgtype,$content);
+    			echo $info;
+    		};
+    	};
+    	//用户发送关键字的时候,回复图文信息,进行多图文发送时,子图文个数不能超过10个
+    	if(strtolower($postObj->MsgType)=='text'&&trim($postObj->Content)=='多汗'){
+    		$toUser=$postObj->FromUserName;
+    		$fromUser=$postObj->ToUserName;
+    		$arr=array(
+    				array(
+    						'title'=>'多汗日记：从这张手足多汗症手术票据说起',
+    						'description'=>'多汗日记：从这张手足多汗症手术票据说起',
+    						'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg01.jpg',
+    						'url'=>'http://www.szdhan.com/m/a/diary/szdh150.html',
+    				),
+    				array(
+    						'title'=>'科比做客艾伦秀爆多汗症是真的还是整蛊医生',
+    						'description'=>'科比做客艾伦秀爆多汗症 是真的还是整蛊医生',
+    						'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg02.jpg',
+    						'url'=>'http://www.szdhan.com/m/a/video/szdh39.html',
+    				),
+    				array(
+    						'title'=>'国外多汗症视频多汗症发病原因手术全分析',
+    						'description'=>'手足多汗症视频 多汗症发病原因手术全分析',
+    						'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg03.jpg',
+    						'url'=>'http://www.szdhan.com/m/a/video/szdh38.html',
+    				),
+    				array(
+    						'title'=>'多汗日记：多汗症手术后的一些切身感受',
+    						'description'=>'多汗日记：多汗症手术后的一些切身感受',
+    						'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg04.jpg',
+    						'url'=>'http://www.szdhan.com/m/a/diary/szdh55.html',
+    				),
+    				array(
+    						'title'=>'多汗症健身锻炼黄金时间那个时间段锻炼效果最好',
+    						'description'=>'多汗症健身锻炼黄金时间那个时间段锻炼效果最好',
+    						'picUrl'=>'http://www.szdhan.com/zxswx/img/wx-himg05.jpg',
+    						'url'=>'http://www.szdhan.com/m/a/bodybuilding/szdh92.html',
+    				),
+    		);
+    		$template="<xml>
+                       <ToUserName><![CDATA[%s]]></ToUserName>
+                       <FromUserName><![CDATA[%s]]></FromUserName>
+                       <CreateTime>%s</CreateTime>
+                       <MsgType><![CDATA[%s]]></MsgType>
+                       <ArticleCount>".count($arr)."</ArticleCount>
+                       <Articles>";
+    		foreach($arr as $k=>$v){
+    			$template.="<item>
+                           <Title><![CDATA[".$v['title']."]]></Title>
+                           <Description><![CDATA[".$v['description']."]]></Description>
+                           <PicUrl><![CDATA[".$v['picUrl']."]]></PicUrl>
+                           <Url><![CDATA[".$v['url']."]]></Url>
+                           </item>";
+    		};
+    		$template.="</Articles>
+                         </xml>";
+    		echo sprintf($template,$toUser,$fromUser,time(),'news');
+    	}else{
+    		//回复信息
+    		switch (trim($postObj->Content)){
+    			case 1:
+    				$content='http://www.szdhan.com/';
+    				break;
+    			case 2:
+    				$content='您输入的数字是2';
+    				break;
+    		};
+    		$template="<xml>
+                           <ToUserName><![CDATA[%s]]></ToUserName>
+                           <FromUserName><![CDATA[%s]]></FromUserName>
+                           <CreateTime>%s</CreateTime>
+                           <MsgType><![CDATA[%s]]></MsgType>
+                           <Content><![CDATA[%s]]></Content>
+                           </xml>";
+    		$fromUser=$postObj->ToUserName;
+    		$toUser=$postObj->FromUserName;
+    		$time=time();
+    		$msgtype='text';
+    		$info=sprintf($template,$toUser,$fromUser,$time,$msgtype,$content);
+    		echo $info;
+    	};         	
+    };
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
