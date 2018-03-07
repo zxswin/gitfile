@@ -1,0 +1,316 @@
+一.基础部分
+1.链接数据库
+mysql -u用户名 -p用户密码;
+2.创建数据库
+create database test001;
+3.选择一个数据
+use test001;
+4.创建一个表
+create table test_01_01(
+    name varchar(255),
+    age int(11),
+    address varchar(255)
+);
+5.在表格中添加数据
+insert into test_01_01 values(
+    'wangwu',
+    '21',
+    '北京'
+)
+6.查询表格数据
+select * from test_01_01;
+7.修改表格数据
+update test01_01 set name='lisi',age=10 where name='zhangsan';
+8.删除表格数据
+delete from test01_01 where name = 'lisi';
+二.进阶
+9.创建数据库
+create database if not exists test02;
+10.显示所有数据库
+show databases;
+11.显示以te开头的数据库
+show database like 'te%';
+12.选用数据库
+use test01;
+13.删除数据库
+drop database if exists test01;
+14.创建一个表格带默认值
+create table test1(
+    id varchar(255) not null primary key,
+    name varchar(255) null default "002"
+)
+15.复制表
+create table t5 select * from t1;
+16.显示数据库信息
+17.查看数据库下的数据库表格
+show tables from test;
+show tables from test like "%1";
+18.查看数据库表中的列属性
+show columns from t1;
+show columns from t1 like "%n";
+19.查看某个数据表中的索引
+show index from t1;
+20.查看数据库中全部表或某个表的状态信息
+show table status from test;
+show table status from test like "%1";
+21.查看表单的另一种写法
+desc t1;
+describe t1 "%i%";
+22.alter改变表接口-增加列
+alter table t1 add weight int;
+23.alter改变表接口-修改列
+alter table t1 modify weight varchar(50);
+24.alter改变表接口-删除列
+alter table t1 drop weight;
+25.alter改变表接口-更改列名
+alter table t1 change weight wei int;
+26.alter改变表接口-给表更名
+alter table t1 rename t2;
+27.drop删除数据库表
+drop table if exists t1;
+
+三.insert 插入数据
+1.使用多个值表,可以一次提供多行数据：
+insert t1 values('jack'),('grey');
+2.可以指定列,然后再列出值
+insert t1 (name) values ('mack'),('rose');
+3.insert …… select 添加数据
+insert into t1 select * from t5;//表结构完全一致
+insert into t1(coll) select coll from t5;//取某个值添加
+
+四.select 查询
+1.查询关键词必须要按数据给出：
+select selection_list  //选择哪些列 
+from table_list  //从何处选择行 
+where primary_constraint  //行必须满足什么条件 
+group by grouping_columns // 怎样对结果分组 
+having secondary_constraint  //行必须满足的第二条件 
+order by sorting_columns //怎样对结果排序 
+limit count  //结果限定
+2.表达式求值而不引用任何的表格
+select (2+3)*2;  //10;
+3.where 语句可以实现having的绝大多数功能
+select * from t1 where name= '555';
+4.查询排序
+asc表示升序
+select * from t3 order by ages asc;
+desc表示降序
+select * from t3 order by ages desc;
+5.分组和行计数
+select name ,sum(ages) from t3 group by name;
+6.多表查询
+select a1.name,a3.name from t1 as a1,t3 as a3 where a1.name = a3.name;
+7.update 更新数据
+update t3 set ages = 20 where name= "gery";
+8.delete 删除数据
+delete from t3 where name='mack';
+
+五.数据类型
+1.数值类型
+float 单精度浮点数值
+double 双精度浮点数值
+decimal 用于高精度计算中
+create table t4(age float(5,2));
+insert t4 values(45.678);//45.68
+
+2.字符串类型
+char  定长字符串
+varchar 变长字符串
+text | blob 储存文本，图片，声音
+blob区分大小写
+
+3.日期时间类型
+time '12:02:02',120202
+date '2000-02-02' 20000202
+year 2002   02
+00-69  2000-2069
+70-99  1970-1999
+datetime类型  now()填充当前时间
+
+4.+(加法)、-(减法)、*(乘法)、/(除法，返回商)、%(除法，返回余数)
+    select 1+2;//加法运算，结果为3
+    select 2-1;//减法运算，结果为1
+    select 3*2;//乘法运算，结果为6
+    select 6/2;//除法运算，结果为3
+    select 25%7;//除法运算，结果为4
+    select 5/0;//除法运算，结果为null，MySQL除法的除数为0是不允许的
+
+5.所有涉及整数的数学运算都是用64位的精度进行计算
+    select '100'+'004';//结果为104
+    select '90AA'+'0';//结果为90
+    select '10x'*'qwe';//结果0
+
+6.比较运算的结果总是1（真），0（假）或为null（不确定）。
+    select 6=6,3.4=4.5,'a'='b';//判断两边是否相等
+    select 7<>7,7<>8,'a'<>'b';//判断两边是否不相等
+    select 100>100,10<100;//判断左边是否大于右边，左边是否小于右边
+    select 10>=100,10<=1;//判断左边是否大于等于右边，左边是否小于等于右边
+    select 10 between 0 and 100;//检验一个值是否存在于一个指定的范围内
+    select 10 not between 11 and 100;//检验一个值是否不存在于一个指定的范围内
+    select 7 in (1,2,3,4,5,6,7,8,9);//检验一个值是否包含在一个指定的值集合中
+    select 7 not in (1,2,3,4,5,6,7,8,9);//检验一个值是否不包含在一个指定的值集合中
+
+7.比较是不区分大小写的,用binary关键字来区分大小写;
+select binary 'a' in('A','B','C');//0
+8.not运算符取反
+select not 1,not 0,not (2=2),not (100>20);//结果为0,1,0,1
+9.and 两个值同时为真返回真
+select (2=2) and (900<100),('a'='a') and ('c'<'d');//结果为0,1
+10.or 一个为真就返回真
+select (2=2) or (900<100),('a'='a') or ('c'<'d');//结果为1,1
+11.xor 仅一个为真的情况下返回真
+select (1=1) xor (2=4),(1<2) xor (9<10);//返回结果为1,0
+12."|"运算符用于执行一个位or操作，而&用于执行一个位and操作。
+select 16|32,9|4;//结果为48,13
+select 30 & 10,8 & 16;//结果10,0
+13.还可以分别使用<<和>>运算符向左和向右移动位。
+select 1<<7,64>>1;//结果为128,32
+14.^运算符执行位xor操作
+select 1^0,0^1,17^9,143^66;//结果为1,1,24,205
+16.~运算符执行位取反操作，并返回64位整型结果
+select ~18446744073709551614,~1;//结果为1,18446744073709551614
+
+六.数学函数
+关系型数据库管理系统支持很多数学函数
+    ABS(x);//返回x的绝对值
+    ACOS(x);//返回x(弧度)的反余弦值
+    ASIN(x);//返回x(弧度)的反正弦值
+    ATAN(x);//返回x(弧度)的反正切值
+    CEILING(x);//返回大于x的最小整数值
+    COS(x);//返回x(弧度)的余弦值
+    COT(x);//返回x(弧度)的余切
+    DEGREES(x);//返回弧度值x转化为角度的结果
+    EXP(x);//返回值e(自然对数的底)的x次方
+    FLOOR(x);//返回小于x的最大整数值
+    GREATEST(x1,x2,x3...);//返回集合中最大的值
+    LEAST(x1,x2,x3,,,);//返回集合中最小的值
+    LN(x);//返回x的自然对数
+    LOG(x,y);//返回x的以y为底的对数
+    MOD(x,y);//返回x/y的模(余数)
+    PI();//返回pi的值（圆周率）
+    POW(x,y)或者POWER(x,y);//返回x的y次幂
+    RAND();//返回0到1内的随机数
+    RADIANS(x);//返回角度x转化为弧度的结果
+    ROUND(x,y);//返回参数x的四舍五入的有y位小数的值
+    SIGN(x);//返回代表数字x的符号的值
+    SQRT(x);//返回x的开方
+    SIN(x);//返回x(弧度)的正弦值
+    TAN(x);返回x(弧度)的正切值
+    TRUNCATE(x,y);//返回数字x截短为y位小数的结果
+
+select ABS(-123);//取绝对值，结果为123
+select GREATEST(100,88,33,156);//获取一组数中最大值,结果为156
+
+七.聚合函数
+    AVG(col);//返回指定列的平均值
+    COUNT(col);//返回指定列中非null值的个数
+    MIN(col);//返回指定列的最小值
+    MAX(col);//返回指定列的最大值
+    SUM(col);//返回指定列的所有值之和
+    STD(col)或STDDEV(col);//返回指定列的所有值的标准偏差
+    VARIANCE(col);//返回指定列的所有值的标准方差
+    GROUP_CONCAT(col);//返回由属于一组的列值连接组合而成的结果
+
+1.通过length()函数可以获得一个字符串的长度
+select length('aasdfgh');//结果为7
+2.通过trim()函数可以让我们在剪切值时指定去除格式
+select trim(' red alter ');//去掉两边空格
+select trim(leading '!' from '!!!error!!!');//去掉首部“！”符号
+3.concat()函数将提供的参数连接成一个字符串
+select concat('red','hot');//结果为redhot
+
+4.now()函数获取当前的日期和时间
+select now();//返回当前时间
+3.单独获取日期和时间，可以使用curdate()和curtime()函数
+select curtime();//当前时间，格式为 HH:MM:SS
+select curdate();//当前日期，格式为 YYYY-MM-DD
+5.week()函数返回指定的日期是一年的第几个星期，
+而yearweek()函数返回指定的日期是哪一年的哪一个星期
+select week('2004-03-01');//结果为9
+select yearweek(20040301);//结果为200409
+6.MySQL特意设计了一些函数对数据进行加密。
+    AES_ENCRYPT(str,key);//返回使用密钥key对字符串str利用高级加密标准算法加密后的结果
+    AES_DECRYPT(str,key);    //返回使用密钥key对字符串str利用高级加密标准算法解密后的结果
+    DECODE(str,key);//使用key作为密钥解密加密字符串str
+    ENCRYPT(str,salt);//使用UNIX crypt()函数，用关键词salt加密字符串str
+    ENCODE(str,key);//使用key作为密钥加密字符串str
+    MD5();//计算字符串str的MD5校验和
+    PASSWORD(str);//返回字符串str的加密版本
+    SHA();//计算字符串str的安全散列算法(SHA)校验和
+7.使用ENCODE()函数和DECODE()函数来加密和解密字符串
+insert into users values('','john',ENCODE('asdfasdf','secret_key'));
+select * from users;
+select id,uname,DECODE(upass,'secret_key') from users;
+8.控制流函数
+case where[test1] then[result1] ... else[defalut] end;//如果testN为真，则返回resultN,否则返回default
+case[test] where[val1] then[result1]...else[default] end;//如果test和valN为真，则返回resultN，否则返回default
+if(test,t,f);//如果test为真，返回t，否则返回f
+ifnull(arg1,arg2);//如果arg1不是空，返回arg1，否则返回arg2
+nullif(arg1,arg2);//如果arg1=arg2返回null，否则返回arg1
+9.ifnull()函数。
+select ifnull(1,2),ifnull(null,10),ifnull(4*null,'false');//结果为1,10，false 
+10.函数是特意为格式化数据设计的
+date_format(date,fmt);//依照字符串fmt格式化日期date的值
+format(x,y);//把x格式化为以逗号隔开的数字序列，y是结果的小数位数
+inet_aton(ip);//返回ip地址的数字表示
+inet_ntoa(num);//返回数字所代表的ip地址
+time_format(time,fmt);//依照字符串fmt格式化时间time值
+11.format()函数
+select format(999999999868595049,2),format(-4512,6);//结果为999,999,999,82;-4.512.000000
+12.数据转换函数
+字符串会自动的转化为数字
+select 1+'99';//结果为100
+select 1+cast('99' as signed);//结果为100
+数字的环境中使用这些函数或者把它们转化为数字
+select cast(now() as signed integer),curdate()+0;
+13.系统信息函数
+    database();//返回当前数据库名称
+    benchmark(count,expr);//将表达式expr重复运行count次
+    connection_id();//返回当前客户的连接id
+    found_rows();//将最后一个select查询(没有以limit进行限制结果)返回的记录行数返回
+    get_lock(str,dur);//获取一个由字符串str命名的并且有dur秒延时的锁定
+    is_free_lock(str);//检查以str命名的锁定是否释放
+    last_insert_id();//返回由该系统自动产生的最后一个auto increment id的值
+    master_pos_wait(log,pos,dur);//锁定主服务器dur秒直到从服务器与主服务器的日志log指定的位置pos同步
+    release_lock(str);//释放由字符串str命名的锁定
+    user()/system_user();//返回当前登录用户名
+    version();//返回MySQL服务器的版本
+
+八.链接
+连接后的结果表的行数和用于 连接的每个表的行数乘积相同。
+select * from color,attribute;//结果是两张表的结合体
+除了交叉连接，内连接和外连接，MySQL还支持第四种类型的连接，也就是自连接
+
+九.查询
+1.where/having查询
+MySQL可以在where子句或者having子句中包含子查询。包含在圆括号内的子查询，
+优先级高于比较和逻辑操作符、in操作符或者 exists操作符。
+2.in/exists/from查询
+
+十.事物
+原子性，每个事务都必须被认为是一个不可分割的单元。
+一致性，不管事务是完全成功还是中途失败，当事务使系统处于一致的状态时存在一致性。
+孤立性，每个事务在它自己的空间发生，和其他发生在系统中的事务隔离，而且事务的结果只有在它完全被执行时才能看到。
+持久性，即使系统崩溃，一个提交的事务扔在坚持。
+
+十一.索引
+1.考虑不使用告诉缓存， 可以添加一个选项sql_no_cache来实现。
+2.create temporary table命令创建临时表
+
+
+备注：
+1.describe  描述
+2.alter     改变
+3.decimal   十进制的
+4.blob      一滴
+5.binary     二进制的
+6.transaction 交易
+7.commit 犯罪 承诺
+8.rollback 反转
+9.isolation  隔离
+10.repeatable 可重复的
+11.cache  缓冲区 隐秘物
+12.explain  解释
+13.temporary 暂时的
+14.buffer 缓冲区
+
