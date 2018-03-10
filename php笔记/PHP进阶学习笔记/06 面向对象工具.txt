@@ -1,0 +1,106 @@
+一.常用类的使用工具函数
+   1.class_exists()函数接受表示类的字符串,检查并返回布尔值,如果类存在，返回true,否则返回false;
+   
+   class Computer{
+      public function _run(){};
+      private function _go(){};
+      public $_name='dell';
+      private $_model='i7';
+   };
+   
+   class NoteComputer extends Computer{
+   
+   };
+   
+   interface Person{};
+   
+   $computer=new Computer();
+   $notecouputer=new NoteComputer();
+   
+   //1.检查类是否存在
+   echo class_exists('Computer');
+   //2.获取对象的类名
+   echo get_class($computer);
+   //3.获取类中公共的方法
+   print_r(get_class_methods($computer));
+   //4.获取类中的字段
+   print_r(get_class_vars('Computer'));
+   //5.获取子类的父类
+   echo get_parent_class($notecomputer);
+   //6.判断接口是否存在
+   echo interface_exists('Person');
+   //7.判断对象是否是这个类,$notecomputer的类的父类是Computer;
+   echo is_a($notecomputer,'Computer');
+   //8.判断对象是否是类的子类
+   echo is_subclass_of($notecomputer,'Computer');
+   9.判断对象是否有这个方法
+   echo method_exists($computer,'_run');
+
+
+二.反射
+
+//反射,了解一下，入门
+//查看自定义类
+  class Computer{
+     public function _run(){};
+     private function _go(){};
+     public $_name='dell';
+     private $_model='i7';
+     
+     public static $_cpu;
+     public static function tool(){};
+     const PI=3.14;
+  }:
+  
+  //使用反射列出他们的信息
+  Reflection::export(new ReflectionClass('Computer'));
+
+ //系统内置的类
+ Reflection::export(new ReflectionClass('Date Time'));
+ 
+ $_rc=new ReflectionClass('Computer');
+ echo $_rc->getFileName();
+ echo $_rc->getName();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,59 @@
+1.PHP内置两个方法(拦截器)专门用于取值和赋值：__set(),__get();
+2.OOP的魔术方法
+  __autoload();
+  __call()方法屏蔽调用
+  __toString()
+  __clone
+3.创建一个simplexml对象,传入xml字符串
+$_sxe=new SimpleXMLElement($_xml);
+4.生成xml文件
+$_sxe->asXML('test.xml');
+5.载入xml文件,simplexml
+$_sxe=simplexml_load_file('test.xml');
+6.读出xml文件
+$_sxe->asXML();
+
+7.file_exists()判断文件是否在磁盘中存在
+8.ob_start()缓存处理
+9.GRUD任务
+  creation创建
+  retrieval获取
+  update更新
+  deletion删除
+  
+10.生成一个php文件
+file_put_contents('123.php','123456789');
+
+11.读取一个文件里的内容
+echo file_get_contents('123.php');
+
+12.判断文件修改的时间
+filemtime($_tplFile){};
+
+13.ob_start();//开启缓冲区
+14.$a=ob_get_contents();//获取输出至缓冲区的内容;
+15.ob_end_clean();//清除缓冲区;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

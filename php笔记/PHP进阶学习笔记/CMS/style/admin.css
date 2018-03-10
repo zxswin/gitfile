@@ -1,0 +1,164 @@
+@CHARSET "UTF-8";
+body,h1,h2,h3,p,form,ul,li,dl,dt,dd{
+	padding:0;
+	margin:0;
+}
+body{
+	background:#fff;
+	font-size:12px;
+}
+ul,li,dl,dd,dt{list-style:none;}
+#top{
+	background:#fff;
+}
+#top h1{
+	width:150px;
+	height:80;
+	font-size:12px;
+	background:#fff;
+	text-indent:-9999px;
+	border:1px solid #000;
+	float:left;
+}
+#top ul{
+	float:left;
+	padding:47px 0 0 0;
+}
+#top ul li{
+	padding:0 0 0 5px;
+	float:left;
+}
+#top ul li a{
+	width:58px;
+	height:33px;
+	line-height:33px;
+	text-align:block;
+	display:block;
+	background:#fff;
+	font-size:14px;
+	font-weight:bold;
+	text-decoration:none;
+	color:#000;
+}
+#top ul li a:hover{
+	background-position:right bottom;
+	color:#3b6ea5;
+}
+
+#top ul li a.selected{
+	background-position:right bottom;
+	color:#3b6ea5;
+}
+
+#top p{
+	float:right;
+	padding:33px 20px 0 0 ;
+	color:#000;
+}
+#top p a{
+	text-decoration:none;
+	color:#000;
+}
+
+#top p a:hover{
+	text-decoration:underline;
+}
+
+#sidebar{
+	background:#fff;
+}
+
+
+#sidebar dl{
+	padding:20px;
+	text-indent:2px;
+}
+#sidebar dl dt{
+	font-size:14px;
+	color:#3b6ea5;
+	font-weidht:bold;
+	border-bottom:1px solid #ccc;
+	padding:5px 0;
+	margin:5px 0;
+}
+
+#sidebar dl dd{
+	height:22px;
+	line-height:22px;
+}
+#sidebar dl dd a{
+	color:#333;
+	text-decoration:none;
+}
+#sidebar dl dd a:hover{
+	text-decoration:underline;
+}
+
+#main:{
+	background:#fff;
+}
+#main div.map{
+	padding:15px;
+	color:#333;
+}
+#main div.map strong{
+	color:green;
+}
+#main table{
+	width:95%;
+	margin:0 auto;
+	text-align:center;
+}
+
+#main table.left{
+	text-align:left;
+}
+#main table tr{
+	background:#fff;
+}
+#main table tr:hover{
+	background:#ffffcc;
+}
+
+#main table th,#main table td{
+	height:30px;
+	line-height:30px;
+	color:#333;
+}
+
+#main table th{
+	background:#eef3f7;
+	border-bottom:1px solid #d5dfe8;
+	font-weight:normal;
+}
+
+#main a{
+	color:#3b6ea5;
+	text-decoration:none;
+}
+#main a:hover{
+	text-decoration:underline;
+}
+#main p.center{
+	text-align:center;
+	padding:20px;
+}
+#main form input.text{
+	width:220px;
+	height:19px;
+	background:#fff;
+	border:1px solid #ccc;
+}
+#main form select{
+	width:100px;
+	height:19px;
+	background:#fff;
+}
+
+#main form input.submit{
+	cursor:pointer;
+	margin:0 0 0 47px;
+}
+
+
+

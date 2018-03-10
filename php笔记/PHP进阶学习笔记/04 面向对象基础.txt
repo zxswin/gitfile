@@ -1,0 +1,96 @@
+
+一.什么是多态,字面意思,多种形态
+   //一个动作由不同的人去执行，而产生不同的效果或者结果，即为多态。
+   //一个人通过不同的状态执行同一种动作，形成不同的结果，也可以称作为多态。
+   
+   //园丁              剪               修理花草
+   //理发师         剪                理发
+   //总裁              剪                裁员
+   
+   
+   //人      笔记本      运行         win7开机了
+   //人       台式机    运行         xp开机了
+   
+   
+二.程序上的实现
+   //创建一个接口，来规范运行的方法
+   interface Computer{
+       public function version();//这个方法表示采用什么电脑
+       public function work();//这台电脑是怎么运行的
+   };
+   //创建一个笔记本类来实现接口
+   class NoteComputer implements Computer{
+        public function version(){
+           echo '笔记本';
+        };
+        public function work(){
+           echo '可以便携式运行win7';
+        };
+   };
+   
+   //创建一个台式机的类来实现接口
+   class DesktopComputer implements Computer{
+       public function version(){
+           echo '台式机';
+       };
+       public function work(){
+           echo '在工作站运行XP';
+       };
+   };
+   
+   //创建一个用户
+   class Person{
+      //创建一个方法来接受电脑(笔记本电脑,也可是台式电脑)
+      //怎么接受，将他们的对象传进来就可以OK啦。
+      public function _run($type){
+         $type->version();
+         $type->work();
+      };
+   };
+
+   //有一个接口,两个类,一个笔记本类,一个是台式机的类
+   //创建了笔记本
+   $notecomputer=new NoteComputer();
+   //创建台式机
+   $desktopcomputer=new DesktopComputer();
+   //创建一个人
+   $person=new Person();
+   //使用电脑
+   $person->_run($desktopcomputer);//这种传递,叫做对象引用的传递。
+
+总结：//多态的原理，就是类都写好了，不要去修改他，只要在类外的调用参数的更改
+      //而最后的结果也会得到更改，那么这个就是多态。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

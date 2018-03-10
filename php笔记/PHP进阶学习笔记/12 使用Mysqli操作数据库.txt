@@ -1,0 +1,185 @@
+一.执行多条SQL语句
+//设置一下编码
+$_mysqli->set_charset('uft8');
+
+//创建三个修改的SQL语句
+$_sql.="UPDATE tg_article SET tg_username='kkk' WHERE tg_id=1;";
+$_sql.="UPDATE tg_flower SET tg_fromuser='kkk' WHERE tg_id=1;";
+$_sql.="UPDATE tg_friend SET tg_fromuser='kkk' WHERE tg_id=1";
+
+//使用通用执行的方法
+$_mysqli->multi_query($_sql);
+//普通只能执行sql的方法是：$_mysqli->query($_sql);
+
+
+二.获取多个查询结果集
+$_sql.="SELECT * FROM tg_gread;";
+$_sql.="SELECT * FROM tg_user;";
+$_sql.="SELECT * FROM tg_friend";
+
+if($_mysqli->multi_query($_sql)){
+   //获取当前的结果集
+   $_result=$_mysqli->store_result();//第一条
+   print_r($_result->fetch_row());
+   
+   echo '<br/>';
+}
+
+//将结果集的指针移动到下一条
+
+$_mysqli->next_result();
+$_result=$_mysqli->store_result();
+if(!$_result){
+   echo '第二条SQL语句有误！';
+   exit();
+};
+print_r($_result->fetch_row());
+
+echo '<br/>';
+
+
+
+$_mysqli->next_result();
+$_result=$_mysqli->stroe_result();
+if(!$_result){
+  echo '第三条SQL语句有误';
+  exit();
+};
+print_r($_result->fetch_row());
+
+
+三.执行数据库的数据处理(设置事务)
+
+//设置关闭自动提交(手工提交)
+$_mysqli->autocommit(false);
+
+//创建两个SQL语句
+$_sql.="UPDATE tg_flower SET tg_flower=tg_flower-50 WHERE tg_id=1;";
+$_sql.="UPDATE tg_friend SET tg_state=tg_state+50 WHERE tg_id=1";
+
+//执行多条SQL语句
+//只要这两条SQL语句都成功了，就手工提交给数据库
+//否则,就回滚,撤销之前的有效操作
+
+if($_mysqli->multi_query($_sql)){
+   //通过影响的行数,来判断SQL语句是否成功执行
+   //如果$_success是false说明sql语句有误,那么就执行回滚,否则就手工提交
+   $_success=$_mysqli->affected_rows==1?true:false;
+   //下移指针
+   $_mysqli->next_result();
+   $_success2=$_mysqli->affected_rows=1?true:false;
+   
+   //如果两条都成功的话
+   if($_success&&$_success2){
+   //执行手工提交
+   $_mysqli->commit();
+   echo '完美提交'
+   }else{
+     //执行回滚,撤销之前的所有操作
+     $_mysqli->roolback();
+     echo '所有操作归零！';
+   }
+}else{
+    echo '第一条SQL语句有错误！';
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

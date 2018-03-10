@@ -1,0 +1,93 @@
+一.影响的数据库行数
+//设置一下编码
+$_mysqli->set_charset('utf8');
+//创建一句SQL,获取数据的表的数据
+$_sql="SELECT * FROM tg_user limit 0,10";
+//创建一个结果集
+$_result=$_mysqli->query($_sql);
+
+//我要看下我选择了多少行
+echo $_result->num_rows;
+
+//我影响了多少行呢,修改
+echo $_mysqli->affected_rows;
+
+
+
+二.field_count,fetch_field
+//求出表中有多少个字段
+echo $_result->field_count;
+
+//获取字段的名字
+$_field=$_result->fetch_field();
+echo $_field->name;
+$_field=$_result->fetch_field();
+echo $_field->name;
+
+
+while(!!$_field=$_result->fetch_field()){
+   echo $_field->name.'<br/>';
+};
+
+三.fetch_fields() 一次性取得所有结果字段数组
+
+//一次性取得所有的字段
+$_fields=$_result->fetch_fields();
+//echo $_fields[0]->name;
+
+foreach($_fields as $_field){
+   echo $_field->name.'<br/>';
+};
+
+
+四.移动数据指针
+$_result->data_seek(9);
+$_row=$_result->fetch_row();
+echo $_row[3];
+
+
+五.移动字段指针
+$_result->field_seek(3);
+$_field=$_result->fetch_field();
+echo $_field->name;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

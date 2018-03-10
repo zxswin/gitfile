@@ -1,0 +1,125 @@
+一.资源句柄,结果集
+$_mysqli=new mysqli('localhost','root','root','testguest');
+//连接数据库时候发生错误
+if(mysqli_connect_errno()){
+    echo '数据库连接出现了错误.错误的信息是：'.mysqli_connect_error();
+    exit();
+    };
+    
+    //设置一下编码
+    $_mysqli->set_charset('utf8');
+    
+    //创建一句SQL,获取数据库的表的数据
+    $_sql="SELECT*FROM tg_user";
+    //执行SQL语句,把结果集赋给$_result(资源句柄);
+    $_result=$_mysqli->query($_sql);
+    var_dump($_result);
+    
+    //通过结果集，我要取得第一行数据
+    //fetch_row();是返回一个数组，里面是第一条数据的集合
+    print_r($_result->fetch_row());
+    //运行一次，指针下移一条
+    print_r($_result->fetch_row());
+    
+    //销毁结果集
+    $_result->free();
+    
+    $_mysqli->close();//关闭数据库
+
+
+二.使用索引数组和关联数组
+    //使用索引数组
+    //创建一个结果集
+    $_result=$_mysqli->query($_sql);
+    //使用索引数组取值
+    //print_r($_result->fetch_row());
+    $_row=$_result->fetch_row();
+    echo $_row[3];
+    
+    //遍历,下标很难记[3]
+    while(!!$_row=$_result->fetch_row()){
+       echo $_row[3].'<br/>';
+    };
+    
+    
+    //使用关联数组
+    //创建一个结果集
+    $_result=$_mysqli->query($_sql);
+    
+    //使用关联数组取值
+    //print_r($_result->fetch_assoc());
+    $_assoc=$_result->fetch_assoc();
+    echo $_assoc['tg_username'];
+    
+    //遍历
+    while(!!$_assoc=$_result->fetch_assoc()){
+       echo $_assoc['tg_username'].'<br/>';
+    }
+    
+    
+    //索引+关联数组取值
+    //print_r($_result->fetch_array());
+    $_array=$_result->fetch_array();
+    echo $_array[3];
+    echo $_array['tg_username'];
+    
+    //遍历……
+    
+    
+    
+    //使用OOP的方法object
+    //print_r($_result->fetch_object());
+    echo $_result->fetch_object()->tg_username;
+    
+    //使用OOP遍历
+    while(!!$_object=$_result->fetch_object()){
+        echo $_object->tg_username.'<br/>';
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

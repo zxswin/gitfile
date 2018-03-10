@@ -1,0 +1,109 @@
+一.OOP的魔术方法:__autoload();
+//引入类文件即可
+//require 'computer.class.php';
+
+//1.如果要包含多个类文件，是不是要一一引入。
+//2.引入多个类文件，如果有用到的，就会产生浪费
+//3.引入了类文件，可能会遗漏，比如说，创建了一个对象，而这个对象的类文件没有引入，就会产生错误
+
+//$_className='类'
+//只要实例化了，那么$_className='Computer';
+
+  function __autoload($_className){
+     require strtolower($_className).'.class.php';
+  };
+  
+  $computer=new Computer();
+  echo $computer->_name;
+  $computer->_run();
+
+
+二.采用__call()方法屏蔽调用
+  
+  class Computer{
+     public function _run(){
+        echo '运行';
+     };
+     //采用__call()方法屏蔽调用
+     //__call()里面有两个参数
+     public function __call($_methodName,$_argList){//第一个参数是方法名,第二个参数是参数数组列表
+        echo  $_methodName.'()方法不存在';
+        print_r($__argList);
+     };
+  };
+  
+  $computer = new Computer();
+  $computer -> __go();
+
+三.防止直接输出对象报错
+   class Computer{
+     public function _run(){
+       echo '运行';
+     };
+     private function __toString(){
+        return '我是对象的字符串!';
+     };
+   };
+   
+   //$computer=new Computer();
+   //echo $computer;
+   
+   echo new Computer();
+
+四.对象克隆 clone;
+
+   class Computer{
+      public $_name='dell';
+      public function _run(){
+         echo '运行';
+      };
+   };
+   
+   //对象克隆
+   $computer1=new Computer();
+   $computer1->_name='联想';
+   $computer2=clone $computer1;
+   $computer2->_name='ibm';
+   echo $computer2->_name;
+   echo $computer1->_name;
+
+
+五.采用了__clone的模式方法
+
+class Computer{
+      public $_name='dell';
+      public function _run(){
+         echo '运行';
+      };
+      
+      public function __clone(){
+         echo '克隆了';
+         $this->_name='联想';//可以在内部改变
+      };
+   };
+   
+   $computer1=new Computer();
+   $computer2=clone $computer1;
+   
+   echo $computer1->_name;
+   echo $computer2->_name;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

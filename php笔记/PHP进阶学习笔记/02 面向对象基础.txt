@@ -1,0 +1,227 @@
+一、public公有
+    //创建一个电脑类
+    class Computer{
+       //什么叫做类内，就是创建类的花括号内的范围叫做类内，其他地方则类外。
+       //public是最字段的公有化，这个字段外即可访问，赋值和取值
+       public $_name;
+    };
+    
+    $computer=new Computer();
+    $computer=_name='dell';
+    echo $computer->_name;
+
+二.private 私有
+   class Computer{
+     private $_name='联想';
+     //这个时候我们采用一个公共对外的方法来访问私有字段
+     //因为私有字段只能在类内访问，而对外的公共方法就是类内的
+     //更而公共方法又是公共的,所以类外又可以访问
+     
+     public function _run(){
+        //字段杂类内调用的时候必须是类->字段，而$_name只是一个普通变量而已
+        //字段在类外调用的方法是对象->字段，二类内就必须使用Computer->_name
+        //但是在本类中，可以用一个关键字类代替Compouter,那就是$this
+        
+        echo $this->_name;
+     };
+   };
+   $computer=new Computer();
+   $computer->_run();
+
+三.私有字段的赋值和取值
+
+class Computer(){
+   private $_name;
+   //必须写一个对内的入口，对私有字段进行赋值
+   public function setName($_name){
+       //这里的$_name只是一个变量,参数而已
+       //$_this->name才是类的字段
+       $_this->_name=$_name;
+   };
+   //必须写个对内的入口，才可以去到的
+   public function getName(){
+     return $this->_name;
+   };
+};
+
+$computer=new Computer();
+$computer->setName('dell');
+echo $computer->getName();
+
+四.PHP内置两个方法(拦截器)专门用于取值和赋值：__set(),__get();
+   class Computer(){
+     private $_name;
+     private $_model;
+     private $_cpu;
+     
+     //当类外的对象直接调用私有字段时，会跟着去检查是否有拦截器,
+     //如果直接对$_name进行赋值，那么__set()方法就会拦截住，就不会报错了。
+     
+     
+     //采用拦截器进行赋值和取值
+     
+     //赋值
+     public function __set($_key,$_value){
+        //那么$_key='_name',那么$_value='联想';
+        //$this->_name='联想';
+        //那么$_key='_cpu',那么$_value='四核';
+        //$this->_cup='四核'
+        //那么$_key='model',那么$_value='i7';
+        //$this->_model='i7';
+        $this->$_key=$_value;
+     };
+     
+     //取值
+     public function __get($_key){
+        return $this->$_key;
+     };
+     
+     
+   };
+   
+   $computer=new Computer();
+   $computer->_name='联想';
+   $computer->_cup='四核';
+   $computer->_model='i7';
+   
+   echo $computer->_name;
+   echo $computer->_cup; 
+   echo $computer->_model;
+
+
+
+
+五.__set(),__get()私有化也能执行：
+
+   class Computer(){
+     private $_name;
+     private $_model;
+     private $_cpu;
+     //__set()和__get()方法私有了,还是可以执行,是因为
+     //目前程序的指针已经在类内了，而类内可以执行封装的方法.
+     //类内执行私有方法，不会出现任何错误。
+     //它只需要间接的拦截就可以了。拦截是在类内执行的。
+     //__set()和__get()是PHP内置的方法，具有一定的特殊性
+     
+     
+     private function __set($_key,$_value){
+        $this->$_key=$_value;
+     };
+     
+     private function __get($_key){
+        return $this->$_key;
+     };
+     
+   };
+   
+   $computer=new Computer();
+   $computer->_name='联想';
+   $computer->_cup='四核';
+   $computer->_model='i7';
+   
+   echo $computer->_name;
+   echo $computer->_cup; 
+   echo $computer->_model;
+
+
+六.常量的用法：
+   class Computer{
+      //定义了一个类常量
+      const NAME='DELL';
+   };
+   //常量的输出方法：类:：常量
+   echo Computer::NAME;
+
+七.静态变量和方法(栈，堆，数据区域)
+
+class Computer{
+  public static $_count=0;
+  public function _add(){
+     //如果是静态成员字段，那么就应该用self来调用，而不是$this;
+     //静态字段处于数据区域中
+     self::$_count++;
+  };
+};
+//做一个累计的效果
+$computer1=new Computer();
+$computer1->_add();
+$computer1->_add();
+$computer1->_add();
+echo Computer::$_count;
+
+
+八.静态方法
+
+class Computer{
+  public static $_count=0;
+  
+  public static function _run(){
+    self::$_count++;
+  };
+};
+
+Computer::_run();
+Computer::_run();
+Computer::_run();
+Computer::_run();
+
+echo Computer::$_count;
+
+
+九.instanceof
+
+class Computer{
+};
+
+$computer=new Computer();
+echo ($computer instanceof Computer); //1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

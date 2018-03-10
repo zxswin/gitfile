@@ -1,0 +1,178 @@
+一.子类继承父类
+
+//这是父类,电脑类
+class Computer{
+  public $_name='联想';
+  
+  public function _run(){
+     echo '联想在运行!;
+  };
+};
+
+//子类,笔记本电脑类
+class NoteComputer extends Computer{
+   
+};
+
+$notecomputer=new NoteComputer();
+echo $notecomputer->_name;
+$notecomputer->_run();
+
+二.子类字段和方法的覆盖
+
+class Computer{
+  public $_name='联想';
+  
+  public function _run(){
+     echo '联想在运行!;
+  };
+};
+
+class NoteComputer extends Computer{
+   //我不需要父类的字段和方法，那么可以采用重写的方法覆盖掉父类的字段和方法
+   public $_name='dell';
+   public function _run(){
+      echo 'dell在运行!';
+   };
+};
+
+$notecomputer=new NoteComputer();
+echo $notecomputer->_name;
+$notecomputer->_run();
+
+
+三.子类调用父类的封装和方法
+class Computer{
+  //私有化，但是无法被子类继承，这个时候就应该用受保护的修饰符来封装
+  protected $_name='联想';
+  protected function _run(){
+     return '联想在运行';
+  };
+};
+
+class NoteComputer extends Computer{
+   public function getTop(){
+      echo $this->_name;
+      echo $this->_run();
+   };
+};
+
+$notecomputer=new NoteComputer();
+$notecomputer->getTop();
+
+
+四.通过重写调用父类的方法
+
+class Computer{
+  public $_name='联想';
+  
+  public function _run(){
+     echo '联想在运行!;
+  };
+};
+
+class NoteComputer extends Computer{
+   //我子类已经覆盖掉了父类的字段和方法
+   //但是我又要调用父类的字段和方法，那怎么办呢？
+   public $_name='dell';
+   public function _run(){
+      echo 'dell在运行!';
+      //调用父类的方法
+      echo parent::_run();
+      echo Computer::_run();
+   };
+};
+
+$notecomputer=new NoteComputer();
+echo $notecomputer->_name;
+$notecomputer->_run();
+
+
+五.final关键字
+//final如果加在类前面，表示这个类不能被继承
+//final如果加在方法前面，表示不能够重写此方法
+final class Computer{};
+class NoteComputer extends Computer{
+};
+
+
+六.只要是声明为abstract的类可以声明抽象方法。
+//创建一个抽象类，只要在class前面加上abstract就是抽象类了
+//抽象类不能够被实例化，就是创建对象
+//只要类里面有一个抽象方法，那么这个类就必须是抽象类，之前必须加上abstract;
+abstract class Computer{
+   //在抽奖类里创建一个抽象方法
+   //抽象方法不能实现方法体的内容
+   
+   //抽象类是可以有成员字段的
+   public $_name='联想';
+   abstract public function _run();
+   //我再抽象类里能否创建一个普通方法
+   public function _run2(){
+      echo '我是父类的普通方法';
+   };
+};
+
+//抽象类是给子类用来继承的，实现一种规范和资源的共享
+class NoteComputer extends Computer{
+  //抽象类里的抽象方法，子类必须重写，不然会报错。
+  //抽象类里的普通方法无需要重写，子类会直接继承下来
+  public function _run(){
+    echo '我是子类的方法';
+  };
+
+};
+
+$notecomputer=new NoteComputer();
+$notecomputer->_run2();
+$notecomputer->_name;
+
+
+七.类不能实现对继承，只支持单继承，但是接口可以实现多继承。
+
+//到底应该用抽象来还是接口类呢;
+//如果你要继承多个类的方法规范，那么句用接口好了;
+//如果你要共享一个方法体内容，那么就用抽象类
+
+
+
+//创建一个接口
+//接口也不能被实例化
+//接口是为了规范实现它的子类，以达到统一的目的,也可以共享数据
+interface Computer{
+  //成员字段必须是常量
+  const NAME='联想';
+  //接口里的所有方法都是抽象方法，不能够写方法体
+  //并且接口的抽象方法不需要写abstract
+  public function _run();
+  public function _run2();
+};
+
+//子类继承接口的说法,叫做实现。
+class NoteComputer implements Computer{
+  public function _run(){
+    echo '我重写了run';
+  };
+  public function _run2(){
+    echo '我重新了run2';
+  };
+  
+  $notecomputer=new NoteComputer();
+  $notecomputer->_run();
+  echo NoteComputer::NAME;
+  
+};
+
+
+//接口::常量
+//echo Computer::NAME;
+
+
+
+
+
+
+
+
+
+

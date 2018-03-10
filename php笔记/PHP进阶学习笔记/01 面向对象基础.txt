@@ -1,0 +1,138 @@
+一.面向对象的特点是封装,继承,多态
+二.创建一个面向对象
+   //怎样去创建一个类 格式，修饰符class类名{};
+   //我们去创建一个电脑的类，这类可以创建出对象(生成出电脑);
+   
+   class Computer{//类名第一个字母大写
+   
+   }
+   //创建一台电脑出来，也就是对象的声明
+   //格式，变量=new 类名()
+   
+   //new Computer()表示实例化的过程(意思是创建一个对象)
+   //$computer1=new Computer()这个过程就是把实例化对象的地址给$computer
+   //$computer1我们就可以称作为对象的应用
+   
+   $computer1=new Computer();
+   $computer2=$computer1;
+   echo var_dump($computer1);//打印出实例化对象的地址;
+
+
+三.对象字段成员声明
+   class Computer{
+      //字段成员的声明格式，修饰符 变量名[=xxx];
+      public $_name;//public表示共用，类外可以访问
+      public #_model;
+   };
+   //创建一个对象，生产出一台电脑->表示指向
+   $computer1=new Computer();
+   //给成员字段赋值
+   $computer1->_name='联想';
+   //取值
+   echo $computer1->_name;
+
+
+四、方法的创建
+   
+   class Computer{
+      public $_name;//public表示共用，类外可以访问
+      public $_model;
+      
+      //创建方法的格式，修饰符function 方法名(){};
+      //如果不加修饰符，默认就是public;
+      
+      public function _run($_who){
+         ehco $_who.'我是运行的方法';
+      };
+   };
+   
+   //创建一个对象，生产出一台电脑->表示指向
+   $computer1=new Computer();
+   $computer1->_run('Lee');
+
+五.构造方法
+
+   class Computer{
+       //创建一个构造方法
+       public function Computer(){
+          echo '我是构造方法！';
+       };
+   };
+
+   //只要实例化，就可以运行构造方法
+   new Computer();
+
+六.比较先进的构造方法
+   
+   class Computer{
+   
+      //析构方法(等类都执行了后才去执行)
+      function __destruct(){
+         echo '我是析构方法';
+      };
+   
+     //我要创建一个构造方法
+     public function __construct(){
+        echo '我是比较先进的构造方法！';
+     };
+     //普通方法
+     public function _run(){
+        echo '我是普通方法';
+     };
+   };
+   //构造方法先运行了;
+   $computer=new Computer();
+   $computer->_run();
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

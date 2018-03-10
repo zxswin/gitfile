@@ -1,0 +1,63 @@
+一.面向对象的mysqli对象
+  //使用mysqli对象操作数据库
+  //创建mysqli对象(资源句柄)
+  $_mysqli=new mysqli();
+  //连接数据库 1.主机名(ip) 2.账户   3.密码 4.数据库
+  //mysqli_connect()函数==$_myslqi->connect();
+  $_mysqli->connect('localhost','root','root','guest');
+  
+  //断开MySQL mysqli_close()==$_mysqli->close();
+  $_mysqli->close();
+
+
+二.不用connect,直接使用构造方法
+   $_mysqli=new mysqli('localhost','root','root','guest');
+   
+   //单独选择一个数据库
+   //这里选择的数据库会替代上面的数据库
+   //为了避免这些麻烦，尽量不用去单独指向了
+
+    $_mysqli->select_db('testguest');
+    $_mysqli->close();//关闭数据库
+
+三.数据库连接错误
+//连接mysql
+//当你参数出现错误，导致连接错误的时候
+//$_mysqli这个对象就没有创建成功,也就是说,没有资源句柄的功能
+//就是没有调用mysqli下的方法和属性的能力了
+@$_mysqli=new mysqli('localhost','root','root','guest');
+//为什么要用函数去捕抓呢?
+//为什么不用面向对象的方式去捕抓呢?
+//0 表示没有任何错误
+if(mysqli_connect_errno()){
+   echo "数据库连接出现了错误.错误的信息是：".mysqli_connect_error();
+   exit();
+};
+
+$_mysqli->select_db('sdfskldjfsldkjfdsd');
+
+//数据库操作时发生的错误
+if($_mysqli->errno){
+   echo '数据库操作错误：'.$_mysqli->error;
+};
+
+$_mysqli->close();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

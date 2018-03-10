@@ -1,0 +1,160 @@
+一.使用SimpleXML操控XML;
+//字符的插入方法
+$_a=5;
+$_string1='this is $_a String';//单引号,最快
+$_string2='this is $_a String';//可解析变量
+
+//复杂式,多行,特殊字符,单引号,双引号,变量。
+//<<<<aaaa表示字符串开始aaaa;不是字符串的结束
+$_string3=<<<_string3
+<sdfsd>
+sdfs,dfsdf'
+sdfsd"
+sdfsdfsdfsdf
+$_a
+_string3;
+
+echo $_string3;
+
+
+二.simplexml的用法
+//xml字符串
+$_xml=<<<_xml
+<?xml version='1.0' encoding='utf-8'?>
+  <root>
+    <user>
+      <name>电驴</name>
+      <url>http://www.verycd.com</url>
+      <author sex='男'>姓黄的</author>
+    </user>
+  </root>
+_xml
+
+//创建一个simplexml对象,传入xml字符串
+$_sxe=new SimpleXMLElement($_xml);
+//生成xml文件
+$_sxe->asXML('test.xml');
+
+
+//载入xml文件,simplexml
+$_sxe=simplexml_load_file('test.xml');
+//测试
+//echo $_sxe->asXML();
+//print_r($_sxe);
+//var_dump($_sxe);
+//Reflection::export(new ReflectionClass($_sxe));
+
+
+
+三.读取xml
+//载入xml
+$_sex=simplexml_load_file('test.xml');
+//读一级标签的值
+//echo $_sxe->version;
+//如果有多个version标签$_sxe->version其实是一个数组
+//print_r($_sxe->version);
+//echo $_sxe->version[2];
+//变量version标签
+  foreach($_sxe->version as $_v){
+     echo '['.$_v.']';
+  };
+  //如果要访问二级标签，必须一层一层指明
+  //echo $_sex->user[1]->name;
+  //遍历所有的name值
+  foreach($_sxe->user as $_user){
+     echo '['.$_user->name.']';
+  };
+
+//输出第二个user里的author的性别
+echo $_sxe->user[1]->author->attributes();
+
+
+四.使用xpath来获取xml节点操作
+//载入xml
+$_sxe=simplexml_load_file('test.xml');
+//获取version的值
+$_version=$_sxe->xpath('/root/version');
+print_r($_version);
+echo $_version(1);
+foreach($_version[1] as $_v){
+   echo $_v;
+};
+$_name=$_sex->xpath('root/user/name');
+print_r($_name);
+echo $_name[0];
+
+$_author=$_sxe->xpath('/root/user/author');
+echo $_author[1]->attributes();
+
+
+五.使用domdocument来解析xml
+//创建dom对象
+$_doc=new DOMDocument();
+//载入xml文件
+$_doc->load('test.xml');
+//取得第一个version的值,getElementsByTagName就是查找传入的标签。
+$_version=$_doc->getElementsByTagName('version');
+//item(0)表示第几个,nodeValue表示标签里的值
+//echo $_version->item(2)->nodeValue;
+foreach($_version as $_v){
+   echo $_v->nodeValue;
+};
+$_name=$_doc->getElementsByTagName('name');
+echo $_name->item(1)->nodeValue;
+
+六.使用dom创建xml文件
+
+//声明domdocument对象
+$_dom=new DOMDocument('1.0','utf-8');
+//使用xml标准化格式输出
+$_doc->formatOutput=true;
+//使用createelement来创建一个标签
+$_root=$_doc->createElement('root');
+//在root标签中创建一个version标签
+$_version=$_doc->createElement('version');
+//在version里面填入一个字符串
+$_versionTextNode=$_doc->createTextNode('1.0');
+//将1.0放入version标签
+$_version->appendChild($_versionTextNode);
+//把version标签添加到root标签内
+$_root->appendChild($_version);
+//将root主标签添加到xml文件里
+$_doc->appendChild($_root);
+生成xml
+$_doc->save('aaa.xml');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
