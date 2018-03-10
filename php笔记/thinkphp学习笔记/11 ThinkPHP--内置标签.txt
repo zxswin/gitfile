@@ -1,0 +1,233 @@
+一.内置标签是模板引擎提供可以完全控制,循环和判断功能的类似HTML语法的标签
+1.ThinkPHP内置IF标签用于在模板中进行条件判断
+//IF语句完整格式
+<if condition="$user eq '蜡笔小新'">
+   小新
+   <elseif condition="$user eq '黑崎一护'"/>
+   一护
+   <else/>
+   错误
+</if>
+
+注意：confition属性中支持eq等判断表达式,由于会导致模板混淆,所以不支持">","<"等表达式
+
+//condition条件里可以使用PHP函数
+<if condition="mb_substr($user,0,3,'UTF-8') eq '蜡笔小'">
+
+//condition条件里使用点语法,智能判断数组或对象
+<if condition="$data.user eq '蜡笔小新'">
+
+//condition条件里使用冒号语法,直接使用对象
+<if condition="$data:user eq '蜡笔小新'">
+
+2.尽可能使用Switch标签更加简洁,使用变量调节器和系统变量
+//name的值和IF语句一样,可以是变量,数组,对象,函数或系统变量
+<switch name="user">
+   <case value="蜡笔小新">小新</case>
+   <case value="黑崎一护">一护</case>
+   <default/>错误
+</switch>
+
+注意：case会自动添加break语句防止穿透,如果你想穿透,可以去除break
+//去除break
+<case value="蜡笔小新" break="0">小新</case>
+
+2.比较标签基于简单的变量比较,复杂的判断条件可以用IF标签
+eq或equal   等于
+neq或notequal不等于
+gt 大于
+egt 大于等于
+lt 小于
+elt 小于等于
+heq 恒等于
+nheq 不恒等于
+
+//控制器变量$user=蜡笔小新,输出小新
+<eq name="user" value="蜡笔小新">小新</eq>
+//compare统一方法
+<compare type="eq" name="user" value="蜡笔小新">小新</compare>
+
+3.范围判断标签：in notin between notbetween四个标签,用于判断变量是否在某个范围
+//如果id是1,2,3任意一个将输出
+<in name="id" value="1,2,3">id在范围内</in>
+//in标签支持else
+<in name="id" value='1,2,3'>
+  id在范围内
+  <else/>
+  id不在范围内
+</in>
+
+
+//notin标签,正好相反
+<notin name="id" value="1,2,3>id不在范围内</notin>
+//between标签,从哪里到哪里的范围
+<between name="id" value="1,10">id在范围内</between>
+//notbetween标签,从哪里到哪里的范围
+<notbetween name="id" value='1,10'>id不在范围内</notbetween>
+
+//range标签,可以统一in,notin,between,notbetween
+<range name="id" value="1,2,3" type="in">id在范围内</range>
+
+//name的值可以是系统变量
+<in name="Think.get.id" value="1,2,3">id在范围内<in>
+
+//value的值可以是变量或系统变量
+<in name="id" value="$Think.get.range">id在范围内</in>
+
+//判断变量是否已经赋值,赋值了就输出,空字符串也算赋值
+<present name="user">user已经赋值</present>
+
+//判断变量是否已经赋值,没有创建或赋值为null,都算没有值
+<notpresent name="user">user还没有值</notpresen>
+
+//判断变量是否已经赋值,组合
+<present nae="user">
+user已经赋值
+<else/>
+user未赋值
+</present>
+
+
+//判断变量是否为空,空则输出
+<empty name="user">user为空值</empty>
+//判断变量是否为空,不空则输出
+<notempty name="user">user不为空值</notempty>
+
+//判断变量是否为空,组合
+<empty name="user">
+  user为空值
+  <else/>
+  user不为空值
+</empty>
+
+//判断变量是否为空,系统变量
+<empty name="Think.get.user">$_GET['user']为空值</empty>
+//判断常量是否定义,定义了输出
+<defined name="APP_PATH">APP_PATH常量已定义</defined>
+//判断常量是否定义,没有定义输出
+<notdefined name="APP_PATH">APP_PATH常量已定义</defined>
+<defined name="APP_PATH">
+APP_PATH常量已定义
+<else/>
+APP_PATH常量未定义
+</defined>
+二.ThinkPHP内置标签提供了Volist标签,Foreach标签和For标签。
+
+//给模板传一个数据库数据
+$user=M('User');
+$this->assign('data',$user->select())
+$this->display();
+
+1.Volist标签,select()方法返回得数据，可以通过volist标签进行输出。
+<ul>
+  <volist name='data' id="arr">
+    <li>{$arr.id}--{$arr.user}-{$arr.mail}</li>
+  </volist>
+</ul>
+注意:id="arr"中的arr是将要遍历循环的数组名,可以自定义
+
+//offset从第几条开始,开始值0,length共多少条
+<volist name="data" id="arr" offset="5" length="10">
+   <li>{$arr.id}--{$arr.user}-{$arr.mail}</li>
+</volist>
+
+//mod当前余数,当前index除以2余1,输出偶数
+<volist name="data" id="vo" mod="2">
+   <eq name="mod" value="1">
+       <li>{$vo.id}--{$vo.user}--{$vo.mail}</li>
+   </eq>
+</volist>
+
+//没有数据的情况下使用empty填充
+<volist name="data" id="vo" empty="没有任何数据">
+   <li>{$vo.id}--{$vo.user}--{$vo.mail}</li>
+</volist>
+
+//empty属性不支持HTML直接输入,但可以通过变量输出
+$this->assign('empty','<span style="color:red">没有任何数据</span>');
+<volist name="data" id="vo" empty="$empty">
+//通过key输出循环遍历的变量
+<volist name="data" id="vo" key="k">
+   <li>{k}--{$vo.id}--{$vo.user}--{$vo.mial}</li>
+</volist>
+
+//没有指定k,也可以用i变量输出
+<li>{i}--{$vo.id}--{$vo.user}--{$vo.mial}</li>
+//key变量,可以直接输出索引值,从0开始
+<li>{$key}--{$vo.id}--{$vo.user}--{$vo.mail}</li>
+
+2.Foreach标签和Volist标签类似,只不过Foreach标签更加简单, 没有额外的属性。
+//只支持key 属性,但{$key}变量支持。
+<ul>
+  <foreach name="data" item="vo">
+  <li>{$vo.id}--{$vo.user}</li>
+</ul>
+
+2.For标签就是简单的循环标签
+//从1到99循环
+<for start="1" end="100">
+  {$i}<br/>
+</for>
+
+comparison是大于还是小于,默认值是lt,name是循环变量名,默认值为i;step是步进值,默认是1
+//完整形式
+<for start="1" end="100" comparison="lt" step="2" name="k">
+ {$k}<br/>
+</for>
+
+二.其他标签
+//在模板中定义变量,value值可以为变量($user)或系统变量($Think.get.user)
+<assign name="var" value="123"/>
+{$var}
+//在模板中定义常量,value值可以为变量($user)或系统变量($Think.get.user)
+<defind name="MY_NAME" value="lee"/>
+{$Think.const.My_NAME}
+
+2.import导入标签可以智能的导入js和css文件
+//常规引入方法
+<script type="text/javascript" src="__PUBLIC__/js/index.js"></script>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/index.css"/>
+
+//使用import导入,js和css目录
+<import type="js" file="js.index"/>
+<import type="css" file="css.index"/>
+
+//使用import导入,basepath修改默认路径
+<import type="js" file="js.index" basepath="./Common/"/>
+
+//使用load加载
+<load href="__PUBLIC__/js/index.js"/>
+<load href="__PUBLIC__/css/index.css"/>
+
+//专用标签
+<js href="__PUBLIC__/js/index.js"/>
+<css href="__PUBLIC__/css/index.css"/>
+
+3.在模板文件中书写PHP带
+//使用PHP标签
+<php>
+  $a=1;
+  $b=2;
+  echo $a+$b;
+</php>
+
+
+//使用PHP语法
+<?php
+    $a=1;
+    $b=2;
+    echo $a+$b;
+?>
+
+
+
+//如果想原样子输出标签及其内容,可以使用literal标签
+
+<literal>
+  <php>echo 123;</php>
+</literal>
+
+
+
+
+

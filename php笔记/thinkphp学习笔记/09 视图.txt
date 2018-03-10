@@ -1,0 +1,102 @@
+一.ThinkPHP视图,视图是Web的可见内容,一般是HTML结合PHP获取的数据提供给用户使用的部分,属于MVC中的V.
+1.默认的模板文件定义规则：
+     视图目录/[模板主题/]控制器名/操作名+模板后缀
+     第一步：在User控制器模板执行一句语句:
+     //渲染模板输出
+     $this->display();
+     //什么都没有定义的情况下,会自动报错,错误信息提示如下：
+            模版不存在:./Weibo/Home/View/User/index.html
+            
+2.默认情况下试图目录是View.如果你想改变成别的目录名可以设置:
+//修改模板的试图目录
+'DEFAULT_V_LAYER'=>'Template',
+
+3.默认情况下的模板文件后缀是.html,如果你想改变成别的后缀可以设置:
+//修改模板中的文件的后缀
+'TMPL_TEMPLATE_SUFFIX'=>'.tpl'
+
+3.如果感觉每一个模板,都要创建对应的目录太过于麻烦,可以设置：
+//用下划线代替目录层次
+'TMPL_FILE_DEPR'=>'_',//User_index.tpl
+
+4.如果不想将模板存放在当前的Weibo目录下,而设置在外部:
+//设置外部的模板目录
+'VIEW_PATH'=>'./Public',
+
+5.如果一个系统要考虑多套界面皮肤的话,要考虑到默认皮肤以及可选皮肤：
+//设置默认主题目录
+'DEFAULT_THEME'=>'default',
+
+//切换主题
+$this->theme('blue')->display();
+  
+二.赋值和渲染
+
+1.ThinkPHP提供了assign方法对模板变量赋值,无论何种变量类型都统一使用assign赋值。
+//给模板传递一个变量
+$this->assign('user','蜡笔小新');
+//在模板中调用变量
+{$user}
+注意：这个方法必须在display()方法之前使用,保存变量正确传递。
+
+
+2.display()方法
+  三个可选参数diaplay([模板文件][,字符编码][,输出类型])
+ 不传参数,按照默认定位模板位置
+ 当前模板/默认视图目录/当前控制器/当前操作.html
+
+   //$this->display()
+   ./Weibo/Home/View/default/User/index.tpl;
+   //修改默认模板
+    //$this->display('add')
+   ./Weibo/Home/View/default/User/add.tpl;
+
+   //修改默认模板,自定义模板
+   $this->diaplay('./Template/Public/add.tpl');
+   ./Template/Public/add.tpl //Template和Weibo同级
+   
+   //修改默认模板,指定编码和文件类型,一般不用填写,默认即可。
+   $this->display('add','utf-8','text/xml');
+   //修改目录
+   $this->display('Admin@Bbb/add');
+
+3.T():ThinkPHP封装了一个T函数,专门用于生成模板文件.格式如下：
+T([资源：//][模块@][主题/][控制器]操作,[视图分层]);
+//输出当前模板地址
+echo T();
+
+//结合上门讲的所有定义方法来自定义模板
+echo T('Public/add')
+echo T('Admin@index')
+echo T('Admin@Public/add','Template');
+
+//直接使用T函数输出
+$this->display(T());
+
+
+
+三.获取内容
+1.如果获取模板内容,可以使用fetch()方法,这个方法的使用和display()方法一样。
+//获取模板里的内容
+$content=$this->fetch();
+var_dump($content);
+
+//通过内容再渲染输出
+$this->show($content);
+
+注意;使用fetch()方法获取内容,注意是为了可以出来和过滤更加复杂的内容,然后出来后在show()方法输出。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

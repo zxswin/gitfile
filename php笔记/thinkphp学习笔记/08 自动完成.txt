@@ -1,0 +1,105 @@
+一.完成规则
+1.静态方式:在模型类里通过$_auto属性定义处理规则
+2.动态方式:使用模型类auto方法动态创建自动处理规则
+
+//完成规则：
+array(
+    array(完成字段1,完成规则,[完成条件,附加规则]),
+    array(完成字段2,完成规则,[完成条件,附加规则]),
+    ......
+)
+
+//完成条件:可选,具体如下
+1.self::MODEL_INSERT或1,新增数据的时候处理(默认);
+2.self::MODLE_UPDATE或2,更新数据的时候处理
+3.self::MODEL_BOTH或3,所有情况均处理
+
+
+3.附加规则：可选
+  function   函数完成,定义的验证规则是一个函数名
+  callback   方法完成,定义的验证规则则是当前模型类的一个方法
+  field      用其他字段填充,表示填充的内容是一个其他字段的值
+  string     字符串(默认)
+  ignore     为空则忽略(3,1,2新增)
+
+4.为了测试方便,我们可以直接通过模拟提交POST
+//控制器create()方法自动调用验证
+$user=D('User');
+$data['user']='蜡笔小新';
+if($user->create($data)){
+   $user->add();
+}
+
+//控制函数
+protected $_auto=array({
+    array('count','1'),//array('count','1',3,'string');
+});
+
+
+
+//string,自动设置count字段为1
+array('count','1');
+//function,给密码加密,加密类型为sha1,sha1函数PHP内置
+array('user','sha1',3,'function');
+//把email字段的值填充到user字段中去
+array('user','email',3,'field');
+
+//callback,给用户名加前缀
+array('user','updateUser',3,'callback','_');
+//回调函数
+protected function updateUser($str,$prefix){
+    return $prefix.$str;
+}
+
+//ignore,用于修改密码留空时,忽略修改
+array('pass','',2,'ignore');
+
+
+二.动态完成
+1.动态完成就是把完成的规则放在控制器端,这样,在操作的时候比较灵活,缺点就是比较混乱
+//动态完成
+$rules=array(
+   array('user','sha1',3,'function');
+);
+$user=M('User');
+$data['user']='蜡笔小新';
+if($user->auto($rules)->create($data)){
+    $user->add();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

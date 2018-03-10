@@ -1,0 +1,117 @@
+一.实例化类库
+1.ThinkPHP的图像处理功能,即Image.class.php;支持GD库和Imagick库,包括GIF图像处理的支持。
+
+//实例化图像处理类,默认为GD库
+$image=new Image();
+//采用Imageick扩展库,默认没有安装
+$image=new Image(Image::IMAGE_IMAGICK);
+$image=new Image('Imagick');
+
+Imageick扩展库在处理更加复杂的图像上具有很强的优势,但如果只是一些普通的需求,使用GD库完全够用。
+
+二.获取图像信息
+//实例化图像处理类库
+$image=new Image();
+//加载一张预处理的图片
+$image->open('./Public/1.jpg');
+
+
+//上面两句,可以用一句话包含
+$image=new Image(Image::IMAGE_GD,'Public/1.jpg');
+//获取图片信息
+$arr['width']=$image->width();
+$arr['height']=$image->height();
+$arr['type']=$image->type();
+$arr['mime']=$image->mime();
+$arr['size']=$image->size();
+
+var_dump($arr);
+
+三.图像处理
+使用crop()和save()方法可以实现图像的裁剪功能。
+//裁剪图片,高400,宽400
+$image->crop(400,400)->save('./Public/2.jpg');
+//裁剪图片 ,坐标100,100开始裁剪
+$image->crop(400,400,100,100)->save('./Public/2.jpg');
+
+//裁剪图片,生成后的图片压缩成高度200
+$image->crop(400,400,100,100,200,200)->save('./Public/2.jpg');
+
+//使用thumb方法生成缩略图
+$image->thumb(300,300)->save('./Public/2.jpg');
+
+2.默认等比例缩放,如果想使用其他缩略图模式,可以使用以下方式。
+IMAGE_THUMB_SCALE = 1;//等比例缩放类型
+IMAGE_THUMB_FILLED =2;//缩放后填充类型
+IMAGE_THUMB_CENTER =3;//居中裁剪类型
+IMAGE_THUMB_NORTHWEST=4;//左上角裁剪类型
+IMAGE_THUMB_SOUTHEAST =5;//右下角裁剪类型
+IMAGE_THUMB_FIXED =6;//固定尺寸缩放类型
+
+//生成缩略图,以中心点截取,直接传3也可以
+$image->thumb(300,300,Image::IMAGE_THUMB_CENTER)->save('./Public/2.jpg');
+//使用water()方法可以生成一张包含水印的图片。
+//在图片右下角添加水印并生成
+$image->water('./Public/logo.png')->save('./Public/2.jpg');
+
+
+3.默认右下角水印位置
+IMAGE_WATER_NORTHWEST =1;//左上角水印
+IMAGE_WATER_NORTH =2;//上居中水印
+IMAGE_WATER_NORTHEAST=3;//右上角水印
+IMAGE-WATER_WEST=4;//左居中水印
+IMAGE_WATER_CENTER=5;//居中水印
+IMAGE_WATER_EAST=6;//右居中水印
+IMAGE_WATER_SOUTHWEST=7;//下居中水印
+IMAGE_WATER_SOUTH=8;//下居中水印
+IMAGE_WATER_SOUTHEAST=9;//右下角水印
+
+
+//更改水印到左上角
+$image->water('./Public/logo.png',Image::IMAGE_WATER_NORTHWEST)->save('./Public/2.jpg');
+//设置水印的透明度,默认80,1-100之间
+$image->water('./Public/logo.png',Image::IMAGE_WATER_NORTHWEST,30)->save('./Public/2.jpg');
+
+//设置文本水印
+$imgae->text('YCKU.COM','./Public/consola.ttf',20,'#fffff',Image::IMAGE_WATER_SOUTHEAST)->save('./Public/2.jpg');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

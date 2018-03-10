@@ -1,0 +1,100 @@
+一.ThinkPHP目前支持的数据库
+1.包括Mysql(包括mysql和mysqli),SqlServer,PgSQL,Sqlite,Oracle,Ibase,Mongo,PDO等
+2.PDO支持所有的数据库类型
+
+二.全局配置定义
+mysql全局配置定义
+'DB_TYPE'=>'mysql',//数据库类型
+'DB_HOST'=>'localhost',//服务器地址
+'DB_NAME'=>'thinkphp',//数据库名
+'DB_USER'=>'root',//用户名
+'DB_PWD'=>'123456',//密码
+'DB_PORT'=>'3306',//端口
+'DB_PREFIX'=>'think_',//数据库表前缀
+
+PDO专用定义
+'DB_TYPE'=>'pdo',//数据库类型
+'DB_USER'=>'root',//用户名
+'DB_PWD'=>'123456',//密码
+'DB_PREFIX'=>'think_',//数据库表前缀
+'DB_DSN'=>'mysql:host=localhost;dbname=thinkphp;charset=UTF8',
+
+
+三.配置操作
+
+1.页面trace,起到调试的作用
+'SHOW_PAGE_TRACE'=>true
+
+2.使用M()的方法不用传递命名空间
+
+3.模型类与数据表对应规范
+UserModel        think_user
+UserTypeModel    think_user_type
+
+
+4.数据表定义
+  tablePrefix    定义模型对应数据表前缀
+  tableName      不包含表前缀的数据表名称
+  trueTablName   包含表前缀的数据表名称
+  dbName         定义模型当前对应的数据表名称
+  
+四.D()方法
+1.使用具体模型类的时候,ThinkPHP提供了D()方法来直接实例模型类。并且还可以免去引入命名空间等操作
+//实例化UserModel类
+$user=D('User');
+2.使用D()方法如果找不到公共模板,就会直接实例化基类Model()类,也就等同于使用M()方法。
+3.跨模块调用，比如Admin后台模块,可以使用目录声明。
+//跨模块实例化
+$user=D('Admin/User')
+  
+五.使用原生的SQL语句进行操作数据库
+//空M()方法
+$user=M();//或者new Model();空基类
+var_dump($user->query("SELECT * FROM think_user WHERE user='蜡笔小新'"));
+  
+六.字段定义
+1.ThinkPHP默认是开启字段缓存的,因为在实际的运行中,不会更改字段结果。
+2.字段缓存文件保存在Runtime/Data/_fields/目录里。开发的时候，需要关闭缓存，关闭方法：
+//关闭字段缓存
+'DB_FIELDS_CACHE'=>false    //开启调试模式,自动关闭
+
+如果开启缓存状态,新增了字段,那么可能新字段无法刷新,需要删除/Data/_fields文件夹,重新获取字段
+
+3.查看字段结果
+//查看字段结果
+var_dump($user->getDbFields());
+
+4.手动定义数据表字段非方式取代字段缓存方式,提高性能,避免IO开销
+//手动定义数据表字段,_pk表示主键
+class UserModel extends Model{
+   protected $fields=>array('id','user','_pk'=>'id');
+}
+  
+//type定义每个字段的类型,可以永远字段验证
+class UserModel extends Model{
+    protected $fields=array('id','user','_pk'=>'id',
+    'type'=>array('id'=>'smallint','user'=>'varchar'));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

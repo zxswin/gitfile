@@ -1,0 +1,76 @@
+一.系统信息
+1.ThinkPHP的多语言设置,多语言是国际化问题,可以改变网站各种信息语言的设置
+2.要开启多语言功能,需要配置开启多语言行为,在运用配置目录中:
+//在运用模块Weibo下Common/Conf建立tags.php
+return array(
+    'app_begin'=>array('Behavior\CheckLangBehavior');
+)
+这个行为主要是检测多语言功能
+//开启语言功能
+'LANG_SWITCH_ON'=>true,
+//自动侦测语言,开启多语言功能后有效
+'LANG_AUTO_DETECT'=>true,
+//允许切换语言列表,用逗号分隔
+'LANG_LIST'=>'zh-cn,en-us',
+//默认语言切换变量
+'VAR_LANGUAGE'=>'lang',
+
+3.默认语言包保存在Think\Lang下
+//保存在cookie中
+setcookie('think_language','en-us');
+
+
+4.可以通过L()方法类传入语言变量
+//设置语言定义的键值对
+L('name','Lee');
+echo L('name');
+
+//获取无法加载模块的常量值
+echo L('_MODULE_NOT_EXIST_');
+
+二.应用信息
+1.实现应用信息中英文切换需要在应用目录进行配置。
+第一步:在Home目录下建立lang目录
+第二步：分别建立zh_cn.php和en-us.php两个文件
+第三步：分别在两个语言包编写语言产量：
+
+//中文语言包
+return array(
+  //表单部分
+  'form_user'=>'用户',
+  'form_pass'=>'密码'
+)
+
+//英文语言包
+return array(
+//表单部分
+'form_user'=>'user',
+'form_user'=>'pass'
+);
+
+<p>{$Think.lang.form_user}:<input type="text" name='user'/></p>
+
+{:L('form_user')}获取语言定义。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

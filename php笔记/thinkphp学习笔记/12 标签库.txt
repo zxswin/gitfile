@@ -1,0 +1,74 @@
+一.自定义扩展标签
+Think/Library/Think/Template/TagLib下
+完整版提供两个类危机
+Cx.class.php(内置标签核心类)
+Html.class.php(html扩展标签)
+
+1.内置标签核心类
+public function _volist($tag,$content){
+     //核心代码省略
+}
+
+2.如果使用Html.class.php的扩展标签,那么首先要导入这个标签
+//导入扩展标签
+<taglib name="html"/>
+
+//在使用标签的时候,前面需要加上html;表示这个是html标签库
+<html:select option="name" selected="value"/>
+
+//将Cx和Html都设置为内置标签
+'TAGLIB_BULID_IN'=>'cx,html'
+
+//设置成内置标签,则不需要html了
+<select options="name" selected="value"/>
+设置内置标签哟一定的危险性,因为可恩能够会出现标签的重复导致冲突。
+
+//标签预加载
+'TAGLIB_PRE_LOAD'=>'html',
+
+
+
+二.扩展标签库
+1.第一步：在Think/Library/Think/Template/TagLib下创建一个Test.class.php
+//自定义扩展标签
+namespace Think\Template\TagLib
+use Think\Template\TagLib
+defind('THINK_PATH)') or exit();
+
+//Test测试标签
+class Test extends TagLib{
+   //标签定义
+   protected $tags=array(
+       'mytest'=>array('attr'=>'color,border','close'=>1); 
+   );
+   public function _mytest($tag,$content){
+        $color='';
+        $border='';
+        if(isset($tag['color'])){
+           $color='color'.$tag['color'].';';
+        }
+        if(isset($tag['border'])){
+            $border='border:'.$tag['border'].'px solid #ccc';
+        }
+        $css=$color.$border;
+        //echo $css;
+        return '<div style="'.$css'">'.$content.'</div>';
+   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

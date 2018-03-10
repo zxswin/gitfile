@@ -1,0 +1,132 @@
+一.Session
+1.系统提供了Session管理和操作的完善支持,只需通过session()函数完成,该函数可以完成Session的设置,获取,删除和管理操作
+2.ThinkPHP中不需要手动初始化session,系统会自动初始化
+id session_id值
+name session_name值
+path session_save_path值
+prefix session本地化空间前缀
+expire session.gc_maxlifetime设置值
+domain session.cookie_domain设置值
+use_cookies session.use.cookies设置值
+use_trans_sid session.use_trans_sid设置值
+type session处理类型,支持驱动扩展
+
+//手工初始化
+session(array('name'=>'session_id','expire'=>3600));
+
+//配置SESSION初始化
+SESSION_OPTIONS=>array(
+    'name'=>'session_id',
+    'expire'=>3600
+);
+
+3.默认情况下,系统会启动session,如果不希望系统自动启动session,可以像下面设置
+//设置系统不启用session
+'SESSION_AUTO_START'=>false,
+//session赋值
+session('user','Mr.Lee');//$_SESSION['user']='Mr.Lee';
+//获取session值
+echo session('user');//echo $_SESSION['user'];
+//session删除
+session('user',null);//unset($_SESSION['user']);
+//删除所有session
+session(null);//$_SESSION=array();
+//判断session是否存在
+echo session('?user');//isset($_SESSION['user']);
+//暂停session,写入关闭
+session('[pause]');//session_write_close();
+//启动session,可以开启写入
+session('[start]')//sessioin_start();
+
+//销毁session
+session('destroy');//session_destroy();
+
+//重新生成session_id
+session('[regenerate]');//session_regenerate_id();
+
+4.启用本地化sessio管理支持
+//SESSION前缀
+'SESSION_PREFIX'=>'think_',
+这时候处理$_SESSION['user']将变成$_SESSION['think_']['user']
+
+二.Cookie
+//cookie赋值
+cookie('user','Mr.Lee');//setcookie('user','Mr.Lee');
+
+//cookie取值
+echo cookie('user');//echo $_COOKIE['user'];
+//cookie赋值,设置过期时间
+cookie('user','Mr.Lee',3600);
+//cookie赋值,第三个参数数组设置过期时间和前缀
+cookie('user','Lee',array('expire'=>3600,'prefix'=>'think_'));
+cookie('user','Mr.Lee','expire=3600&prefix=think_');
+//cookie取值,带前缀
+echo cookie('think_user');
+
+
+2.处理过期和前缀,还有path(保存路径)和domain(域)/
+支持配置文件的写法;COOKIE_PREFIX,COOKIE_EXPIRE,COOKIE_PATH,COOKIE_)DOMAIN
+//cookie赋值,数组
+cookie('user',array('Mr','Lee'));
+//cookie删除user
+cookie('user',null);
+
+//cookie删除所有
+cookie(null);
+//cookie删除指定前缀
+cookie(null,'think_');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,222 @@
+一.模型简介
+1.关联模型可以非常容易操作多种关联表的增删改查
+2.关联模型,一共有三种模式
+//一共用户对于一共身份证,一个身份证对应一个用户
+  ONE_TO_ONE 一对一
+  HAS_ONE  一对一
+  BELONGS_TO 一对一
+  
+//一个用户可以有多个留言,而一条留言只能由一个用户发布
+  ONE_TO_MANY 一对多
+  HAS_MANY 一对多
+  BELONGS_TO 一对多
+  
+//一个用户可以有多个角色,一个角色可以对应多个用户
+  MANY_TO_MANY 多对多
+
+
+二.关联操作
+1.用户表和身份证表关联,HAS_ONE(一对一),表示一个用户只能一个身份证
+//User控制部分
+namespace Home\Controller;
+user Think\Controller;
+user Home\Model\UserModel;
+
+class UserController extends Controller{
+   public function index(){
+      $user=D('User');
+      $arr=$user->relation(true)->select();
+      var_dump($arr);
+   }
+}
+
+//User模型部分
+namespace Home\Model;
+use Think\Model;
+use Think\Model\RelationModel;
+
+class UserModel extends RelationModel{
+   protected $_link=array(
+      'Card'=>array(
+         'mapping_type'=>self::HAS_ONE,
+         'class_name'=>'Card',
+         'mapping_name'=>'card',
+         'foreign_key'=>'uid',
+         'mapping_fields'=>'code',
+         'as_fields'=>'code',
+         'condition'=>'id=1',
+      ),
+   )
+}
+
+2.HAS_ONE支持以下属性
+class_name 关联的模型类名,如果不写,会自动定位相关数据表。
+mapping_name 关联映射名称,用于获取数据和数组名。
+mapping_type 设置关联模式,比如一对一self::HAS_ONE.
+foreign_key 关联外键的名称,会自动对应当前数据表的id
+mapping_fields 关联要查询的字段,默认是查询所有
+as_fields 关联的字段映射成同级字段
+condition 关联条件,额外查询使用。
+
+3.用户表和身份证关联,BELONGS_TO(一对一),表示一个身份证从属于一个用户.
+//Card控制器部分
+nampspace Home\Controller;
+use Think\Controller
+use Home\Model\CardModel;
+
+class CardController extends Controller{
+    public function index(){
+       $card=D('Card');
+       $arr=$card->relation(true)->select();
+       var dump($arr);
+    }
+}
+
+
+//Card模型部分
+namespace Home\Model;
+use Think\Model;
+use Think\Model\RelationModel;
+
+class CardModel extends RelationModel{
+   protected $_link=array(
+      'User'=>array(
+         'mapping_type'=>'uid',
+         'foreign_key'=>'uid',
+         'mapping_fields'=>'user',
+         'as_fields'=>'user',
+      ),
+   );
+}
+
+
+
+4.用户表和留言表:HAS_MANY(一对多)表示一个用户发布N条留言。
+namespace Home\Controller;
+use Think\Controller;
+use Home\Model\UseModel;
+
+//User控制器部分
+class UserController extends Controller{
+   public function index(){
+      $user=D('User');
+      $arr=$user->relation(true)->select();
+      print_r($arr);
+   }
+}
+
+
+//User模型部分
+namespace Home\Model;
+use Think\Model;
+use Think\Model\relationModel;
+
+class UserModel extends RelationModel{
+   protected $_link=array(
+     'Content'=>array(
+        'mapping_type'=>self::HAS_MANY,
+        'mapping_name'=>'contents',
+        'class_name'=>'Content',
+        'foreign_key'=>'uid',
+        'mapping_fields'=>'content',
+        'mapping_limit'=>'0,2',
+        'mapping_order'=>'id DESC',
+     ),
+   )
+}
+如果使用HAS_MANY还支持mapping_limit 和 mapping_order功能
+
+4.用户表留言表：BELONGS_TO(多对一)表示N条留言从属于某个用户。、
+namespace Home\Controller;
+use Think\Controller;
+use Home\Model\ContentModel;
+
+class ContentController extends Controller{
+   public function index(){
+      $content = D('Content');
+      $arr=$content->ralation(true)->select();
+      var_dump($arr);
+   }
+}
+
+
+
+namespace Home\Model;
+use Think\Model\RalationModel;
+
+class ContentModel extends RelationModel{
+   protected $_link=array(
+     'User'=>array(
+       'mapping_type'=>self::HAS_MANY,
+        'mapping_name'=>'contents',
+        'class_name'=>'Content',
+        'foreign_key'=>'uid',
+        'mapping_fields'=>'content',
+        'mapping_limit'=>'0,2',
+        'mapping_order'=>'id DESC',
+     ),
+   ),
+}
+
+
+用户表和角色表并咩有关联字段,采用中间表类关联他们,通过ThinkPHP的关联模式,进行多对多的匹配
+1.表于表之间进行管理后可以进行写入,更新和删除
+//新增一个用户,同时增加一个身份证
+public function add(){
+   $user = D('User');
+   $data['user']='测试用户';
+   $data['mail']='test@163.com';
+   $data['Card']=array(
+      'code'=>'3209xx',
+   ),
+   $user->relation(true)->add($data);
+}
+
+//删除一个用户,同时删除关联的身份证
+$user =D('User');
+$user->relation(true)->delete(68);
+
+//更新一个用户,同时更新对应的身份证
+public function save(){
+  $user=D('User');
+  $data['User']='测试用户4';
+  $data['mail']='test4@163.com';
+  $data['Card']=array(
+    'code'=>'3209zz',
+  ),
+  $user->relation(true)->where(array('id'=>67))->save($data);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

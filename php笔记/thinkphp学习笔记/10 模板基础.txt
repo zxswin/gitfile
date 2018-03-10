@@ -1,0 +1,236 @@
+一.ThinkPHP模板
+1.ThinkPHP内置了一个基于XML的性能卓越的模板引擎ThinkTemplate.使用了动态编译和缓存计算,支持自定义便签库
+
+二.变量输出
+1.使用assign()方法,以键值对的方式传递变量和值。
+//给模板传递一个变量
+$user='蜡笔小新';
+$this->assign('user',$user);
+
+//在模板中这么调用:
+{$user}
+//模板编译后的结果是:
+<?php echo ($user);?>//可以在Runtime可以查看。
+
+//模板便签{和$之间不能用任何空格,否则无法解析.如果你想更换两个{}可以设置：
+//修改默认标签
+'TMPL_L_DELIM'=>'<{',
+'TMPL_R_DELIM'=>'}>'
+调用方式修改为：<{$user}>
+
+//数组形式传递
+public function index(){
+    $data['user']='蜡笔小新';
+    $data['email']='bnbbs@163.com';
+    $this->assign('user',$data);
+    $this->display();
+}
+
+//对象形式传递
+$data=new \stdClass();
+$data->user='蜡笔小新';
+$data->email='bnbbs@163.com';
+$this->assign('data',$data);
+
+调用方式：
+User:{$data->user}
+Email:{$data->email}
+User:{$data:user}
+Email:{$data:email}
+
+三.系统变量
+1.在模板中,不但可以输出PHP的系统变量,还可以输出ThinkPHP的系统变量。
+//输出PHP系统变量
+{$Think.server.script_name}  //$_SERVER['SCRIPT_NAME']
+{$Think.session.admin}       //$_SERVER['admin']
+{$Think.get.user}            //$_GET['user']
+{$Think.post.user}           //$_POST['user']
+{$Think.request.user}        //$_REQUEST['user']
+{$Think.cookie.name}         //$_COOKIE['name']
+
+//ThinkPHP系统变量
+{$Think.const.APP_PATH}       //目录
+{$Think.config.url_model}     //URL模式
+{$Think.lang.var_error}       //语言变量
+
+
+四.使用函数
+1.模板中使用PHP函数的话,可以按照下面的格式使用:
+{$user|md5}
+
+2.如果有多个参数要传递,可以参考如下设置:
+{$date|date='Y-m-d H:i:s',###}
+date,第一个参数是日期,第而二个参数才是前面的变量,需要使用###标识变量位置.编译后的结果是:
+<?php echo (date('Y-m-d H:i:s',$date));?>
+
+//前面输出变量,在后面定义,则不需要###
+{$user|mb_substr=0,3,'UTF-8'}
+
+//多个函数用'|'隔开即可
+{$user|mb_substr=0,3,'UTF-8'|MD5|sha1}
+
+//如果你觉得以上写法需要在脑海里二次翻译,太过于麻烦,那么可以用；一下的格式写法:
+{:md5(mb_substr($user,0,3,'UTF-8'))}
+
+//当传递过来的变量如果没有值的时候,模板提供了默认输出功能
+{$user|default='什么都没有!'}
+
+五.使用运算符
+可以在模板中使用运算符,包括对'+''-''*''/'等
+{$data['num']+10}  //中括号
+{$data['num']+getNum()}//函数
+
+//模板还支持三元运算符：
+{$user?'有值'：'无值'}
+
+六.包含文件
+1.在View目录下default主题目录下创建一个Public目录,这个目录专门存放公共调用模板文件
+  <include file='Public/header'/>
+  <include file='Public/footer'/>
+  
+  也可以调用绝对路径模式:
+  <include file='./Weibo/Home/View/defalut/Public/header.tpl'/>
+ 同时调用多个模板文件
+ <include file='Public/header,Public/footer'/>
+ 
+ 
+2.模板注释
+  模板支持注释功能,提供个模板制作人员参考
+  {//这是注释}
+  {/*这也是注释*/}
+  {/*这是
+      多行注释*/}
+
+七.模板继承
+
+1.类似于子类继承父类,然后子类还可以进行适当的修改以满足当前页面的需求
+//基础模板需要子模板修改的部分可以用<block>包含,并且设置name值
+<block name="main">主要内容</block>
+//子模板只要按照同样的方法,修改<block>内部的值即可完成修改
+<block name='main'>修改了</block>
+
+
+//创建Public下的base.tpl模板基页
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html charset=utf-8">
+  <block name="title"><title>{$user}</title></block>
+</head>
+<body>
+    <include file="Public/header"/>
+    <block name="main">主要内容</block>
+    <include file="Public/footer"/>
+</body>
+</html>
+
+//使用<extend>导入模板基页,name为路径,和include导入方法一致。
+
+<extend name="Public/base" />
+<block name="main">修改了</block>
+
+
+八.ThinkPHP模板引擎内置了布局模板功能支持,可以方便实现模板布局已经布局嵌套功能
+1.全局配置方式
+//开启模板布局功能,并指定基础页
+'LAYOUT_ON'=>true,
+'LAYOUT_NAME'=>'Public/layout',//layout.tpl文件
+
+//基础也,{__CONTENT__}将被子页的内容替换
+<include file='Public/header'/>
+   {__CONTENT__}
+<include file='Public/footer'/>
+
+//替换变量可变更为{___REPLACE_}
+'TMPL_LAYOUT_TIEM'=>'{__REPLACE__}'
+
+//子模板不需载入模板基页,可以在开头加上{__NOLAYOUT__}
+{__NOLAYOUT__}
+
+
+2.模板标签方式
+标签方式,并不需要在系统做任何配置,和模板继承类似,直接引入即可。
+//子模板引入模板基页
+<layout name="Public/layout"/>
+//替换变量的方法
+<layout name="Public/layout" replace="{__REPLACE__}"/>
+
+3.layout控制布局
+这个方法是在控制器里操作的。
+//开启布局,并引入默认地址基页。
+public function index(){
+    layout(true);
+}
+
+//引入指定基页
+public function index(){
+  layout('Public/layout');
+  //layout(false);//关闭
+}
+
+
+九.模板替换
+__ROOT__会替换成当前网站的地址(不含域名)
+__APP__会替换成当前应用的URL地址(不含域名)
+__MODULE__会替换成当前模板的URL地址(不含域名)
+__CONTROLLER__(或者__URL__兼容考虑):会替换成当前控制器的URL地址(不含域名)
+
+__ACTION__会替换成当前操作的URL地址(不含域名)
+__SELF__会替换成当前页面的URL
+__PUBLIC__会替换成当前网站的公用目录,通常是/Public/
+
+
+
+'TMPL_PARSR_STRING'=>array(
+    '__PUBLIC__'=>'/Common',//更改默认的/Public 替换规则
+    '__UPLADE__'=>'/Uploads'//增加新的上传路径替换规则
+)
+
+__PUBLIC__可以改成--PUBLIC--同样是可以的
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

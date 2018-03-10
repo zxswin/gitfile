@@ -1,0 +1,140 @@
+一.使用字符串作为条件查询
+1.字符串作为条件查询
+$user=M('User');
+var_dump($user->where('id=1 AND user="蜡笔小新"')->select());
+//最终生成的SQL语句
+SELECT * FROM 'think_user' WHERE(id=1 AND user="蜡笔小新")l;
+
+
+二.使用索引数组作为查询条件
+1.使用索引数组作为条件查询
+$user=M('User');
+$condition['id']=1;
+$condition['user']='蜡笔小新';
+var_dump($user->where($condition)->select());
+
+//最终生成的SQL语句
+SELECT * FROM 'think_user' WHERE ('id'=1)AND('user'='蜡笔小新');
+2.索引数组查询的默认逻辑关系是AND,如果想改变为OR,可以使用_logic定义查询逻辑。
+基于上面的代码增加如下一行;
+$condition['_logic']='OR';//将默认AND改成OR;
+
+
+三.使用对象方式查询
+//对象作为条件查询
+$user=M('User');
+$condition=new \stdClass();
+$condition->id=1;
+$condition->user='蜡笔小新';
+var_dump($user->where($condition)->select());
+
+//最终生成的SQL语句
+SELECT * FROM 'think_user' WHERE ('id'=1) AND('user'='蜡笔小新');
+
+2.stdClass类是PHP内置的类。可以理解为一个空类。使用'\'是将命名空间设置为根目录。
+3.ThinkPHP推荐使用数组形式更加高效。
+
+
+四.表达式查询。
+
+EQ 等于(=)
+NEQ 不等于(<>)
+GT  大于(>)
+EGT 大于等于(>=)
+LT  小于(<)
+ELT 小于等于(<=)
+[NOT]LINK 模糊查询
+[NOT]BETWEEN (不在)区间查询
+[NOT] IN (不在)IN查询
+EXP  表达式查询,支持SQL语法。
+
+$user=M('User');
+$map['id']=array('eq',1);
+$map['id']=array('neq',1);
+$map['id']=array('gt',1);
+$map['id']=array('egt',1);
+$map['id']=array('lt',1);
+$map['id']=array('elt',1);
+$map['user']=array('like',%小%);
+$map['user']=array('notlike',%小%);
+$map['user']=array('like',array('%小%','%蜡%'),'AND');
+$map['id']=array('between','1,3');
+$map['id']=array('between',array('1','3'));
+$map['id']=array('not between','1,3');
+$map['id']=array('in','1,2,4');
+$map['id']=array('in',array('1','3'));
+$map['id']=array('not in','1,2,4');
+
+$map['id']=array('exp','<1');
+$map['id']=array('exp','in(1,2,3)');
+$map['id']=array('exp','=1 AND user='蜡笔下新'');
+$map['id']=array('exp','=1');
+$map['user']=array('exp','='蜡笔下新'');
+$map['_logic']='OR';
+var _dump($user->where($map)->select());
+
+五.快捷查询
+1.不同字段相同查询条件
+//使用相同查询条件
+$map['user|email']='a';//'|'换成'&'变成AND;
+$map['id'&user]=array(1,'蜡笔小新','_multi'=>true);
+'multi'为true,是为了让id对应1,让user对应'蜡笔小新',这样的设置需要放在数组的最后
+
+//支持使用表达式结合快捷查询
+$map['id&user']=array(array('gt',0),'蜡笔小新','_multi'=>true);
+
+六.区间查询
+
+1.区间查询
+$map['id']=array(array('gt',1),array('lt',4));
+//第三个参数设置逻辑OR
+$map['id']=array(array('gt',1),array('lt',4),'OR');
+
+七.组合查询
+是基于索引数组查询方式的一个扩展性查询。由于采用索引数组,重复的会被覆盖。
+1.添加字符串查询(_string)
+$map['id']=array('eq',1);
+$map['_string']='user="蜡笔小新" AND mail="xiaoxin@163.com"';
+
+2.复合查询(_complex)
+$user=M('User');
+$map['id']=array('eq',1);
+$where['id']=2;
+$map['_complex']=$where;
+$map['_logic']='OR';
+var_dump($user->where($map)->select());
+3.请求字符串查询(_query)
+$map['id']=array('eq',1);
+$map['_query']='user=蜡笔小新&mail=xiaoxin@163.com&_logic=OR';
+
+
+七.
+var_dump($user->count());
+var_dump($user->count('email'));
+var_dump($user->max('id'));
+var_dump($user->min('id'));
+var_dump($user->avg(id));
+var_dump($user->sum('id'));
+
+var_dump($user->getByUser('蜡笔小新'));
+var_dump($user->getFieldByUser('蜡笔小新','id'));
+
+var_dump($user->query("SELECT * FROM think_user"));
+//更新和写入,如果采用分布式读写分离,则始终在写服务器执行
+var_dump($user->execute("UPDATE think_user SET user='蜡笔大新' WHERE id=1"));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

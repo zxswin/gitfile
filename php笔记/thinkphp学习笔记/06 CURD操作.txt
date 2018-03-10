@@ -1,0 +1,285 @@
+一.数据创建
+//根据表单提交的POST数据,创建数据对象
+$user=M('User');
+var_dump($user->create());
+注：create()方法就是数据创建,数据的结果就是提交的POST数据的键值对。
+   提交过来的字段和数据表是对应的.否则无法解析。
+   
+//通过数组手工获取数据,覆盖提交的
+$user=M('User');
+$data['user']=$_POST['user'];
+$data['email']=$_POST['email'];
+$data['date']=date('Y-m-d H:i:s');//和数据表对应,否则会失效
+var_dump($user)->create($data);
+
+
+//通过对象手工获取数据,覆盖提交的
+$user=M('User');
+$data=new \stdClass();
+$data->user=$_POST['user'];
+$data->email=$_POST['email'];
+$data->date=date('Y-m-d H:i:s');
+var_dump($user->create($data));
+
+
+//默认是$_POST传递,修改为$_GET传递
+$user=M('User');
+var_dump($user->create($_GET));
+
+二.create()方法的第二个参数,将要操作的模式。
+新增:Model::MODEL_INSERT
+修改:Model::MODEL_UPDATE
+
+当没有指定的时候,系统会根据数据源是否包含主键来自动判断,如果包含主键,则就修改操作。
+//设置将要新增的操作
+$user=M('User');
+var_dump($user->create($_POST,Model::MODEL_INSERT));
+
+1.create()方法的内部工作分为9步：
+    获取数据源(默认POST)
+    验证数据合法性(非数据或对象会过滤),失败则返回false
+    检测字段映射
+    判断数据状态(新增还是hi修改)
+    数据自动验证,失败则返回false
+    表单令牌验证,失败则返回false
+    表单数据赋值(过滤非法字段和字符串处理);
+    数据自动完成
+    生成数据对象(保存在内存)
+  
+3.create()方法可以配合连贯操作配合数据创建,支持的连贯操作有:
+  field用于定义合法字段
+  validate用于数据自动验证
+  auto 用于数据自动完成
+  token用于令牌验证
+
+//限制可操作的字段
+$user=M('User');
+var_dump($user->field('user')->create());
+
+//在模型里限制字段
+class UserModle extends Model{
+    protected $insertFields='user';
+    protected $updateFields='user';
+}
+
+
+三.写入数据
+1.数据写入使用的是add()方法
+//新增一条数据
+$user=M('User');
+$data['user']='lyh';
+$data['email']='lyh@123.com';
+$data['date']='date('Y-m-d H:i:s');
+$user->add($data);
+
+//结合create()方法
+$user=M('User');
+$data=$user->create();
+$data['date']=date('Y-m-d H:i:s');
+$user->add($data);
+
+//add()方法支持的连贯操作有：
+  table定义数据表名称
+  data指定要写入的数据对象
+  field定义要写入的字段
+  relation关联从查询
+  validate数据自动验证
+  auto数据自动完成
+  filter数据过滤
+  scope*命名范围
+  bind数据绑定操作
+  token令牌验证
+  comment SQL注释
+
+
+//使用data连贯方法
+$user=M('User');
+$data=$user->create();
+$data=$user->create();
+$data['date']=date('Y-m-d H:i:s');
+$user->data($data)->add();
+
+
+//data连贯方法  支持字符串,数组,对象
+$user=M('User');
+$data='user=1&email=2&date='.date('Y-m-d H:i:s');
+$user->data($data)->add();
+
+
+四.数据读取
+//显默认第一条数据
+$user=M('User');
+var_dump($user->find());//可以传递数字参数,AR模式
+
+//显示默认所有数据
+$user=M('User');
+var_dump($user->select());//可以传递数组形式的SQL
+
+//获取第一条user字段的值
+$user=M('User');
+var_dump($user->getField('user'));
+
+//获取所有user字段值
+$user=M('User');
+var_dump($user->getField('user',true));
+
+//传递多个字段,获取所有
+$user=M('User');
+var_dump($user->getField('user,email'));
+
+//id冒号分隔
+$user=M('User');
+var_dump($user->getField('id,user,email',':'));
+
+
+//限制2条数据
+$user=M('User');
+var_dump($user->getField('id,user,email',2));
+
+
+五.数据更新使用的方法是sava()方法,主要是对数据的修改操作
+//修改第一条数据
+$user=M('User');
+$data['user']='蜡笔大新';
+$data['email']='daxin@qq.com';
+$data['id']='1';
+$map['id']=1;
+$user->where($map)->save($data);//成功后返回1,否则返回0
+
+//默认主键为条件
+$user=M('User');
+$data['id']=1;
+$data['user']='蜡笔小新';
+$data['email']='xiaoxin@163.com';
+$user->save($data);
+
+数据更新的sava()方法只对的连贯方法有：
+where 查询或更新条件
+table 要操作的数据表名称
+alias 数据表别名
+field 查询字段
+order 结果排序
+lock  锁
+relation 关联查询
+scope   命名范围
+bind   数据绑定操作
+comment SQL注释
+
+
+//结合create()
+$user=M('User');
+$user->create();//POST必须包含主键
+$user->save();
+
+
+//修改某个值
+$user=M(User);
+$map['id']=1;
+$user->where($map)->setField('user','蜡笔大新');
+
+//统计累计,累加累减
+$user=M('User');
+$map['id']=1;
+$user->where($map)->setInc('count',1);//累加,setDec累减
+
+
+六.数据删除
+1.数据删除使用的方法是delete()方法
+//直接删除主键(id=17)
+$user=M('User');
+$user->delete(17);
+
+//根据ID来删除
+$user=M('User');
+$map['id']=16;
+$user->where($map)->delete();
+
+//批量删除多个
+$user=M('User');
+$user->delete('1,3,5');
+
+//删除count为0且按时间倒叙的前五个
+$user=M('User');
+$map['count']=0;
+$user->where($map)->order(array('date'=>'DESC'))->limit(5)->delete();
+
+//删除所有数据,谨慎
+
+$user=M('User');
+$user->delete('1');
+
+七.ActiveRecord模式
+1.这种模式最大的特点就是简化了CURD操作。便于使用和理解。
+//添加一条数据
+$user=M('User');
+$user->user='火影忍者';
+$user->email='huoyin@qq.com';
+$user->date=date('Y-m-d H:i:s');
+$user->add();
+
+//结合create
+$user=M('User');
+$user->create();
+$user->date=date('Y-m-d H:i:s');
+$user->add();
+
+//找到主键为4的值
+$user=M('User');
+var_dump($user->find(4));
+
+//查找user=蜡笔小新的记录
+$user=M('User');
+var_dump($user->getByUser('蜡笔小新'));
+
+//输出user
+
+echo $user->user;
+
+//通过主键查询多个
+$user=M('User');
+var_dump($user->select(1,2,3));
+
+//修改一条数据
+$user=M('User');
+$user->find(1);
+$user->user='蜡笔老新';
+$user->save();
+
+
+//删除当前找到的数据
+$user=M('User');
+$user->find(11);
+$user->delete();
+
+//删除主键为10的数据
+$user=M('User');
+$user->delete(10);
+
+//删除主键为10,11的数据
+
+$user=M('User');
+$user->delete(10,11);
+
+
+八.字符映射
+//字符映射
+protected $_map=array(
+    'xingming'=>'user',
+    'youxiang'=>'email',
+);
+
+//字段映射获取
+$user=D('User');
+var_dump($user->create());
+
+
+
+
+
+
+
+
+
+
+
+

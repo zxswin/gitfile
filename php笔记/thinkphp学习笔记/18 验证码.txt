@@ -1,0 +1,168 @@
+一.生成验证码
+1.ThinkPHP的验证码功能,即Verify.class.php.此验证码可以支持验证码的生成和验证功能。
+//实例化验证码类
+$verify=new Verify();
+//生成一个验证码图形
+$verify->entry();
+生成验证码信息会保存在session中,可以使用print_r($_SESSION)来查看
+//生成第一个验证码
+$verify->entry(1);
+//生成第二个验证码
+$verify->entry(2);
+
+
+二验证码参数
+expire 验证码的有效期(秒)
+useImgBg 是否使用背景图片 默认为false
+fontSize 验证码字体大小(像素) 默认为25
+userCurve 是否使用混淆曲线 默认为true
+userNoise 是否使用杂 默认为true
+imageW 验证码宽度,设置为0是自动计算
+imageH 验证码高度设置为0是自动计算
+length 验证码的位数
+fontttf 指定验证码字体 默认为随机获取
+userZh 是否使用中文验证码
+
+//设置验证码参数
+$config=array(
+   'fontSize'>30,//验证码字体大小
+   'length'=>3,//验证码位数
+   'useNoise'=>false,//关闭验证码杂点
+);
+
+//实例化验证码类,并传入参数
+$verify=new Verify($config);
+//生成验证码
+$verify->entry();
+
+2.使用动态设置方法：
+//实例化验证码类,并传入参数
+$verify=new Verify();
+//验证码字体大小
+$verify-fontSize=30;
+//验证码位数
+$verify->length=3;
+//关闭验证码杂点
+$verify->useNoise=false;
+//生成验证码
+$verify->entry();
+
+//设置验证码字体
+$verify->fontttf='5.ttf';
+//设置背景图片功能,随机使用
+$verify->useImgBg=true;
+//取消曲线混淆
+$verify->useCurve=false;
+//设置验证码的高
+$verify->imageH=100;
+//设置验证码的宽
+$verify->imageW=100;
+//设置验证码的长度
+$verify->length=3;
+//设置验证码加密密钥
+$verify->seKey='YOKU.COM';
+//设置验证码背景颜色
+$verify->bg=array(200,200,200);
+
+3.让验证码显示中文
+  Think/zhttfs文件夹下引入中文字体文件,比如加粗雅黑msyhbd.ttf;
+  设置字体文件：
+  //设置验证码字体
+  $verify->fonttf='msyhbd.ttf';
+  //设置中文验证码
+  $verify->useZh=true;
+
+//由于中文字体比较庞大,你也可以限定指定字符
+//限定中文字符
+$verfy->zhSet='十个好人';
+
+三.验证码检测
+1.使用verify.class.php类中的check方法检测验证码是否输入正确。
+第一步:在function.php里构建一个函数
+//函数$code是验证码字符,$id是第几个验证码,如果只有一个,可以忽略
+function check_verify($code,$id=''){
+   $verify=new \Think\Verify();
+   return $verify->check($code,$id);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

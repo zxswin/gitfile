@@ -1,0 +1,27 @@
+1.condition 状态;环境;
+2.logic  逻辑
+3.complex 复杂的;难懂的;复合的
+4.execute 执行;完成;
+5.alias 别名，化名
+6.union 同盟，联盟;
+7.distinct 不寻常的;有区别的;确切的
+8.validate 证实;使合法化
+9.relation 关系;联系;关联;亲属
+10.confirm 证实;
+11.require 需要;要求;想要;命令
+12.currency 货币;通用，流通，流传，传播;市价，行情;流通时间
+13.expire 期满;文件、协议等（因到期而）失效;断气;逝世
+14.compare 比较，对照
+15.present 目前的;现在的;
+16.literal 照字面的;原义的;逐字的;平实的，避免夸张
+17.access 入口，出口;接近，进入;增长;爆发
+18.suffix 后缀，词尾
+19.thumb 拇指;（手套的）拇指部份
+20.verify 核实;证明;判定
+21.entry 进入
+22.expire 期满;文件、协议等（因到期而）失效;断气;逝世
+23.auth 认证
+24.guest游客
+25.foreign 外国的，外交的;外来的;
+
+

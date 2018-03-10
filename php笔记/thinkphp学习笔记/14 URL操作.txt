@@ -1,0 +1,141 @@
+一.URL大写
+1.注意涉及URL路径大小写,伪静态,生成以及模板中的U()方法
+//系统默认规范URL
+http://localhost/demo39/index.php?/Home/User/index/id/5
+
+//URL可以不区分大小写
+'URL_CASE_INSENSITIVE'=>true;
+
+如果开启了不区分大小写,那么对于UserTypeController.class.php需要这样访问：
+http://localhost/demo39/index.php/home/user_type/index/
+如果区分大小写,则是这样：
+http://localhost/demo39/index.php/Home/UserType/index/
+
+二.URL伪静态
+1.为了满足更好的SEO效果,ThinkPHP支持伪静态设置
+//默认情况下,伪静态后缀为.html
+http://localhost/demo39/User/index.html
+http://localhost/demo39/User/index/id/5.html
+
+//设置伪静态后缀,默认为html
+'URL_HTML_SUFFIX'=>'shtml',
+http://localhost/demo39/User/index.shtml
+
+//如果设置为空,那么就是任意后缀
+'URL_HTML_SUFFIX'=>'',
+//如果设置为空,可以用__EXT__常量获取当前使用的后缀
+{$Think.const.__EXT__}
+
+//设置可以伪静态的后缀
+'URL_HTML_SUFFIX'=>'html|shtml|xml'
+
+//禁止访问后缀
+'URL_DENY_SUFFIX'=>'html|pdf|ico|png|gif|jpg',
+
+
+三.URL生成
+1.动态地根据当前的URL设置生成对应的URL地址.
+  ThinkPHP内置了一个U()方法,用于URL的动态生成
+
+定义格式：U('地址表单式',['参数'],['伪静态后缀'],['显示域名']);
+
+//默认得到当前URL
+echo U();///demo39/User/index.html
+地址表达式格式如下：
+[模块/控制器/操作#锚点@域名]?参数1=值1&参数2=值2...
+
+//控制器+方法+?参数1=值1
+echo U('User/add');
+///demo39/index.php/User/add.html
+
+//控制器+方法+?参数1=值1
+echo U('User/add?id=5');
+///demo39/index.php/User/add/id/5.html
+
+//模块+控制器+方法+?参数1=值1
+echo U('Admin/User/add?id=5');
+///demo39/index/php/Admin/User/add/id/5.html
+
+
+U()方法第二个参数可以分离参数和值的操作,支持字符串和数组的书写
+//使用数组参数1=值1,参数2=值2
+echo U('User/add',array('id'=>5,'type'=>'a'));
+///demo39/index.php/User/add/id/5/type/a.html
+
+
+//使用字符串参数1=值1,参数2=值2
+ehco U('User/add','id=5&type=a');
+///demo39/index.php/User/add/id/5/type/a.html
+
+不运行使用PATHINFO模式的路径类编写路径
+echo U('User/add/id/1/type/a');
+///demo39/index.php/1/type/a.html这个生成的URL是错误的
+
+U()方法第三个参数可以指定伪静态的后缀
+//指定伪静态的后缀
+echo U('User/add',array('id'=>5),'xml');
+///demo39/index.php/User/add/id/5.xml
+
+//设置'URL_MODEL'=>0,普通模式后URL生成如下
+///demo39/index.php?m=&c=User&a=add&id=5
+
+
+//设置'URL_MODEL'=>1,PATHINFO模式后URL生成将如下
+///demo39/index.php/User/add/id/5.html
+
+
+
+//设置'URL_MODEL'=>2,REWRITE模式后URL生成将如下
+///demo39/User/add/id/5.html
+
+//设置'URL_MODEL'=>3,兼容模式后URL生成将如下
+///demo39/index.php?s=/User/add/id/5.html
+
+
+这里我们使用REWRITE重写模式,它是PATHINFO的升级版,地址最短。
+
+我们也可以生成路由地址,使用路由的规则生成的地址
+
+//规则路由
+'u/:id\d'=>'User/index'
+//生成规则路由地址
+echo U('u/5')
+///demo39/u/5/5.html
+
+//生成正则路由地址
+'/^u_(\d+)$/'=>'User/index?id=:1',
+echo U('/u_5');
+///demo39/u_5.html
+
+//域名支持
+echo U('User/add@www.ycuk.com?id=5');
+//http://ycuk.com/demo39/index.php/User/add/id/5.html
+
+//锚点支持
+echo U('User/add#comment?id=5;')
+
+//在模板中使用U()方法
+{：U('User/add',array('id'=>5))}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

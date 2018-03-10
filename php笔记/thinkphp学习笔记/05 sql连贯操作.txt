@@ -1,0 +1,188 @@
+一.连贯入门
+1.连贯操作入门
+$user=M('User');
+var_dump($user->where('id in(1,2,3,4)')->order('date DESC')->limit(2)->select());
+
+注意：where,order和limit方法都是连贯操作方法,所以他们都返回$user本身,可以互换位置。
+     select方法不是连贯方法,需要放在最后,用以显示数据集。
+
+2.数组操作
+var_dump($user->select(array('where'=>'id in(1,2,3,4)','limit'=>'2','order'=>'date DESC')));
+
+3.CURD处理,CURD会在专门的章节讲解
+$user=M('User');
+var_dump($user->where('id=1')->find());//只会查询到第一条数据
+var_dump($user->where('id'=7)->delete());
+
+二.连贯方法
+1.where
+  where方法支持字符串条件,数组条件(推荐用法)和多次调用。
+
+2.字符串方式
+var_dump($user->where('id=1')->select());
+
+3.索引数组方式
+$map['id']=1;//使用表达式array('eq'，1);
+var_dump($user->where($map)->select());
+
+4.多次调用方式
+$map['id']=array('eq',1);
+var_dump($user->where($map)->where('user="蜡笔小新"')->select());
+
+5.order:用于多结果集的排序
+//倒序
+$map['id']=array('eq',1);
+var_dump($user->order('id desc')->select());//正序默认或ASC;
+
+//第二排序
+var_dump($user->order('id desc')->select());
+PS：先按id倒叙,再按emil倒叙。
+
+//数组形式防止字段和mysql关键字冲突
+$map['id']=array('eq',1);
+var_dump($user->order(array('id'=>'DESC'))->select());
+
+6.feild方法可以返回或操作字段,可以用于查询和写入操作。
+//只显示id和user两个字段
+var_dump($user->field('id,user')->select());
+//使用SQL函数和别名。
+var_dump($user->field('SUM(id) as count,user')->select());
+
+//使用数组参数结合SQL函数
+var_dump($user->field(array('id','LEFT(USER,3)'=>'left_user'))->select());
+var_dump($user->field(array('id','LEFT(USER,3) AS left_user'))->select());
+//获取所有字段
+var_dump($user->field()->select());可以传入*号或者省略方法
+//用于写入
+$user->field('user,email')->create();//CURD将在专门的章节学习。
+
+
+7.limit方法主要用于指定查询和操作的数量
+//限制结果集数量
+var_dump($user->limit(2)->select());
+//分页查询
+var_dump($user->limit(0,2)->select());
+
+8.page方法完全用于分页查询
+//page分页
+var_dump($user->page(1,2)->select());
+
+9.table方法用于数据表操作,主要是切换数据表或多表操作。
+//切换数据表
+var_dump($user->table(think_info)->select());
+
+//获取简化表名
+var_dump($user->table('__USER__')->select());//__INFO__尚可
+
+//多表查询
+var_dump($user->field('a.id,b.id')->table('__USER__ a,__INFO__ b')->select());
+
+//多表查询,使用数组形式避免关键字冲突
+var_dump($user->field('a.id,b.id')->table(array('think_user'=>'a','think_info'=>'b'))->select());
+
+10.alias用于设置数据表别名
+//设置别名
+var_dump($user->alias('a')->select());
+
+
+11.group方法通常用于结合函数统计的结果集分组
+//分组统计
+var_dump($user->field('user,max(id)')->ground('id')->select());
+
+11.having方法一般用于配合group方法完成从分组的结果中再筛选数据
+//分组统计结合having
+var_dump($user->field('user,max(id)')->group('id')->having('id>2')->select());
+
+12.join方法用于多表的连接查询
+//JOIN多表关联,默认INNER JOIN
+var_dump($user->join('think_user ON think_info.id=think_user.id')->select());//__USER__和__INFO__代替
+
+//RIGHT,LEFT,FULL
+var_dump($user->join('think_user ON think_info.id=think_user.id','RIGHT')->select());
+
+13.union方法用于合并多个SELECT的结果集
+//合并多个SELECT结果集
+var_dump($user->union("SELECT * FROM think_info")->select());
+
+14.comment方法用于多SQL语句进行注释
+var_dump($user->comment('所有用户')->select());
+
+15.distinct方法用于返回唯一不同的值
+//返回不重复的列
+var_dump($user->distinct(true)->field('user')->select());
+
+16.cache用于查询缓存操作
+//查询缓存,第二次读取缓存内容
+var_dump($user->cache(true)->select());
+第一次查询数据库,第二次查询的内容直接调用缓存,不用再查询数据库.
+
+三.命名范围
+1.命名范围其实就是将SQL语句封装在模型定义类里,而不是在控制器中。
+//要使用命名范围,第一步要定义属性。
+class UserModel extends Model{
+  protected $_scope=array(//属性名必须是_scope
+      'sql1'=>array(
+         'where'=>array('id'=>1),
+      ),
+      'sql2'=>array(
+         'order'=>'date DESC',
+         'limit'=>2,
+      ),
+      'default'=>array(
+        'where'=>array('id'=>2),
+      ),
+  );
+}
+ 注:命名范围支持的属性有:where,field,order,table,limit,page,having,group,lock,distinct,cache.
+ 
+ 四.调用
+ $user=D('User');
+ 
+ var_dump($user->scope('sql1')->select());
+ var_dump($user->scope('sql2')->select());
+  var_dump($user->scope('sql2')->scope('sql1')->select());
+  var_dump($user->scope()->select());
+  var_dump($user->scope('sql2',array('limit'=>4))->select());
+  var_dump($user->scope(array('where'=>array('id'=>1),'order'=>'date DESC','limit'=>2)))
+  var_dump($user->sql2()->select());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

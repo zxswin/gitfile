@@ -1,0 +1,94 @@
+一.视图模型
+1.关联模型通过生成多条SQL语句然后进行数组拼接得到想要结果。
+2.对于一对一这中HAS_ONE和BELONGS_TO的多表关联查询.可以使用视图模型。它采用的是联合查询(JOIN),非常适合此类查询要求。
+
+//User控制器部分
+class UserController extends Controller{
+   public function index(){
+      $user=D('UserView');
+      var_dump($user->select());
+   }
+}
+
+//User模型部分
+class UserViewModel extends ViewModel{
+   public $viewFields=array(
+      'User'=>array('id','user','email'),
+      'Card'=>array('code','_on'=>'User.id=Card.uid'),
+      //'Content'=>array('content','_on'=>'User.id=Content.uid'),
+   );
+}
+
+
+3.使用关联查询,显示User表且包含Card表关联的数据,未来关联的则忽略。
+如果想未关联的查询出来,可以使用LEFT左查询。
+//LEFT JOIN
+'User'=>array('id','user','email','_type'=>'LEFT'),
+//使用group分组去除重复数据
+var_dump($user->group('id')->select());
+
+//使用COUNT得到关联的条数
+'User'=>array('id','user','email')
+
+二.数据分页
+ThinkPHP封装了数据分页功能,只要进行一些设置即可完成分页。
+//User控制器部分
+class UserController extends Controller{
+   public function index(){
+       $user=D('User');
+       $count=$user->count();
+       $page=new Page($count,5);
+       $page=new Page($count,5);
+       $show=$page->show();
+       $list=$user->order('date')->limit($page->firstRow.','.$page->listRows)->select();
+       $this->assign('list',$list);
+       $this->assign('page',$show);
+       $this->display();
+   }
+}
+
+//模板部分
+<table border="1">
+  <tr><th>id</th><th>user</th><th>email</th></tr>
+  <foreach name="list" itme="obj">
+     <tr><td>{$obj.id}</td><td>{$obj.user}</td><td>{$obj.email}</td></tr>
+  </foreach>
+</table>
+
+
+//设置分页参数
+$page->setConfig('first','首页');
+$page->setConfig('prev','上一页');
+$page->setConfig('next','下一页');
+$page->setConfig('last','末页'),
+$page->setConfig('theme','共%TOTAL_ROW% %HEADER% 共%TOTAL_PAGE%页 %FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%');
+
+//设置分页变量名
+'VAR_PAGE'=>'page',
+另外还有一个分页的方法,就是使用page()方法;
+
+//User控制器部分
+class UserController extends Controller{
+     public function index(){
+        $user = D('User');
+        $list=$user->page($_GET['page'].'2')->select();
+        $count=$user->count();
+        $page=new Page($count,2);
+        $show=$page->show;
+        $this->assign('list',$list);
+        $this->assign('page',$show);
+        $this->dispaly();
+     }
+}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,349 @@
+一.控制器操作：
+第一步:控制器默认创建在当前模块下的Controller目录下;
+第二步：按照指定命名规则:控制器名(首字母大写)+Controller.class.php;
+第三步：控制器里的方法必须是Public公用的.
+
+//控制器
+class UserController extends Controller{
+      public function index(){
+      //index()方法的URL访问时可以忽略
+      }
+}
+
+URL访问:http://localhost/demo39/User/index/
+
+2.解决关键字冲突
+//配置可控制器方法后缀
+'ACTION_SUFFIX'=>'Action',
+
+//每个方法后面加上Action ,对于URL访问不需要加上Action
+class UserController extends Controller{
+   public function indexAction(){
+       echo 'index';
+   }
+   public function testAction(){
+       echo 'test';
+   }
+}
+
+3.默认情况控制器模块,Controller目录下的UserController.class.php类,它是对外公开访问的。为外部控制器。
+业务分类到另外的层,比如世界控制器层。
+第一步:创建时间控制器目录：Event;
+第二步创建UserEvent.class.php类；
+//是否继承控制器基类或其他基类,取决于你的业务
+class UserEvent extends Controller{
+      public function test(){
+        echo '当触发测试事件,执行这个方法,这方法内部调用.';
+      }
+}
+
+//访问控制器内部调用事件控制器方法
+class UserController extends Controller{
+      public function testAction(){
+         $userEvent=new UserEvent();
+         $userEvent->test();
+         echo 'test';
+      }
+}
+
+4.调用别的控制器还可以使用快捷调用方法A().
+$userEvent=A('User','Event');
+$userEvent=A('Admin/User','Event');//增加模块
+
+
+5.支持配置二级控制器
+第一步:配置允许二级控制器
+//允许二级控制器
+'CONTROLLER_LEVEL'=>2
+第二步:在Controller目录下创建User目录,在User目录下创建一个控制器;
+//二级控制器写法
+namespace Home\Controller\User;
+use Think\Controller;
+
+class MemberController extends Controller{
+    public function index(){
+       echo '多级控制器';
+    }
+}
+
+
+6.前置操作和后置操作
+  _before_index()和后置操作方法_after_index()这两个方法
+  控制器调用index()方法的时候,一个在之前执行,一个在之后执行
+
+
+
+二.Action参数绑定
+参数绑定是通过直接绑定URL地址中的变量作为操作的方法参数,可以简化方法的定义甚至路由的解析
+//启用Action参数绑定,默认为true,可以不写
+'URL_PARAMS_BIND'=>true;
+
+1.默认的参数绑定是按变量名来绑定的,直接通过URL传递参数
+//变量名为$id
+class UserController extends Controller{
+   public function index($id){
+       echo 'id:'.$id;
+   }
+}
+URL:http://localhost/demo39/User/index/id/5    没有传递参数会报错
+
+//给变量$id设置默认值
+public function index($id=1);
+
+
+3.按顺序传递参数,必须按照参数的顺序传递
+//定义顺序传参绑定
+'URL_PARAMS_BIND_TYPE'=>1
+
+//传递两个参数
+
+class UserController extends Controller{
+    public function index($id,$type){
+       echo 'id'.$id.',type'.$type;
+    }
+}
+
+URL:http://localhost/demo39/User/index/5/a
+
+
+三.跳转和重定向
+1.ThinkPHP在操作数据库时,需要跳转和重定向页面.ThinkPHP提供了一组方法类解决这个问题。
+//成功和失败的跳转
+class UserController extends Controller{
+      public function index(){
+             $flag=true;
+             if($flag){
+               //会跳转到:http://localhost/demo39/User/all
+               $this->success('新增成功!','../User/all');
+             }else{
+                //会跳转到本页的上一页
+                $this->error('新增失败!');
+             }
+      }
+}
+2.success()方法和error()方法,第一个参数是提示信息,第二个跳转的地址,第三个跳转时间,默认情况下success()方法是1秒,error()方法是3秒
+//设置5秒
+$this->success('新增成功!','list',5);
+
+success()方法和error()方法,跳转的时候就对应了相应的模板,默认如下：
+//默认错误跳转对应的模板文件
+'TMPL_ACTION_ERROR'=>THINK_PATH.'Tpl/dispatch_jump.tpl',
+//默认成功跳转对应的模板文件
+'TMPL_ACTION_SUCCESS'=>THINK_PATH.'Tpl/dispathch_jump.tpl',
+
+//自定义成功和错误提示模板页面
+'TMPL_ACTTION_SUCCESS'=>'Public/success',
+'TMPL_ACTTION_ERROR'=>'Public/error',
+
+3.自定义提示模板,ThinkPHP提供了一组变量可供使用
+$msgTitle 操作标题
+$message  页面提示信息
+$status   操作状态1 表示成功0 表示失败
+$waitSecond 跳转等待时间,单位为秒
+$jumpUrl    跳转页面地址
+
+//模板中使用提示标量
+操作标题：{$msgTitle}<br/>
+页面提示信息：{$message}<br/>
+操作状态：{$status}<br/>
+跳转等待时间:{$waitSecond}<br/>
+页面跳转地址:{$jumpUrl}
+
+如果对于数据库操作,采用了Ajax的方式,那么success()和error会自动ajaxReturn()方法返回数据提供调用。
+
+4.ThinkPHP还提供了重定向方法redirect(),参数和U()方法一样,这个方法使用的URL规则
+$this->redirect('User/test',array('id'=>5),5,'页面跳转中...');
+6.如果只要单纯的URL跳转,不去使用URL规则,那么直接使用redirect()函数。
+redirect('http://www.baidu.com',5,'页面跳转中...');
+
+四.输入变量
+1.ThinkPHP提供了轻松和安全获取变量的解决方案
+//常规获取变量方式
+$id=$_GET['id'];//获取get变量
+$name=$_POST['name'];//获取post变量
+$value=$_SESSION['var'];//获取session变量
+$name=$_COOKIE['name'];//获取cookie变量
+$file=$_SERVER['PHP_SELF'];//获取server变量
+
+2.ThinkPHP提供I()的方法进行变量的获取和过滤
+
+get ,post param(自动判断请求裂隙获取GET,POST,或者PUT参数)
+request put session cookie server globals
+
+
+//获取$GET['id'];
+echo I('get.id');
+//$_GET['id']没有值,则默认1
+echo I('get.id',1);
+//过滤$_GET[id]
+echo I('get.id','','md5');
+//获取$_GET
+print_r(I('get.'));
+
+
+3.ThinkPHP还提供了一个自动识别各种系统变量类型的接受方法,param
+//param变量自动判断变量类型
+echo I('param.id');
+//param可以省略
+echo I('id');
+
+4.如果是PATHINFO模式的URL,param也可以接受
+//param获取URL所有参数
+print_r(I('param.0'));
+
+5.取消或开启URL的'URL_PARAMS_BIND_TYPE'=>1配置定义
+http://localhost/demo39/User/index/id/5/type/a
+关闭URL传参顺序:Array([id]=>5[type]=>a)
+关闭URL传递顺序:Array([0]=>id[1]=>5[2]=>type[3]=>a)
+
+//param获取指定参数值
+echo I('param.id');
+echo I('param.type');
+
+默认情况下I()的默认过滤是：htmlspecialchars,过滤掉HTML
+
+//过滤HTML,如果去掉了,则传递包含HTML的字符串,将不过滤
+'DEFAULT_FILTER'=>'htmlspecialchars'
+
+//设置过滤函数,会忽略配置文件里的设置
+echo I('get.id','','htmlspecialchars');
+如果系统配置默认过滤,本身某个函数不想过滤,那么可以这么处理：
+//设置屏蔽系统默认过滤
+echo I('get.id','',false);//第三参数为空字符串均可
+
+五.请求类型
+1.判断当前是否是GET,POST等
+IS_GET判断是否GET提交请求
+IS_POST判断是否POST提交请求
+IS_PUT判断PUT提交请求
+IS_DELETE判断是否DELETE提交请求
+IS_AJAX判断是否AJAX提交请求
+
+//判断是否GET请求
+if(IS_GET){
+  echo '是GET请求';
+}else{
+  echo '不是GET请求';
+}
+
+六.空操作
+1.找不到请求操作方法时,会定位到空操作(_empty)方法来执行,利用这个机制,实现错误页面和URL的优化
+//如果没哟相关方法则执行
+public function _empty($name){
+    echo '找不到方法:'.$name;
+}
+
+2.空控制器,找不到指定控制器时,调用一个专门的空控制器.实现错误页面,和一些URL的优化。
+//如果没有相关控制器则执行
+class EmptyController extends Controller{
+      public function index(){
+         echo '找不到服务器：'.CONTROLLER_NAME;
+      }
+}
+
+八.绑定到类
+1.ThinkPHP提供了把每个操作方法定位到一个类的功能,即每个吧层次分得更加细腻
+//设置操作绑定到类
+'ACTION_BIND_CLASS'=>True,
+
+然后在Controller目录下建立Use目录,在User目录建立index.class.php
+再建立test.class.php
+
+//index.class.php
+namespace Home\Controller\User;
+use Think\Controller;
+
+class index extends Controller{
+     public function run(){
+        echo 'User模块下的index类';
+     }
+}
+
+//test.class.php
+namespace Home\Controller\User;
+use Think\Controller;
+
+class test extends Controller{
+    public function run(){
+       echo 'User模块下的test类';
+    }
+}
+
+浏览器分别访问：
+http://localhost/demo39/test/
+http://localhost/demo39/User/test
+
+//前置后置方法
+public function _before_run(){
+    echo 'before_'.ACTION_NAME;
+}
+
+public function _after_run(){
+    echo 'after_'.ACTION_NAME;
+}
+
+
+//空方法,在目录里建立一个empty.class.php
+
+class _empty extends Controller{
+     public function run(){
+        echo '找不到'.ACTINO_NAME.'方法';
+     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

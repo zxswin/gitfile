@@ -1,0 +1,136 @@
+一,权限介绍
+1.ThinkPHP提供了一个内置的Auth.class.php类来实现权限控制.
+2.提供三个表
+think_auth_rule(认证规则表),
+think_auth_group(用户组表),
+think_auto_group_access(用户和组对应关系表)
+
+二.简单登录
+1.第一步：在Admin模块下创建一个IndexController.class.php(默认就有了),创建index方法,输出一句话即可
+namespace Admin\Controller;
+use Think\Contoller;
+
+class IndexContoller extends Controller{
+    public function index(){
+       echo '后台首页！';
+    }
+}
+
+这是通过URL访问：http://localhost/demo39/Admin/Index/index,访问即可
+
+第二步:在Weibo根目录下Common公共模板下创建Controller文件夹,并在里面创建一个AuthController.class.php;
+这个类基础Auth.class.php
+namespace Common\Controller;
+use Think\Controller;
+use Think\Auth;
+
+class AuthController extends Controller{
+  protected function _initialize(){
+     $auto=new Auth();
+     if(!$auth->check()){
+       $this->error('没有权限');
+     }
+  }
+}
+这里使用的方法固定为:_initalize().由于AuthController.class.php继承了Controller类,所以,第一步的Index改为继承它
+namespace Admin\Controller
+use Common\Controller\AuthController;
+
+class IndexController extends AuthController{
+   public function index(){
+      echo '后台首页';
+    }
+}
+
+我们再访问首页的时候,已经没有权限了.主要是$auth->check()验证无法通过的原因。
+第三步：创建一个LoginController.class.php.模板为index.tpl.
+
+<from method="post" action="{:U(index)}">
+   <p>用户名:<input type="text" name="user" /></p>
+   <p><input type="submit" value="登录"/></p>
+</from>
+
+class LoginController extends Controller{
+   public function index(){
+      if(IS_POST){
+         $login=array();
+         switch(I('user',null,false)){
+            case 'admin':
+                $login['uid']=1;
+                $login['user']='admin';
+                break;
+           case 'test':
+                $login['uid']=2;
+                $login['user']='test';
+                break;
+                
+          case 'guest'
+                $login['uid']=3;
+                $login['user']='guest';
+                break;
+          default:
+               $this->error('登录的用户不存在!');
+         }
+      }
+   }
+}
+
+继承AuthController类是需要权限控制的类
+class AuthController extends Controller{
+      protected function _initialize(){
+         $sess_auth=session('auth');
+         if(!$sess_auth){
+            $this->error('非法访问!正在调整登录页面!',U('Login/index'),U('Login/index'));
+         }
+         if($sess_auth['uid']==1){
+            return true;
+         }
+         $auth=new Auth();
+         if(!auth->check(MODULE_NAME.'/'.CONTROLLER_NAME.'/'.ACTION_NAME,$sess_auth['uid'])){
+                $this->error('没有权限',U('login/logout'));
+         }
+      }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

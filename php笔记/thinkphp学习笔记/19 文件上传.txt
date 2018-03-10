@@ -1,0 +1,128 @@
+一.上传表单
+1.ThinkPHP的文件上传功能,即Upload.class.php
+有单个文件上传,多个文件上传等多中上传方式
+
+//上传单个文件的表单模式
+<form action="__CONTROLLER__/upload" enctype="multipart/form-data" method="post">
+    <input type="text" name="name"/>
+    <input type="file" name="photo"/>
+    <input type="submit" value="提交"/>
+</form>
+
+//多文件上传设置,或者改为photo1,photo2,photo3即可
+<input type="file" name="photo[]"/>
+<input type="file" name="photo[]"/>
+<input type="file" name="photo[]"/>
+
+
+2.在控制器里创建一个upload方法,实现上传功能
+//上传功能
+public function upload(){
+   $upload=new Upload();//实例化上传类
+   $upload->maxSize=3145728;//设置上传大小,字节
+   $upload->exts=array('jpg','gif','png','jpeg');//限定后缀
+   $upload->savePath='./';//在根目录Uploads下
+   $info=$upload->upload();//执行上传方法
+   if(!$info){
+      $this->error($upload->getError());//错误了
+   }else{
+      $this->success('上传成功!');//成功了
+   }
+}
+
+
+二.文件上传
+Upload类支出的属性：
+maxSize 文件上传的最大文件大小,以字节为单位,0为不限大小
+rootPath 文件上传保存的根路径
+savePath 文件上传的保存路径(相当于根路径)
+saveName 上传文件的保存规则,支出数组和字符串方式定义
+saveExt 上传文件的保存后缀,不设置的话使用原文件后缀
+replace 存在同名文件是否是覆盖,默认为false
+exts允许上传的文件后缀,留空则不限制,使用数组或逗号分割的字符串设置默认为空
+mimes 允许上传的文件类型,留空则不限制,使用数组或逗号分割的字符串设置默认为空
+autoSub 自动使用子目录保存上传文件,默认为true
+subName 子目录创建方式,采用数组或字符串方式定义
+hash 是否生产文件的hash编码,默认为true
+callback 检测文件是否存在回调,如果存在访问文件信息数组
+
+//实例化配置参数
+$config=array(
+  'maxSize'=>3145728,
+  'exts'=>array('jpg','gif','png','jpeg'),
+  'savePath'=>'./',
+);
+$upload=new Upload($config);
+
+//动态配置参数
+$upload=new Upload();
+$upload->maxSize=3145728;
+$upload->exts=array('jpg','gif','png','jpeg');
+$upload->savePath='./';
+
+//设置文件名
+$upload->saveName='123';
+//限制文件上传类型
+$upload->mimes=array('image/jpeg');
+//设置同名覆盖
+$upload->replace=true;
+//不设置子目录
+$upload->autoSub=false;
+//设置子目录格式
+$upload->subName=array('date','Ymd');
+//不生成hash编码
+$upload->hash=false;
+
+//子目录采用函数返回
+$upload->subName='get_user_id';
+//在function.php中创建一个函数
+function get_user_id(){
+   return rand();
+}
+
+//获取上传文件的信息
+foreach($info as $file){
+  echo $file['savepath'].$file['savename'];
+}
+
+4.$file数组可以使用的属性
+key 附件上传的表单名称
+savepath 上传文件的保存路径
+name  上传文件的原始名称
+savename 上传文件的保存名称
+size 上传文件的大小
+type 上传文件的MIME类型
+ext  上传文件的后缀类型
+md5  上传文件的md5哈希验证字符串,仅当hash设置开启后有效
+sha1  上传文件的sha1哈希验证字符串 仅当hash设置开启后有效
+
+//获取上传文件信息
+foreach($info as $file){
+   echo $file['key'].'<br/>'
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,104 @@
+一.调试模式
+//入口文件处,开启调试模式,建议开发阶段开启,部署阶段注释或者设为false
+defind('APP_DEBUG',true);
+
+2.调试模式的开发优势
+  开启日志记录,任何错误和调试信息都会详细记录
+  关闭模板缓存,模板修改可以及时生效
+  记录SQL日志,方便SQL:
+  关闭字段缓存,数据表字段修改不受缓存影响
+  严格检查文件大小写,帮助提取发现Linux部署问题：
+  通过页面Trace功能更换的调色和发现问题
+  
+  二.异常处理
+  //手动抛出异常
+  E('失败!');
+
+
+三.模型调色
+1.获取最近的SQL语句
+ehco $user->getLastSql();
+//查看SQL的错误信息
+$list=$user->query("SELECT * FROM bbb");
+echo $user->getDbError();
+
+四.信念调试
+G()方法测试内存开销和运行时间
+//包裹要测试的代码
+G('begin');
+$user=D('User')；
+$list=$user->select();
+$this->assign('list',$list);
+$this->display();
+G('end');
+
+//计算运行时间,单位秒
+echo G('begin','end').'s';
+echo '<br/>';
+
+//计算消耗内存,单位kb
+echo G('begin','end','m').'kb';
+如果你的环境不支持内存消耗测,它会自动按时间运算。
+
+五.变量调试
+//参数1为变量,参数2为是否打印,参数3标识,参数4是否采用print_r.
+
+六.日志记录
+//部署模型下开启日志记录
+'LOG_RECORD'=>true,
+//运行的日志记录级别
+'LOG_LEVEL'=>'EMERG,ALERT,GRIT,ERR',
+
+2.ThinkPHP对系统的日志按级别来分类,包括
+EMERG严重错误,导致系统崩溃无法使用
+ALERT警戒性错误,必须被理解修改的错误
+CRIT临界值错误,超过临界值的错误
+ERR一般性错误
+WARN 警告性错误，需要发出警告的错误
+NOTICE通知,程序可以运行但是还不够完美的错误
+INFO信息,程序输出的信息
+DEBUG调试,用于调试信息
+SQL SQL语句,该级别只在调试模式开启时有效
+
+//手动写入,第二个参数为级别,第三位强制
+Log::record('日志','WARN',true);
+//不受配置文件影响
+Log::write('日志','WARN');
+
+
+七.Track
+//页面Track
+'SHOW_PAGE_TRACE'=>true;
+
+//设置要显示的调试模块
+'TRACE_PAGE_TABS'=>array(
+   'base'=>'基本',
+   'file'=>'文件',
+   'think'=>'流程',
+   'error'=>'错误',
+   'sql'=>'SQL',
+   'debug'=>'调试'
+),
+
+//调试方法
+trace('调试方法','提示','user');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
