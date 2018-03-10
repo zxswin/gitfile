@@ -1,0 +1,470 @@
+1、echo 表示向浏览器输出，echo其实是一个函数，无返回值
+2、prints 功能:向浏览器输出字符串 print返回值，返回字符串的长度
+3、 $total=(float)$sum;//显式转换  echo gettype($total);
+4、settype($sum,"string");//中途将$sum类型转换成字符串型
+5、gettype():设置类型
+6、settype()：获取类型
+7、isset()： 判断一个变量是否 存在
+8、unset():销毁一个变量
+9、empty()用来判断一个变量的值是否为空。如果为空则为true否则为false;      
+
+10、PHP还提供了一些特定的类型的测试函数。每个函数都使用一个变量作为其参数，并且返回true或false;
+     is_array()
+     is_double();
+     is_float();
+     is_real();
+     is_int();
+     is_integer();
+     is_string();
+     is_object();
+     is_resource();
+     is_null();
+     is_numeric();       
+                
+11、可以通过调用一个函数来实现转换变量数据类型的目的。
+     intval();
+     floatval();
+     strval();    
+   
+ 
+12、超级全局变量
+    $GLOBALS  所有的全局变量数组
+    $_SERVER 服务器环境变量数组
+    $_GET  通过GET方法传递给脚本的变量数组
+    $_POST  通过POST方法传递给该脚本的变量数组
+    $_COOKIE   cookie变量数组
+    $_FILES  与文件上传下载有关的变量数组
+    $_ENV    环境变量数组
+    $_REQUEST 所有用户输入的变量数组
+    $_SESSION   会话变量数组。
+   
+13、 define("TOTAL",199);   常量一旦被定义了之后，就不能再次更改了。
+14、phpinfo()环境变量
+    echo $_SERVER["HTTP_HOST"];
+    echo $_SERVER["DOCUMENT_ROOT"];
+    
+15、is_numeric检测变量是否为数字或数字字符串
+16、rand 产生一个随机整数
+17、mt_rand 生成更好的随机数
+18、getrandmax  显示随机数最多的可能值。
+19、mt_getrandmax 显示随机数最多的可能值。
+20、number_format()函数可以把整数和浮点数字转换为一种可读的字符串表示。
+21、数学函数
+    1、abs()绝对值
+    2、floor()舍去法取整
+    3、ceil()进一法取整
+    5、round()四舍五入
+    6、min()求最小值或数组中最小值
+    7、max()求最大值数组中的最最大值
+   
+<!--数组-->
+
+
+22、创建一个数组变量
+    $userNames=array('李彦宏','周鸿祎','马云')
+   
+23、print_r 打印关于变量的易于理解的信息。
+24、range 建立一个包含指定范围单元的数组。
+   $numbers=range(1,3);
+   print_t($numbers);
+   Array(
+     [0]=>1
+     [1]=>2
+     [2]=>3
+   )
+25、使用foreach循环来遍历数组：
+    foreach($userNames as $key=>$value){
+       each $key.'<br/>'
+    };
+26、测试是否为数组变量：is_array();
+27、count 计算数组中的单元数目或对象中的属性个数。
+    echo count($userNames);
+28、sizeof  是count()的别名
+
+
+29、each--返回数组中当前的键/值对并将数组指针向前移动一步
+//两个感叹号，表示真实存在的数据转换成布尔值。
+ //echo !!each($userAges);//说明有数据，有数据，用布尔值的理念就是真(true);
+ while(!!$a=each($userAges)){
+    echo $a['key'].'---'.$a['value'].'<br/>';
+ };
+
+30、list--把数组中的值赋值给一些变量。list只能认识key为数字的下标。
+    $a=array('aaaaa','bbbbb','cccccc','dddddd');
+   //list($var1,$var2)就是将$var1='aaaaa';$var2='bbbbb';
+   list($var1,$var2,$var3,$var4)=$a;
+   echo $var4;//dddddd
+
+31、 reset--将数组的内部指针指向第一个单元；
+32、array_unique--移除数组中重复的值
+33、array_flip--交互数组中的键和值；
+
+34、sort--对数组排序，返回的是一个布尔值，排序成功或者排序失败。使用sort()函数将数组按字符升序排序
+35、asort--对数组进行排序并保持索引关系；
+36、ksort--对数组按照键名进行排序
+
+37、反向排序：
+   rsort(),arsort();krsort();
+38、shuffle--将数组打乱
+
+39、反向排序，array_reverse(),array打头的函数，一般会创建一个新数组；
+40、array_unshift--数组开头插入一个或多个单元
+41、array_push()函数将每个新元素添加到数组末尾。
+42、current--返回数组中的当前单元
+43、next--将数组中的内部指针向前移动一位
+44、reset--将数组内部指针指向第一个单元
+45、pos()--current()的别名；
+46、prev()--将数组的内部指针倒回一位
+47、array_count_values()--统计数组中所有的值出现的次数；
+48、extract--从数组中将变量导入到当前的符号表
+
+
+<!--目录与文件-->
+49、basename--返回路径中的文件名部分
+    $path='C:\AppServ\www\basic6\Demo1.php';
+    echo basename($path);//Demo1.php;
+    
+50、dirname--返回路径中的目录部分
+
+51、关于路径的信息：pathinfo()函数创建一个关联数组，其中包括:目录名，基本名和扩展名。
+   dirname,basename,extension(后缀名),filename(文件名);
+       使用数组的方式去调用就行了。
+52、realpath--返回规范化的绝对路径名
+
+
+53、确认文件的大小：filesize()函数返回指定文件字节的大小。
+   filesize--取得文件大小。
+   $path='C:\AppServ\www\basic6\Demo1.php';
+   echo round(filesize($path)/1024,2).'kb';
+   
+54、disk_free_space()函数返回指定的目录所在的磁盘分区的可用空间。
+55、disk_total_space()函数返回指定的目录所在的磁盘分区的总容量。
+56、fileatime()函数返回文件的最后访问时间，采用的Unix时间戳格式。
+
+57、date--格式化一个本地时间/日期
+         调整一下时区date_default_timezone_set('Asia/Shanghai');
+    echo date('Y-m-d H:i:s');相差了八个小时
+   
+   date_default_timezone_get--取得一个脚本中所有日期时间函数所使用的默认时区。
+   date_default_timezone_set(设置时区)
+   
+   //文件最后的修改时间
+   echo date('Y-m-d H:i:s',fileatime($path));
+58、 filectime():文件最后改变时间(所有者权限修改时间)
+59、filemtime():获取最后的文件修改时间（文件内容的修改时间）
+
+60、fopen返回的是一个资源类型resource,我们一般称它为句柄。或者叫资源句柄。
+    $fp=fopen('file.txt','w');
+61、strlen()获取字符串长度的方法；strlen($outstring)
+62、 fclose()-关闭一个已打开的文件指针。
+    fclose($fp);
+
+63、想在文件里写入一些数据：fwrite($fp,$outstring,strlen($outstring));
+
+64、file_put_contents--将一个字符串写入文件
+     //这个比较新，只有在PHP5的版本才可以使用。
+    file_put_contents('file2.txt','This is a wq!');
+
+65、fgetc--从文件指针中读取字符。读出一个字符，并将指针移动到下一个字符。
+66、fgets--从文件指针中读取一行
+67、fgetss()：从文件指针中读取一行并过滤掉HTML标记。
+68、fread--读取文件（可安全用于二进制文件）
+69、fpassthru--输出文件指针处的所有剩余数据
+70、file--把整个文件读入一个数组中。将整个文件读入数组中，以行分组。 
+71、readfile():读入一个文件并写入到输出缓冲。输出一个文件，返回int类型。
+   //返回值是文件字节的总长度。
+   echo readfile('file.txt');是将整个的文件读出来。本身能直接输入浏览器，所以不需要eaho;
+72、file_get_contents--将整个文件读入一个字符串。
+73、feof--测试文件指针是否到了文件结束的位置。
+    //现在要读出的文件
+    $fp=fopen('file.txt','r');
+    //feof--测试文件指针是否到了文件结束的位置。
+   while(!feof($fp)){
+      echo fgetc($fp);
+   };
+   fclose($fp);
+
+74、file_exists--检查文件或目录是否存在。
+75、文件大小，字节  echo filesize('file.txt');
+76、删除一个文件  unlink('123.txt');
+77、rewind--倒回文件指针的位置。
+78、ftell--返回文件指针读写的位置。
+79、fseek--在文件指针中定位。
+80、 文件锁定和解锁
+    flock($fp,LOCK_EX);//锁定
+    fwrite($fp,'This is lock!');
+    flock($fp,LOCK_UN);//解锁
+81、opendir()：打开路径指定的目录流。（打开目录句柄）
+82、closedir():关闭目录流
+83、readdir():返回目录中的各个元素。从目录句柄中读取条目。
+84、 scandir()：将目录读入数组。
+85、 rmdir()：删除指定的目录。
+86、 rename():重命名文件。 (目录和文件都可以改)
+
+87、md5('123456');//对一个字符串进行加密
+
+88、在函数里的变量，和函数外的变量没有任何联系，所以写重名，无所谓。
+    list($name,$age,$job)=functioninfo('卓',19,'学生');
+    echo $name.'今年'.$age.'岁了，目前还是一个'.$job.;
+
+89、 前面加上&符号就是按引用传
+     function functionPrices(&$prices,$tax){
+       $prices=$prices+($prices*$tax);//75
+       $tax=$tax*2;
+        };
+
+90、超级全局变量
+          可以通过使用超级全局变量$GLOBAL,可以访问或改变全局作用域中的任何变量。
+          超级全局变量说白了就是一个数组。
+
+
+91、文件包含
+           这句话把函数库给包含进来
+    include 'library/tool.libray.php';
+    include_once 'library/tool.libray.php';如果文件已经包含，则不再执行include_once();
+    require('library/tool.libray.php')
+    require_once('library/tool.libray.php');
+    //推荐使用
+    require 'Demo111.php';//require如果不存在，就直接报错，然后停止执行。
+
+92、魔法常量
+    PHP实现一些所谓的魔法常量，他们并不是真的是常量，因为这些魔法常量会根据使用的场合改变值。
+    _FILE_当前文件名。
+    _LINE_当前行号。
+    _FUNCTION_当前函数名
+    _CLASS_当前类名
+    _METHOD_当前方法名
+    
+    dirname取得目录，去掉文件名。
+    require(dirname(__FILE__).'\Demo1.php');
+
+
+93、字符串格式化
+        整理字符串的第一步时清理字符串中多余的空格。(文本上的空格在网页上是无效的。)
+   chop()函数移除字符串后面多余的空白，包括新行。
+   ltrim()函数移除字符串起始处多余空白。
+   rtrim()函数移除字符串后面多余的空白。包括新行。此函数是chop的别名。
+   trim()函数移除字符串两边多余的空白。
+
+94、想在网页中实现换行，在回帖的时候，一个回车就是\n;我们可以通过函数
+    echo nl2br($str);
+
+95、 htmlentities()将所有的字符都转成HTML字符串。  
+
+96、 htmlspecialchars()我们只要转换特殊字符即可
+    echo htmlspecialchars($str);//<strong>卓</strong>
+
+97、echo stripcslashes($a);//去掉后来加上去的转义斜杠。
+
+98、可以重新格式化字符串中的字母大小写
+    strtoupper()函数将字符串转换为大写
+    strtolower()函数将字符串转换为小写
+    ucfirst()函数将第一个字母转换为大写
+    ucwords()函数将每一个单词第一个字母转换为大写。
+
+
+99、填充字符串函数:str_pad()将字符串用指定个数的字符填充字符串。
+
+100、explode:切开字符串。
+     explode--使用一个字符串分割另一个字符串
+             返回的是一个数组
+101、implode()分割完了之后，我经过一轮筛选，还要重新组合。
+
+102、strtok()函数第一次只从字符串取出一些片段（陈为令牌）。对于一次从字符中取出一个单词的处理来说，strtok()函数比explode()函数的效果更好。
+103、 函数substr()允许我们访问一个字符串给定的起点和终点的子字符串。
+104、str_split()返回一个数组，其中各数组元素分别是字符串参数中的一个字符串。(如果是中文存在问题)
+105、逆置字符串：strrev()可以将一个字符串逆反过来；
+
+
+106、strcmp(str1,str2):
+             如果两个字符串相等，返回0；如果按照字典顺序，str1大于str2就返回一个正数。如果str1小于str2就返回一个负数。这个函数是区分大小写的。
+107、strcasecmp()：除了不区分大小写之外，其他和strcmp()一样。
+108、strnatcmp()：这两个函数按"自然排序"比较字符串，不区分大小写。自然排序就是按人们习惯的顺序排序。
+109、使用strspn()函数返回一个字符串中包含有另一个字符串字符的第一部分的长度。
+110、使用strlen()函数测试字符串的长度
+111、确定字符串出现的频率：substr_count()返回一个字符串在另一个字符串中出现的次数。
+112、strstr：返回字符串中某字符串开始处至结束的字符串。
+113、strpos：寻找字符串中某字符最先出现处。
+114、strrpos:寻找字符串中某字符最后出现处。
+115、str_replace:字符串取代
+116、str_ireplace是不区分大小写的。
+117、substr_replace():
+118、mb_strlen()对应的函数为strlen()求字符串的长度
+119、mb_strstr()对应的函数为strstr()求某字符串到结尾的字符
+120、mb_strpos()对应的函数为strpos() 求出字符最先出现处
+121、mb_substr()对应函数为substr()取出指定的字符串
+122、mb_substr_count()对应函数为substr_count()返回字符串出现的次数。
+123、strpos()求出i最先出现的位置
+             中文的算法，两个字符时一个中文字。
+     mb就算一个了。
+     echo mb_strpos($str,'我',0,'GBK');//从第0个位置开始取出。
+     echo substr_count($str,'是');
+     echo mb_substr_count($str,'是','GBK');//中英文都是通用的。
+124、 匹配函数：preg_match()函数在字符串中搜索模式，如果存在则返回true,否则则返回false;
+     echo preg_match('/php/','asp');//匹配到返回1，匹配不到返回0；
+125、preg_grep()：返回与模式匹配的数组单元
+     preg_grep()函数搜索数组中的所有元素，返回由于某个匹配模式的所有元素组成的数组。
+126、 preg_match_all()：进行全局正则表达式的匹配
+     preg_match_all()函数在字符串中匹配模式的所有出现，然后将所有匹配到的全部放入数组。
+127、preg_quote()
+     preg_quote()在每个对于正则表达式语法而言有特殊含义的字符前插入一个反斜杠。
+128、 preg_replace()
+     preg_replace()函数搜索到所有匹配，然后替换成想要的字符串返回出来。
+129、preg_split()
+             以不区分大小写的方式将字符串划分为不同的元素：preg_split()用来分割不同的元素
+
+130、 验证日期：checkdate()函数能够很好地验证日期，提供的日期如果有效，则返回true,否则返回false.
+131、 格式化时间和日期：date()函数返回根据预定义指令格式化时间和日期的字符串形式。返回字符串类型
+132、 查看更多的时间信息：gettimeofday()函数返回与当前时间有关的元素所组成的一个关联数组。（取得当前时间）
+133、将时间戳转换成友好的值：getdate()函数接受一个时间戳，并返回一个由其各部分组成的关联数组。如果不给参数，返回当前时间。
+134、获取当前的时间戳：time()函数可以获取当前的事件戳。并且可以通过设置时间戳的值。
+135、mktime--取得一个日期的Unix事件戳。
+136、strtotime--将任何英文文本的日期时间描述解析为Unix时间戳
+137、获取当前文件最后修改时间:getlastmod()可以得到当前文件最后修改时间的时间戳
+138、设置时区和GMT/UTC;
+139、取得本地时间localtime()函数可以取得本地时间数据，然后返回一个数组。  
+140、计算页面脚本运行时间：microtime()函数，该函数返回当前UNIX时间戳和微秒数。返回格式为msec sec的字符串，其中sec是当前UNIX时间戳，msec为微秒数。
+
+141、用于重新导向指定的url
+   header('Location:http://www.baicu.com');
+142、 用于设置页面字符编码
+      header('Content-Type:text/html;charset=gbk');
+143、 注意：除非启用了输出缓冲，否则这些命令必须在返回任何输出之前执行。启用输出缓冲：ob_start();
+      ob_start();
+
+144、 一旦setcookie改变了，一刷新浏览器，就会把旧的cookie覆盖掉。
+   setcookie('name','Lee',time()+(7*24*60*60));
+145、删除cookie
+   setcookie('name','');//设置为空
+   setcookie('name','Lee',time()-1);//设置过期时间减去1;
+
+146、 session_start();//开始session会话处理
+     $_SESSION['name']='Lee2';
+     echo $_SESSION['name'];
+147、 删除sessioin
+    unset($_SESSION['name']);
+    echo isset($_SESSION['name']);
+
+148、$_FILES超级全局变量，它储存各种上传相关的信息，这些信息对于通过PHP脚本上传到服务器的文件至关重要。
+      1).存储在$_FILES["userfile"]["tmp_name"]变量中的值就是文件在Web服务器中临时存储的位置。
+      2).存储在$_FILES["userfile"]["name"]变量中的值就是用户系统中的文件名称。
+      3).存储在$_FILES["userfile"]["size"]变量中的值就是文件的字节大小。
+      4).存储在$_FILES["userfile"]["type"]变量中的值就是文件的MIME类型，例如text/plain或image/gif;
+      5).存储在$_FILES["userfile"]["error"]变量中的值将是任何与文件上传相关的错误代码。
+          0表示没有发生错误
+          1表示上传文件的大小超出了约定值,配置文件upload_max_filesize.
+          2表示上传文件的大小超够了html表单的MAX_FILE_SIZE
+          3表示文件只被部分上传
+          4表示没有上传任何文件
+
+149、is_uploaded_file():判断文件是否是通过HTTP POST上传的。
+150、move_uploaded_file():将上传的文件移动到新位置
+
+151、 header('Content-Type:image/png');将输出类型改成图像流
+152.imagepng--以PNG格式将图像输出到浏览器或文件
+153.imagecreate--新建一个基于调色板的图像
+154.imagecreatetruecolor--创建一个真彩色图像（推荐使用）
+155.imagecolorallocate--为一副图像分配颜色
+156、imagefill--区域填充
+157、imageline--画一条线段
+158、imagestring--水平地画一行字符串。
+159、dechex--十进制转换为十六进制。
+160、imagecreatefrompng--从PNG文件或URL新建一图像。
+161、imagettftext--用TrueType字体向图像写入文本
+162、text=iconv('gbk','utf-8','李彦宏');
+163、getimagesize--取得图像大小
+164、imagecopyresampled--重采样拷贝部分图像并调整大小。
+
+
+mysql常用命令
+1、显示当前数据库的版本号和日期
+SELECT VERSION(),CURRENT_DATE();
+2、通过AS关键字设置字段名。
+SELECT VERSION() AS version;//可设置中文，通过单引号
+3、通过SELECT执行返回计算结果
+SELECT(20+5)*4;
+4、通过多行实现数据库的使用者和日期查询
+    >SELECT
+    >USER()
+    >,
+    >NOW()
+    >;
+5、通过一行显示数据库使用者和日期
+     >SELECT USER(),SELECT NOW()
+6、命令的取消
+     >\c;
+7、MySQL窗口的退出
+     >exit;
+
+MySQL的数据库操作
+1.显示当前存在的数据库SHOW DATABASES;
+2.选择你所需要的数据库USE guest;
+3.查看当前所选择的数据库SELECT DATABASE();
+4.查看一张表的所有内容//可以通过SHOW TABLES;来查看有多少张表。SELECT*FROM guest;
+5.根据数据库设置中文编码SET NAMES gbk;//set names utf8;
+6.创建一个数据库CREATE DATABASE book;   
+7、在数据库里创建一张表
+      CREATE TABLE users(
+      username VARCHAR(20),//NOT NULL 设置不允许为空
+      sex CHAR(1)
+      birth DATETIME);
+8、显示表的结构DESCIRBE users;
+9、给表插入一条数据INSERT INTO users(username,sex,birth) VALUES('lEE','X','NOW()');
+10、筛选指定的数据SELECT*FROM users WHERE username='Lee';
+11、修改指定的数据UPDATE users SET sex='男' WHERE username='lee';
+12、删除指定的数据DELETE FROM users WHERE username='Lee';
+13、按指定的数据排序SELECT*FROM users ORDER BY birth DESC;//正序(ASC)
+14、删除指定的表DROP TABLE users;
+15、删除指定的数据库DROP DATABASE book;
+
+MYSQL分组函数
+1.AVG返回列的平均值
+2.GOUNT()统计行数
+3.MAX()求列中的最大值
+4.MIN()求列中的最小值
+5.SUM()求列中的和。
+6.检测这个表的信息
+SHOW TABLE STATUS\G
+优化一张表
+7.OPTIMIZE TABLE grade;
+
+
+PHP操作MySQL
+1.mysql_connect--打开一个到MySQL服务器的连接
+2、mysql_error--返回一个MySQL操作产生的文本信息错误
+3、mysql_select_db--选择MySQL数据库
+4.mysql_connect--打开一个到MySQL服务器的连接
+5、mysql_error--返回一个MySQL操作产生的文本信息错误
+6、mysql_select_db--选择MySQL数据库
+7、mysql_close--关闭MySQL连接
+8、mysql_query--发送一条MySQL查询
+9、mysql_fetch_array--从结果集中取得一行作为关联数组，或者数字数组，获取两者兼有。
+10、mysql_free_result--释放结果内存 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+   
+   
+   
+   
+   

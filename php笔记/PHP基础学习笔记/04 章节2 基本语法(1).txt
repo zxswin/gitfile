@@ -1,0 +1,78 @@
+一、echo 表示向浏览器输出，echo其实是一个函数
+双引号括起来的是字符串
+
+//多行模式
+<?php
+echo "卓的第一个PHP程序";
+?>
+
+//单行模式
+<? echo "卓的第一个PHP程序"?>
+
+//脚本模式
+<script language="php">
+  echo "卓的第一个PHP程序"
+</script>
+
+#号也可以表示注释。
+
+二、问号与问号直接分段会换行。
+
+三、echo() print.printf
+1、ehco 和print功能几乎相同，而echo运行速度上比print稍稍快一点，因为print有返回值。
+2、ehco不返回任何数值（void）,print返回的是整型；
+   echo print "卓刚刚喝水了";//打印出返回值。
+
+3、prints 功能:向浏览器输出字符串
+   print返回值，返回字符串的长度
+   echo printf("卓今天买了%d套光盘",5);
+   
+4、sprintf功能：将字符串保存在内存中
+sprint返回值：返回字符串；
+echo sprintf("卓今天买了%d套光盘",5");
+
+
+四、变量的数据类型：
+PHP支持如下的所有的基本数据类型
+   integer(整数),Float(浮点数，也叫Double,双精度),String(字符串),Boolean(布尔),Array(数组),Object(对象)；
+   在php中变量的类型是由赋值给变量的值决定的。
+   
+   创建一个变量
+ 什么类型，整型，字符串，浮点型，布尔型
+ 创建的时候，通过赋值来确定它的类型。
+ $sum=0;
+ $total=122;
+ $sum=$total;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

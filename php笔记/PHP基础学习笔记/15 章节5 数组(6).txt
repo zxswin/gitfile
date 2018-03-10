@@ -1,0 +1,73 @@
+1、array_unshift--数组开头插入一个或多个单元
+   //这个函数的返回值将得到，目前数组的元素个数；
+   array_unshift($userName,'胡西平');
+2、array_push()函数将每个新元素添加到数组末尾。
+   array_shift()删除数组头一个元素
+   array_pop()删除并返回数组末尾的一个元素；
+   
+   array_rand()返回数组中的一个或多个键；从数组中随机取出一个或多个单元；
+   $fruit=array('banner','orange','apple');
+   //这个函数用来获取一个数组中的键（key）;
+   //第二个参数表明随即获取几个
+   $a=array_rand($fruit,1);
+   echo $fruit[$a[0]]
+   
+   
+3、current--返回数组中的当前单元
+   $userAges=array('吴','李','王');
+   //默认情况下，指针在第一条数据
+   //获取指针的当前元素，current并没有将指针移动到下一步
+   echo current($userAges);
+
+4、next--将数组中的内部指针向前移动一位
+   each next($userAges);
+   
+5、reset--将数组内部指针指向第一个单元
+6、pos()--current()的别名；
+7、prev()--将数组的内部指针倒回一位
+
+
+8、array_count_values()--统计数组中所有的值出现的次数；
+   print_r(array_count_values($userAges));
+   
+9、extract--从数组中将变量导入到当前的符号表
+   //初始化
+   $a='';
+   $fruits=array('a'=>'apple','b'=>'banner','c'=>'orange');
+   //通过标量函数将字符串（key）设置成变量，然后将值赋值给了这个变量
+   extract($fruits);
+   echo $a;
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   

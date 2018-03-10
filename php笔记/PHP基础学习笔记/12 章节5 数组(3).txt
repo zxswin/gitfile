@@ -1,0 +1,62 @@
+一、使用list()函数，可以用来将一个数组分解为一系列的值。可以按照如下的方式将函数each()返回的两个值分开。
+   1、list--把数组中的值赋值给一些变量。
+   $a=array('aaaaa','bbbbb','cccccc','dddddd');
+   //list($var1,$var2)就是将$var1='aaaaa';$var2='bbbbb';
+   list($var1,$var2,$var3,$var4)=$a;
+   echo $var4;//dddddd
+   2、list只能认识key为数字的下标。
+   自定义的字符串key是无法使用list类识别的；
+   
+   //需和each配合使用
+   $userNames=array('baidu'=>'李彦宏','taobao'=>'马云','360'=>'周鸿祎');
+   $a=each($userAges);
+   list($name,$age)=$a;
+   
+   echo $name;
+   echo $age;
+   
+   3、reset--将数组的内部指针指向第一个单元；
+   reset($userAges);
+   $a=each($userAges);
+   echo $a['key'];//打印出第一个单元的key值
+   
+   4、array_unique--移除数组中重复的值
+   //创建一个新数组，二新数组呢，已经移除掉了，旧的数组原封不动
+   $a=array_unique($userAges);
+   print_r($a);
+   
+   5、array_flip--交互数组中的键和值；
+   $b=array_filp($userAges);
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   

@@ -1,0 +1,148 @@
+学习要点：
+   1.创建图像
+   2.简单小案例
+   
+一、PHP5在php.ini文件中包含了GD扩展包，只需去掉GD扩展包的响应注释就可以正常使用了。
+二、创建图像的一般流程
+   1.设定标头：告诉浏览器你要生成的MIME类型。
+   2.创建一个图像区域，以后的操作都将基于此图像区域。
+   3.在空白图像区域绘制填充背景
+   4.在背景上绘制图像轮廓输入文本
+   5.输出最终图像
+   6.清除所有资源
+   7.其他页面调用图像。
+   
+三、
+   <?php
+      //一般生成的图像可以是png,jpg,gif,bmp
+      //jpeg,wbmp
+      //第一步，设置文件MIME类型，输出类型text/html类型的网页类型，默认可以不写
+      //将输出类型改成图像流
+      header('Content-Type:image/png');
+      
+      //第二步，创建一个图像区域，图像背景
+      //有两种创建方式，资源类型，一般要加上@符号，防止出错。
+      //imagecreatetruecolor返回的是一个资源句柄
+      $im=imagecreatetruecolor(200,200);
+      
+      
+      //第三步，在空白图像区域，绘制颜色，文字，线条等。
+      //填充色换掉，首先要有一个颜色填充器
+      //imagecolorallocate--为一副图像分配颜色
+      $blue=imagecolorallocate($im,0,103,255);
+      //将这个blue颜色填充到背景上
+      //imagefill--区域填充
+      imagefill($im,0,0,$blue);
+      
+      //第四步，在蓝色的背景上输入一些线条，文字等
+      $white=imagecolorallacate($im,255,255,255);
+      //imageline--画一条线段
+      imageline($im,0,0,200,200,$white);
+      imageline($im,200,0,0,200,$white);
+      
+      
+      
+      //第五步，输出最终图像
+      //以PNG格式将图像输出到浏览器或文件
+      imagepng($img);
+      
+      //第六步，我要将所有的资源全部清空
+      
+      
+   ?>
+   
+   //在Demo2.php中载入
+   echo '<img src="Demo1.php" alt="图形"/>'
+
+   1.imagepng--以PNG格式将图像输出到浏览器或文件
+   2.imagecreate--新建一个基于调色板的图像
+   3.imagecreatetruecolor--创建一个真彩色图像（推荐使用）
+   4.imagecolorallocate--为一副图像分配颜色
+   5、imagefill--区域填充
+   6、imageline--画一条线段
+   7、imagestring--水平地画一行字符串。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

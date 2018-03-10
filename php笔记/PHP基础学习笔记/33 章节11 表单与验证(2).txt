@@ -1,0 +1,101 @@
+<?php
+
+//设置编码
+  header('Content-Type:text/html;charset=gbk');//设置页面编码
+  //第一步，先验证是否是Demo5.php提交过来的。
+  //直接是按钮点到我这里来的。那么就说明，其他超全局变量都应该存在
+  
+  //如果send是存在的，那么就是点过来的，否则，跳回到Demo5.php的页面
+  
+  if(!isset($_POST['send'])||$_POST['send']!='提交'){
+     header('Location:Demo5.php');
+     exit;//跳回去了，下面举不需要执行了，那么就exit;
+  };
+  //第二步接收所有数据
+  $username=trim($_POST['username']);
+  $password=$_POST['password'];
+  $code=trim($_POST['code']);
+  $content=htmlspecialchars(trim($_POST['content']));
+  
+  
+  
+  //用户名不能小于两位，不能大于10位
+  if(strlen($username)<2||strlen($username)>10){
+     //使用JS来跳转，有提示的
+     echo"<script>alert('用户名不能小于两位或者大于10');history.back();</script>"
+     exit;
+  };
+  
+  //密码不能小于六位
+  if(strlen($password)<6){
+     echo"<script>alert('密码不能小于6位');history.back();</script>"
+     exit;
+  };
+  //验证码必须是4位，必须是数字
+  if(strlen($code)!=4||is_numeric($code)){
+     echo"<script>alert('验证码必须是数字并且是4位');history.back();</script>"
+     exit;
+  };
+  echo '用户名：'.$username.'<br/>';
+  echo '个人介绍：'.$content;
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

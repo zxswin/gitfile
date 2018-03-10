@@ -1,0 +1,2 @@
+一、PhpMyAdmin是一个用PHP编写的，可以通过互联网在线控制和操作MySQL.他是众多MySQL管理员和网站管理员的首选数据库维护工具。
+    通过phpMyAdmin可以完全对MySQL数据库进行操作。

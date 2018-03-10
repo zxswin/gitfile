@@ -1,0 +1,108 @@
+一、if 条件判断语句
+$userAge=15;
+if后面的括号是布尔表达式，返回的结果是1或者空。
+{}块语句。
+
+//多重线路
+if($userAge>14){
+   echo '成年!';
+}elseif($userAge>20){
+   echo '上大学';
+}elseif($userAge>25){
+   echo '考研究生！';
+}elseif($userAge>30){
+    echo '工作养家了！';
+}else{
+    echo '父母养这'
+};
+
+二、switch语句
+//break退出问题，叫做中途退出这个条件判断。
+switch(变量){
+   case "值1"：
+   //..
+   break;
+    case "值2"：
+   //..
+   break;
+    case "值3"：
+   //..
+    case "值N"：
+   //..
+   break;
+  default:
+  //..
+  break;
+};
+
+三、while循环
+$a=10;
+while($a>=1){
+  echo $a;
+  $a--;
+  echo '<br/>';
+};
+
+四、for循环
+for($a=10;$a>0;$a--){
+  echo $a;
+  echo '<br/>';
+};
+
+echo '结束了';
+
+五、do while循环
+$=10;
+do{
+  echo $a;
+  $a--;
+  echo '<br/>';
+}while($a>0)
+
+
+注：第一种：break退出循环
+    第二种exit退出程序
+    第三种continue;退出当前循环。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

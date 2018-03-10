@@ -1,0 +1,65 @@
+一、处理中文字符串
+    php提供了专门的函数来解决这样的问题
+         中文字符可以是gbk,utf8,gb2312;
+         
+   mb_strlen()对应的函数为strlen()求字符串的长度
+   mb_strstr()对应的函数为strstr()求某字符串到结尾的字符
+   mb_strpos()对应的函数为strpos() 求出字符最先出现处
+   mb_substr()对应函数为substr()取出指定的字符串
+   mb_substr_count()对应函数为substr_count()返回字符串出现的次数。
+   
+   //取中文长度
+   $str='我是武器';//对于中文来说是四个字符
+   //用普通的strlen取一个中文字，就算两个
+   //echo strlen($str);
+   
+   //使用mb_strlen来取中文，有第二个参数，字符编码。
+   echo mb_strlen($str,'GBK');//这个时候就变成四个字了。
+   
+   //如果你使用普通的strlen这个函数，我取1个字符。
+   
+   //采用mb_substr($str,2,1,'GBK')来取中文字符
+   
+二、strpos()求出i最先出现的位置
+    中文的算法，两个字符时一个中文字。
+  mb就算一个了。
+  echo mb_strpos($str,'我',0,'GBK');//从第0个位置开始取出。
+   
+  echo substr_count($str,'是');
+  echo mb_substr_count($str,'是','GBK');//中英文都是通用的。
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   

@@ -1,0 +1,154 @@
+一、学习要点
+    1.PHP连接到MySQL
+    2.增删改查
+    3.其他常用函数
+
+二、PHP连接到MySQL
+    1.标头设置，让火狐和IE保持编码统一：
+    <?php
+      header('Content-Type:text/html;charset=utf-8');
+      //第一步，连接到MySQL服务器3306；
+      //第一个参数，服务器地址，第二参数，服务器的用户名，第三个参数，服务器密码
+      //@如果出了，不要出现警告或错误。直接忽略掉
+      define('DB_HOST','localhost');
+      define('DB_USER','root');
+      define('DB_PWD','yangfan');
+      define('DB_NAME','school');
+      //第二步连接数据库
+     $conn=@mysql_connect(DB_HOST,DB_USER,DB_PWD) or die('数据库连接失败！错误信息：'.mysql_error());
+     //第三步，选择指定的数据库
+     mysql_select_db(DB_NAME,$conn) or die('数据库错误，错误信息：'.mysql_error());
+     mysql_query('SET NAMES UTF8') or die('字符集设置错误');
+     //第三步，从这个数据库里选择一张表（grade）,然后把这个表的数据库提出来（获取记录集）;
+     $query="SELECT * FROM grade";
+     $result=@mysql query($query) or die('SQL错误，错误信息'.mysql_error());
+     ehco $result;//result就是记录集
+     //第四步，将记录集里的数据显示出来
+     print_r(mysql_fetch_array($result,MYSQL_ASSOC));//按照字段名
+      print_r(mysql_fetch_array($result,MYSQL_NUM));//按照数字下标
+      
+      //第五步，释放记录集资源
+      mysql_free_result($result);
+     
+     
+     //最后一步,关闭数据库
+     mysql_close($conn);
+     
+    ?> 
+    2、连接到MySQL服务器
+    $con=@mysql_connect(DB_HOST,DB_USER,DB_PASSWORD) or die('数据库连接失败！错误信息：'.mysql_error());
+    3、数据库连接参数，可以用常量存储，这样就不能修改，更加安全。
+       //常量参数
+       define('DB_USER','root');
+       define('DB_PASSWORD'.'yangfan');
+       define('DB_HOST','localhost');
+       define('DB_NAME','school');
+    
+    
+    
+    
+   
+1.mysql_connect--打开一个到MySQL服务器的连接
+2、mysql_error--返回一个MySQL操作产生的文本信息错误
+3、mysql_select_db--选择MySQL数据库
+4、mysql_close--关闭MySQL连接
+5、mysql_query--发送一条MySQL查询
+6、mysql_fetch_array--从结果集中取得一行作为关联数组，或者数字数组，获取两者兼有。
+7、mysql_free_result--释放结果内存 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

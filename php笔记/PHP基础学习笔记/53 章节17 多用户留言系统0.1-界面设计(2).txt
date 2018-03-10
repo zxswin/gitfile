@@ -1,0 +1,249 @@
+1、<link rel="shortcut icon" href='favicon.ico'/>
+   调用ico文件
+2、头尾分离
+   将头部和尾部的HTML分离出去，分别定义为header.inc.php和footer.inc.php这样做的好吃是，降低了代码量，降低了重复工作量。
+
+3、防止恶意调用
+   为了防止外部网站的恶意调用inc.php模板文件，可以添加下面的语句：
+   //防止恶意调用
+   if(!defined('IN_TG')){
+      exit("Access Denied!")
+   };
+   之后，再调用的页面添加常量
+   //定义常量
+   defind('IN_TG',true);
+   
+   拒绝PHP低版本
+   if(PHP_VERSION<'4.1.0'){
+      exit('Version is to Low');
+   };
+   
+4、获取运行时间
+   通过microtime()可以获取时间戳和微秒数
+   $_mtime=explode(' ',microtime());//第一个是微秒数，第二个是时间戳。
+   $_mtime[1]+$_mtime[0];
+
+5、通过睡眠函数来进行测试
+   usleep(2000000) 表示睡眠两秒钟;
+
+6、round(num,4);保留四位小数
+
+7、将css做成包含文件
+        每个页面都要导入CSS,着实麻烦，我们定一个文件title.inc.php
+        但每个页面却有一个不相同的CSS，那么可以定义一个常量来证明本页。
+        define('SCRIPT','index');
+
+8、range(0,9);产生一个从0 到 9的数组。
+9、创建face.php页面，在这个页面里存放64张头像页面，可以通过数组循环的方式罗列出来
+<?php foreach (range(1,9) as $number){?>
+<dd><img src="face/m0<>php echo $number?>.gif"/></dd>
+<php }?>
+
+10、按照JSEcllpse
+    Zend Studio 自带的JS编辑器不够强大，可以通过安装JSEcilpse插件来编写开发。
+    在线安装地址：http://download.macromedia.com/pub/labs/jseclipse/autoinstall(无用)
+    xianle.ml/download/jseclipse.zip;
+
+11、mt_rand(0,15);获得一个从0到15的随机数
+12、dechex();//转换为十六进制。
+13、使用$_SESSION超级全局变量跨页面传递变量
+    session_start();
+    echo $_SESSION['code'];//是一个数组;
+
+14、js点击局部刷新
+    onclick="javascript:this.src='code.php?tm='+Math.random()";
+    然后采用分离JS的原则分离出去。
+
+15、提交数据
+           将数据提交到本页，必须做一名值对，用来判断是否提交了数据
+    ?action=register;
+    也可以设计一个隐藏字段来做名值对
+    <input type="hidden" name="action" value="register"/>
+
+16、验证码功能，防止多次恶意注册
+    if(!($_POST['yzm']==$_SESSION['code'])){
+       _alert_back("验证码有误，请重新输入")；
+    };
+17、接收数据
+          设计变量，将数据提交出来赋值给变量
+    $_username=$_POST['username'];
+          也可以通过一个数组来存放条件过来的值
+    $_clean=array();
+    $_clean['username']=$_POST['username'];
+    
+18、首先，必须去掉两边的空格
+    $_string=trim($_string);
+    其次长度限制
+    if(mb_strlen($_string,'utf-8')<$min_num||mb_strlen($_string,'utf-8')>$_max_num);
+19、判断函数释放存在
+    if(!function_exists('_alert_back')){
+	   exit('_alert_back()函数不存在，请检查！');
+    };
+
+20、检测正则表达式
+    preg_match($_char_pattern, $_string)
+20、数组里是否包含某个值
+   in_array($_string, $_mg)
+21、转义输入，有效防止SQL注入问题,这个mysql_是需要连接数据库的。
+     return mysql_real_escape_string($_string);//第二个参数是数据库连接句柄。
+
+22、邮箱验证
+    preg_match('/^[\w\-\.]+@[\w\-\.]+$/',$_string);
+23、网址验证
+    preg_match('/^https?:\/\/(\w\-\.)?[\w\-\.]+(\.\w+)+$/',$_string);
+24、QQ验证
+    preg_match('/^[1-9]{1}[0-9](4,9)$/',$_string);
+    
+25、mysqli_real_escape_string(),只要是写到数据库里的最后都转一下义。
+
+26、在测试的时候，我们发现PHP5会将表单自动转义，所以我们需要处理一下，可以通过PHP INI来关闭此功能
+    或者通过一个函数来判断是否开启了自动转义，然后在进行过滤处理。get_magic_quotes_gpc=0|1;
+    get_magic_quotes_gpc()默认是开启的，如果想关掉，必须在php.ini关闭它。
+
+27、产生一个唯一标识符，每台电脑都不一样。
+   $_SESSION['uniqid']=$_uniqid=sha1(uniqid(rand(),true))；
+
+28、连接数据库
+    <?php
+      define('DB_USER','root');
+      define('DB_PASSWORD','root');
+      define('DB_HOST','localhost');
+      define('DB_NAME',testguest);
+      
+      $conn=@mysql_connect(DB_HOST,DB_USER,DB_PASSWORD) or
+                           die('数据库连接失败！错误信息:'.mysql_error());
+                           
+      mysql_select_db(DB_NAME) or die('数据库找不到！错误信息：'.mysql_error());
+      mysql_query('SET NAMES UTF8') or die('字符集设置错误');
+    ?>
+29、在双引号里，直接放变量是可以的，比如$_username,但如果是数组，就必须加上{},比如{$_clean['username']};
+    mysql_query("INSERT INTO tg_user(tg_username) VALUES('{$_clean['username']}')")or die('SQL执行失败'.mysql_error());
+30、判断用户名是否重复
+    SELECT tg_username FROM tg_user WHERE tg_username='{$_POST['username']}';
+    //获取资源句柄
+    $query=mysql_query("SELECT tg_username FROM tg_user WHERE tg_username='炎日'") or dir('SQL错误');
+    if(mysql_fetch_array($query,MYSQL_ASSOC)){//获取结果集
+        echo '有重复';
+    }else{
+        echo '没重复'
+    };
+    
+    
+31、新增用户
+    "INSERT INTO dg_user(tg_username) VALUES('{$_POST['username']}')";
+
+32、数据库操作包装成代码块
+          把常用的功能代码写入函数库，以后直接调用即可，例如：
+    function _connect(){
+       global $conn;
+       if(!$conn=@mysql_connect(DB_HOST,DB_USER,DB_PWD)){
+         exit('数据库连接错误！');
+       };
+    };
+    上面代码又一个全局变量，用途是函数里创建，函数外也能访问，保证了资源句柄的可访问性。
+33、mysql_affected_rows--取得前一次MySQL操作所影响的记录行数。
+    取得最近一次与link_identifier关联的INSERT,UPDATE或DELETE查询影响的记录行数。
+
+34、生成cookie
+    数据验证成功后，要生成cookie完成登录状态
+    setcookie('username',$_username,time()+86400);
+    break;
+    并在header.inc.php文件读入cookie值。
+
+35、退出登录，可以直接删除cookie和必要的session;
+    setcookie('username','',time()-1);
+    setcookie('uniqid','',time()-1);
+    _session_destroy();
+    _location(null,'index.php');
+
+36、显示数据
+    这里必须采用while循环来显示数据。注意，不能使用之前的封装代码了。会造成死循环，解决的方法是改装之前的代码，或者再写一个。
+    function _fetch_array_list($_result){
+      return mysql_fetch_array($_result,MYSQL_ASSOC);
+    };
+
+37、limit用法
+    limit 0,10;//表示从第0+1条开始显示10条数据。
+
+38、分页的各种参数
+    $_pagesize=10;//每页多少条
+    $_pagenum=($_page-1)*$_pagesize;//从第几条开始
+    $_pageabsolute=ceil($_num/$_pagesize);//页码
+    
+    page=1//说明是第一页，表示1-10条数据 LIMIT 0,10;
+
+39、mysql_num_rows--取得结果集中行的数目。
+
+40、ceil--进一法取整
+
+41、is_numeric($_page)：判断是否为数字。
+42、intval($_page);取整
+43、通过环境变量获取文件名
+    $_SERVER["SCRIPT_NAME"];
+44、通过cookies来获取当前登录用户，并且把数据显示出来
+45、通过htmlspecialchars()函数来过滤HTML特殊字符，并且编写成函数。
+46、mysql_free_result($_result);//销毁结果集
+47、删除数据库中的数据
+    DELETE FROM tg_message WHERE tg_id IN({$_clean['ids']});//{$_clean['ids']}为字符串
+48、$GLOBALS['message']:全局数组的方法
+49、短信提醒COUNT(tg_id)是取得字段的总和
+   SELECT COUNT(tg_id) AS count FROM tg_message WHERE tg_state=0
+
+50.mysql_insert_id:取得上一步INSERT操作产生的ID;
+51.file_get_contents--将整个文件读入一个字符串;
+52.preg_match_all--进行全局正则表达式匹配
+
+
+53.使用session来判断后台，必须是等价为1的用户方可生产session;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

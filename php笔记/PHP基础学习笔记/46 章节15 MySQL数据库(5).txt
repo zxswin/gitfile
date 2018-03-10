@@ -1,0 +1,120 @@
+一、WHERE表达式的常用运算符
+  1.=等于
+  2.<小于
+  3.>大于
+  4.<=小于或等于
+  5.>=大于或等于
+  6.!=不等于
+  7.IS NOT NULL具有一个值
+  8.IS NULL没有值
+  9.BETWEEN 在范围内
+  10.NOT BETWEEN不在范围内
+  11.IN 指定的范围
+  12.OR两个条件语句之一为真
+  13.AND 两个条件语句都为真
+  14.NOT 条件语句不为真。
+  
+  
+4、姓名等于'Lee'的学员，成绩大于90分的学员，邮件不为空的成员，70-90之间的成员
+   SELECT * FROM grade WHERE name='LEE';
+   SELECT * FROM grade WHERE point>90;
+   SELECT * FROM grade WHERE email IS NOT NULL;
+   SELECT * FROM grade WHERE point BETWEEN 70 AND 90;
+   SELECT * FROM grade WHERE point IN(95,82,78);
+5、查找邮件使用163的学员，不包含yc60.com字符串的学员
+   SELECT * FROM grade WHERE email LIKE '%163.com';
+   SELECT * FROM grade WHERE email NOT LIKE '%yc60.com%';
+  
+6、按照学员注册日期的倒叙排序，按照分数的正序排序
+   SELECT * FROM grade ORDER BY regdate DESC;
+   SELECT * FROM grade ORDER BY point ASC;
+7、只显示前三条学员的数据，从第3条数据开始显示2条。
+   SELECT * FORM grade LIMIT 3;
+   SELECT * FORM grade LIMIT 2,2;
+8、修改姓名为'LEE'的电子邮件
+   UPDATE grade SET email='yc60.com@163.com' WHERE name='Lee';
+   
+9、删除编号为4的学员数据
+   DELETE FROM grade WHERE id=4;
+  
+ 
+LIKE %163.com
+这句话的意思是，你字符串结尾可以搜索到163.com任意匹配的字符串。
+
+二、MYSQL分组函数
+    1.AVG返回列的平均值
+    2.GOUNT()统计行数
+    3.MAX()求列中的最大值
+    4.MIN()求列中的最小值
+    5.SUM()求列中的和。
+  
+  
+检测这个表的信息
+    SHOW TABLE STATUS\G
+    
+优化一张表
+    OPTIMIZE TABLE grade;
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

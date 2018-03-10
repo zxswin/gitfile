@@ -1,0 +1,131 @@
+一、时间戳是秒
+1、mktime--取得一个日期的Unix事件戳。
+   获取特定的时间戳：mktime()函数可以生成给定日期时间的时间戳。
+   $beijing2008=mktime(8,8,8,8,8,2008);
+   echo date('Y-m-d H:i:s',$beijing2008);
+   
+2、strtotime--将任何英文文本的日期时间描述解析为Unix时间戳
+   //将人可读的时间，字符串形式，转换成事件戳
+   $a=strtotime('2010-7-16 15:15:15')-strtotime('2010-7-16 15:15:00');
+   if($a>=60){
+      echo '请这位先生休息一会儿！';
+   }; 
+   
+3、获取当前文件最后修改时间:getlastmod()可以得到当前文件最后修改时间的时间戳
+
+4、设置时区和GMT/UTC;
+        修改php.ini文件中的设置，找到[date]下的date.timezone=选项，将该选项修改为date.timezone=Asia/Shanghai;然后重启apache服务器。
+        putenv()函数可以设置当前的默认时区。
+        putenv('TZ=Asia/Shanghai');
+        
+   date_default_timezone_get()获取默认时区。
+   date_default_timezone_set--设定用于一个脚本中所有日期时间函数的默认时区
+   deta-default_timezone_set('Asiz/Shanghai')
+   
+   
+5、取得本地时间localtime()函数可以取得本地时间数据，然后返回一个数组。  
+   
+6、计算页面脚本运行时间：microtime()函数，该函数返回当前UNIX时间戳和微秒数。返回格式为msec sec的字符串，其中
+   sec是当前UNIX时间戳，msec为微秒数。
+   
+   
+       返回时间错和微秒数
+       怎么计算页面运行的加载事件
+       页面的打开的时候获取一个时间
+       页面结束的时候获取一个事件
+       用结束的事件减去打开的时间，那么就是运行的事件
+   function fn(){
+     list($a,$b)=explode(' ',microtime());
+     return $a+$b;//返回出精确的秒数
+   };
+   //页面打开的时候获取一个时间
+   $start_time=fn();
+   for($i=0;$i<10000000;$i++){
+   };
+   //页面结束的时候，获取一个时间
+   $end_time=fn()
+   echo $end_time-$start_time;
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   

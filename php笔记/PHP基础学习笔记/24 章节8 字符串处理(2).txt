@@ -1,0 +1,93 @@
+1、explode:切开字符串。
+   //explode--使用一个字符串分割另一个字符串
+   //返回的是一个数组
+   //explode第一参数的分割字符串，第二个参数是要被分割的字符串。
+   $email=explode('@','yc60.com@gmail.com');
+   print_r($email);
+//输出
+   Array(
+      [0]=>yc60.com
+      [1]=>gmail.com
+   )
+   
+2、implode()分割完了之后，我经过一轮筛选，还要重新组合。
+   $arr=array('LEE','WQ','HXP');
+   $str=implode('&',$arr);
+   echo $str;
+   
+3、使用strtok()函数
+   strtok()函数第一次只从字符串取出一些片段（陈为令牌）。对于一次从字符中取出一个单词的处理来说，strtok()函数比explode()函数的效果更好。
+   
+   $str='I,will.be#back';
+   $tok=strtok($str,',.#');
+   
+   while($tok){
+      echo $tok.'<br/>';
+      $tok=strtok(',.#');
+   };
+   
+4、substr()函数
+   函数substr()允许我们访问一个字符串给定的起点和终点的子字符串。这个函数并不适用于我们的例子中。但是
+   当需要得到某个固定格式字符串中的一部分时，它会非常有用。
+   $str='yc60.com@gmail.com';
+   //中间的参数表示开始的位置，位置是从0开始的，最后一个参数，是取出的个数
+   echo substr($str,5,5);
+
+5、str_split()返回一个数组，其中各数组元素分别是字符串参数中的一个字符串。(如果是中文存在问题)
+   print_r(str_split('This is a Teacher!'));
+   
+6、逆置字符串：strrev()可以将一个字符串逆反过来；
+  $str='This is a Teacher!';
+  echo strrev($str);
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   

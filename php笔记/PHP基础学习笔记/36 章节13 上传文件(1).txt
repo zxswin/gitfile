@@ -1,0 +1,112 @@
+一、学习要点：
+    1、PHP上传配置
+    2、$_FILES数组
+    3、PHP上传函数
+    
+二、HTTP协议实际上可以传输任何文件，比如office文档，PDF,可执行文件，AVI，压缩文件以及其他文件类型。
+    虽然FTP在历史上一直是向服务器上传文件的标准方式，但通过网页上传文件也逐渐流行起来。
+    
+三、$_FILES数组
+   1、 <form enctype="multipart/form-data" action='upload.php' method="post">
+        //这是一个隐藏域，定义了上传文件的大小上限，超过了这个值时，上传失败。只是对浏览器的限制。
+        <input type="hidden" name="MAX_FILE_SIZE" value="10000000"/>
+                    上传文件：<input type="file" name='userfile'/>
+        <input type="submit" value="上传"/>             
+    </form>
+    enctype="multipart/form-data",这里是固定写法，否则文件上传失败。
+    action='upload.php',定义要处理上传的程序文件路径
+    method="post",定义传输方式为POST，一般情况下form提交数据都设置为POST.
+   2、$_FILES超级全局变量，它储存各种上传相关的信息，这些信息对于通过PHP脚本上传到服务器的文件至关重要。
+      1).存储在$_FILES["userfile"]["tmp_name"]变量中的值就是文件在Web服务器中临时存储的位置。
+      2).存储在$_FILES["userfile"]["name"]变量中的值就是用户系统中的文件名称。
+      3).存储在$_FILES["userfile"]["size"]变量中的值就是文件的字节大小。
+      4).存储在$_FILES["userfile"]["type"]变量中的值就是文件的MIME类型，例如text/plain或image/gif;
+      5).存储在$_FILES["userfile"]["error"]变量中的值将是任何与文件上传相关的错误代码。
+          0表示没有发生错误
+          1表示上传文件的大小超出了约定值,配置文件upload_max_filesize.
+          2表示上传文件的大小超够了html表单的MAX_FILE_SIZE
+          3表示文件只被部分上传
+          4表示没有上传任何文件
+      
+      Array
+      (
+         [userfile]=>Array
+            (
+               [name]=>http_imgload.jpg
+               [type]=>image/jpeg
+               [tmp_name]=>C:\WINDOWS\TEMP\php5E1.tmp
+               [error]=>0
+               [size]=>66544;
+            )
+      )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

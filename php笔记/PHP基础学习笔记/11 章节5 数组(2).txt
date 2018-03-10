@@ -1,0 +1,82 @@
+一、自定义键数组：
+1、创建自定义键（key）的数组
+如果你不去声明元素的key,那么从开始0 计算
+$userNames=array('baidu'=>'李彦宏','taobao'=>'马云','360'=>'周鸿祎');
+
+echo $userNames['baidu'];
+
+2、追加数组
+//先创建中有一个元素的数组
+$userAges=array('卓'=>25);
+//将以前的数组，追加两条，这里说的下标，键，key是一个东西
+$userAages['李彦宏']=27;
+$userAages['胡小平']=23；
+3、创建数组array关键字是可以不要的，就能创建数组了。
+$userAges['卓']=19;
+$userAages['李彦宏']=27;
+$userAages['胡小平']=23；
+
+print_r($userAges);
+//这里无法使用for循环将数据全部显示出来，只能同foreach遍历出来
+foreach($userAges as $key=>$value){
+   echo $key.'==='.$value.'<br/>'
+};
+
+4、可以使用foreach循环或list()或each()结构
+
+   //each的使用
+   //each--返回数组中当前的键/值对并将数组指针向前移动一步；
+   
+   $userAges=array('卓'=>19,'李彦宏'=>27,'胡小平'=>23);
+   each的使用
+   each--返回数组中当前的键/值对并将数组指针向前移动一步
+   这里有一个指针，默认情况下，指针式指向第一个键值对
+   如果eahc($userAges),那么获取的就是第一个键值对'卓'=>19
+ eahc这个函数返回一个数字
+ each将第一个键值对获取到，然后包装成一个新数组
+ 
+ $a=each($userAges);//这一步是第一步，将19，卓取出，包装成新数组
+ //相当于$a=array([0]=>'卓',[1]=>19,[value]=>19,[key]=>'卓')
+ $b=each($userAges);//这个是第二步，指针已经下移一条了。
+ each $a[value];//输出27
+ 
+ 
+ //两个感叹号，表示真实存在的数据转换成布尔值。
+ //echo !!each($userAges);//说明有数据，有数据，用布尔值的理念就是真(true);
+ while(!!$a=each($userAges)){
+    echo $a['key'].'---'.$a['value'].'<br/>';
+ };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

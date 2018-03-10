@@ -1,0 +1,136 @@
+一、学习要点：
+    1.字符串格式化
+    2.操作子字符串
+    3.字符串比较
+    4.查找替换字符串
+    
+一、字符串格式化
+   1、整理字符串的第一步时清理字符串中多余的空格。(文本上的空格在网页上是无效的。)
+   chop()函数移除字符串后面多余的空白，包括新行。
+   ltrim()函数移除字符串起始处多余空白。
+   rtrim()函数移除字符串后面多余的空白。包括新行。此函数是chop的别名。
+   trim()函数移除字符串两边多余的空白。
+    
+  2、PHP具有一系列可供使用的函数来重新格式化字符串。这些函数的工作方式各不相同的。
+     nl2br()函数将字符串作为输入参数，用XHTML中的<br/>标记替代字符串中的换行符。(将行行符换成<br/>)  
+     $str="This is a Teacher!\nThis is a Student!";
+     echo $str;(web页面是没有换行的，但是文本格式有)
+     
+          想在网页中实现换行，在回帖的时候，一个回车就是\n;我们可以通过函数
+    echo nl2br($str);
+    
+    
+  3、将特殊字符转换为HTML等价形式，可以使用htmlentities()和htmlspecialchars函数。
+     如果想要去掉字符串中的HTML标签，可以使用strip_tags()函数。
+     htmlentities()将所有的字符都转成HTML字符串。  
+     $str='<strong>卓</strong>';
+     echo htmlentities($str);//全部都被转换了。
+     
+     //我们只要转换特殊字符即可
+     echo htmlspecialchars($str);//<strong>卓</strong>
+     //去掉HTML标签
+     echo strip_tags('<strong>我是卓</strong>')//去掉了<strong></strong>
+     
+    
+    4、数据库会将一些字符解释成控制符。这些有问题的字符就是引号（单引号和双引）、反斜杠(\)和NULL字符。
+                  转义字符串的函数。在将任何字符串写入到数据库之前，应该使用addslashes()将他们重新格式化。
+                调用addslashes()后，所有的引号都加上了斜杠。而stripslashes()函数去掉这些斜杠。
+      $str=' This is a Teacher.His a "LEE“,\n This is a wq!'
+      //对于即将插入数据库的字符串，把有问题的字符处理一些。
+      $a=addslashes($str);//This is a Teacher.His a \"LEE\“,\\n This is a wq!
+      //这个$a就是写入数据库的，我拿出来的话，就会有\这个符号。
+      echo stripcslashes($a);//去掉后来加上去的转义斜杠。
+                
+    5、可以重新格式化字符串中的字母大小写
+       strtoupper()函数将字符串转换为大写
+       strtolower()函数将字符串转换为小写
+       ucfirst()函数将第一个字母转换为大写
+       ucwords()函数将每一个单词第一个字母转换为大写。
+       
+    6、填充字符串函数:str_pad()将字符串用指定个数的字符填充字符串。
+       $str='Lee';
+       echo str_pad($str,10).'is good!';
+       
+       
+       //STR_PAD_RIGHT,STR_PAD_LEFT,or STR_PAD_BOTH;
+       echo str_pad($str,10,'#',STR_PAD_BOTH);//###Lee####;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

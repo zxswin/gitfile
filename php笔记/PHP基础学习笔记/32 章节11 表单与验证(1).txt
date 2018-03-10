@@ -1,0 +1,170 @@
+学习要点：
+   1、Header()函数
+   2、接收及验证数据
+   
+一、header 送出HTTP协议的标头到浏览器
+         标头（header）是服务器以HTTP协议传HTML资料到浏览器前所送出的字符串。在标头与HTML文件之间尚需空一行分隔。
+   1、   用于重新导向指定的url
+   header('Location:http://www.baicu.com');
+         在执行header()函数，必须注意，之前不能有任何浏览器输出。
+         
+   2、用于设置页面字符编码
+      header('Content-Type:text/html;charset=gbk');
+      echo '嘿嘿，我是中文！页面编码是GBK,文件也是GBK';
+   
+   
+   3、注意：除非启用了输出缓冲，否则这些命令必须在返回任何输出之前执行。启用输出缓冲：ob_start();
+      ob_start();
+      
+      
+      //下面代码会报错
+      echo 'baidu.com';
+      header('Location:http://www.baidu.com');
+
+二、GET和POST
+    1、GET方法发送数据时，所有于会追加到浏览器的URL后面。
+    2、POST方法值会作为标准值发送。
+    
+    PHP分别使用$_GET和$_POST超全局变量来处理GET和POST变量，通过使用这两个超全局变量。可以准确地指定信息
+          应当来自哪里，并以你希望的方式处理数据。
+          
+    3、采用isset()来验证$_GET['username']超级全局变量是否定义：
+        //isset:判断变量是否已经设置
+        //你需要明白一个道理，空白字符也是数据，也可以赋值给$_POST['username'];
+        if(isset($_POST['username'])){
+           echo '正常提交';
+        }else{
+           echo '非法提交';
+        }
+        //empty:判断变量是否已经配置。
+    4、使用htmlspecialchars()函数将HTML特殊字符进行过滤。
+       $username=htmlspecialchars($username);
+    
+三、对数据有效性进行验证
+    1、使用函数trim()去除数据的前后空格；
+    2、使用函数strlen()判断数据的长度
+    3、使用函数is_numeric()判断数据是纯数字
+    4、使用正则表达式验证邮箱是否合法。
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   

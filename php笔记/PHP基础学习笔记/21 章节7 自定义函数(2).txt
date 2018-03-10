@@ -1,0 +1,108 @@
+一、引用传参
+    1、包含引用传参的函数调用：引用传递可以在函数内对参数的修改在函数范围外也恩能够反应
+    $prices=50;
+    $tax=0.5;
+    function functionPrices(&$prices,$tax){//前面加上&符号就是按引用传
+       $prices=$prices+($prices*$tax);//75
+       $tax=$tax*2;
+    };
+    functionPrices($prices,$tax);
+    echo $prices;//75
+    echo '<br/>';
+    echo $tax;
+    
+    2、这个函数没有任何值出来，目前是按值传参
+       函数里的变量和函数外的变量没有任何关系
+       $prices=50;
+       $tax=0.5;
+       function functionPrices($prices,$tax){
+         $prices=$prices+$prices*$tax;
+         $tax=$tax*$tax;
+         echo $prices;//75变了
+         echo '<br/>';
+         echo $tax;//0.25变了
+         echo '<br/>'
+       };
+       
+       functionPrices($prices,$tax);
+       echo $prices;//50;没变
+       echo '<br/>';
+       echo $tax;//0.5没变
+    
+    
+三、函数名
+    1、函数调用时不区分大小写的，所以调用functionname(),functionName()或FUNCTIONNAME()的效果是一样的，而且返回相同的结果。
+    2、变量名是区分大小写的。    
+    
+    
+三、全局变量
+    1、了解全局变量
+    
+    $a=5;
+    function fa(){
+       $a=2;
+    }; 
+    fa();
+    echo $a;//5
+   ------------------ 
+     $a=5;
+    function fa(){
+       global $a;//将$a设置为全局变量
+       $a=2;
+    }; 
+    fa();
+    echo $a;//2
+    
+三、超级全局变量
+    1、可以通过使用超级全局变量$GLOBAL,可以访问或改变全局作用域中的任何变量。
+    2、超级全局变量说白了就是一个数组。
+    
+    $GLOBALS['a']=5;
+    function fa(){
+      $GLOBALS['a']=2;
+    }; 
+    fa();
+    echo $GLOBALS['a'];//2
+    
+四、创建自己的函数库
+    通过将函数集存放在library文件夹里，然后通过文件调用即可。
+    文件名约定俗成可取名为toollibrary.php,tool可根据情况来设定，后面两个照抄。
+    
+    
+五、文件包含
+  为了确保重用性和模块性，最普遍的方式是把功能组件隔离诶单独的文件。在需要的时候重新组装。
+  
+  //这句话把函数库给包含进来
+  include 'library/tool.libray.php';
+  
+  include_once 'library/tool.libray.php';如果文件已经包含，则不再执行include_once();
+  
+  require('library/tool.libray.php')
+  
+  require_once('library/tool.libray.php');
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

@@ -1,0 +1,97 @@
+一、多种图片格式支持
+    switch($_FILES['userfile']['type']){
+        case 'image/jpeg'://火狐
+        break;
+        case 'image/pjpeg'://IE
+        break;
+        case 'image/gif':
+        break;
+        case 'image/png'://火狐
+        break;
+        case 'image/x-png'://IE
+        break;
+        default:
+        echo "<script>alert('本站只允许jpg图片！');history.back();</script>";
+        exit;
+    };
+    
+    //创建一个常量
+    define('MAX_SIZE',20000000);
+    $fileMimes=array('image/jpeg','image/pjpeg','image/png','image/x-png');
+    define('URL',dirname(__FILE__).'\uploads');
+    
+    //判断类型是否是数组中的已种。
+    in_array--检查数组中是否存在某个值。
+    if(is_array($fileMimes)){
+       if(!in_array($_FILES['userfile']['type'],$fileMines)){
+            echo "<script>alert('本站只允许jpg图片！');history.back();</script>";
+            exit;
+       };
+    };
+    
+    //is_dir--判断给定的文件名是否是一个目录。
+    if(!is_dir(URL)){
+       mkdir(URL,0777);//最大权限0777，意思是，如果没有这个目录，那么就创建
+    };
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

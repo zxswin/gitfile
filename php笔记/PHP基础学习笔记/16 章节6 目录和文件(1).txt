@@ -1,0 +1,112 @@
+学习要点：
+1、目录操作
+2、磁盘，目录和文件计算
+3、文件处理
+
+注：将相关的数据组织为文件和目录等实体，这一直是计算环境的核心概念。
+出于这个原因，程序员需要一种方法来获取相关文件的目录和重要细节。如位置，大小，
+最后修改时间，最后访问时间和其他确认信息。
+
+一、目录操作
+1、解析目录路径：basename()函数返回路径的文件名部分。
+basename--返回路径中的文件名部分
+
+//将一个连接赋值给一个变量
+//它目前来说，只是一个字符串，字符串表示的是一个目录的路径
+
+//文件名包含，文件的名称+文件的扩展名（就是.后面的文件类型）;
+$path='C:\AppServ\www\basic6\Demo1.php';
+echo basename($path);//Demo1.php;
+
+3、dirname--返回路径中的目录部分
+
+4、关于路径的信息：pathinfo()函数创建一个关联数组，其中包括:目录名，基本名和扩展名。
+   dirname,basename,extension(后缀名),filename(文件名);
+      使用数组的方式去调用就行了。
+   
+   
+5、确定绝对路径：realpath()函数将path中的所有符号链接和相对路径引用转换为相应的硬链接和绝对路径。
+   realpath--返回规范化的绝对路径名
+
+二、磁盘、目录和文件计算
+1、确认文件的大小：filesize()函数返回指定文件字节的大小。
+   filesize--取得文件大小。
+   $path='C:\AppServ\www\basic6\Demo1.php';
+   echo round(filesize($path)/1024,2).'kb';
+   
+   
+2、计算磁盘的可用空间：disk_free_space()函数返回指定的目录所在的磁盘分区的可用空间。
+   disk_free_space--返回目录中的可用空间。
+   echo round(disk_free_space('c:')/1024/1024/1024,2).'GB';
+   
+3、计算磁盘的总容量：disk_total_space()函数返回指定的目录所在的磁盘分区的总容量。
+   $drive='C:';
+   echo round(disk_total_space('c:')/1024/1024/1024,2).'GB';
+
+4、确定文件的最后访问时间:fileatime()函数返回文件的最后访问时间，采用的Unix时间戳格式。
+5、date--格式化一个本地时间/日期
+    调整一下时区
+    date_default_timezone_set('Asia/Shanghai');
+   
+   echo date('Y-m-d H:i:s');相差了八个小时
+   
+   date_default_timezone_get--取得一个脚本中所有日期时间函数所使用的默认时区。
+   date_default_timezone_set(设置时区)
+   
+   //文件最后的修改时间
+   echo date('Y-m-d H:i:s',fileatime($path));
+   
+   filectime():文件最后改变时间(所有者权限修改时间)
+   echo date('Y-m-d H:i:s',filectime($path));
+   
+   filemtime():获取最后的文件修改时间（文件内容的修改时间）
+   echo date('Y-m-d H:i:s',filemtime($path));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

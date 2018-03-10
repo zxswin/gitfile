@@ -1,0 +1,65 @@
+一、超级全局变量
+$GLOBALS  所有的全局变量数组
+$_SERVER 服务器环境变量数组
+$_GET  通过GET方法传递给脚本的变量数组
+$_POST  通过POST方法传递给该脚本的变量数组
+$_COOKIE   cookie变量数组
+$_FILES  与文件上传下载有关的变量数组
+$_ENV    环境变量数组
+$_REQUEST 所有用户输入的变量数组
+$_SESSION   会话变量数组。
+
+二、常量
+    常量一旦被定义了之后，就不能再次更改了。
+    define("TOTAL",199);
+    
+三、phpinfo()环境变量
+    echo $_SERVER["HTTP_HOST"];
+    echo $_SERVER["DOCUMENT_ROOT"];
+    
+三、在任何情况下，一个页面上提交给PHP脚本的每一个表单域在PHP脚本中都是可以使用的。
+    $userName//简短风格
+    $_POST["userName"]//中等风格
+    $_HTTP_POST_VARS["userName"]//冗长风格
+    
+    //echo $username;这种简短风格不允许用
+    //它会混淆和普通变量的关系；
+    //第一步，将接受到的表单数据赋值给一个变量
+    //将上一张表单的name的名称的value值提取出来 value="卓" name="username";
+    //$_POST['username']这个整体就会返回出卓这个字符串。
+    $_POST['username']
+    
+    字符串连接，使用点就可以连接"."
+    ehco "这个学生是：".$username;
+    
+    使用get提交
+    $username=$_GET['username'];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

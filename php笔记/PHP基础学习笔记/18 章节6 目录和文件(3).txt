@@ -1,0 +1,89 @@
+$fp=fopen('file.txt','a');//可以追加文本内容
+$outputstring='this is wq!\r\nthis is 18\r\n';
+fwrite($fp,$outputstring,strlen($outputstring));
+fclose($fp);
+
+一、读取文件
+1、fgetc--从文件指针中读取字符。读出一个字符，并将指针移动到下一个字符。
+2、fgets--从文件指针中读取一行
+
+//现在要读取的文件
+$fp=fopen('file.txt','r');
+//fgetc()：读出一个字符，并将指针移动到下一个字符
+  echo fgetc($fp)//T
+   echo fgetc($fp)//h
+   
+   //读出一行的,可以指定一行显示的长度。
+   echo fgets($fp);
+  
+   //fgets从handle指向的文件中读取一行并返回长度最多为length-1字节的字符串
+   echo fgets($fp,2);
+   
+3、fgetss()：从文件指针中读取一行并过滤掉HTML标记。
+    echo fgetss($fp,2);
+
+4、fread--读取文件（可安全用于二进制文件）
+   fread()从文件指针handle读取最多length个字节。读取定量字节。
+
+5、fpassthru--输出文件指针处的所有剩余数据
+   //fpassthru本身包含了向浏览器输出的功能，所以不需要echo;
+   fpassthru($fp);
+   echo fpassthru($fp)//返回的是剩余的总长度。
+
+6、file--把整个文件读入一个数组中。将整个文件读入数组中，以行分组。 
+   //file是按照每行分组存放在一个数字中
+   $array_file=file('file.txt');
+   //而这个打印出的是文件中的第五行。
+   echo $array_file[4];
+
+7、readfile():读入一个文件并写入到输出缓冲。输出一个文件，返回int类型。
+   //返回值是文件字节的总长度。
+   echo readfile('file.txt');是将整个的文件读出来。本身能直接输入浏览器，所以不需要eaho;
+   
+8、file_get_contents--将整个文件读入一个字符串。
+    fclose($fp);
+
+9、file_get_contents可以读入数据到缓冲区，然后通过echo来打印
+   echo file_get_contents('file.txt');
+10、feof--测试文件指针是否到了文件结束的位置。
+
+//现在要读出的文件
+$fp=fopen('file.txt','r');
+//feof--测试文件指针是否到了文件结束的位置。
+while(!feof($fp)){
+  echo fgetc($fp);
+};
+fclose($fp);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

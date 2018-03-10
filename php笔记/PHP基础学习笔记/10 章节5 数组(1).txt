@@ -1,0 +1,101 @@
+一、学习要点：
+   1.什么是数组
+   2.自定义键数组
+   3.数组里的数组
+   4.数组的排序
+   5.数组的指针操作
+   6.统计数组个数
+   7.将数组转换成标量变量。
+   
+二、数组
+//创建一个数组变量
+$userNames=array('李彦宏','周鸿祎','马云')
+//打印出这个数组
+echo $userNames;
+//如果你想打印出这个数组的某个元素，那么你必须找到这个元素的下标，键（key）;
+echo $userName[2];
+1、print_r 打印关于变量的易于理解的信息。
+2、range 建立一个包含指定范围单元的数组。
+   $numbers=range(1,3);
+   print_t($numbers);
+   Array(
+     [0]=>1
+     [1]=>2
+     [2]=>3
+   )
+   
+ 3、包含两种东西，一种叫做键(key).一种叫做值(value);key是自动生成的，默认从0开始，每次+1
+    value是你自己赋值的。
+   
+ 4、使用循环访问数组
+    //由于数组使用的是有序得的数字作为索引，所以使用一个for循环就可以很容易显示数字的内容
+    for($i=0;$i<10;$i++){
+       echo $numbers[$i];
+    };
+    //也可以使用foreach循环来遍历数组：
+    foreach($numbers as $value){
+       echo $value;
+    }
+    //foreach遍历$key=>$value;
+    foreach($userNames as $key=>$value){
+       each $key.'<br/>'
+    };
+    //测试是否为数组变量：is_array();
+   
+   5、count 计算数组中的单元数目或对象中的属性个数。
+      echo count($userNames);
+   6、sizeof  是count()的别名
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   

@@ -1,0 +1,73 @@
+一、对数组进行排序：
+1、sort--对数组排序，返回的是一个布尔值，排序成功或者排序失败。
+   $fruit=array('banner','orange','apple');
+        没有排序前，一般是按照key的顺序进行显示
+   print_r($fruit);
+   //排序之后
+   print_r($fruit);
+   
+2、使用sort()函数将数组按字符升序排序
+$products=array("orange","banner","apple");
+sort($products);
+
+
+使用sort()函数将数字升序进行排序
+$prices=array(100,10,4,23,78);
+sort($prices);
+
+sort()函数的第二个参数是可选的，这个可选的参数可以传递SORT_REGULAG(默认值)，
+SORT_NUMERIC或SORT_STRING.指定排序类型的功能是非常有用的。
+比如当要比较可能的包含有数字2和12的字符串的时候，从数字的角度看，2要小于12，
+但从字符串的角度上看12小于2；(按字符串排序才会这样的)
+$numbers=array(2,12);
+sort($numbers,SORT_STRING);
+print_r($numbers);
+
+3、asort--对数组进行排序并保持索引关系；
+   array(
+      [1]=>appele
+      [0]=>banner
+      [2]=>orange
+   )
+
+4、ksort--对数组按照键名进行排序
+
+5、反向排序：
+   rsort(),arsort();krsort();
+
+6、shuffle--将数组打乱
+
+   例子：随机显示3张图片
+   //创建一个数组
+   $pic=array('mm1.jpg','mm2.jpg','mm3.jpg','mm4.jpg','mm5.jpg');
+   //数组进行随机打乱
+   shuffle($pic);
+   for($i=0;$i<3;$i++){
+     echo '<img src="imgses/.$pic[$i]."' style="margin:10px;"/>';
+     echo "\n";
+   
+   };
+
+7、反向排序，array_reverse(),array打头的函数，一般会创建一个新数组；
+   $a=array_reverse($pic);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   

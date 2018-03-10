@@ -1,0 +1,108 @@
+1、file_exists--检查文件或目录是否存在。
+   if(file_exists('file.txt')){
+      echo '执行各种各样的文本读写操作！';
+      }else{
+         echo '此文本不存在，请管理员在后台重新生成以下！';
+      };
+      
+2、文件大小，字节
+   echo filesize('file.txt');
+   
+3、删除一个文件
+   unlink('123.txt');
+      
+4、rewind--倒回文件指针的位置。
+   rewind($fp);
+   echo fgetc($fp);
+      
+5、ftell--返回文件指针读写的位置。
+   echo fgetc($fp);
+   echo ftell($fp);//0文件指针的位置。
+   
+6、fseek--在文件指针中定位。
+   fseek($fp,21);
+   echo ftell($fp);
+   echo fgetc($fp);  
+      
+二、文件锁定
+    1、假设两个客户试图同时订购同一件商品，那么他们同时打开了这个恩静，同时的更新。
+    就会出现少一个客户订购的数据。
+    为了避免这样的问题。可以使用文件锁定的方法。
+    1、flock--轻便的咨询文件锁定。
+    //a表示可以追加，b表示二进制,这样可移植性好。
+    //w也可以
+    $fp=fopen('file2.txt','ab');
+    
+    flock($fp,LOCK_EX);//锁定
+    fwrite($fp,'This is lock!');
+    flock($fp,LOCK_UN);//解锁
+    
+    fclose('file2.txt');
+    
+    2、opendir()：打开路径指定的目录流。（打开目录句柄）
+    3、closedir():关闭目录流
+    4、readdir():返回目录中的各个元素。从目录句柄中读取条目。
+    
+    //打开一个目录
+    $dir=opendir('C:\AppServ\www\Basic6');
+    
+    //按指针循环，使用循环语句读出来。
+    //字符串如果是布尔值，就是说，字符串不为空，那么就是真，为空就是假。
+    while(!!$file=readdir($dir)){
+      echo $file.'<br/>';
+    };
+    
+    //关闭
+    closedir($dir);
+     
+     5、scandir()：将目录读入数组。
+     print_r(scandir('C:\AppServ\www\Basic6'));
+     
+     
+     6、rmdir()：删除指定的目录。
+     rmdir('me');相对路径和绝对路径都是可以的。
+     7、rename():重命名文件。 (目录和文件都可以改)
+     rename('file2.txt','file3.txt');
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      

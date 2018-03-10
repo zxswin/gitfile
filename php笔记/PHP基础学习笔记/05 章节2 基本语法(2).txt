@@ -1,0 +1,93 @@
+一、检测变量
+   1、大部分的可变函数都是用来测试一个函数的类型的。
+   2、PHP中有两个最常见的函数，分别是gettype()和settype();
+   3、数据类型的转换
+      $sum=0;
+      $total=1.22;
+      $sum=$total;.//隐式转换
+      
+      $sum=0;
+      $total=(float)$sum;//显式转换
+      echo gettype($total);
+   4、设置类型settype();
+      $sum=100;
+      //中途将$sum类型转换成字符串型
+      settype($sum,"string");
+      //这个时候$sum的100不是数字，而是字符串"100";
+      
+      echo gettype($sum);
+   5、isset()和unset()
+                判断一个变量是否 存在
+                销毁一个变量
+      $a=5;
+      //变量$a已经存在。
+      unset($a);
+      //如果$a这个变量是真的存在的，那么isset($a)返回一个布尔值1，或空。
+      echo isset($a);
+      
+   6、empty()用来判断一个变量的值是否为空。如果为空则为true否则为false;
+      换句话说，'',0,'0',NULL,FALSE,array(),var $var;以及么有任何属性的对象都被认为是空的。
+      empty($b);
+      
+  7、PHP还提供了一些特定的类型的测试函数。每个函数都使用一个变量作为其参数，并且返回true或false;
+     is_array()
+     is_double();
+     is_float();
+     is_real();
+     is_int();
+     is_integer();
+     is_string();
+     is_object();
+     is_resource();
+     is_null();
+     is_numeric();
+      
+  8、可以通过调用一个函数来实现转换变量数据类型的目的。
+     intval();
+     floatval();
+     strval();
+     
+     //sum是浮点型
+     $sum=22.22;
+     //intval($sum)整体变成整型
+     //echo intval($sum);
+     
+     //将原型的变量给转换为整型
+     settype($sum,"integer");
+     echo $sum;
+     
+     //请问$sum目前是什么类型(浮点型)
+     echo gettype($sum);
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      

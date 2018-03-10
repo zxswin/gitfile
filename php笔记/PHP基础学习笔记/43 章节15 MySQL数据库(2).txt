@@ -1,0 +1,176 @@
+一、MySQL常用数据类型
+    1.整数型：TINYINT,SMALLINT,INT,BIGINT;
+    2.浮点型：FLOAT,DOUBLE,DECIMAL(M,D);
+    3.字符型：CHAR,VARCHAR
+    4.日期型：DATETIME,DATE,TIMESTAMP
+    5.备注型：TINYTEXT,TEXT,LONGTEXT
+    
+    
+二、备注型
+    1.TINYTEX：字符串，最大长度255字符
+    2.TEXT:字符串，最大长度65535字符
+    3.MEDIUMTEXT:字符串，最大长度16777215个字符
+    4.LONGTEXT：字符串，最大长度4294967295个字符。
+
+//文本型（搜索快。）
+1、CHAR定长类型（访问速度快）
+   这个如果采用char类型，空格也是一个字符
+2、VARCHAR会吧后面的空格给删除，可变长度的类型。（用户名，文章标题）占用容量小。
+
+3、备注型：string+1;
+   比较常用的是TEXT,用于备注，大文章，帖子，新闻内容。
+
+
+四、MySQL的数据库操作
+   1.显示当前存在的数据库
+     SHOW DATABASES;
+   2.选择你所需要的数据库
+     USE guest;
+   3.查看当前所选择的数据库
+     SELECT DATABASE();
+   4.查看一张表的所有内容//可以通过SHOW TABLES;来查看有多少张表。
+     SELECT*FROM guest;
+   5.根据数据库设置中文编码
+     SET NAMES gbk;//set names utf8;
+   6.创建一个数据库
+     CREATE DATABASE book;   
+   7、在数据库里创建一张表
+      CREATE TABLE users(
+      username VARCHAR(20),//NOT NULL 设置不允许为空
+      sex CHAR(1)
+      birth DATETIME);
+   8、显示表的结构
+      DESCIRBE users;
+   9、给表插入一条数据
+      INSERT INTO users(username,sex,birth) VALUES('lEE','X','NOW()');
+   10、筛选指定的数据
+      SELECT*FROM users WHERE username='Lee';
+   11、修改指定的数据
+      UPDATE users SET sex='男' WHERE username='lee';
+   12、删除指定的数据
+       DELETE FROM users WHERE username='Lee';
+   13、按指定的数据排序
+       SELECT*FROM users ORDER BY birth DESC;//正序(ASC)
+   14、删除指定的表
+       DROP TABLE users;
+   15、删除指定的数据库
+       DROP DATABASE book;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

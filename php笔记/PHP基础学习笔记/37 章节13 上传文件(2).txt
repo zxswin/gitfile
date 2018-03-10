@@ -1,0 +1,148 @@
+三、PHP上传函数
+    php文件系统库中提供了大量文件处理函数，除此之外，PHP还提供了两个专门用于文件上传过程的函数
+    is_uploaded_file():判断文件是否是通过HTTP POST上传的。
+    move_uploaded_file():将上传的文件移动到新位置
+    
+    print_r($_FILES);
+    
+    echo '<br/>';
+    //is_uploaded_file()
+    //判断文件是否通过HTTP POST上传的
+    //通过HTTP POST上传后，文件会存放在临时文件夹下
+    
+    
+    //如果文件上传错误，怎么办
+    if($_FILES['userfile']['error']>0){
+       exit;
+    }
+    //只能允许jpg文件
+    if($_FILES['userfile']['type']!='image/jpeg'){
+       echo "<script>alert('本站只能允许JPG图片！');history.back();</script>";
+       exit;
+    };
+    
+    if(is_uploaded_file($_FILES['userfile']['tmp_name'])){
+        echo '上传的临时文件，已经找到，等待移动中....';
+        //就在这里移动了。
+        //第一个参数，写上临时文件的地址
+        //第二个参数，第二个参数写上你要存放的地址（可以是相对地址）
+        
+        //如果想屏蔽掉警告，直接加上@符号
+        if(!move_uploaded_file($_FILES['userfile']['tmp_name'],'img/'.$_FILES['userfile']['name'])){
+           //如果移动失败，就失败
+           echo '移动失败';
+           exit;
+        }
+       
+        
+        
+    }else{
+        echo '临时文件夹找不到上传的文件！';
+    };
+    //全部通过就上传成功了。
+    //必须传一个值给Demo3.php;
+    //文件上传地址
+    echo "<script>alert('文件上传成功');location.href='Demo3.php?url=".$_FILES['userfile']['name']."'"
+
+    
+  //demo3.php
+     $url=$_GET["url"];
+     echo '<img src="'.$url.'"';
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

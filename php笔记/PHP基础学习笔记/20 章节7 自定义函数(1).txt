@@ -1,0 +1,107 @@
+一、学习要点：
+    1.标准函数
+    2.自定义函数
+    3.文件包含
+    4.魔法常量
+    
+二、标准函数例子
+    1、md5('123456');//对一个字符串进行加密
+三、自定义函数
+    1、创建函数，不要跟系统的内置函数重名
+    2、函数有个特性，必须调用，才可以执行
+    3、无参数表示()里面试空的，无返回就是函数的程序里面没有return;
+    function functionName(){
+       echo '我是一个无参数无返回的函数';
+    };
+    functionName();
+    4、包含参数无返回值的函数
+    function functionArea($radius){
+        $area=$radius*$radius*pi();
+        echo '半径为：'.$radius.'的面积为：'.$area;
+    };
+    //调用
+    functionArea(20);
+    
+    5、包含参数，有返回值
+    function functionArea($radius){
+       $area=$radius*$radius*pi();
+       return $area;
+    };
+    //调用，这样子大大提高了函数的灵活性
+    //functionArea(20);整体就得到一个值，在内存里。
+    echo functionArea(20);
+    
+    
+    6、这个$radius=10,这里的10表示这个参数的默认值。
+    //如果调用函数没有给函数传递一个参数，那么就启用默认值。
+     function functionArea($radius=10){
+        $area=$radius*$radius*pi();
+        echo '半径为：'.$radius.'的面积为：'.$area;
+    };
+    
+    7、返回多个只的函数调用，可以通过返回一个数字然后使用list()函数构造即可。
+    function functioninfo($name,$age,$job){
+       $userinfo=array($name,$age,$job);//可以用追加的方式比较常用
+       return $userinfo;
+    };
+    //在函数里的变量，和函数外的变量没有任何联系，所以写重名，无所谓。
+    list($name,$age,$job)=functioninfo('卓',19,'学生');
+    echo $name.'今年'.$age.'岁了，目前还是一个'.$job.;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

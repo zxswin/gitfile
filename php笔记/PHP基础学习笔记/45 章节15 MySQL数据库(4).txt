@@ -1,0 +1,102 @@
+一、创建一个数据库表
+id:学员编号，性质，每个人的编号不得重复，而且可以排序
+那么ID这个字段，采用的是整型，范围0-99；
+
+   TINYINT(2) 0-255 UNSIGNED表示无符号TINYINT(2)(整数);
+   NOT NULL表示这个字段不能为空。
+   AUTO_INCREMENT表示1,2,3,4,5自动新增累计。
+   
+   PRIMARY KEY(id)//表示id为主键，让id值唯一，不得重复。
+                  表示一个字段唯一性，不得重复，方便搜索与排序。
+                  
+二、环节一
+   1.创建一个班级数据库school,里面包含一张班级表grade,包含编号（id）,姓名（name）,邮件（email）,评分（point）注册日期（regdate）.
+   CREATE DATABASE school;//创建一个数据库
+   CREATE TABLE grade(
+       id TINYINT(2) UNSIGNED NOT NULL AUTO_INCREMENT,
+       name VARCHAR(20) NOT NULL,
+       email VARCHAR(40),
+       point TINYINT(3) UNSIGNED NOT NULL,
+       regdate DATETIME NOT NULL,
+       PRIMARY KEY(id)//表示id为主键，让id值唯一，不得重复。
+       
+   )         
+   2.给这个班级表grade新增5-10条学员记录
+   INSERT INTO grade(name,email,point,regdate) VALUES('LEE','YC60.COM@GMAIL.COM','95','NOW()');
+   3、查看班级所有字段的记录，查看班级id，name,email的记录
+      SELECT*FROM grade;
+      
+      SELECT id,name,email FROM grade;
+                  
+1、DESC grade:(查看表结构的简写形式)
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   

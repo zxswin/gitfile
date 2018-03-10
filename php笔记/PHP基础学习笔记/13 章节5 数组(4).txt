@@ -1,0 +1,71 @@
+一、数组里的数组
+数组不一定就是一个关键字和值的简单列表---数组中的每一个位置用来保存另一个数组。使用这种方法
+可以创建一个二维数组。可以把二维数组当成一个矩阵，或者是一个具有宽度和高度或者行和列的网格；
+
+1、创建一个二维数组
+$products=array(
+   array('苹果',6,28.8),
+   array('猪肉',2,32.8),
+   array('饼干',3,45.8)
+
+);
+
+prit_t($products);
+
+//使用双重循环来遍历数组元素
+for($i=0;$i<count($products);$i++){
+  for($j=0;$j<count($products[$i]);$j++){
+     echo $products[$i][$j].'|';
+  };
+  echo '<br/>'
+};
+
+
+
+1、遍历key不为数字的多维数组
+$products=array(
+   array('产品名'=>'苹果','数量'=>6,'价格'=>28.8),
+   array('产品名'=>'猪肉','数量'=>2,'价格'=>32.8),
+   array('产品名'=>'饼干','数量'=>3,'价格'=>45.8)
+
+);
+
+for($i=0;$i<count($products);$i++){
+    foreach($products[$i] as $key=>$value){
+        echo $key.'--'. $value.'|';
+    };
+};
+//使用list();
+for($i=0;$i<count($products);$i++){
+  while(!!list($key,$value)=each($products[$i])){
+    echo $key.'--'.$value.'|';
+  };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
