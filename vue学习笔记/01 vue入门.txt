@@ -1,0 +1,359 @@
+一.安装 vue-cli VUE的脚手架工具
+1.命令行工具 (CLI)
+# 全局安装 vue-cli
+$ npm install --global vue-cli
+# 创建一个基于 webpack 模板的新项目
+$ vue init webpack my-project
+# 安装依赖，走你
+$ cd my-project
+$ npm install
+$ npm run dev
+
+vue -V //查看是否安装成功
+
+2.package.json
+"dependencies": {
+    "vue": "^2.5.2",
+    "vue-router": "^3.0.1"
+},
+"devDependencies": {
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "babel-plugin-transform-vue-jsx": "^3.5.0",
+    "eslint-plugin-vue": "^4.0.0",
+    "jest-serializer-vue": "^0.3.0",
+    "vue-jest": "^1.0.2",
+    "vue-loader": "^13.3.0",
+    "vue-style-loader": "^3.0.1",
+    "vue-template-compiler": "^2.5.2",
+}
+
+3.webpack.common.js中的配置
+ 
+二.vue-cli文件结构分析
+package-lock.json           // npm5 新增文件，优化性能
+├── src                             // 我们的项目的源码编写文件
+│   ├── App.vue                 // APP入口文件
+│   ├── assets                      // 初始项目资源目录，回头删掉
+│   │   └── logo.png
+│   ├── components              // 组件目录
+│   │   └── Hello.vue           // 测试组件，回头删除
+│   ├── main.js                 // 主配置文件
+│   └── router                      // 路由配置文件夹
+│       └── index.js            // 路由配置文件
+└── static                          // 资源放置目录
+
+三.项目结构设计
+1.static 目录(主要存放很少修改也不需要打包的文件)
+├── css             // 放一些第三方的样式文件
+├── font                // 放字体图标文件
+├── image           // 放图片文件，如果是复杂项目，可以在这里面再分门别类
+└── js              // 放一些第三方的JS文件，如 jquery
+
+四.src项目文件夹结构
+├── App.vue                         // APP入口文件
+├── api                             // 接口调用工具文件夹
+│   └── index.js                    // 接口调用工具
+├── components                      // 组件文件夹，目前为空
+├── config                          // 项目配置文件夹
+│   └── index.js                    // 项目配置文件
+├── frame                           // 子路由文件夹
+│   └── frame.vue                   // 默认子路由文件
+├── main.js                         // 项目配置文件
+├── page                                // 我们的页面组件文件夹
+│   ├── content.vue             // 准备些 cnodejs 的内容页面
+│   └── index.vue                   // 准备些 cnodejs 的列表页面
+├── router                          // 路由配置文件夹
+│   └── index.js                    // 路由配置文件
+├── style                           // scss 样式存放目录
+│   ├── base                        // 基础样式存放目录
+│   │   ├── _base.scss          // 基础样式文件
+│   │   ├── _color.scss     // 项目颜色配置变量文件
+│   │   ├── _mixin.scss     // scss 混入文件
+│   │   └── _reset.scss     // 浏览器初始化文件
+│   ├── scss                        // 页面样式文件夹
+│   │   ├── _content.scss       // 内容页面样式文件
+│   │   └── _index.scss     // 列表样式文件
+│   └── style.scss              // 主样式文件
+└── utils                           // 常用工具文件夹
+    └── index.js                    // 常用工具文件
+
+五.简单项目
+**index.html**
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>my-project</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
+
+**main.js**
+import Vue from 'vue'
+import App from './App'
+import router from './router'
+
+Vue.config.productionTip = false
+new Vue({
+  el: '#app',
+  router,
+  components: { App },
+  template: '<App/>'
+})
+
+**App.vue**
+<template>
+  <div id="app">
+    <img src="./assets/logo.png">
+    <router-view/>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'app'
+}
+</script>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
+
+**router/index.js**
+import Vue from 'vue'
+import Router from 'vue-router'
+import HelloWorld from '@/components/HelloWorld'
+
+Vue.use(Router)
+
+export default new Router({
+  routes: [
+    {
+      path: '/',
+      name: 'HelloWorld',
+      component: HelloWorld
+    }
+  ]
+})
+
+**componnents/HelloWorld.vue**
+<template>
+  <div class="hello">
+    <h1>{{ msg }}</h1>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  data () {
+    return {
+      msg: 'Welcome to Your Vue.js App'
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h1, h2 {
+  font-weight: normal;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+</style>
+
+
+六.一些概念
+1.每个 .vue文件包含三种类型的顶级语言块 <template>, <script> 和 <style>。这三个部分分别代表了 html,js,css。
+2.其中 <template> 和 <style> 是支持用预编译语言来写
+<style>
+@import "./style/style.css"; //引入外部样式文件
+</style>
+3.我们不是说把代码包裹在 <template></template> 中就可以了，而是必须在里面放置一个 html 标签来包裹所有的代码。
+
+七.一个常见的 *.vue 文件代码解析
+1.script 区域 this.getData 或者 this.list 这样的代码引用的。
+2.在 template 中，我们是不加 this 的。
+<template>    ----里面必须放置一个html来包裹所有的代码
+  <div>
+    <Header></Header>  ----组件Header
+    <div class="article_list">
+      <ul>
+        <li></li>
+      </ul>
+    </div>
+    <Footer></Footer>----组件Header
+  </div>
+</template>
+<script>
+import Header from '../components/header.vue'  ----引入Header组件
+import Footer from '../components/footer.vue'  ----引入Footer组件
+export default {
+  components: { Header, Footer }, ----定义<template>中要使用的组件 
+  data () {  ----我们的数据
+    return {
+      list: []
+    }
+  },
+  created () {  ----我们的组件加载完成时，需要执行的内容
+    this.getData()
+  },
+  methods: {  ----组件自定义的方法
+    getData () {
+      this.$api.get('topics', null, r => {
+        console.log(r)
+      })
+    }
+  }
+}
+</script>
+<style>  ----<template> 中元素的样式
+  .article_list {margin: auto;}
+</style>
+
+
+工具：
+1.vue-devtools 浏览器客户端调试插件
+2.axios Ajax异步请求
+npm install axios -D  --安装  
+3.配置 webpack 将接口代理到本地
+找到config/index.js 文件
+proxyTable: {
+  '/api/v1/**': {
+    target: 'https://cnodejs.org', // 你接口的域名
+    secure: false,
+    changeOrigin: false,
+  }
+}
+在src/api/index.js 文件中
+// 配置API接口地址
+var root = '/api/v1'
+4.工具方法写在utils/index.js中
+**main.js**
+// 引用工具文件
+import utils from './utils/index.js'
+// 将工具方法绑定到全局
+Vue.prototype.$utils = utils
+// 在vue组件中使用
+<time v-text="$utils.goodTime(i.create_at)"></time>
+5.打包编译
+/config/index.js 文件 中
+productionSourceMap: true 改 productionSourceMap: false,
+6.启动项目
+安装 http-server 启动 http 服务
+npm install http-server -g
+添加环境变量
+第一条命令是追加环境变量，第二个命令是，使我们的追加立即生效。
+echo 'export PATH="$PATH:/usr/local/Cellar/node/7.6.0/bin/"' >> ~/.bash_profile 
+. ~/.bash_profile
+让服务跑起来
+cd dist
+http-server -p 3000
+7.将项目打包到子目录
+config/index.js 文件
+assetsPublicPath: '/', 改为 assetsPublicPath: '/dist/'
+
+8.安装和使用 archlinux 操作系统
+deepin linux 新手使用
+
+9.集成UEditor 百度富文本编辑器
+10.在项目中使用 jQuery
+import '../static/js/jquery-1.8.3.js' --会报错
+第二种方法
+<script src="static/js/jquery-3.2.1.min.js"></script>
+编辑 /.eslintrc.js 文件
+env: {
+    browser: true,
+    jquery: true
+}
+
+
+参考文章：
+1.Vue2+VueRouter2+Webpack+Axios 构建项目实战2017重制版（一）基础知识概述
+http://blog.csdn.net/fungleo/article/details/77575077
+2.Vue2+VueRouter2+Webpack+Axios 构建项目实战2017重制版（二）安装 nodejs 环境以及 vue-cli 构建初始项目
+http://blog.csdn.net/fungleo/article/details/77584701
+3.Vue2+VueRouter2+Webpack+Axios 构建项目实战2017重制版（三）认识项目所有文件
+http://blog.csdn.net/fungleo/article/details/77585205
+
+
+单词：
+freeze 冻结
+mounted 安装
+mustache 小胡子
+modifiers 修饰语
+dynamic 动态
+truthy 真相
+mutation 突变
+capture 捕获
+passive 被动
+kebab 烤肉串
+command 命令 
+exact 准确的 
+transclusion 嵌入包含
+appear 出现 过渡
+mixins 混入
+flux 流出
+store 商店
+mutation 变化
+dispatch 派遣
+virtual  事实上
+utils 常用工具  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
