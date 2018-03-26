@@ -10,12 +10,16 @@
     	//1.初始化curl
     	$ch=curl_init();
     	//2.设置curl的参数
-    	curl_setopt($ch, CURLOPT_URL,$url);
+		curl_setopt($ch, CURLOPT_URL,$url);
+		//curl_exec执行成功后返回执行的结果；不设置的话，curl_exec执行成功则返回true  
     	curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
     	if($type=="post"){
     		curl_setopt($ch,CURLOPT_POST,1);
     	    curl_setopt($ch,CURLOPT_POSTFIELDS,$arr);
-    	};
+    	}else if($type=="file"){
+			curl_setopt($ch, CURLOPT_HEADER, 0);  
+			curl_setopt($ch, CURLOPT_NOBODY, 0);//只取body头  
+		}
     	//3.采集
     	$output=curl_exec($ch);
     	//4.关闭
