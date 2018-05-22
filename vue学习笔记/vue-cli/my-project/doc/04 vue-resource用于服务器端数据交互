@@ -1,0 +1,266 @@
+一.vue-resource的作用
+1.vue-resource是Vue.js的一款插件，它可以通过XMLHttpRequest或JSONP发起请求并处理响应。
+2.main.js 使用需先调用 Vue.use(vueResource) 注册插件;
+
+二.基本用法
+// 基于全局Vue对象使用http
+Vue.http.get('/someUrl', [options]).then(successCallback, errorCallback);
+Vue.http.post('/someUrl', [body], [options]).then(successCallback, errorCallback);
+
+// 在一个Vue实例内使用$http
+this.$http.get('/someUrl', [options]).then(successCallback, errorCallback);
+this.$http.post('/someUrl', [body], [options]).then(successCallback, errorCallback);
+
+三.回调函数的用法
+// 传统写法
+this.$http.get('/someUrl', [options]).then(function(response){
+    // 响应成功回调
+}, function(response){
+    // 响应错误回调
+});
+
+
+// Lambda写法
+this.$http.get('/someUrl', [options]).then((response) => {
+    // 响应成功回调
+}, (response) => {
+    // 响应错误回调
+});
+
+四.支持的HTTP方法
+get(url, [options])
+head(url, [options])
+delete(url, [options])
+jsonp(url, [options])
+post(url, [body], [options])
+put(url, [body], [options])
+patch(url, [body], [options])
+
+
+五.options对象
+-url	string	请求的URL
+-method	string	请求的HTTP方法，例如：'GET', 'POST'或其他HTTP方法
+-body	Object, FormData string	request body
+-params	Object	请求的URL参数对象
+-headers	Object	request header
+-timeout	number	单位为毫秒的请求超时时间 (0 表示无超时时间)
+-before	function(request)	请求发送前的处理函数，类似于jQuery的beforeSend函数
+-progress	function(event)	ProgressEvent回调处理函数
+-credentials	boolean	表示跨域请求时是否需要使用凭证
+-emulateHTTP	boolean	发送PUT, PATCH, DELETE请求时以HTTP POST的方式发送，并设置请求头的X-HTTP-Method-Override
+-emulateJSON	boolean	将request body以application/x-www-form-urlencoded content type发送
+
+使用例子：Vue.http.options.emulateHTTP = true;
+
+六.response对象
+-text()	 string	以string形式返回response body
+-json()	 Object	以JSON对象形式返回response body
+-blob()	 Blob	以二进制形式返回response body
+
+-ok	 boolean	响应的HTTP状态码在200~299之间时，该属性为true
+-status	 number	响应的HTTP状态码
+-statusText	 string	响应的状态文本
+-headers	 Object	响应头
+
+七.写法
+1.基本用法
+this.$http.get(this.apiUrl)
+    .then((response) => {
+        this.$set('gridData', response.data)
+    })
+    .catch(function(response) {
+        console.log(response)
+    })
+2.在then方法的回调函数内，你也可以直接使用this，this仍然是指向Vue实例的：
+getCustomers: function() {
+    this.$http.get(this.apiUrl)
+        .then((response) => {
+            this.$set('gridData', response.data)
+        })
+        .catch(function(response) {
+            console.log(response)
+        })
+}
+
+3.JSONP请求
+getCustomers: function() {
+    this.$http.jsonp(this.apiUrl).then(function(response){
+        this.$set('gridData', response.data)
+    })
+}
+4.POST请求
+createCustomer: function() {
+    var vm = this
+    vm.$http.post(vm.apiUrl, vm.item)
+        .then((response) => {
+            vm.$set('item', {})
+            vm.getCustomers()
+        })
+    this.show = false
+}
+
+5.PUT请求
+updateCustomer: function() {
+    var vm = this
+    vm.$http.put(this.apiUrl + '/' + vm.item.customerId, vm.item)
+        .then((response) => {
+            vm.getCustomers()
+        })
+}
+
+6.Delete请求
+deleteCustomer: function(customer){
+    var vm = this
+    vm.$http.delete(this.apiUrl + '/' + customer.customerId)
+        .then((response) => {
+            vm.getCustomers()
+        })
+}
+
+八.resource对象也有两种访问方式：
+全局访问：Vue.resource
+实例访问：this.$resource
+GET请求
+使用get方法发送GET请求，下面这个请求没有指定{/id}。
+
+getCustomers: function() {
+
+    var resource = this.$resource(this.apiUrl)
+        vm = this
+
+    resource.get()
+        .then((response) => {
+            vm.$set('gridData', response.data)
+        })
+        .catch(function(response) {
+            console.log(response)
+        })
+}
+
+POST请求
+使用save方法发送POST请求，下面这个请求没有指定{/id}。
+
+createCustomer: function() {
+    var resource = this.$resource(this.apiUrl)
+        vm = this
+        
+    resource.save(vm.apiUrl, vm.item)
+        .then((response) => {
+            vm.$set('item', {})
+            vm.getCustomers()
+        })
+    this.show = false
+}
+
+PUT请求
+使用update方法发送PUT请求，下面这个请求指定了{/id}。
+
+updateCustomer: function() {
+    var resource = this.$resource(this.apiUrl)
+        vm = this
+        
+    resource.update({ id: vm.item.customerId}, vm.item)
+        .then((response) => {
+            vm.getCustomers()
+        })
+}
+
+DELETE请求
+使用remove或delete方法发送DELETE请求，下面这个请求指定了{/id}。
+
+deleteCustomer: function(customer){
+    var resource = this.$resource(this.apiUrl)
+        vm = this
+        
+    resource.remove({ id: customer.customerId})
+        .then((response) => {
+            vm.getCustomers()
+        })
+}
+
+
+九.使用inteceptor
+基本用法
+Vue.http.interceptors.push((request, next) => {
+        // ...
+        // 请求发送前的处理逻辑
+        // ...
+    next((response) => {
+        // ...
+        // 请求发送后的处理逻辑
+        // ...
+        // 根据请求的状态，response参数会返回给successCallback或errorCallback
+        return response
+    })
+})
+
+示例：
+Vue.http.interceptors.push((request, next) => {
+    loading.show = true
+    next((response) => {
+        loading.show = false
+        return response
+    });
+});
+
+完整示例：
+Vue.http.interceptors.push((request, next) => {
+    help.showLoading = true
+    next((response) => {
+        if(!response.ok){
+            help.errorCode = response.status
+            help.showDialog = true
+        }
+        help.showLoading = false
+        return response
+    });
+});
+
+
+参考jquery跨域
+$.ajax({
+        type: "get",
+        async: false,
+        url: "http://flightQuery.com/jsonp/flightResult.aspx?code=CA1998",
+        dataType: "jsonp",
+        jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
+        jsonpCallback:"flightHandler",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据
+        success: function(json){
+            alert('您查询到航班信息：票价： ' + json.price + ' 元，余票： ' + json.tickets + ' 张。');
+        },
+        error: function(){
+            alert('fail');
+        }
+});
+
+
+十.webpack 解决接口调用跨域问题
+    proxyTable: {
+      "/api": { 
+        target: 'http://127.0.0.1',
+        secure: false,
+        changeOrigin: true
+       },
+    },
+
+
+资源
+1.案例github地址
+https://github.com/keepfool/vue-tutorials/tree/master/03.Ajax/vue-resource
+2.文档参考地址：
+https://www.cnblogs.com/chenhuichao/p/8308993.html
+3.webapck-dev-server参考文档
+http://www.css88.com/doc/webpack/configuration/dev-server/
+
+注意：
+1.和Vue.js一样，vue-resource除了不支持IE 9以下的浏览器，其他主流的浏览器都支持。
+2.为了减少作用域链的搜索，建议使用一个局部变量来接收this。
+3.jsonp只能是GET请求
+单词:
+intercept 拦截
+credentials 资格证书
+emulate 模范 仿真
+general 一般的
+
+
+

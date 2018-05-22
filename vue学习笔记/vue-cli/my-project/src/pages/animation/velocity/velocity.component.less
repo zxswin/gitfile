@@ -1,0 +1,364 @@
+.velocity{
+    padding:0.05rem;
+    .i-animation{
+        border:1px solid #409eff;
+        display: flex; 
+        padding:0.05rem;
+        margin-bottom:0.1rem;
+        perspective: 800px;
+        transform-style: preserve-3d;
+      }
+    h1{
+        padding:0.05rem;
+        width:0.5rem;
+        height:0.5rem;
+        font-size:0.08rem;
+        border:1px solid #409eff;
+        margin-right: 0.05rem;
+        word-break:break-all;
+        align-items:center;
+        justify-content:center;
+        display: flex;  
+        position: relative;
+    }
+    .i-demo{
+        top:0;
+        left:0;    
+    }
+}
+
+
+/*Velocity
+*http://www.mrfront.com/docs/velocity.js/index.html
+*ES6学习地址
+http://es6.ruanyifeng.com/#README
+*cnd加速
+http://www.bootcdn.cn/velocity/
+
+*( 第一个参数为原生js的dom选择器 )
+Velocity(document.getElementById("dummy"), {
+    opacity: 0.5
+}, {
+    duration: 1000
+});
+
+*使用 jQuery 或 Zepto 时
+$("#dummy").velocity({
+    opacity: 0.5
+}, {
+    duration: 1000
+});
+
+*主要参数作用参数预览
+$element.velocity({
+    width: "500px",        // 动画属性 宽度到 "500px" 的动画
+    property2: value2      // 属性示例
+}, {
+    duration: 400,         // 动画执行时间
+    easing: "swing",       // 缓动效果
+    queue: "",             // 队列
+    begin: undefined,      // 动画开始时的回调函数
+    progress: undefined,   // 动画执行中的回调函数（该函数会随着动画执行被不断触发）
+    complete: undefined,   // 动画结束时的回调函数
+    display: undefined,    // 动画结束时设置元素的 css display 属性
+    visibility: undefined, // 动画结束时设置元素的 css visibility 属性
+    loop: false,           // 循环
+    delay: false,          // 延迟
+    mobileHA: true         // 移动端硬件加速（默认开启）
+});
+当使用reverse方向动画指令时，display 和 visibility 选项都将被忽略。
+
+*动态计算属性值
+$element.velocity({
+    top: 50,                // 等同于 "50px"
+    left: "50%",
+    width: "+=5rem",        // 每次在当前值上叠加 5rem
+    height: "*=2"           // 每次在当前值上叠乘 2
+    color: ["#888", "#000"] // 每次动画执行前，color 的初始值都为"#000"（从"#000"过渡成"#888"）
+});
+
+*Chaining 链式动画
+$element
+    //先执行宽度变为75px的动画 
+    .velocity({ width: 75 })
+    //等前面的宽度动画结束后，再执行高度变为0的动画
+    .velocity({ height: 0 });
+
+*Easing 缓动效果
+标准写法 
+$element.velocity({ width: 50 }, { easing: "easeInSine" });
+$element.velocity({ width: 50 }, "easeInSine");
+
+jQuery UI easings 
+$element.velocity({ width: 50 }, "easeInSine");
+
+CSS3 easings
+$element.velocity({ width: 50 }, "ease-in");
+
+贝塞尔曲线
+$element.velocity({ width: 50 }, [ 0.17, 0.67, 0.83, 0.67 ]);
+
+弹簧物理
+$element.velocity({ width: 50 }, [ 250, 15 ]);
+
+step easing
+$element.velocity({ width: 50 }, [ 8 ]);
+
+
+*缓动可应用于单个属性
+$element.velocity({
+    borderBottomWidth: [ "2px", "spring" ], // border-bottom 使用 "spring"
+    width: [ "100px", [ 250, 15 ] ],        // width 使用 spring physics
+    height: "100px"
+}, {
+    easing: "easeInSine" // 默认所有属性使用 "easeInSine"
+});
+
+*自定义动画队列
+$("div") // 自定义队列，这里并不会立即执行
+  .velocity({ translateX: 75 }, { queue: "a" })
+  .velocity({ width: 50 }, { queue: "b" })
+  .velocity({ translateY: 75 }, { queue: "a" })
+  .velocity({ height: 0 }, { queue: "b" })
+
+setTimeout(function() { // 2秒后 执行队列"a"的动画
+  $("div").dequeue("a");
+}, 2000);
+
+setTimeout(function() {// 4秒后 执行队列"b"的动画
+  $("div").dequeue("b");
+}, 4000);
+注意:loop循环选项 和reverse反向动画指令，不能和队列一起使用。
+
+*Begin  为动画开始前的回调函数
+$element.velocity({ //该函数只会在第一次循环前执行一次。
+    opacity: 0
+}, {
+    begin: function(elements) { console.log(elements); }
+});
+
+*Complete 动画结束时的回调函数
+在无限循环模式下（设置loop: true） 该回调函数将不会执行
+该回调函数 将只会在最后一次循环结束后 执行一次
+$element.velocity({
+    opacity: 0
+}, {
+    complete: function(elements) { console.log(elements); }
+});
+
+*progress为动画执行过程中调用的函数
+$(".i-demo").velocity({
+    left: ["2rem",[ 250, 15 ]],
+    backgroundColor: ["#888", "#000"]
+    },{
+
+        progress: function(elements, complete, remaining, start, tweenValue) {
+        console.log((complete * 100) + "%");
+        console.log(remaining + "ms remaining!");
+        console.log("The current tween value is " + tweenValue)
+        }
+});
+
+*Command 指令
+fadeIn 淡入
+fadeOut 淡出
+slideUp 收起
+slideDown 展开
+scroll 滚动
+$element
+    //滚动到相对 $element 向下偏移250px的地方
+    .velocity("scroll", { duration: 750, offset: 250 })
+    //再滚动到相对 $element 向上偏移50px的地方
+    .velocity("scroll", { duration: 750, offset: -50 });
+Stop 停止当前动画
+$element.velocity("stop"); // 停止正在执行的 $element 元素的动画
+$element.velocity("stop", "myQueue"); // 停止某自定义队列
+Finish 停止并跳转到动画结束时的状态
+Reverse 使动画反向执行
+$element
+    .velocity({ left: 200 }, { duration: 500 })
+    .velocity("reverse", { duration: 2000 });
+
+*支持Promises
+$.Velocity.animate($element, { opacity: 0.5 })
+    //一旦动画执行完成 执行下面.then()中的回调函数（可以写多个.then()）
+    .then(function(elements) { console.log("Resolved."); })
+    //捕获错误后的回调函数
+    .catch(function(error) { console.log("Rejected."); });
+
+*Mock
+//页面里所有 Velocity 动画 将以10为系数减慢 
+设置$.Velocity.mock = true; 会强制页面里所有的 Velocity 动画的duration 和delay值为 0sm
+$.Velocity.mock = 10;
+
+*函数调用写法
+//标准的多参数语法
+var divs = document.getElementsByTagName("div");
+$.Velocity(divs, { opacity: 0 }, { duration: 1500 });
+//另一种写法
+var divs = document.getElementsByTagName("div");
+$.Velocity({ e: divs, p: { opacity: 0 }, o: { duration: 1500 });
+
+*自定义动画元素初始值
+$element.velocity({
+    //translateX 初始值永远为0 动画结束值为500px
+    translateX: [ 500, 0 ],
+    //opacity 初始值永远为0 动画结束值为1 缓动效果为"easeInSine" 
+    opacity: [ 0, "easeInSine", 1 ]
+});
+
+++++++++++++++++++++++++++UI Pack (velocity.ui.js)++++++++++++++++++
+velocity.ui.js 是 velocity.js 的 动画插件（1.8 KB ZIP’ed） 我们可以用它快速创建炫酷的动画特效，它依赖于 velocity.js。
+
+*$.Velocity.RunSequence() 解决动画多层嵌套问题
+// 将嵌套动画序列储存到一个数组里，很清晰的显示了它们的执行顺序
+var mySequence = [
+    { e: $element1, p: { translateX: 100 }, o: { duration: 1000 } },
+    { e: $element2, p: { translateX: 200 }, o: { duration: 1000 } },
+    { e: $element3, p: { translateX: 300 }, o: { duration: 1000 } }
+];
+
+// 调用这个自定义的序列名称 还可以在其他地方复用
+$.Velocity.RunSequence(mySequence);
+// 第一个参数为特效名，第二个参数为可选配置项
+$element.velocity("callout.bounce", { duration: 650 });
+
+*内置特效
+callout.bounce
+callout.shake
+callout.flash
+callout.pulse
+callout.swing
+callout.tada
+transition.fadeIn
+transition.fadeOut
+transition.flipXIn
+transition.flipXOut
+transition.flipYIn
+transition.flipYOut
+transition.flipBounceXIn
+transition.flipBounceXOut
+transition.flipBounceYIn
+transition.flipBounceYOut
+transition.swoopIn
+transition.swoopOut
+transition.whirlIn
+transition.whirlOut
+transition.shrinkIn
+transition.shrinkOut
+transition.expandIn
+transition.expandOut
+transition.bounceIn
+transition.bounceUpIn
+transition.bounceUpOut
+transition.bounceDownIn
+transition.bounceDownOut
+transition.bounceLeftIn
+transition.bounceLeftOut
+transition.bounceRightIn
+transition.bounceRightOut
+transition.slideUpIn
+transition.slideUpOut
+transition.slideDownIn
+transition.slideDownOut
+transition.slideLeftIn
+transition.slideLeftOut
+transition.slideRightIn
+transition.slideRightOut
+transition.slideUpBigIn
+transition.slideUpBigOut
+transition.slideDownBigIn
+transition.slideDownBigOut
+transition.slideLeftBigIn
+transition.slideLeftBigOut
+transition.slideRightBigIn
+transition.slideRightBigOut
+transition.perspectiveUpIn
+transition.perspectiveUpOut
+transition.perspectiveDownIn
+transition.perspectiveDownOut
+transition.perspectiveLeftIn
+transition.perspectiveLeftOut
+transition.perspectiveRightIn
+transition.perspectiveRightOut
+
+*velocity.ui 有stagger,drag,backwards 三个可选配置项（注意：这些选项只在调用内置动画特效时 才起作用）
+
+// 默认情况下，三个元素会同时运动
+// 这里设置了 stagger 为 300 后，每个元素会依次延迟300ms执行动画
+$(".box-stagger").velocity("transition.slideLeftBigIn", { stagger: 300 });
+
+// 最后一个元素产生缓冲效果
+$(".box-drag").velocity("transition.slideLeftBigIn", { drag: true });
+
+//元素会方向从最后一个开始依次延迟执行动画
+$('.box-backwards').velocity('transition.slideLeftBigIn', {
+    stagger: 300,
+    backwards: true
+});
+
+*$.Velocity.RegisterEffect()
+$.Velocity.RegisterEffect()方法允许你注册自定义动画特效，以便在项目中复用
+/ name：动画特效名称 为字符串类型
+// defaultDuration：默认动画执行时间 单位为毫秒(ms)
+// calls：动画队列数组，property - 动画属性，durationPercentage - 当前动画所占总时间的百分比 (写成浮点数)，option - 选项
+// reset：设置元素在动画开始时的初始值
+$.Velocity.RegisterEffect(name, {
+    defaultDuration: duration,
+    calls: [
+        [ { property: value }, durationPercentage, { options } ],
+        [ { property: value }, durationPercentage, { options } ]
+    ],
+    reset: { property: value, property: value }
+});
+
+// "callout.customPulse" 只是示例，可以随便命名 比如"superSlide"
+$.Velocity.RegisterEffect("callout.customPulse", {
+    defaultDuration: 900,
+    calls: [
+        [ { scaleX: 1.5 }, 0.50 ], // 0.50 为 动画总时间的50%
+        [ { scaleX: 1 }, 0.50 ]
+    ]
+});
+
+// 调用
+$element.velocity("callout.customPulse");
+
+还可以使用 链式的写法 注册一系列自定义动画：
+$.Velocity
+    .RegisterEffect("transition.customFlipXIn", {
+        defaultDuration: 700,
+        calls: [
+            [ { opacity: 1, rotateY: [ 0, -55 ] } ]
+        ]
+    });
+    .RegisterEffect("transition.customFlipXOut", {
+        defaultDuration: 700,
+        calls: [
+            [ { opacity: 0, rotateY: 55 } ]
+        ],
+        reset: { rotateY: 0 }
+    });
+
+// 调用
+$element
+    .velocity("transition.customFlipXIn")
+    .velocity("transition.customFlipXOut", { delay: 1000, display: "none" });
+
+
+    
+
+
+单词：
+tension 紧张
+friction 摩擦
+dequeue 出队
+hungry 饥饿的
+remaining 剩下的
+mock 模拟的
+utility 公用
+stagger 错开
+
+
+
+*/

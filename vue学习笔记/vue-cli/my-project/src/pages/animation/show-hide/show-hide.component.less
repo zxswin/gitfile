@@ -1,0 +1,242 @@
+.showHide{
+    padding:0.05rem 0.05rem 5rem 0.05rem;
+    button{
+        margin-right:0.1rem;
+    }
+    p{
+        padding:0.05rem;
+    }
+    .show-box{
+        margin:0.05rem auto;
+        padding:0.05rem;
+        border-bottom:0.01rem solid #409eff
+    }
+}
+.tar{
+    width:100%;
+    padding:0.1rem;
+    text-align:center;
+    background:#409eff;
+    color:#fff;
+    margin-bottom:0.1rem;
+}
+.p-show{
+    margin-top:0.1rem;
+}
+
+/* 简单显示隐藏动画 */
+.fade-enter, .fade-enter-active,.fade-enter-to {
+    transition: opacity .5s linear 0.5s;
+    color:#f00;
+}
+.fade-leave, .fade-leave-active,.fade-leave-to{
+    opacity: 0;
+    color:#000;
+}
+
+
+/* 可以设置不同的进入和离开动画 */
+/* 设置持续时间和动画函数 */
+.slide-fade-enter-active {  //隐藏 --> 显示的时候
+    transition: all 1s ease;
+    color:#f00;
+}
+.slide-fade-leave-active { //显示 -->隐藏的时候
+    transition: all 2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    color:#ff0;
+}
+.slide-fade-enter, .slide-fade-leave-to{ //插入开始状态   离开结束状态
+    transform: translateX(10px);
+    opacity: 0;
+}
+
+/* 画中 v-enter 类名在节点插入 DOM 后不会立即删除，而是在 animationend 事件触发时删除。 */
+.bounce-enter-active {
+    animation: bounce-in .5s;
+}
+.bounce-leave-active {
+    animation: bounce-in .5s reverse;
+}
+@keyframes bounce-in {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/**自定义类名
+    *enter-class
+    *enter-active-class
+    *enter-to-class (2.1.8+)
+    *leave-class
+    *leave-active-class
+    *leave-to-class (2.1.8+)
+*/
+
+/**
+*同时使用过渡和动画
+*使用 type 特性并设置 animation 或 transition 来明确声明你需要 Vue 监听的类型。
+*/
+
+
+/**
+*显性的过渡持续时间
+*duration 属性定制一个显性的过渡持续时间 (以毫秒计)：
+*<transition :duration="1000">...</transition>
+*你也可以定制进入和移出的持续时间：
+*<transition :duration="{ enter: 500, leave: 800 }">...</transition>
+*/
+
+/**
+*JavaScript 钩子
+*添加 v-bind:css="false"，Vue 会跳过 CSS 的检测
+*在 enter 和 leave 中，回调函数 done 是必须的 。否则，它们会被同步调用，过渡会立即完成。
+*进入中
+beforeEnter: function (el) {},
+//此回调函数是可选项的设置 与 CSS 结合时使用
+enter: function (el, done) {
+    done()
+}
+afterEnter: function (el) {},
+enterCancelled: function (el) {},
+
+*离开时
+beforeLeave: function (el) {},
+//此回调函数是可选项的设置与 CSS 结合时使用
+leave: function (el, done) {
+    done()
+},
+afterLeave: function (el) {},
+// leaveCancelled 只用于 v-show 中
+leaveCancelled: function (el) {}
+*/
+
+/*
+*初始渲染的过渡
+*/
+.render-appear-class{
+    color:#f00;
+    font-size:0.2rem;
+}
+.render-appear-to-class{
+    color:#f0f;
+    font-size:0.3rem;
+}
+.render-appear-active-class{
+    color:#ff0;
+    font-size:0.1rem;
+}
+
+/*
+*过渡行为
+<transition> 的默认行为 - 进入和离开同时发生。
+in-out：新元素先进行过渡，完成之后当前元素过渡离开。
+out-in：当前元素先进行过渡，完成之后新元素过渡进入。
+相同标签记得要加上key加以区别
+*/ 
+
+.transition-enter-active {  //隐藏 --> 显示的时候
+    transition: all 1s ease;
+    color:#f00;
+}
+.transition-leave-active { //显示 -->隐藏的时候
+    transition: all 2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    color:#ff0;
+}
+.transition-enter, .transition-leave-to{ //插入开始状态   离开结束状态
+    transform: translateX(10px);
+    opacity: 0;
+}
+
+
+/*
+*多个组件的过渡
+*
+*/ 
+.component-enter-active {  //隐藏 --> 显示的时候
+    transition: all 1s ease;
+    color:#f00;
+}
+.component-leave-active { //显示 -->隐藏的时候
+    transition: all 2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    color:#ff0;
+}
+.component-enter, .component-leave-to{ //插入开始状态   离开结束状态
+    transform: translateX(10px);
+    opacity: 0;
+}
+
+/*
+*列表过渡
+*使用<transition-group> 组件
+*不同于 <transition>，它会以一个真实元素呈现：默认为一个 <span>。
+*你也可以通过 tag 特性更换为其他元素。
+*内部元素 总是需要 提供唯一的 key 属性值
+*使用 FLIP 过渡实现平滑的过渡的元素不能设置为 display: inline 。
+*/
+
+.list-item {
+    display: inline-block;
+    margin-right: 10px;
+}
+.list-enter-active, .list-leave-active {
+    transition: all 1s;
+}
+.list-enter, .list-leave-to{
+    opacity: 0;
+    transform: translateY(30px);
+}
+.list-move { //v-move 对于设置过渡的切换时机和过渡曲线非常有用
+    transition: transform 0.5s;
+}
+.list-leave-active {
+    position: absolute;
+}
+
+//第二种实现方法
+// .list-item {
+//     transition: all 1s;
+//     display: inline-block;
+//     margin-right: 10px;
+// }
+// .list-enter, .list-leave-to{
+//     opacity: 0;
+//     transform: translateY(30px);
+// }
+
+
+
+/**
+*列表的交错过渡
+
+*/
+
+/*
+*可复用的过渡组件
+
+*/
+
+/*
+*动态过渡
+通过 name 特性来绑定动态值。
+<transition v-bind:name="transitionName"></transition>。
+*/
+
+
+/*
+*路由动画 路由动态过渡
+*基于路由的动态过渡
+*<router-view> 是基本的动态组件，所以我们可以用 <transition> 组件给它添加一些过渡效果：
+watch: {  //监听路变化
+  '$route' (to, from) {
+    const toDepth = to.path.split('/').length
+    const fromDepth = from.path.split('/').length
+    this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+  }
+*/ 
+

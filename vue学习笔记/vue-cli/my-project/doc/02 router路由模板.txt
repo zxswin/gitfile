@@ -1,0 +1,83 @@
+import Vue from 'vue';
+import Router from 'vue-router';
+
+import HomeComponent from '@/pages/home/home.component';
+import GoodFood from '@/pages/good-food/good-food.component';
+import AllFood from '@/pages/good-food/all-food/all-food.component';
+import LunchFood from '@/pages/good-food/lunch-food/lunch-food.component';
+import Fruits from '@/pages/good-food/lunch-food/fruits/fruits.component';
+
+//路由懒加载
+const Vegetables = resolve => require(['../pages/good-food/lunch-food/vegetables/vegetables.component.vue'], resolve);
+
+Vue.use(Router);
+
+const router = new Router({
+  mode: 'history',
+  routes: [
+    { path: '/', redirect: '/home' },
+    {
+      path: '/home',
+      component: HomeComponent,
+    },
+    {
+      path: '/good-food',
+      component: GoodFood,
+      meta: { requiresAuth: true },//路由元信息
+      children:[
+        { 
+          path: '/', 
+          component: AllFood
+        },
+        { 
+          path: '/good-food/all-food:name', 
+          name: 'AllFood',
+          component: AllFood
+        },
+        { 
+          path: '/good-food/lunch-food', 
+          component: LunchFood,
+          children:[
+            { 
+              path: '/', 
+              component: Fruits
+            },
+            { 
+              path: '/good-food/lunch-food/fruits', 
+              name: 'Fruits',
+              component: Fruits
+            },
+            { 
+              path: '/good-food/lunch-food/vegetables', 
+              name: 'Vegetables',
+              component: Vegetables,
+              beforeEnter: (to, from, next) => {  //单个路由中的钩子函数
+                console.log('Vegetables.to.path',to.path);
+                next();
+              }
+            },
+          ]
+        },
+      ]
+    }
+  ],
+  //所有路由新页面滚动到顶部：
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
+ 
+});
+
+//全局钩子函数
+router.beforeEach((to, from, next)=>{
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+     console.log('先进行登录检测工作……');
+  }
+  next();
+});
+router.afterEach((to, from, next) => {
+    console.log('to.path',to.path);
+});
+
+export default router
+

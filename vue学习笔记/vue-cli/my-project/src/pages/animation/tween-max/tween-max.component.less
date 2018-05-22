@@ -1,0 +1,445 @@
+.tween-max{
+    padding:0.05rem;
+    position: relative;
+    h1{
+        padding:0.05rem;
+    }
+    .i-box{
+       perspective: 800px;  //设置舞台视角
+       transform-style: preserve-3d; //相对于容器展示3d效果
+    }
+    .box, .i-box{
+        width:100%;
+        border:1px solid #409eff;
+        position: relative;
+        padding:0.05rem;
+        overflow: hidden;
+        margin:0.1rem 0;
+    }
+    
+    span {
+        left: 0;
+        width: 0.5rem;
+        height: 0.5rem;
+        transform: translate(0, 0);
+        z-index: 1;
+        border:1px solid #409eff;
+        display: flex; 
+        align-items:center;
+        justify-content:center;
+        float:left;
+        margin:0 0.05rem;
+    }
+    .twto{
+        transform: translate(0,0);
+    }
+    .twfrom{
+        transform: translate(1rem, 0);
+    }
+    .twset{
+        transform: translate(0, 0);
+    }
+    .bounce{
+        transform: translate(0, 0);
+    }
+    .twstart{
+        transform: translate(0, 0);
+    }
+    .twstaggerfrom{
+        transform: translate(0, 0);
+    }
+    .twstaggerfromCycle{
+        transform: translate(0, 0);
+    }
+    .twchain{
+        transform: translate(0, 0);
+    }
+      
+}
+
+/*
+TweenMax动画库不依赖jQuery  
+
+TweenLite.to:使元素从元素的初始值运动到指定的属性的值
+TweenLite.to($box, 0.7, {left: 0, x: 0});
+
+
+TweenLite.from:使元素从指定的属性的值运动到元素的初始值
+TweenLite.from($box, 2, {x: '-=200px', autoAlpha: 0});
+
+TweenLite.set:重设元素的位置
+TweenLite.set($box, {x: '-=200px', scale: 0.3});
+
+TweenLite.fromTo:定义元素的起始位置
+TweenLite.fromTo(target, duration, fromVars, toVars)
+TweenLite.fromTo($twfromto, 2, {x: '-=200px'}, {x: 150});
+
+缓动曲线效果查看地址：
+https://greensock.com/ease-visualizer
+TweenLite.fromTo($bounce, 2, {x: '-=200px'}, {x: 150, ease: Bounce.easeOut});
+
+回调方法
+onStart：动画开始的时候来触发回调函数
+TweenLite.fromTo($twstart, 2, {y: '-=200px'}, {y: 100, ease: Bounce.easeOut,onStart:this.twOnStart});
+
+onUpdate:动画进行时
+onComplete：动画完成
+TweenLite.fromTo($twstart, 2, {y: '-=200px'}, {
+    y: 100, 
+    ease: Bounce.easeOut,
+    onStart:this.twOnStart,
+    onUpdate:this.twOnUpdate,
+    onComplete:this.twOncomplete
+})
+
+多个元素运动(元素错开执行)
+TweenMax.staggerFrom
+TweenMax.staggerFrom(
+     targets:Array, 目标元素为一个数组
+     duration:Number, 动画执行时间
+     vars:Object, 动画的属性
+     stagger:Number, 目标数组中的每一个对象动画延迟执行的时间
+     onCompleteAll:Function, 所有的序列动画完成后的回调方法,
+     onCompleteAllParams:Array, 传参数给onCompleteAll方法
+     onCompleteAllScope:
+    ) :
+TweenMax.staggerFrom(".twstaggerfrom", 2, {
+    scale:0.5, 
+    opacity:0, 
+    delay:0.5, 
+    ease:Elastic.easeOut, 
+    force3D:true}, 0.2);
+
+cycle(让多个元素的属性能随机的随指定的值运动)
+stagger()会依次从数组中取值赋予给元素，不断的循环
+var tl = new TimelineMax();
+tl.staggerFrom(".twstaggerfromCycle",0.5,{
+    opacity:0,
+    cycle:{
+        x:[-100,100],  
+        ease:function(i) {
+        return Back.easeOut.config(i * 0.3);
+        }
+    }
+},0.1)
+tl.timeScale(0.5);
+
+链式动画
+var tl = new TimelineLite();
+tl.to(".twchain1", 1, {x:550})
+    .to(".twchain2", 1, {x:550})
+    .to(".twchain3", 1, {x:550})
+
+动画控制
+play()方法是开始播放动画
+resume()是重新开始播放动画，是从暂停处开始播放；
+reverse()是从相反的方向来执行动画；
+seek()是跳转到整个动画时间的某一个时间点的时地状态，比如整个动画时间是3秒，如果调用seek(1)就表示跳转到动画在1秒这个时间点的状态；
+progress()是指执行整个动画到某一个时间段，只接收0到1之间的数字。比如给到参数0，表示在动画开始的时候；给到参数0.5表示动画直接跳转到整个动画执行来50%的状态；1就表示动画执行完的状态；
+restart()表示重新开始播放动画。
+
+var  conT1 = new TimelineLite();
+ conT1.to(".i-control1", 1, {x:550})
+        .to(".i-control2", 1, {x:550})
+        .to(".i-control3", 1, {x:550})
+ conT1.progress(0.5);
+
+
+3D效果
+perspective:使用在父级元素上
+transformPerspective:针对单个元素使用的 父级元素下的子元素具有3D空间透视的一个展现形式
+
+
+不错的学习文章：
+https://segmentfault.com/a/1190000005366176
+常用代码备忘录地址：https://ihatetomatoes.net/wp-content/uploads/2016/07/GreenSock-Cheatsheet-4.pdf
+原理剖析:一切都是指的变化
+var obj = {
+    myProp: 0
+};
+
+TweenLite.to(obj, 0.2, {
+    myProp: 1,
+    onUpdate: function() {
+        console.log("[update] obj.myProp = ", obj.myProp);
+    }
+});
+
+选择器源代码
+TweenLite.selector = window.$ || window.jQuery || function(e) {
+    var selector = window.$ || window.jQuery;
+    if (selector) {
+        TweenLite.selector = selector;
+        return selector(e);
+    }
+    return (typeof(document) === "undefined") ? e 
+    : (document.querySelectorAll ? document.querySelectorAll(e) 
+        : document.getElementById((e.charAt(0) === "#") ? e.substr(1) 
+            : e));
+};
+
+动画管理时间轴 TimelineLite
+var tl = new TimelineLite();
+tl.from("#ball1", 1, {
+    y: "-=60px",
+    autoAlpha: 0
+}).from("#ball2", 1, {
+    x: "+=60px",
+    autoAlpha: 0
+}).from("#ball3", 1, {
+    y: "+=60px",
+    autoAlpha: 0
+}).from("#ball4", 1, {
+    x: "-=60px",
+    autoAlpha: 0
+});
+
+调整放置位置 播放提前更加连贯
+var tl = new TimelineLite();
+tl.from("#ball1", 1, {
+    y: "-=60px",
+    autoAlpha: 0
+}).from("#ball2", 1, {
+    x: "+=60px",
+    autoAlpha: 0
+}, "-=0.7").from("#ball3", 1, {
+    y: "+=60px",
+    autoAlpha: 0
+}, "-=0.7").from("#ball4", 1, {
+    x: "-=60px",
+    autoAlpha: 0
+}, "-=0.7");
+tl.from(target, duration, vars, position)等同于tl.add(TweenLite.from(target, duration, vars), position);
+position参数指定动画在时间轴上的位置，默认为+=0也就是取前一个动画的结束点。以上的-=0.7就是相对这个位置再提前0.7s
+
+相同动画的简便方法
+staggerFrom()、staggerTo()及staggerFromTo()
+
+TweenMax.staggerFrom(["#ball1", "#ball2", "#ball3", "#ball4", ], 1, {
+    scale: "-=0.5",
+    autoAlpha: 0
+}, 2);
+
+TweenMax是TweenLite的升级版
+TimelineMax是TimelineLite的升级版
+
+指定默认缓动
+TweenLite.defaultEase = Expo.easeOut;
+动画结束后清空style属性
+TweenLite.to("#ball1", 2, {
+    x: 200,
+    clearProps: "all",
+    autoAlpha: 0
+});
+learProps: "opacity" 清理单独的样式
+
+autoAlpha选项
+autoAlpha是opacity和visibility这2个css属性的结合。
+
+svg动画学习地址：
+http://svgtrick.com/
+在线代码演示工具
+https://codepen.io/GreenSock/pen/BjqLxq
+
+
+1.简单logo动画示例
+//设置它的repeat属性的值为-1，并且循环的延迟时间为1秒即repeatDelay:1。
+var tl = new TimelineMax({repeat:-1, repeatDelay:1}); 
+
+tl.timeScale(6);
+tl.to(triangle, 8, {
+  rotation:'+=360',
+  ease:Power2.easeIn
+})
+.to(triangle, 3, {scale: 0.2, ease:Power2.easeOut})
+.to(triangle, 3, {scale: 0.25, ease:Power2.easeIn})
+
+2.控制播放同时控制缓存类型
+TweenLite.to(myTween, 2, {timeScale:4, ease:Power4.easeIn});
+
+3.查看最后5秒动画
+timeline.play(-5);
+
+4.TimelineLite中的exportRoot()方法，它可以控制所有正在运行的动画。
+var tl = TimelineLite.exportRoot();
+TweenLite.to(tl, 1, {timeScale:0.25});
+
+TweenMax主类：
+https://blog.csdn.net/qq_31301099/article/details/50536908
+一.第三个参数中特有属性（29个）：
+（1）delay : Number：延迟开始，在TweenMax动画开始前延迟的秒数。
+（2）useFrames : Boolean：当设置为True时，对这个TweenMax Object的时间计算方式就是基于帧frame的。
+（3）ease : Function：缓动方式。可以使用com.greensock.easing包下的缓动函数。
+（4）easeParams : Array：缓动函数参数。某些缓动函数需要传入一些参数来进行额外的控制。
+（5）onInit : Function：初始化函数。在TweenMax开始前，所有参数还没被传入TweenMax Object时触发。可以用来初始化运动对象的状态。
+（6）onInitParams : Array：初始化函数参数。
+（7）onStart : Function：开始函数。跟初始化函数不同，开始函数在TweenMax Object的值改变之后才触发，而且不同于初始化函数。开始函数可以被触发多次。
+（8）onStartParams : Array：开始函数参数。
+（9）onUpdate : Function：更新函数。当每次TweenMax Object数值更新的时候触发。
+（10）onUpdateParams : Array：更新函数参数。
+（11）onComplete : Function：完成函数。当TweenMax Object完成缓动后触发。
+（12）onCompleteParams : Array：完成函数参数。 {x:333,y:333,onComplete:onCompleteHander,onCompleteParam:["wn","334"]}
+         function onCompletHandler(value1:Object,value2:objet)
+（13）onReverseComplete : Function：回放完成函数。当TweenMax Object处于回放状态，并且回到起点时触发。
+（14）onReverseCompleteParams : Array：回放完成函数参数。
+（15）onRepeat : Function：重放函数。当TweenMax Object每次重放的时候触发。
+（16）onRepeatParams : Array：重放函数参数。
+（17）immediateRender : Boolean：立即渲染。一般来说，TweenMax Object会在下一个渲染周期（也就是下一帧）被渲染到场景中。如果想强制立即渲染，可以把这个参数设为true。另外如果想阻止一个运动周期为0的运动物体被渲染，也可以把这个参数设为false。
+（18）paused : Boolean：暂停。这个很好理解，设为true时TweenMax Object就会暂停缓动。
+（19）reversed : Boolean：反转。不知道为什么跟说明文档里的不同。我的理解是将TweenMax Object的缓动反过来播放。
+（20）overwrite : int：覆盖处理。定义了当对同一个物体使用TweenMax时发生冲突的处理方法。有6种模式。
+模式0：NONE。不做任何处理。性能Excellent。
+模式1：ALL_IMMEDIATE。设为该模式的TweenMax Object运动具有最高的优先级，会覆盖掉运动物体之前所有的缓动。新的TweenMax Object创建时覆盖旧的TweenMax Object。性能Excellent。
+模式2：AUTO。是TweenMax的默认模式（原来我之前的痛苦都是因为它···）。在新的TweenMax Object第一次渲染时覆盖重复的属性（模式1是覆盖掉全部属性）。只要不是具有太多的属性需要覆盖，性能还是不错的。
+模式3：CONCURRENT。这个单词的意思是“同时发生”。跟模式1很相似。唯一的不同是他只覆盖掉正在运行的TweenMax Object。而放过其他的没有启动的TweenMax Object。性能Very Good。
+模式4：ALL_ONSTART。也是跟模式1非常像。两点不同是他是在TweenMax Object第一次渲染时才覆盖掉其他所有的TweenMax Object，而且这个会把在他之后创建的TweenMax Object也覆盖掉。性能Very Good。
+模式5：PREEXISTING。这个单词一看上去很迷糊，其实是pre-existing，囧。唯一的不同是他是在TweenMax Object第一次渲染时才覆盖掉其他所有的TweenMax Object。性能Very Good。
+如果想改变全局的TweenMax Object默认overwrite属性，可以调用哪个OverWriteManager类的全局方法init()，即：
+
+OverwriteManager.init(OverwriteManager.XXXX);
+（21）repeat : int：循环次数。设置为-1为无限循环。
+（22）repeatDelay : Number：循环延迟的时间。
+（23）yoyo : Boolean：YOYO球。另外一种循环的方式。像我们玩的YOYO球一样，从头到尾，再从尾到头的往返运动。PS:要与repeat同时设置。
+（24）onStartListener : Function：注册一个TweenEvent的监听，跟开始函数在同一时刻派发。
+（25）onUpdateListener : Function：注册一个TweenEvent的监听，跟更新函数在同一时刻派发。
+（26）onCompleteListener : Function：注册一个TweenEvent的监听，跟完成函数在同一时刻派发。
+（27）onReverseCompleteListener : Function：注册一个TweenEvent的监听，跟回放完成函数在同一时刻派发。
+（28）onRepeatListener : Function：注册一个TweenEvent的监听，跟重放函数在同一时刻派发。
+（29）startAt : Object：重设初始值。一般TweenMax Object使用运动物体的当前状态来做初始值。但是可以使用这个参数重新设置运动物体的初始状态。
+
+
+二.PlugIn(17个)
+（1）autoAlpha : Number：跟alpha几乎一样，不同的是他在alpha==0时会自动将visible也设为false，而在alpha>0时将visible设为true。
+（2）visible : Boolean：在TweenMax Object的最后设置物体的visible属性。
+（3）volume : Number：缓动音量的。需要运动物体有soundTransform属性，例如MovieClip，SoundChannel，NetStream等。
+（4）tint : Number：颜色。将整个运动物体变成对应的颜色。可以使用十六进制值。
+（5）removeTint : Boolean：设为true时，去掉已经使用的tint属性。
+（6）frame : Number：当运动物体是MovieClip时，缓动内部的时间轴。
+（7）bezier : Array：贝塞尔曲线。这个有点不清楚，好像数组里的奇数个点（Object{x:xxx,y:xxx}）为贝塞尔曲线的控制点，偶数个点为运动的终点。
+（8）bezierThrough : Array：比贝塞尔曲线更直观，数组里奇数的点为曲线中要穿过的点。
+（9）orientToBezier : Array (or Boolean)：指向运动。一个比较常用的功能是在进行曲线运动时，物体的朝向一般要对应运动的方向（例如汽车之类的运动）。对于2D可以简单的传值 true。对于3D或者需要更多的灵活性，可以传入数组4个参数，x，y，rotation，需要增加的度数，注：头3个参数不是具体的数值，而是需要变化的参数，头两个是位置属性，第三个是旋转参数，第四个参数为可选。
+（10）hexColors : Object：16 进制缓动。 TweenMax在对16进制数进行缓动时会有不平滑的现象出现，这是就需要使用hexColors参数进行缓动。hexColors参数是一个对象，所 以需要把要进行缓动的参数传入其中，即：TweenMax.to(target,2,{hexColors:{mcParas:newColor}});其中mcParas是target的属性，newColor是要缓动到的新的16进值。
+（11）shortRotation : Object：短旋转。用这个代替rotation的话，TweenMax会自动按最短的旋转方向来进行旋转，而不是按照AS3默认的以逆时针方向进行旋转。记得要按Object的方式传入。
+（12）roundProps : Array：取整数。对于想要在变化中始终取整的值，可以把属性的字符形式放到这个数组中。例:TweenMax.to(target,2,{x:200,y:200,roundProps:["x","y"]});
+（13）blurFilter:Object：模糊滤镜。用法：TweenMax.to(target,2,{blurFilter:{blurX:xxx,blurY:xxx}});
+（14）glowFilter:Object：发光滤镜。用法：TweenMax.to(target,2,{glowFilter:{color:0xFFFFFF,blurX:xxx,blurY:xxx}});
+（15）colorMatrixFilter:Object：颜色矩阵滤镜。用法：TweenMax.to(target,2,{colorMatrixFilter:{colorize:0xff0000, amount:1, contrast:1, saturation:1, hue:0}});
+（16）dropShadowFilter:Object：投影滤镜。用法：TweenMax.to(target,2,{dropShadowFilter:{color:0xff0000, alpha:1, blurX:12, blurY:12, distance:12}});
+（17）bevelFilter:Object：斜角滤镜。用法：TweenMax.to(target,2,{bevelFilter:{blurX:10, blurY:10, strength:1, distance:10}});
+
+三.公共属性(10个)
+（1）动画进度
+currentProgress : Number
+缓动动画的进度，从0～1。
+（2）动画时间
+currentTime : Number
+与totalDuartion不同，currentTime只表示了一个TweenMax周期的时间。
+（3）全局缓动速度倍数
+globalTimeScale : Number
+类似与按XX倍速播放缓动动画，用法：TweenMax.globalTimeScale = XXX;
+（4）取消作用在运动物体上的所有TweenMax动画
+killTweensOf : Function
+这是一个对TweenLite中killTweensOf函数的引用，可以直接使用。
+（5）重放次数
+repeat : int
+跟直接在TweenMax的构造函数中传入效果一样。
+（6）重放延迟时间
+repeatDelay : Number
+跟直接在TweenMax的构造函数中传入效果一样。
+（7）个体缓动速度倍数
+timeScale : Number
+与globalTimeScale用法一样，只是这个是对单个TweenMax Object调用的。
+（8）总缓动进度
+totalProgress : Number
+这个计算的是总的缓动时间，包含了重放和重放延迟的时间。从0～1。
+（9）总缓动时间
+totalDuration : Number
+这个计算的是总的缓动时间，包含了重放和重放延迟的时间。
+（10）yoyo
+yoyo : Boolean
+跟直接在TweenMax的构造函数中传入效果一样。
+
+
+四.公共方法（20个）：
+（1）构造方法。
+TweenMax(target:Object, duration:Number, vars:Object)
+三个参数分别是运动物体，周期，参数。
+（2）allTo（静态方法）
+allTo(targets:Array, duration:Number, vars:Object, stagger:Number = 0, onCompleteAll:Function = null, onCompleteAllParams:Array = null):Array
+头三个参数分别是：1个数组保存了多个要进行缓动的对象，周期，参数；
+后三个参数为可选，分别是：间隔时间，完成调用的函数，函数参数。
+返回的是一个数组保存了创建的所有TweenMax Object。
+（3）allFromTo（静态方法）
+allFromTo(targets:Array, duration:Number, fromVars:Object, toVars:Object, stagger:Number = 0, onCompleteAll:Function = null, onCompleteAllParams:Array = null):Array
+跟allTo一样，只是多了一个参数对象可以用与定义起始状态。
+（4）allFrom（静态方法）
+allFrom(targets:Array, duration:Number, vars:Object, stagger:Number = 0, onCompleteAll:Function = null, onCompleteAllParams:Array = null):Array
+跟allTo一样，只是定义的是运动对象的初始状态，运动到当前状态。
+（5）to（静态方法）
+to(target:Object, duration:Number, vars:Object):TweenMax
+是allTo的简化版，也是很多人用TweenMax的主要目的，定义了运动物体，周期，和参数。返回一个TweenMax Object。
+（6）fromTo（静态方法）
+fromTo(target:Object, duration:Number, fromVars:Object, toVars:Object):TweenMax
+与to一样，不过多了一个参数定义运动物体的初始状态。
+（7）from（静态方法）
+from(target:Object, duration:Number, vars:Object):TweenMax
+跟to一样，只是定义的是运动对象的初始状态，运动到当前状态。
+（8）强制完成
+complete(skipRender:Boolean = false, suppressEvents:Boolean = false):void
+强制TweenMax到最后结束部分。如果第一个参数设为true，则不会渲染，TweenMax将停在调用那一刻。如果第二个参数设为true则不会触发onCompelte,onUpdate等事件。
+（9）延迟执行函数
+delayedCall(delay:Number, onComplete:Function, onCompleteParams:Array = null, useFrames:Boolean = false):TweenMax
+跟AS3自带的setTimeout几乎一样，是他们的AS3版。
+（10）返回正在运行的的所有TweenMax Object（静态方法）
+getAllTweens():Array
+如题。
+（11）返回运动物体正在运行的的TweenMax Object（静态方法）
+getTweensOf(target:Object):Array
+如题。
+（12）清除初始值
+invalidate():void
+当从新播放一段TweenMax Object时（即调用restart()方法），如果想从新设置新的初始值，可以调用此方法清空原有初始值。调用后此TweenMax Object会将当前位置作为新的初始值。
+（13）判断是否正在缓动（静态方法）
+isTweening(target:Object):Boolean
+正在缓动返回true,否则false。
+（14）清除所有TweenMax Object（静态方法）
+killAll(complete:Boolean = false, tweens:Boolean = true, delayedCalls:Boolean = true):void
+三个参数，第一个设为true可以强制先完成再清除，第二个是清除所有的缓动，第三个是清除所有的函数延迟执行。
+（15）清除所有子对象的TweenMax Object（静态方法）
+killChildTweensOf(parentisplayObjectContainer, complete:Boolean = false):void
+将一个DisplayObjectContainer的所有子对象的TweenMax Object。可以选择先强制完成。
+（16）清除某个属性的缓动
+killProperties(names:Array):void
+传入的是一个数组，以字符串的形式。例：_tweenMax.killProperties(["x"]);
+（17）全部暂停（静态方法）
+pauseAll(tweens:Boolean = true, delayedCalls:Boolean = true):void
+全部暂停TweenMax Object(可选)，函数延迟执行（可选）。
+（18）全部恢复（静态方法）
+全部恢复TweenMax Object(可选)，函数延迟执行（可选）。
+（19）重定向终点
+setDestination(property:String, value:*, adjustStartValues:Boolen = true):void
+第一个参数是对应的属性值，第二个是要设置的新值，第三个参数是是否要对应调整起点，让转变看起来没那么 skipping/jerking（意会吧，突兀？），就是要注意如果是要反播缓动动画的话可能会无法重定向到起点。一般不建议和updateTo一起用。
+（20）重定向属性
+updateTo(vars:Object, resetDuration:Boolean = false):void
+可以在运行中新增或改变原有的属性变化值。第二个参数设为false时将不重播缓动，而继续缓动到新的值；设为true将中断并重播缓动。
+
+
+
+
+注意要点：
+GSAP用x、y表示transform的translateX和translateY。
+x: "+=200px" 可以使用相对值
+
+单词：
+lite 清淡的 低盐的
+staggered 交错的
+scope 范围
+chain 链子
+resume 简历 重新开始
+seek 寻求 查找
+ticker 股票
+shape 形状
+
+
+
+*/ 

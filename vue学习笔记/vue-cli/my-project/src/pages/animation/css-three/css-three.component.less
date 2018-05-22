@@ -1,0 +1,220 @@
+.css-three{
+    padding:0.05rem;
+    .i-animation{
+      border:1px solid #409eff;
+      display: flex; 
+      perspective: 201px;  //外层父元素中加入透视视角子元素中的3D效果才能体现
+      padding:0.05rem;
+      margin-bottom:0.1rem;
+    }
+    h1{
+        //display: inline-block;
+        padding:0.05rem;
+        width:0.5rem;
+        height:0.5rem;
+        font-size:0.08rem;
+        text-align:center;
+        border:1px solid #409eff;
+        //vertical-align: middle;  //解决内联块级元素对齐错位问题
+        margin-right: 0.05rem;
+        word-break:break-all;
+        align-items:center;
+        display: flex; 
+        
+    }
+}
+
+/*
+.c1.c2 表示如果一个标签中同时使用了这两个类（不论顺序、不论是否还有其他类），则响应此样式规则。
+animationstart - CSS 动画开始后触发
+animationiteration - CSS 动画重复播放时触发
+animationend - CSS 动画完成后触发
+
+animation-name:myfirst;  //动画名称
+animation-duration:5s;   //动画持续时间
+animation-timing-function:linear;  //动画运动曲线
+animation-delay:2s;  //动画延迟事件
+animation-iteration-count:infinite;  //动画执行次数
+animation-direction:alternate;   //动画运动方向
+animation-play-state:running;  //定动画是否正在运行或已暂停
+
+animation-fill-mode: both;  //当动画完成时，或当动画有一个延迟未开始播放时,要应用到元素的样式
+transform-origin: center bottom; //属性允许您更改转换元素的位置
+word-break:break-all;只对英文起作用，以字母作为换行依据
+word-wrap:break-word; 只对英文起作用，以单词作为换行依据
+
+perspective属性的两种书写,定义了后3D效果才能显示
+.stage {
+    perspective: 600px;  //写在父元素中,如果存在多个元素在舞台上，只有一个舞台视角，所以每个动画元素的表现是不一样的
+}
+#stage .box {
+    transform: perspective(600px) rotateY(45deg); //写在动画元素中,每个动画元素都拥有各自的视角，表现一直
+}
+
+perspective-origin：默认就是所看舞台或元素的中心
+perspective-origin: 25% 75%;   25%为横向   75%为纵向
+
+transform--style属性指定嵌套元素是怎样在三维空间中呈现。
+transform-style: flat|preserve-3d 一般运用在舞台元素上
+
+backface-visibility 属性定义当元素不面向屏幕时是否可见。
+backface-visibility:visible|hidden;
+backface-visibility:hidden;使后面元素不可见
+
+/*通过flex设置元素内容水平垂直居中
+display: flex; 
+align-items:center;
+justify-content:center;
+
+参考地址：
+http://www.zhangxinxu.com/
+
+
+
+单词：
+alternate 交替
+state 状态
+perspective 透视观点
+flat 平的 平面
+preserve 保持
+*/ 
+
+.i-text{
+  transform: rotateX(10deg);
+  transform-style: preserve-3d;
+  position: relative;
+  .i-t-span{
+    display: block;
+    width:0.5rem;
+    height: 0.5rem;
+    border:1px solid #000;
+    transform: rotateX(40deg);
+    position: absolute;
+    top:0;
+    left:0;
+  }
+}
+
+/*3d旋转效果start*/
+.i-transform{
+  width:100%;
+  height:2rem;
+  border:1px solid #409eff;
+  perspective: 800px;  //设置舞台视角
+  position: relative;
+  .i-t-container{
+    transform-style: preserve-3d; //相对于容器展示3d效果
+    position: relative;
+    margin-left: -0.1rem;
+    transition: transform 1s;  //平滑过渡
+    border:1px solid  #409eff;
+    width:100%;
+    top:0.5rem;
+    left:0.1rem;
+  }
+  .i-tc-tran{
+    width:0.32rem;
+    height: 0.32rem;
+    border:1px solid #409eff;
+    display:inline-block;
+    vertical-align: middle;
+    position: absolute;
+    left:50%;
+    margin-left:-0.16rem;
+    bottom:0;
+    display: flex; 
+    align-items:center;
+    justify-content:center;
+    background:#fff;
+  }
+  .i-tc-tran:nth-of-type(1){
+    transform: rotateY(   0deg )  translateZ(0.439rem);  //3d变化类型
+  }
+  .i-tc-tran:nth-of-type(2) {
+     transform: rotateY(  40deg ) translateZ(0.439rem); 
+    }
+  .i-tc-tran:nth-of-type(3) { 
+    transform: rotateY(  80deg ) translateZ(0.439rem); 
+  }
+  .i-tc-tran:nth-of-type(4) { 
+    transform: rotateY( 120deg ) translateZ(0.439rem);
+   }
+  .i-tc-tran:nth-of-type(5) { 
+    transform: rotateY( 160deg ) translateZ(0.439rem);
+   }
+  .i-tc-tran:nth-of-type(6) { 
+    transform: rotateY( 200deg ) translateZ(0.439rem); 
+  }
+  .i-tc-tran:nth-of-type(7) {
+     transform: rotateY( 240deg ) translateZ(0.439rem); 
+    }
+  .i-tc-tran:nth-of-type(8) {
+     transform: rotateY( 280deg ) translateZ(0.439rem); 
+    }
+  .i-tc-tran:nth-of-type(9) {
+     transform: rotateY( 320deg ) translateZ(0.439rem); 
+    }  
+
+}
+
+/*3d旋转效果end*/
+
+.simple
+{
+	background:red;
+    animation: myfirst 5s linear 2s infinite alternate;
+
+}
+
+@keyframes myfirst
+{
+	0%   {background:red;}
+	25%  {background:yellow;}
+	50%  {background:blue;}
+	75%  {background:green;}
+	100% {background:red;}
+}
+
+.i-bounce{
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    //animation-iteration-count: infinite;
+    animation-name: ibounce;
+    transform-origin: center bottom;
+}
+
+@keyframes ibounce {
+    from,
+    20%,
+    53%,
+    80%,
+    to {
+      -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  
+    40%,
+    43% {
+      -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+      animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+      -webkit-transform: translate3d(0, -30px, 0);
+      transform: translate3d(0, -30px, 0);
+    }
+  
+    70% {
+      -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+      animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+      -webkit-transform: translate3d(0, -15px, 0);
+      transform: translate3d(0, -15px, 0);
+    }
+  
+    90% {
+      -webkit-transform: translate3d(0, -4px, 0);
+      transform: translate3d(0, -4px, 0);
+    }
+  }
+  
+
+

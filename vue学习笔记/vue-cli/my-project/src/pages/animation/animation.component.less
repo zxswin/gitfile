@@ -1,0 +1,53 @@
+.tar{
+    width:100%;
+    padding:0.1rem;
+    text-align:center;
+    background:#409eff;
+    color:#fff;
+    margin-bottom:0.1rem;
+}
+
+a{
+    display: inline-block;
+    width:30%;
+    text-decoration:none;
+    background:#fff;
+    color:#409eff;
+    font-weight: bold;
+    padding:0.05rem 0;
+    text-align: center;
+    margin: 0.05rem;
+}
+.router-link-active {
+    background:#409eff;
+    color:#fff;
+}
+
+
+
+.slide-left-enter-active,.slide-left-leave-active {  //隐藏 --> 显示的时候
+    transition: all 0.1s ease;
+}
+.slide-left-enter, .slide-fade-leave-to{ //插入开始状态   离开结束状态
+    transform: translateX(-200px);
+    opacity: 0;
+}
+
+// .slide-left-move { //v-move 对于设置过渡的切换时机和过渡曲线非常有用
+//     transition: transform 0.5s;
+// }
+
+
+.slide-right-enter-active,.slide-right-leave-active {  //隐藏 --> 显示的时候
+    transition: all 0.1s ease;
+}
+.slide-right-enter, .slide-fade-leave-to{ //插入开始状态   离开结束状态
+    transform: translateX(200px);
+    opacity: 0;
+}
+// .slide-right-move { //v-move 对于设置过渡的切换时机和过渡曲线非常有用
+//     transition: transform 0.5s;
+// }
+
+
+

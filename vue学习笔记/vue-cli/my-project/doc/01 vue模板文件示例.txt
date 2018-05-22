@@ -1,0 +1,86 @@
+<template lang="pug">
+  //组件中的内容必须要有div包裹
+  div(class="home")
+    //数据双向绑定
+    p 状态管理 {{countNum}}
+    //绑定事件
+    button(@click="incrementAsync") 增加状态
+    //绑定状态
+    p(v-bind:title = "message") 绑定元素属性
+    //引入组件
+    TopBar
+    //路由链接
+    router-link(to="/good-food") 去goodFood页面
+    //路由页面显示区域
+    router-view
+</template>
+
+<script>
+
+export default {
+  name: 'HomeComponent',
+  components:{},
+  data () { //组件中的data必须是函数返回
+    return {
+        count1:0
+    }
+  }, 
+  beforeCreate:function(){ //创建前状态
+  },
+
+  created:function(){  //创建完毕状态
+  },
+  beforeMount:function(){ //挂载前状态
+  },
+  mounted:function(){ //挂载结束状态
+  },
+  beforeUpdate:function(){ //更新前状态
+  },
+  updated:function(){ //更新完成状态
+  },
+  beforeDestroy:function(){ //销毁前状态
+  },
+  destroyed:function(){  //销毁完成状态
+  },
+
+  methods: { //定义方法
+    incrementAsync:function(){
+    }
+  },
+  computed:{ //定义计算属性
+    countNum:function(){
+      return this.$store.getters.getTodoById(10)
+    }
+  }
+  watch:{ //监控数据
+    // 如果 `count1` 发生改变，这个函数就会运行
+    count1: function (newQuestion, oldQuestion) {
+      console.log('数据发生了变化',oldQuestion,newQuestion);
+    }
+  },
+  beforeRouteEnter (to, from, next) {
+    // 在渲染该组件的对应路由被 confirm 前调用
+    // 不！能！获取组件实例 `this`
+    // 因为当钩子执行前，组件实例还没被创建
+    console.log('渲染路由前调用……');
+    next();
+  },
+  beforeRouteUpdate (to, from, next) {
+    // 在当前路由改变，但是该组件被复用时调用
+    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+    // 可以访问组件实例 `this`
+    console.log('在当前路由改变，但是该组件被复用时调用……');
+    next();
+  },
+  beforeRouteLeave (to, from, next) {
+    // 导航离开该组件的对应路由时调用
+    // 可以访问组件实例 `this`
+    console.log('导航离开该组件的对应路由时调用……');
+    next();
+  }
+}
+</script>
+
+//引入样式文件
+<style src="./home.component.less" lang="less" scoped></style>
