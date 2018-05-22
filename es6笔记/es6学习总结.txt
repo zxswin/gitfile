@@ -1,0 +1,1000 @@
+一.ES6编程风格
+
+1.let 取代 var
+let x = 'hello';
+
+2.在let和const之间，建议优先使用const，尤其是在全局环境
+const [a, b, c] = [1, 2, 3];
+
+3.静态字符串一律使用单引号或反引号，不使用双引号。动态字符串使用反引号。
+const a = 'foobar';
+const b = `foo${a}bar`;
+const c = 'foobar';
+
+4.使用数组成员对变量赋值时，优先使用解构赋值
+const arr = [1, 2, 3, 4];
+const [first, second] = arr;
+
+5.函数的参数如果是对象的成员，优先使用解构赋值。
+function getFullName({ firstName, lastName }) {
+}
+
+6.如果函数返回多个值，优先使用对象的解构赋值
+function processInput(input) {
+  return { left, right, top, bottom };
+}
+
+const { left, right } = processInput(input);
+
+7.单行定义的对象，最后一个成员不以逗号结尾。多行定义的对象，最后一个成员以逗号结尾。
+const a = { k1: v1, k2: v2 };
+const b = {
+  k1: v1,
+  k2: v2,
+};
+
+8.对象尽量静态化，一旦定义，就不得随意添加新的属性。如果添加属性不可避免，要使用Object.assign方法。
+const a = {};
+Object.assign(a, { x: 3 });
+
+const a = { x: null };
+a.x = 3;
+
+9.如果对象的属性名是动态的，可以在创造对象的时候，使用属性表达式定义。
+const obj = {
+  id: 5,
+  name: 'San Francisco',
+  [getKey('enabled')]: true,
+};
+
+10.使用扩展运算符（...）拷贝数组。
+const itemsCopy = [];
+const itemsCopy = [...items];
+
+11.使用 Array.from 方法，将类似数组的对象转为数组。
+const foo = document.querySelectorAll('.foo');
+const nodes = Array.from(foo);
+
+12.立即执行函数可以写成箭头函数的形式。
+(() => {
+  console.log('Welcome to the Internet.');
+})();
+
+13.尽量用箭头函数
+[1, 2, 3].map(x => x * x);
+
+14.不应再用 self/_this/that 绑定 this
+const boundMethod = (...params) => method.apply(this, params);
+
+15.不要在函数体内使用 arguments 变量，使用 rest 运算符（...）代替
+function concatenateAll(...args) {
+  return args.join('');
+}
+
+16.使用默认值语法设置函数参数的默认值。
+function handleThings(opts = {}) {}
+
+17.如果只是需要key: value的数据结构，使用 Map 结构。因为 Map 有内建的遍历机制
+let map = new Map(arr);
+
+for (let key of map.keys()) {
+  console.log(key);
+}
+
+for (let value of map.values()) {
+  console.log(value);
+}
+
+for (let item of map.entries()) {
+  console.log(item[0], item[1]);
+}
+
+18.总是用 Class，取代需要 prototype 的操作
+class Queue {
+  constructor(contents = []) {
+    this._queue = [...contents];
+  }
+  pop() {
+    const value = this._queue[0];
+    this._queue.splice(0, 1);
+    return value;
+  }
+}
+
+19.使用extends实现继承，因为这样更简单，不会有破坏instanceof运算的危险。
+class PeekableQueue extends Queue {
+  peek() {
+    return this._queue[0];
+  }
+}
+
+20.Module 语法是 JavaScript 模块的标准写法，坚持使用这种写法
+import { func1, func2 } from 'moduleA';
+
+21.使用export取代module.exports。
+import React from 'react';
+
+class Breadcrumbs extends React.Component {
+  render() {
+    return <nav />;
+  }
+};
+
+export default Breadcrumbs;
+
+22.如果模块默认输出一个函数，函数名的首字母应该小写。
+function makeStyleGuide() {
+}
+
+export default makeStyleGuide;
+
+23.如果模块默认输出一个对象，对象名的首字母应该大写。
+const StyleGuide = {
+  es6: {
+  }
+};
+
+export default StyleGuide;
+
+24.ESLint 的使用
+$ npm i -g eslint #安装
+$ npm i -g eslint-config-airbnb #安装 Airbnb 语法规则
+$ npm i -g eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-react #安装import、a11y、react 插件
+
+在项目的根目录下新建一个.eslintrc文件，配置 ESLint。
+{
+  "extends": "eslint-config-airbnb"
+}
+
+
+一.ES6学习总结
+1.ES7提案 ‘::’简化bind、apply、call
+foo::bar;
+// 等同于
+bar.bind(foo);
+
+foo::bar(...arguments);
+// 等同于
+bar.apply(foo, arguments);
+
+::console.log  // 等同于 console::console.log
+
+2.箭头函数
+可简写为 let a = x => x+2;
+若返回对象，可({})返回。(x) => {return {id: x};} 可简写为 x => ({id: x})
+
+3.class类中以及get和set
+class MyClass {  
+    constructor(x, y) {  // 若省略，则默认 constructor() {}
+        this.x = x;
+        this.y = y;
+    }
+    get prop() {  
+        return 'getter';  
+    }  
+    set prop(value) {  
+        console.log('setter: ' + value);  
+    }  
+    static classMethod(obj) {  // 静态方法，A.static
+        obj.x = 0;
+        obj.y = 0;
+    }
+}  
+A.staticProp = 1;
+let inst = new MyClass();  
+inst.prop = 123;  // setter: 123  
+inst.prop  // 'getter'  
+
+4.class类中static静态方法
+加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”
+
+class Foo {
+  static classMethod() {
+    return 'hello';
+  }
+}
+Foo.classMethod() // 'hello'
+var foo = new Foo();
+foo.classMethod(); // TypeError: foo.classMethod is not a function
+
+父类的静态方法，可以被子类继承
+class Foo {
+  static classMethod() {
+    return 'hello';
+  }
+}
+class Bar extends Foo {
+}
+Bar.classMethod(); // 'hello'
+
+5.extends继承，能够继承 static 属性、原型属性。
+class A {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.bool = new.target === A;  // new.target 指向构造函数
+    }
+    prop() { return 1; }
+    static staticProp() { return 2; } 
+}
+
+// extends 后可跟函数、返回函数的表达式
+class B extends A {
+    constructor(x, y, z) {  // 省略，则  constructor(...args) { super(...args); }
+        super(x, y);  // 调用 A(x, y), 之后才可以 this.xxx 进行赋值
+        this.z = z;
+    }
+    prop() {  // super 此处指父类实例
+        return 10 + super.prop();
+    }
+    static staticProp() {  // super 此处指父类
+        return 10 + super.staticProp();
+    }
+}
+
+new A(1,2).bool // true
+new B(1,2).bool  // false ， new.target 指向了B
+
+
+
+
+注意：
+1.遍历与枚举的不同在于，遍历是对值（value）的，枚举是对键（key）的
+
+2.call 和 apply的使用
+function add(c,d){
+    return this.a + this.b + c + d;
+}
+
+var s = {a:1, b:2};
+console.log(add.call(s,3,4)); // 1+2+3+4 = 10
+console.log(add.apply(s,[5,6])); // 1+2+5+6 = 14 
+
+3.ECMAScript 5(ES5)中bind方法
+bind方法的返回值是函数 便于稍后调用；apply 、call 则是立即调用 。
+var bar=function(){   
+  console.log(this.x);   
+}
+var foo={ 
+    x:3   
+}   
+var func=bar.bind(foo);   
+func();
+
+4.模块化Moudule
+export 输出、import 引出、export default 默认输出项，as 定义别名，* 用于 import 代表除默认项外所有
+// 输出通常不这样写，除了 export default
+export let a = 'str';
+export function b() {};
+
+// a.js
+let a = 1, b = 2, c = 3;
+export {a, b as aliasB};  // 以别名输出
+export default c;  // default 是特殊别名，一个模块只能一个
+// 等同 export {a, b as aliasB, c as default};
+
+// b.js
+import def, {a, aliasB} from './a';
+// 等同 import {a, aliasB, default as def} from './a';
+
+// c.js
+import * as mou from './a';
+// mou.a = 1, mou.aliasB =2 。 * 内不包括 export default 的值，需单独引入
+
+export * from './a';  // 继承，直接引入并全部传出
+
+5.Number新增方法
+Number.isFinite()用来检查一个数值是否为有限的（ finite ）
+    Number.isFinite(15); // true  
+    Number.isFinite(0.8); // true  
+    Number.isFinite(NaN); // false  
+    Number.isFinite(Infinity); // false  
+    Number.isFinite(-Infinity); // false  
+    Number.isFinite('foo'); // false  
+    Number.isFinite('15'); // false  
+    Number.isFinite(true); // false  
+
+Number.isNaN()用来检查一个值是否为NaN
+    Number.isNaN(NaN) // true  
+    Number.isNaN(15) // false  
+    Number.isNaN('15') // false  
+    Number.isNaN(true) // false  
+    Number.isNaN(9/NaN) // true  
+    Number.isNaN('true'/0) // true  
+    Number.isNaN('true'/'true') // true  
+
+parseInt()和parseFloat() 行为保持不变
+
+Number.isInteger()用来判断一个值是否为整数。
+    Number.isInteger(25) // true  
+    Number.isInteger(25.0) // true  
+    Number.isInteger(25.1) // false  
+    Number.isInteger("15") // false  
+    Number.isInteger(true) // false  
+
+Number.MAX_SAFE_INTEGER和Number.MIN_SAFE_INTEGER这两个常量，用来表示这个范围的上下限。
+Number.isSafeInteger()则是用来判断一个整数是否落在这个范围之内。
+    Number.isSafeInteger('a') // false  
+    Number.isSafeInteger(null) // false  
+    Number.isSafeInteger(NaN) // false  
+    Number.isSafeInteger(Infinity) // false  
+    Number.isSafeInteger(-Infinity) // false  
+    Number.isSafeInteger(3) // true  
+    Number.isSafeInteger(1.2) // false  
+    Number.isSafeInteger(9007199254740990) // true  
+    Number.isSafeInteger(9007199254740992) // false  
+    Number.isSafeInteger(Number.MIN_SAFE_INTEGER - 1) // false  
+    Number.isSafeInteger(Number.MIN_SAFE_INTEGER) // true  
+    Number.isSafeInteger(Number.MAX_SAFE_INTEGER) // true  
+    Number.isSafeInteger(Number.MAX_SAFE_INTEGER + 1) // false 
+
+6.String扩展
+‘${}’：
+const me = 'me', you = 'you';
+str = `I am ${me}.You are ${you}.`;
+
+for…of
+let str="wbiokr";
+for(let s of str){
+    console.log(s)
+}
+//结果：w, b, i, o, k, r
+
+string.includes(s,i)方法参数1为需要查询字符(串),参数2为查询的起始位置，返回布尔值，而indexOf返回查询的位置。
+let str="wbiokr";
+str.includes('wb');//结果:true
+str.includes('wbiokr');//结果：true
+str.includes('w',1);//false
+str.includes('b',1);//true
+
+string.startsWith(s,i)方法参数1为需要查询字符(串),参数2为查询的起始位置，返回布尔值,表示是否字符(串)位于string的头部位置。
+let str="wbiokr";
+str.startsWith('wb');//结果:true
+str.startsWith('w');//结果:true
+str.startsWith('w',1);//结果:false
+str.startsWith('b',1);//true
+str.startsWith('kr');//结果：false
+
+string.endsWith()方法参数1为需要查询字符(串),参数2为查询的起始位置，返回布尔值,表示是否字符(串)位于string的尾部位置。
+let str="wbiokr";
+str.endsWith('kr');//结果:true
+str.endsWith('r');//结果:true
+str.endsWith('wb');//结果：false
+str.endsWith('i',6);//false
+str.endsWith('i',3);//false
+str.endsWith('kr',6);//true
+
+string.repeat(num)方法,参数num为重复字符串的次数，各种情况下的返回值见代码。
+let str="wbiokr";
+str.repeat(2);//wbiokrwbiokr"str被重复了2次返回，str不改变
+'hi'.repeat(3);//"hihihi"
+'hi'.repeat(2.6);//'hihi'浮点类型参数，会取整重复
+'hi'.repeat(0);//''0的时候返回空字符串
+'hi'.repeat(-3)//负数，报错
+'hi'.repeat(undefined)//''undefined转化为0
+'hi'.repeat(null)//''null转化为0
+'hi'.repeat(NaN)//''NaN转化为0
+
+
+String.raw 方法往往用来充当模板字符串的处理函数，返回一个斜杠都被转义（即斜杠前面再加一个斜杠）的字符串，对应于替换变量后的模板字符串。
+String.raw`Hi\n${2+3}!`;  
+// "Hi\\n5!"  
+  
+String.raw`Hi\u000A!`;  
+// 'Hi\\u000A!  
+
+
+padStart() 用于头部补全；
+padEnd() 用于尾部补全。
+第一个是用来指定字符串的最小长度，第二个参数是用来补全长度的字符串。如果原字符串长度等于或大于指定得最小长度，则返回原字符串
+'x'.padStart(5, 'ab') // 'ababx'  
+'x'.padStart(4, 'ab') // 'abax'  
+  
+'x'.padEnd(5, 'ab') // 'xabab'  
+'x'.padEnd(4, 'ab') // 'xaba'  
+
+'x'.padStart(4) // '   x'  
+'x'.padEnd(4) // 'x   ' 
+
+'12'.padStart(10, 'YYYY-MM-DD') // "YYYY-MM-12"  
+'09-12'.padStart(10, 'YYYY-MM-DD') // "YYYY-09-12"  
+
+7.RegExp 正则表达式扩展
+ y（粘连式全局匹配）
+ 'aa_a_ba_'.match(/a+_/g)  // ['aa_', 'a_', 'a_']
+'aa_a_ba_'.match(/a+_/y)  // ['aa_', 'a_'], 顺序全局匹配，一旦不符，返回
+'#x#2'.split(/#/y)  // ['', 'x#2']
+'aaxa'.replace(/a/y, '-') // '--xa'
+
+/a/y.sticky  // true sticky属性，表示是否设置了y修饰符
+
+原有正则对象的修饰符是ig，它会被第二个参数i覆盖。
+new RegExp(/abc/ig, 'i').flags  // "i" 
+
+ES6将这4个方法，在语言内部全部调用RegExp的实例方法，从而做到所有与正则相关的方法，全都定义在RegExp对象上。
+String.prototype.match 调用 RegExp.prototype[Symbol.match]
+String.prototype.replace 调用 RegExp.prototype[Symbol.replace]
+String.prototype.search 调用 RegExp.prototype[Symbol.search]
+String.prototype.split 调用 RegExp.prototype[Symbol.split] 
+
+ES6对正则表达式添加了u修饰符，含义为“Unicode模式”，用来正确处理大于\uFFFF的Unicode字符。也就是说，会正确处理四个字节的UTF-16编码。
+
+ES6为正则表达式新增了flags属性，会返回正则表达式的修饰符。
+/abc/ig.flags  // 'gi'  
+
+ES5的source属性，返回正则表达式的正文  
+/abc/ig.source  // "abc"  
+
+后行断言
+/\d+(?=%)/.exec('100% of US presidents have been male')  // ["100"]   先行断言
+/\d+(?!%)/.exec('that’s all 44 of them')                 // ["44"]    先行否定断言
+
+/(?<=\$)\d+/.exec('Benjamin Franklin is on the $100 bill')  // ["100"]  后行断言
+/(?<!\$)\d+/.exec('it’s is worth about €90')                // ["90"]   后行否定断言
+
+8.Symbol是ES6新增的基本数据类型，用来指定独一无二值。
+let s1 = Symbol('s1');
+let s2 = Symbol('s2');
+s1 === s2;  //  false
+
+Symbol.for()函数也可以用来生成Symbol值，但该函数有一个特殊的用处，就是可以重复使用一个Symbol值。
+
+let s7 = Symbol.for('s7');
+let s8 = Symbol.for('s7');
+s7 === s8 //  true
+let s9 = Symbol();
+
+Symbol.keyFor()函数是用来查找一个Symbol值的登记信息的
+
+Symbol.keyFor(s9); // undefined
+Symbol.keyFor(s8); // "s8"  Symbol.for()函数会将生成的Symbol值登记在全局环境中
+
+9.遍历
+for (let [x, y] of [[1,2], [3,4]]) {
+    console.log(x, y);
+}
+// 1 2
+// 3 4
+
+for...in
+遍历对象自身和继承（__proto__）的可枚举属性（不含Symbol属性）
+
+/* 下面均返回可遍历的对象 */
+ Object.keys(obj)
+返回数组，包括对象自身的可枚举属性（不含Symbol属性）
+
+Object.getOwnPropertyNames(obj)
+返回数组，包含对象自身的所有属性（不含Symbol属性）
+
+Object.getOwnPropertySymbols(obj)
+返回数组，包含对象自身的Symbol属性
+
+Reflect.ownKeys(obj)
+返回数组，包含自身所有属性
+
+Reflect.enumerate(obj)
+返回Iterator对象，对其let...of遍历，会与for (x in obj) 表现一致
+
+
+10.Array 数组
+find的参数为回调函数，回调函数可以接收3个参数，值x、索引i、数组arr，回调函数默认返回值x。
+let arr=[1,2,234,'sdf',-2];
+arr.find(function(x){
+    return x<=2;
+})//结果：1，返回第一个符合条件的x值
+arr.find(function(x,i,arr){
+    if(x<2){console.log(x,i,arr)}
+})//结果：1 0 [1, 2, 234, "sdf", -2]，-2 4 [1, 2, 234, "sdf", -2]
+
+findIndex和find差不多，不过默认返回的是索引。
+let arr=[1,2,234,'sdf',-2];
+arr.findIndex(function(x){
+    return x<=2;
+})//结果：0，返回第一个符合条件的x值的索引
+arr.findIndex(function(x,i,arr){
+    if(x<2){console.log(x,i,arr)}
+})//结果：1 0 [1, 2, 234, "sdf", -2]，-2 4 [1, 2, 234, "sdf", -2]
+
+includes函数与string的includes一样，接收2参数，查询的项以及查询起始位置。
+let arr=[1,2,234,'sdf',-2];
+arr.includes(2);// 结果true，返回布尔值
+arr.includes(20);// 结果：false，返回布尔值
+arr.includes(2,3)//结果：false，返回布尔值
+
+keys，对数组索引的遍历
+let arr=[1,2,234,'sdf',-2];
+for(let a of arr.keys()){
+    console.log(a)
+}//结果：0,1,2,3,4  遍历了数组arr的索引
+
+
+values，对数组项的遍历
+let arr=[1,2,234,'sdf',-2];
+for(let a of arr.values()){
+    console.log(a)
+}//结果：1,2,234,sdf,-2 遍历了数组arr的值
+
+entries，对数组键值对的遍历。
+let arr=['w','b'];
+for(let a of arr.entries()){
+    console.log(a)
+}//结果：[0,w],[1,b]
+for(let [i,v] of arr.entries()){
+    console.log(i,v)
+}//结果：0 w,1 b
+
+fill方法改变原数组，当第三个参数大于数组长度时候，以最后一位为结束位置。
+let arr=['w','b'];
+arr.fill('i')//结果：['i','i']，改变原数组
+arr.fill('o',1)//结果：['i','o']改变原数组,第二个参数表示填充起始位置
+new Array(3).fill('k').fill('r',1,2)//结果：['k','r','k']，第三个数组表示填充的结束位置
+
+Array.of()方法永远返回一个数组，参数不分类型，只分数量，数量为0返回空数组。
+Array.of('w','i','r')//["w", "i", "r"]返回数组
+Array.of(['w','o'])//[['w','o']]返回嵌套数组
+Array.of(undefined)//[undefined]依然返回数组
+Array.of()//[]返回一个空数组
+
+copyWithin方法接收三个参数，被替换数据的开始处、替换块的开始处、替换块的结束处(不包括);copyWithin(s,m,n).
+["w", "i", "r"].copyWithin(0)//此时数组不变
+["w", "i", "r"].copyWithin(1)//["w", "w", "i"],数组从位置1开始被原数组覆盖，只有1之前的项0保持不变
+["w", "i", "r","b"].copyWithin(1,2)//["w", "r", "b", "b"],索引2到最后的r,b两项分别替换到原数组1开始的各项，当数量不够，变终止
+["w", "i", "r",'b'].copyWithin(1,2,3)//["w", "r", "r", "b"]，强第1项的i替换为第2项的r
+复制源的结束位置，可以省略，可以是负数，实际结束位置是end-1
+
+Array.from可以把带有lenght属性类似数组的对象转换为数组，也可以把字符串等可以遍历的对象转换为数组，它接收2个参数，转换对象与回调函数
+Array.from({'0':'w','1':'b',length:2})//["w", "b"],返回数组的长度取决于对象中的length，故此项必须有！
+Array.from({'0':'w','1':'b',length:4})//["w", "b", undefined, undefined],数组后2项没有属性去赋值，故undefined
+Array.from({'0':'w','1':'b',length:1})//["w"],length小于key的数目，按序添加数组
+
+let divs=document.getElementsByTagName('div');
+Array.from(divs)//返回div元素数组
+Array.from('wbiokr')//["w", "b", "i", "o", "k", "r"]
+Array.from([1,2,3],function(x){
+        return x+1})//[2, 3, 4],第二个参数为回调函数
+
+// 类数组如下方式可以支持`for...of`遍历
+arrayLike[Symbol.iterator] = Array.prototype[Symbol.iterator];
+[...arrayLike]
+
+11.Object 对象
+ES6中对象属性:
+let w='www';
+let obj1={w};//obj1={w:'www'},属性与值相同，简写
+let obj2={[w]:'b'};//obj2={www:'b'},支持[]变量定义属性
+let obj3={['w'+'s']:'c'};//obj3={ws:'c'},[]内支持表达式运算定义变量
+let obj4={'mr chen':'d'};//obj4['mr chen']='d';es6支持空格存在于属性中
+let obj5={fun(){}};//obj5={fun:function(){}}支持简写方法属性
+let obj6={['f'+'un'](){}};//obj6={fun:function(){}};//同样方法属性名也可以字符拼接
+
+es6新增-遍历方法:
+/////////Object.keys遍历属性/////////
+let obj={a:1,b:2,c:3}
+Object.keys(obj)//["a", "b", "c"]返回对象属性数组
+
+/////////Object.keys遍历value/////////
+let obj={a:1,b:2,c:function(){}}
+Object.values(obj)//[1, 2, function]返回对象属性value值数组
+
+/////////Object.entries遍历键值对/////////
+let obj={a:1,b:2,c:function(){}}
+Object.entries(obj)//[['a',1],['b', 2], ['c',function]]返回对象键值对数组
+
+/////////Object.getOwnPropertyNames遍历属性(枚举+不可枚举)/////////
+let obj={a:1,b:2,c:function(){}}
+Object.getOwnPropertyNames(obj)//["a", "b", "c"]返回对象包括不可枚举的属性数组
+
+/////////////////////////////////////
+//Object.getOwnPropertySymbols()返回es6新数据类型symbol的属性数组；
+//Reflect.ownKeys()返回包括不可枚举属性、symbol类型属性在内的所有属性数组；
+
+Object.is:用于判断两个值是否相等
+let obj={a:1,b:2};
+Object.is(obj,obj);//true
+Object.is(obj,{obj});//false
+Object.is({},{});//false
+Object.is('1',1);//false
+Object.is(-0,0);//false
+Object.is(NaN,NaN);//true
+Object.is(NaN,-NaN);//true
+Object.is(null, null)  //true
+
+Object.asign()对象浅拷贝
+let obj1={a:1,b:2};
+let obj2={a:'a',c:3};
+Object.assign(obj1,obj2);//obj1={a:'a',b:2,c:3}
+
+es6标准引入了指针__proto__ 进行原型操作，除此，Object.setPrototypeOf()与Object.getPrototypeOf()也可以对对象原型进行操作
+let obj={name:'wbiokr'};
+let mthObj={sayName(){console.log(this.name)}};
+obj.__proto__=mthObj;
+obj.sayName();//'wbiokr,obj继承了mthobj的方法sayname(),此时obj已经实现了对mthObj的继承，mthObj便是其原型
+
+var obj = {
+  method: function() { ... },
+  __proto__ : someOtherObj
+}
+Object.getPrototypeOf(obj);  //  someOtherObj
+Object.setPrototypeOf(obj, anOtherObj);
+
+
+12.[Set/Map]
+Set可以看做对数组不能剔除重复项的补充（自动去重），Map可以看做对对象只能以字符串为键的补充（还可以以对象为键）。
+
+13.ES6中Set和WeakSet的使用
+WeakSet也是不重复的值的集合，但是只能用来存放对象。WeakSet 不能遍历，是因为成员都是弱引用，随时可能消失，遍历不能保证成员的存在
+Set本身提供了一个构造函数，用来生成Set数据结构。
+var s  = new Set();
+[2,2,2,5,8,16,2,1].map(x => s.add(x))
+for(i of s){console.log(i)}  //2,5,8,16,1
+
+Set()函数可以接受一个数组，作为构造参数，用于做初始化。
+var s = new Set([1,2,3,4,2,4,3]);
+[...s]
+//[1,2,3,4]
+
+add(value):添加某个值，返回Set结构本身。 
+delete(value):删除某个值，返回一个布尔值，表示删除成功。 
+has(value):返回一个布尔值，表示参数是否为Set的成员。 
+clear():清除所有成员，没有返回值。
+
+var set = new Set();
+set.add(1).add(2).add(22).add(22);
+set.size//3
+
+set.hae(22)//true
+set.has(4)//false
+set.delete(2)//true
+
+
+keys() :返回一个键名的遍历器 
+values() :返回一个值的遍历器 
+entries() :返回一个键值对的遍历器 
+forEach():使用回调函数遍历每个成员
+
+由于Set没有键名，只有值名，keys()和values()返回的结果是一样，
+let set = new Set(['red','green','blue']);
+for(let item of set.keys()){
+console.log(item);
+}
+//red,green,blue
+for(let item of set.values()){
+console.log(item);
+}
+//red,green,blue
+for(let item of set.entries()){
+console.log(item);
+}
+//["red","red"]
+//["green","green"]
+//["blue","blue"]
+
+可以省略values方法，直接用for…of遍历。
+var set = new Set([1,2,3,4]);
+for(let x of set){
+console.log(x);
+}
+//1
+//2
+//3
+//4
+
+Set实现并集，交集，差集
+let set1  = new Set([1,2,3,4,5,6]);
+let set2  = new Set([4,5,6,7,8,9]);
+
+//并集
+let union = new Set([...set1,...set2]);
+//[1,2,3,4,5,6,7,8,9]
+//交集
+let intersect = new Set([...set1].filter(x => b.has(s)));
+//[4,5,6]
+//差集
+let intersect = new Set([...set1].filter(x => !b.has(s)));
+//[1,2,3,4]
+
+Set实现forEach的使用
+let set = new Set([1,2,3,4,5,6]);
+set.forEach(value,key)=>consloe.log(vlaue+1);
+//2
+//3
+//4
+//5
+//6
+//7
+
+14.Map 
+一个对象的键只能是字符串或者Symbols，但一个Map的键可以是任意值。
+你可以通过size属性很容易地得到一个Map的键值对个数，而对象的键值对个数只能手动确认。 
+
+Map实例 
+const map = new Map([['a',1],['b',2]]);
+console.log(map);  //{"a" => 1, "b" => 2}
+
+
+var map = new Map([['one',1], ['two', 2], ['three', 3]]);
+console.log(map.constructor); //function Map() { [native code] }
+console.log(map.size); //3
+
+Iterator对象：可以使用for..of进行迭代的对象
+var map = new Map([[1, 'one'],[2, 'two'], [3, 'three']]);
+
+Map.prototype.clear() 移除Map对象的所有键值对。
+console.log(map.size);    //3
+map.clear();
+console.log(map.size);    //0
+
+Map.prototype.delete(key) 移除任何与键相关联的值，并且返回该值，该值在之前会被Map.prototype.has(key)返回为true。之后再调用则返回false。
+console.log(map.has(1));    //true
+map.delete(1);
+console.log(map.has(1));    //false
+
+Map.prototype.entries() 返回一个新的Iterator对象，它按插入顺序包含了Map对象中每个元素的[key, value]数组。
+console.log(map);    //Map {1 => "one", 2 => "two", 3 => "three"}
+map.entries();
+console.log(map);    //Map {1 => "one", 2 => "two", 3 => "three"}
+
+Map.prototype.forEach(callbackFn[, thisArg]) 按插入顺序，为Map对象里的每一键值对调用一次callbackFn函数。如果为forEach提供了thisArg，他将在每次回调函数中作为this值。
+map.forEach(function(value, key, mapObj) {
+    console.log(value + '---' + key + '---' + mapObj);
+    //value - Map对象里每一个键值对的值
+    //key - Map对象里每一个键值对的键
+    //mapObj - Map对象本身
+    console.log(this); //this === window
+});
+
+map.forEach(function(value, key, mapObj) {
+    console.log(value + '---' + key + '---' + mapObj);
+    console.log(this);    //this === map
+}, map)
+
+Map.prototype.get(key) 返回键对应的值，如果不存在，则返回undefined。
+map.get(1); //'one'
+
+Map.prototype.has(key) 返回一个布尔值，表示Map实例是否包含键对应的值。
+map.has(1); // true
+map.has(5); //false
+
+Map.prototype.keys() 返回一个新的Iterator对象，它按插入顺序包含了Map对象中每个元素的键。
+map.keys();    //MapIterator {1, 2, 3}
+
+Map.prototype.set(key, value) 设置Map对象中键的值，返回该Map对象。
+console.log(map.has(4));    //false
+map.set(4, 'four');
+console.log(map.has(4))    //true
+
+Map.prototype.values() 返回一个新的Iterator对象，它按插入顺序包含了Map对象中每个元素的值。
+map.values(); //
+
+使用for..of方法迭代映射
+var map = new Map();
+map.set(1, 'one');
+map.set(2, 'two');
+for (var [key, value] of map) {
+    console.log(key + '---' + value);
+}
+// 1 --- one 2 --- two
+
+for (var key of map.keys()) {
+    console.log(key);
+}
+// 1 2
+
+for (var value of map.values()) {
+    console.log(value);
+}
+// 'one' 'two'
+
+15.proxy是es6的新特性，简单来讲，即是对目标对象的属性读取、设置，亦或函数调用等操作进行拦截（处理）。
+新的proxy对象会对target进行“浅拷贝”,即proxy、target两个对象会相互影响。
+let target = { _prop: 'foo', prop: 'foo' };
+let proxy = new Proxy(target, handler);
+proxy._prop = 'bar';
+target._attr = 'new'
+console.log(target._prop) // 'bar'
+console.log(proxy._attr) //'new'
+
+其中get可接受三个参数（target，key, receiver）,target为目标对象，key为属性名，receiver为实际接受的对象
+let _proxy={};
+let handler = {
+    get (target, key , receiver){
+        receiver=_proxy;
+        target[key]='test';
+        return Reflect.get(target,key,receiver);
+    },
+    set (target, key, value) {
+        if (key === 'age') {
+            target[key] = value > 0 && value < 100 ? value : 0
+        }
+        return true;//必须有返回值
+    }
+};
+
+let target = {};
+let proxy = new Proxy(target, handler);
+proxy.age
+console.log(_proxy.age) // test
+
+16.Reflect 反射
+Proxy相当于去修改设置对象的属性行为，而Reflect则是获取对象的这些行为。
+let _proxy = {}
+let handler = {
+            get (target, key,recive){
+                return Reflect.get(target,key,recive)
+            },
+            set (target, key, value) {
+                if (key === 'age') {
+                    target[key] = value > 0 && value < 100 ? value : 0
+                }
+                return Reflect.set(target,key,value,_proxy);
+            }
+        };
+
+let target = {};
+let proxy = new Proxy(target, handler);
+proxy.age = 33
+console.log(_proxy.age)//33
+
+Reflect 也可与ES5的setter/getter配合使用,例如：
+var myObject = {
+  foo: 1,
+  bar: 2,
+  get baz() {
+    return this.foo + this.bar;
+  },};
+
+var myReceiverObject = {
+  foo: 4,
+  bar: 4,};
+
+Reflect.get(myObject, 'baz', myReceiverObject) // 8
+
+17.Promise异步编程
+function testPromise(ready) {
+    return new Promise(function(resolve,reject){
+        if(ready) {
+            resolve("hello world");
+        }else {
+            reject("No thanks");
+        }
+    });
+};
+// 方法调用
+testPromise(true).then(function(msg){
+    console.log(msg);
+},function(error){
+    console.log(error);
+});
+
+
+Promise.catch()方法
+var promise1 = new Promise(function(resolve){
+    resolve(1);
+});
+var thenPromise = promise1.then(function(value){
+    console.log(value);
+});
+var catchPromise = thenPromise.catch(function(error){
+    console.log(error);
+});
+console.log(promise1 !== thenPromise); // true
+console.log(thenPromise !== catchPromise); //true
+
+Promise.all可以接受一个元素为Promise对象的数组作为参数，当这个数组里面所有的promise对象都变为resolve时，该方法才会返回。
+var promise1 = new Promise(function(resolve){
+    setTimeout(function(){
+        resolve(1);
+    },3000);
+});
+var promise2 = new Promise(function(resolve){
+    setTimeout(function(){
+        resolve(2);
+    },1000);
+});
+Promise.all([promise1,promise2]).then(function(value){
+    console.log(value); // 打印[1,2]
+});
+
+Promise.race 的含义是只要有一个promise对象进入FulFilled或者Rejected状态的话，程序就会停止
+// `delay`毫秒后执行resolve
+function timerPromise(delay){
+    return new Promise(function(resolve){
+        setTimeout(function(){
+            resolve(delay);
+        },delay);
+    });
+}
+// 任何一个promise变为resolve或reject 的话程序就停止运行
+Promise.race([
+    timerPromise(1),
+    timerPromise(32),
+    timerPromise(64),
+    timerPromise(128)
+]).then(function (value) {
+    console.log(value);    // => 1
+});
+
+18.Generator 异步编程
+function* gen() {
+    yield 'hello';
+    yield 'world';
+    return 'ending';
+}
+
+let hw = gen();
+hw.next();  // {value: 'hello', done: false}
+hw.next();  // {value: 'world', done: false}
+hw.next();  // {value: 'ending', done: true}
+hw.next();  // {value: undefined, done: true}
+
+19.Async 异步编程
+let asy = async function (){
+    try {
+        var value1 = await step1();
+        var value2 = await step2(value1);
+        var value3 = await step3(value2);
+        var value4 = await step4(value3);
+        // Do something with value4
+    } catch (e) {
+        // Handle any error from step1 through step4
+    }
+};
+asy();
+
+
+注意：
+箭头函数根本没有自己的this，导致内部的this就是外层代码块的this。正是因为它没有this，所以也就不能用作构造函数。
+
+参照网址：
+1.TC39 的官方网站
+https://github.com/tc39/ecma262
+2.查看个大浏览器对ES6的支持
+kangax.github.io/es5-compat-table/es6/
+3.查看浏览器支持情况工具
+http://ruanyf.github.io/es-checker/
+$ npm install -g es-checker
+$ es-checker
+4.babel api 及配置文档
+http://babeljs.io/docs/usage/api/
+5.Babel 默认不转码的 API 列表
+https://github.com/babel/babel/blob/master/packages/babel-plugin-transform-runtime/src/definitions.js
+6.Babel 提供一个REPL 在线编译器
+7.ES6学习文档
+http://es6.ruanyifeng.com/#docs/
+
+
+
+单词：
+freeze 冻结
+normalize 使标准化
+flag 旗帜 信号
+uncaught 未捕获
+sticky 粘性的
+terminator 终止符
+capture 捕获
+entries 条目
+anonymous 匿名的
+bound 跳跃
+symbol 符号 象征
+enumerable 可枚举的
+configurable 可配置的 
+reflect 反射
+singleton 一人 独自 单独
+instanceof 运算符 关键词
+union 联盟
+intersect 相交 交叉
+difference 差异
+proxy 代理
+receiver 接受者 接收者 
+yield 产量
+stack 堆栈
+hell 地狱 
+fetch 取来
+thunk 臀部
+async 异步的
+Decorator 装饰者 
+trait 特质
+macro 宏 巨大的
+defer 推迟 
+reflect 反映
+race 比赛
