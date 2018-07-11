@@ -1092,7 +1092,7 @@ Employer:{{employer?.companyName}}
 14.声明一个输入属性,并且绑定到模板,譬如:<my-cmp [my-property]="someExpression"></my-cmp>
 
 
-####################################广发项目的#############################################
+####################################项目的#############################################
 一.调用登录接口：
 import { storage, ApiService, RegCheck, passWordEncrypt, CommService } from '../../common/index';
  this.apiService.invoke('userAuth', {
@@ -1149,7 +1149,7 @@ setTimeout(()=>{
 四.pug中添加模板变量
    bs-table(#table="")
 
-五.香港项目环境按照
+五.环境按照
 1.项目地址：http://gitlab.gf.com.cn/gmts/front.git 
 2.运行：npm install --registry=https://registry.npm.taobao.org
 4.host：设置10.2.144.52 gmtshkcs4.gf.com.cn
@@ -1177,12 +1177,6 @@ this.translate.get('LoginInfo.loginCpt.arrOnSubmitInfo').subscribe(res=>{
 
 6.数据字典
 路径：src/app/pages/home/home.preload.component.ts文件中可以查询
-import { getSelect } from "../../common/select.service";--(为方便获取而)
-import { DataDictPipe } from "../../pipes/data-dict.pipe";
-private dataDictPipe: DataDictPipe,
-//数据字典翻译测试
-let textDic=getSelect(this.dataDictPipe.getListSync('exchange_type'));
-console.log("数据字典",textDic);
 
 7.接口返回的数据结构
 data: []
@@ -1197,7 +1191,7 @@ totalRows: 0
 success: true
 trackId: null
 
-###############################front项目结构################################################
+###############################项目结构################################################
 
 /dist：项目启动后编译出来的项目文件。
 /docs：app内通用组件使用说明文档，主要是用于查看。
@@ -1212,28 +1206,6 @@ trackId: null
 /src/config：包含可引用的配置参数的脚本。其中的api-config.ts配置了项目目前运用到的后台接口（路径和请求参数）
 /src/css：包含全局样式的css文件。
 /src/lib：包含第三方工具库。
-
-/src/app下：
-common：管理公共功能api或数据对象的模块。包含通用功能函数，请求接口，缓存数据对象，正则表达式列表,，数据字典转换函数等
-common-agrs：针对“系统参数“的公共模块。
-common-business：针对“业务受理“的公共模块。
-pages：业务（父级/第一层）模块。包含login（登录）模块和home（主页）模块。
-pages-agrs：业务（参数中心/包括第二、三层菜单）模块。
-pages-business：业务（业务受理/包括第二、三层菜单）模块。
-pages-counter：业务（柜面办理/包括第二、三层菜单）模块。
-pages-manage：业务（运维中心/包括第二、三层菜单）模块。
-pages-process：业务（流程中心/包括第二、三层菜单）模块。
-pages-query：业务（查询中心/包括第二、三层菜单）模块。
-contents：业务性子模块集合。
-contents-agrs：业务性子模块（参数中心）模块。
-contents-business：业务性子模块（业务受理）模块。
-contents-counter：业务性子模块（柜面办理）模块。
-contents-manage：业务性子模块（运维中心）模块。
-contents-process：业务性子模块（流程中心）模块。
-contents-query：业务性子模块（查询中心）模块。
-directives：可供使用的装饰器工具类。
-pipes：可供使用的pipe工具，提供了转换模板数据的pipe对象，转换数据字典函数。
-widgets：功能性模块（组件）集合。包含各种功能小组件。
 
 ###############################其他内容######################################################
 1.switch:
