@@ -1,4 +1,4 @@
-一.广发内部教程：
+一.内部教程：
 
 汤桂川推荐的脚手架：
 https://github.com/mgechev/angular2-seed
