@@ -42,3 +42,277 @@ p	将之前删除（dd）或复制（yy）过的数据粘贴到光标后面
 hostname #显示主机名
 
 =============================================配置网卡信息=============================================
+RHEL7中网卡配置文件前缀则以ifcfg开始,加上网卡名称共同组成了网卡配置文件的名字，例如ifcfg-eno16777736
+网卡的配置文件存放位置：/etc/sysconfig/network-scripts
+ifconfig命令查看网络信息
+
+网卡配置实操
+cd /etc/sysconfig/network-scripts/
+vim ifcfg-eno16777736
+#网卡配置文件具体信息
+TYPE=Ethernet           #设备类型
+BOOTPROTO=static        #地址分配模式
+NAME=eno16777736        #网卡名称
+ONBOOT=yes              #是否启动
+IPADDR=192.168.10.10    #IP地址
+NETMASK=255.255.255.0   #子网掩码
+GATEWAY=192.168.10.1    #网关地址
+DNS1=192.168.10.1       #DNS地址
+
+systemctl restart network #执行网卡重启命令
+ping 192.168.10.10 #测试网络是否正常
+
+=============================================配置Yum仓库=============================================
+Yum软件仓库的配置文件：/etc/yum.repos.d/
+
+配置Yum仓库实操
+cd /etc/yum.repos.d/
+vim rhel7.repo #新建Yum软件仓库的配置文件 文件名称可随意，但后缀必须为.repo
+#写入配置内容
+[rhel7]
+name=rhel7
+baseurl=file:///media/cdrom
+enabled=1
+gpgcheck=0
+
+#配置信息详解
+[rhel-media] ：Yum软件仓库唯一标识符，避免与其他仓库冲突。
+name=linuxprobe：Yum软件仓库的名称描述，易于识别仓库用处。
+baseurl=file:///media/cdrom：提供的方式包括FTP（ftp://..）、HTTP（http://..）、本地（file:///..）。
+enabled=1：设置此源是否可用；1为可用，0为禁用。
+gpgcheck=1：设置此源是否校验文件；1为校验，0为不校验。
+gpgkey=file:///media/cdrom/RPM-GPG-KEY-redhat-release：若上面参数开启校验，那么请指定公钥文件地址。
+
+#按配置参数的路径挂载光盘，并把光盘挂载信息写入到/etc/fstab文件中
+mkdir -p /media/cdrom
+mount /dev/cdrom /media/cdrom
+vim /etc/fstab
+/dev/cdrom /media/cdrom iso9660 defaults 0 0
+
+#使用“yum install httpd -y”命令检查Yum软件仓库是否已经可用
+yum install httpd
+
+=============================================编写Shell脚本=============================================
+echo $SHELL 查看命令行终端解释器 命令行终端解释器 /bin/bash
+#编写简单的脚本
+vim example.sh #创建example.sh文件
+#!/bin/bash  #（#!）用来告诉系统使用哪种Shell解释器来执行该脚本
+#For Example BY linuxprobe.com 
+pwd 
+ls -al
+
+bash example.sh #执行Shell脚本
+chmod u+x example.sh #让文件具备执行权限
+./example.sh #通过完整路径的方式执行脚本
+
+接收用户的参数
+$0   #Shell脚本程序的名称
+$#   #对应的是总共有几个参数
+$*   #对应的是所有位置的参数值
+$?   #对应的是显示上一次命令的执行返回值
+$1、$2、$3……  #分别对应着第N个位置的参数值
+
+sh example.sh one two three four five six  #执行接收用户参数脚本
+
+文件测试
+-d	测试文件是否为目录类型
+-e	测试文件是否存在
+-f	判断是否为一般文件
+-r	测试当前用户是否有权限读取
+-w	测试当前用户是否有权限写入
+-x	测试当前用户是否有权限执行
+判断/etc/fstab是否为一个目录类型的文件
+[ -d /etc/fstab ] #条件判断语句 两边都有空格 
+echo $? #打印出语句的返回结果
+如果返回值为0，则目录存在；如果返回值为非零的值，则意味着目录不存在
+[ -e /dev/cdrom ] && echo "Exist" # 逻辑与&&表示当前面的命令执行成功后才会执行它后面的命令
+echo $USER #显示管理员账号
+$ [ $USER = root ] || echo "user" #逻辑或||当前面的命令执行失败后才会执行它后面的命令
+[ $USER != root ] || echo "administrator" # 逻辑非!取反
+
+可用的整数比较运算符
+-eq	是否等于
+-ne	是否不等于
+-gt	是否大于
+-lt	是否小于
+-le	是否等于或小于
+-ge	是否大于或等于
+
+[ 10 -gt 10 ] #判断10 是否 大于10 
+FreeMem=`free -m | grep Mem: | awk '{print $4}'` #awk '{print $4}'命令只保留第四列并把结果赋值给$FreeMem变量 保留行
+
+
+常见的字符串比较运算符
+=	比较字符串内容是否相同
+!=	比较字符串内容是否不同
+-z	判断字符串内容是否为空
+
+echo $LANG #输出当前系统语言
+
+if条件测试语句
+
+#!/bin/bash
+#单分支条件语句
+DIR="/media/cdrom"
+if [ ! -e $DIR ]
+then
+mkdir -p $DIR
+fi
+
+ping命令
+-c 参数来规定尝试的次数
+-i 参数定义每个数据包的发送间隔
+-W 参数定义等待超时时间。
+
+#!/bin/bash
+#双分支if条件判断语句
+ping -c 3 -i 0.2 -W 3 $1 &> /dev/null
+if [ $? -eq 0 ]
+then
+echo "Host $1 is On-line."
+else
+echo "Host $1 is Off-line."
+fi
+
+
+#!/bin/bash
+#多分支if条件判断语句
+read -p "Enter your score（0-100）：" GRADE
+if [ $GRADE -ge 85 ] && [ $GRADE -le 100 ] ; then
+echo "$GRADE is Excellent"
+elif [ $GRADE -ge 70 ] && [ $GRADE -le 84 ] ; then
+echo "$GRADE is Pass"
+else
+echo "$GRADE is Fail" 
+fi
+
+for条件循环语句
+#!/bin/bash
+#for循环语句
+read -p "Enter The Users Password : " PASSWD
+for UNAME in `cat users.txt`
+do
+id $UNAME &> /dev/null
+if [ $? -eq 0 ]
+then
+echo "Already exists"
+else
+useradd $UNAME &> /dev/null
+echo "$PASSWD" | passwd --stdin $UNAME &> /dev/null
+if [ $? -eq 0 ]
+then
+echo "$UNAME , Create success"
+else
+echo "$UNAME , Create failure"
+fi
+fi
+done
+
+while条件循环语句
+#!/bin/bash
+PRICE=$(expr $RANDOM % 1000)
+TIMES=0
+echo "商品实际价格为0-999之间，猜猜看是多少？"
+while true
+do
+read -p "请输入您猜测的价格数目：" INT
+let TIMES++
+if [ $INT -eq $PRICE ] ; then
+echo "恭喜您答对了，实际价格是 $PRICE"
+echo "您总共猜测了 $TIMES 次"
+exit 0
+elif [ $INT -gt $PRICE ] ; then
+echo "太高了！"
+else
+echo "太低了！"
+fi
+done
+
+case条件测试语句
+#!/bin/bash
+read -p "请输入一个字符，并按Enter键确认：" KEY
+case "$KEY" in
+[a-z]|[A-Z])
+echo "您输入的是 字母。"
+;;
+[0-9])
+echo "您输入的是 数字。"
+;;
+*)
+echo "您输入的是 空格、功能键或其他控制字符。"
+esac
+
+
+=============================================计划任务服务程序=============================================
+
+at 时间 #执行一次性任务
+at -l   #查看还未执行的一次性任务
+atrm 任务序号 #删除未执行的一次性任务
+
+at 23:30
+at > systemctl restart httpd
+at > 此处请同时按下Ctrl+d来结束编写计划任务
+job 3 at Mon Apr 27 23:30:00 2015
+
+echo "systemctl restart httpd" | at 23:30 #非交互式编写一次性计划任务
+at -l #查看一次性计划任务列表
+atrm 3 #删除一次性计划任务
+
+
+crond 周期任务服务
+crontab -e #编辑计划任务
+crontab -l #查看当前计划任务
+crontab -r #删除某条计划任务
+crontab -u #用于管理员修改他人计划任务
+
+crond服务设置任务的参数格式 
+如果有些字段没有设置，则需要使用星号（*）占位
+“分、时、日、月、星期 命令”
+
+分钟	取值为0～59的整数
+小时	取值为0～23的任意整数
+日期	取值为1～31的任意整数
+月份	取值为1～12的任意整数
+星期	取值为0～7的任意整数，其中0与7均为星期日
+命令	要执行的命令或程序脚本
+
+每周一、三、五的凌晨3点25分，都需要使用tar命令把某个网站的数据目录进行打包处理
+crontab -e
+crontab -l
+25 3 * * 1,3,5 /usr/bin/tar -czvf backup.tar.gz /home/wwwroot
+“8,9,12”表示8月、9月和12月
+“日”的取值为“12-15”，则表示每月的12～15日
+*/2”表示每隔2分钟执行一次任务
+
+whereis rm #查询rm命令的绝对路径/usr/bin/rm 
+crontab -e #创建定时任务
+crontab -l #查看定位任务列表
+25 3 * * 1,3,5 /usr/bin/tar -czvf backup.tar.gz /home/wwwroot #第一个定时任务
+0 1 * * 1-5 /usr/bin/rm -rf /tmp/* #第二个定时任务另起一行
+#定时任务可以用#号开头写上注释信息
+注:计划任务中的“分”字段必须有数值，绝对不能为空或是*号，而“日”和“星期”字段不能同时使用，否则就会发生冲突。
+
+
+
+
+
+文件位置：
+/etc/passwd是用来保存用户账户信息的文件
+/dev/null是一个被称作Linux黑洞的文件，把输出信息重定向到这个文件等同于删除数据，可以让用户的屏幕窗口保持简洁，黑洞文件
+
+
+单词：
+guess 猜测 
+Interactive 交互式的
+batch 批处理
+insufficient 不足的
+crond 周期任务
+
+
+
+
+
+
+
+
+

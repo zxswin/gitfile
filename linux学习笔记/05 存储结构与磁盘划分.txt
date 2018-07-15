@@ -1,0 +1,316 @@
+=============================================存储结构与磁盘划分=============================================
+文件名称中不得包含斜杠（/）
+Linux系统中常见的目录名称以及相应内容
+/boot	开机所需文件—内核、开机菜单以及所需配置文件等
+/dev	以文件形式存放任何设备与接口
+/etc	配置文件
+/home	用户主目录
+/bin	存放单用户模式下还可以操作的命令
+/lib	开机时用到的函数库，以及/bin与/sbin下面的命令要调用的函数
+/sbin	开机过程中需要的命令
+/media	用于挂载设备文件的目录
+/opt	放置第三方的软件
+/root	系统管理员的家目录
+/srv	一些网络服务的数据文件目录
+/tmp	任何人均可使用的“共享”临时目录
+/proc	虚拟文件系统，例如系统内核、进程、外部设备及网络状态等
+/usr/local	用户自行安装的软件
+/usr/sbin	Linux系统开机时不会使用到的软件/命令/脚本
+/usr/share	帮助与说明文件，也可放置共享文件
+/var	主要存放经常变化的文件，如日志
+/lost+found	当文件系统发生错误时，将一些丢失的文件片段存放在这里
+
+=============================================物理设备的命名规则=============================================
+系统内核中的udev设备管理器会自动把硬件名称规范起来
+udev设备管理器的服务会一直以守护进程的形式运行并侦听内核发出的信号来管理/dev目录下的设备文件
+常见的硬件设备及其文件名称
+IDE设备	/dev/hd[a-d]
+SCSI/SATA/U盘	/dev/sd[a-p]
+软驱	/dev/fd[0-1]
+打印机	/dev/lp[0-15]
+光驱	/dev/cdrom
+鼠标	/dev/mouse
+磁带机	/dev/st0或/dev/ht0
+
+因此系统采用a～p来代表16块不同的硬盘（默认从a开始分配）
+主分区或扩展分区的编号从1开始，到4结束；
+逻辑分区从编号5开始。
+/dev目录中sda设备之所以是a，并不是由插槽决定的，而是由系统内核的识别顺序来决定的，而恰巧很多主板的插槽顺序就是系统内核的识别顺序，因此才会被命名为/dev/sda。
+分区的数字编码不一定是强制顺延下来的，也有可能是手工指定的。因此sda3只能表示是编号为3的分区，而不能判断sda设备上已经存在了3个分区
+
+/dev/sda5 #这是系统中第一块被识别到的硬件设备中分区编号为5的逻辑分区的设备文件
+/dev/目录中保存的应当是硬件设备文件
+sd表示是存储设备
+a表示系统中同类接口中第一个被识别到的设备
+表示这个设备是一个逻辑分区
+
+硬盘设备是由大量的扇区组成的，每个扇区的容量为512字节。其中第一个扇区最重要，它里面保存着主引导记录与分区表信息。就第一个扇区来讲，主引导记录需要占用446字节，分区表为64字节，结束符占用2字节；其中分区表中每记录一个分区信息就需要16字节，这样一来最多只有4个分区信息可以写到第一个扇区中，这4个分区就是4个主分区
+用户一般会选择使用3个主分区加1个扩展分区的方法，然后在扩展分区中创建出数个逻辑分区，从而来满足多分区（大于4个）的需求
+所谓扩展分区，严格地讲它不是一个实际意义的分区，它仅仅是一个指向下一个分区的指针，这种指针结构将形成一个单向链表。
+
+=============================================文件系统与数据资料=============================================
+Ext3：是一款日志文件系统
+Ext4：Ext3的改进版本
+XFS：是一种高性能的日志文件系统
+
+每个文件占用一个独立的inode表格，该表格的大小默认为128字节，里面记录着如下信息
+该文件的访问权限（read、write、execute）；
+该文件的所有者与所属组（owner、group）；
+该文件的大小（size）；
+该文件的创建或内容修改时间（ctime）；
+该文件的最后一次访问时间（atime）；
+该文件的修改时间（mtime）；
+文件的特殊权限（SUID、SGID、SBIT）；
+该文件的真实数据地址（point）。
+
+文件的实际内容则保存在block块中（大小可以是1KB、2KB或4KB）
+情况1：文件很小（1KB），但依然会占用一个block，因此会潜在地浪费3KB。
+情况2：文件很大（5KB），那么会占用两个block（5KB-4KB后剩下的1KB也要占用一个block）。
+
+=============================================挂载硬件设备=============================================
+挂载：用户需要使用硬盘设备或分区中的数据时，需要先将其与一个已存在的目录文件进行关联，而这个关联动作就是“挂载”
+mount命令用于挂载文件系统，格式为“mount 文件系统 挂载目录”
+只需使用mount命令把硬盘设备或分区与一个目录文件进行关联，然后就能在这个目录中看到硬件设备中的数据了。
+-a	挂载所有在/etc/fstab中定义的文件系统
+-t	指定文件系统的类型
+mount /dev/sdb2 /backup #把设备/dev/sdb2挂载到/backup目录 挂载设备 
+
+让挂载永久有效
+格式“设备文件 挂载目录 格式类型 权限选项 是否备份 是否自检”（写入到/etc/fstab文件中
+设备文件	一般为设备的路径+设备名称，也可以写唯一识别码（UUID，Universally Unique Identifier）
+挂载目录	指定要挂载到的目录，需在挂载前创建好
+格式类型	指定文件系统的格式，比如Ext3、Ext4、XFS、SWAP、iso9660（此为光盘设备）等
+权限选项	若设置为defaults，则默认权限为：rw, suid, dev, exec, auto, nouser, async
+是否备份	若为1则开机后使用dump进行磁盘备份，为0则不备份
+是否自检	若为1则开机后自动进行磁盘自检，为0则不自检
+
+#将文件系统为ext4的硬件设备/dev/sdb2在开机后自动挂载到/backup目录上，并保持默认权限且无需开机自检
+vim /etc/fstab
+#
+# /etc/fstab
+# Created by anaconda on Wed May 4 19:26:23 2017
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+/dev/mapper/rhel-root / xfs defaults 1 1
+UUID=812b1f7c-8b5b-43da-8c06-b9999e0fe48b /boot xfs defaults 1 2
+/dev/mapper/rhel-swap swap swap defaults 0 0
+/dev/cdrom /media/cdrom iso9660 defaults 0 0 
+/dev/sdb2 /backup ext4 defaults 0 0
+
+umount命令用于撤销已经挂载的设备文件，格式为“umount [挂载点/设备文件]”
+umount /dev/sdb2
+
+
+=============================================添加硬盘设备=============================================
+fdisk命令用于管理磁盘分区，格式为“fdisk  [磁盘名称]” 它提供了集添加、删除、转换分区等功能于一身的“一站式分区服务”
+m	查看全部可用的参数
+n	添加新的分区
+d	删除某个分区信息
+l	列出所有可用的分区类型
+t	改变某个分区的类型
+p	查看分区表信息
+w	保存并退出
+q	不保存直接退出
+
+fdisk /dev/sdb #执行磁盘管理命令
+p #查看磁盘已有的分区信息
+n #尝试添加新分区
+p #创建主分区 e为创建扩展分区
+1 #主分区编号 
++2G #创建一个容量为2G的硬盘分区
+
+file /dev/sdb1 #查看文件属性看是否已经挂载生效
+partprobe #手动将分区信息同步到内核
+mkfs #多敲两下tab 显示常用的文件系统名称
+mkfs.xfs /dev/sdb1 #格式分区为XFS的文件系统
+mkdir /newFS #创建挂载目录
+mount /dev/sdb1 /newFS/ #进行设备挂载
+df -h #查看挂载状态和硬盘使用量信息。
+
+cp -rf /etc/* /newFS/
+ls /newFS/
+du -sh /newFS/ #查看一个或多个文件占用了多大的硬盘空间
+
+
+#挂载的信息写入到配置文件中
+#
+# /etc/fstab
+# Created by anaconda on Wed May 4 19:26:23 2017
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+/dev/mapper/rhel-root / xfs defaults 1 1
+UUID=812b1f7c-8b5b-43da-8c06-b9999e0fe48b /boot xfs defaults 1 2
+/dev/mapper/rhel-swap swap swap defaults 0 0
+/dev/cdrom /media/cdrom iso9660 defaults 0 0 
+/dev/sdb1 /newFS xfs defaults 0 0 #挂载的信息写入到配置文件中
+
+=============================================添加交换分区=============================================
+SWAP（交换）分区是一种通过在硬盘中预先划分一定的空间，然后将把内存中暂时不常用的数据临时存放到硬盘中，以便腾出物理内存空间让更活跃的程序服务来使用的技术，其设计目的是为了解决真实物理内存不足的问题。
+在生产环境中，交换分区的大小一般为真实物理内存的1.5～2倍
+
+mkswap /dev/sdb2 #SWAP分区专用的格式化命令mkswap，对新建的主分区进行格式化操作
+swapon /dev/sdb2 #使用swapon命令把准备好的SWAP分区设备正式挂载到系统中
+free -m #查看交互分区的大小变化
+相关信息写入到配置文件中并保存
+#
+# /etc/fstab
+# Created by anaconda on Wed May 4 19:26:23 2017
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+/dev/mapper/rhel-root / xfs defaults 1 1
+UUID=812b1f7c-8b5b-43da-8c06-b9999e0fe48b /boot xfs defaults 1 2
+/dev/mapper/rhel-swap swap swap defaults 0 0
+/dev/cdrom /media/cdrom iso9660 defaults 0 0 
+/dev/sdb1 /newFS xfs defaults 0 0 
+/dev/sdb2 swap swap defaults 0 0 
+
+
+=============================================磁盘容量配额=============================================
+软限制：当达到软限制时会提示用户，但仍允许用户在限定的额度内继续使用。
+硬限制：当达到硬限制时会提示用户，且强制终止用户的操作。
+RHEL 7系统中已经安装了quota磁盘容量配额服务程序包，但存储设备却默认没有开启对quota的支持，此时需要手动编辑配置文件，让RHEL 7系统中的/boot目录能够支持quota磁盘配额技术。
+#
+# /etc/fstab
+# Created by anaconda on Wed May 4 19:26:23 2017
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+/dev/mapper/rhel-root / xfs defaults 1 1
+UUID=812b1f7c-8b5b-43da-8c06-b9999e0fe48b /boot xfs defaults,uquota 1 2
+/dev/mapper/rhel-swap swap swap defaults 0 0
+/dev/cdrom /media/cdrom iso9660 defaults 0 0 
+/dev/sdb1 /newFS xfs defaults 0 0 
+/dev/sdb2 swap swap defaults 0 0 
+[root@linuxprobe ~]# reboot
+[root@linuxprobe ~]# mount | grep boot
+/dev/sda1 on /boot type xfs (rw,relatime,seclabel,attr2,inode64,usrquota)
+
+useradd tom
+chmod -Rf o+w /boot
+xfs_quota命令是一个专门针对XFS文件系统来管理quota磁盘容量配额服务而设计的命令，格式为“xfs_quota [参数] 配额 文件系统”。
+-c参数用于以参数的形式设置要执行的命令
+-x参数是专家模式
+xfs_quota -x -c 'limit bsoft=3m bhard=6m isoft=3 ihard=6 tom' /boot
+xfs_quota -x -c report /boot
+
+edquota命令用于编辑用户的quota配额限制，格式为“edquota [参数] [用户] ”
+-u参数表示要针对哪个用户进行设置
+-g参数表示要针对哪个用户组进行设置
+edquota -u tom #针对某个用户进行设置
+Disk quotas for user tom (uid 1001):
+Filesystem blocks soft hard inodes soft hard
+/dev/sda1 6144 3072 8192 1 3 6
+
+
+=============================================软硬方式链接=============================================
+硬链接实际上是指向原文件inode的指针，因此即便原始文件被删除，依然可以通过硬链接文件来访问。需要注意的是，由于技术的局限性，我们不能跨分区对目录文件进行链接。
+软链接（也称为符号链接[symbolic link]）：仅仅包含所链接文件的路径名，因此能链接目录文件，也可以跨越文件系统进行链接。但是，当原始文件被删除后，链接文件也将失效
+ln命令用于创建链接文件，格式为“ln [选项] 目标”
+ln命令中可用的参数以及作用
+-s	创建“符号链接”（如果不带-s参数，则默认创建硬链接）
+-f	强制创建文件或目录的链接
+-i	覆盖前先询问
+-v	显示创建链接的过程
+
+ln -s readme.txt readit.txt #创建软连接
+
+ln readme.txt readit.txt #创建硬连接
+ls -l readme.txt 
+-rw-r--r-- 2 root root 26 Jan 11 00:13 readme.txt #原始文件的硬盘链接数量增加到了2。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+单词：
+swap 交互
+quota 配额
+probe 探查
+inode 索引节点
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

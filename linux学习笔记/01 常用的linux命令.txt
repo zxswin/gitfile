@@ -319,6 +319,8 @@ find / -user linuxprobe -exec cp -a {} /root/findresults/ \ #其中的{}表示fi
 Ctrl + C组合键 #终止命令进程
 在执行命令时在末尾添加上一个&符号，这样命令将进入系统后台来执行。#让命令在后台执行 
 
+网址：
+https://www.linuxprobe.com/chapter-04.html
 
 
 单词

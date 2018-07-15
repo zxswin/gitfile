@@ -1,0 +1,174 @@
+=============================================使用Apache服务部署静态网站=============================================
+配置服务文件参数
+服务目录	/etc/httpd
+主配置文件	/etc/httpd/conf/httpd.conf
+网站数据目录	/var/www/html
+访问日志	/var/log/httpd/access_log
+错误日志	/var/log/httpd/error_log
+
+配置httpd服务程序时最常用的参数以及用途描述
+ServerRoot	服务目录
+ServerAdmin	管理员邮箱
+User	运行服务的用户
+Group	运行服务的用户组
+ServerName	网站服务器的域名
+DocumentRoot	网站数据目录
+Listen	监听的IP地址与端口号
+DirectoryIndex	默认的索引页页面
+ErrorLog	错误日志文件
+CustomLog	访问日志文件
+Timeout	网页超时时间，默认为300秒
+
+DocumentRoot "/home/wwwroot" #定义网站数据保存路径的参数
+<Directory "/home/wwwroot">
+    AllowOverride None
+    # Allow open access:
+    Require all granted
+</Directory>
+
+=============================================个人用户主页功能=============================================
+# UserDir disabled #把禁用功能注释掉
+UserDir public_html
+网址/~用户名 #访问域名
+
+=============================================虚拟网站主机功能=============================================
+基于IP地址
+<VirtualHost 192.168.10.10>
+DocumentRoot /home/wwwroot/10
+ServerName www.linuxprobe.com
+<Directory /home/wwwroot/10 >
+AllowOverride None
+Require all granted
+</Directory>
+</VirtualHost>
+
+<VirtualHost 192.168.10.20>
+DocumentRoot /home/wwwroot/20
+ServerName bbs.linuxprobe.com
+<Directory /home/wwwroot/20 >
+AllowOverride None
+Require all granted
+</Directory>
+</VirtualHost>
+
+<VirtualHost 192.168.10.30>
+DocumentRoot /home/wwwroot/30
+ServerName tech.linuxprobe.com
+<Directory /home/wwwroot/30 >
+AllowOverride None
+Require all granted
+</Directory>
+</VirtualHost>
+
+基于主机域名
+<VirtualHost 192.168.10.10>
+DocumentRoot "/home/wwwroot/www"
+ServerName "www.linuxprobe.com"
+<Directory "/home/wwwroot/www">
+AllowOverride None
+Require all granted
+</directory> 
+</VirtualHost>
+
+<VirtualHost 192.168.10.10>
+DocumentRoot "/home/wwwroot/bbs"
+ServerName "bbs.linuxprobe.com"
+<Directory "/home/wwwroot/bbs">
+AllowOverride None
+Require all granted
+</Directory>
+</VirtualHost>
+
+<VirtualHost 192.168.10.10>
+DocumentRoot "/home/wwwroot/tech"
+ServerName "tech.linuxprobe.com"
+<Directory "/home/wwwroot/tech">
+AllowOverride None
+Require all granted
+</directory>
+</VirtualHost>
+
+基于端口号
+#添加用于监听6111和6222端口的参数
+Listen 6111
+Listen 6222
+
+<VirtualHost 192.168.10.10:6111>
+DocumentRoot "/home/wwwroot/6111"
+ServerName www.linuxprobe.com
+<Directory "/home/wwwroot/6111">
+AllowOverride None
+Require all granted
+</Directory> 
+</VirtualHost>
+
+<VirtualHost 192.168.10.10:6222>
+DocumentRoot "/home/wwwroot/6222"
+ServerName bbs.linuxprobe.com
+<Directory "/home/wwwroot/6222">
+AllowOverride None
+Require all granted
+</Directory>
+</VirtualHost>
+
+
+
+=============================================Apache的访问控制=============================================
+#允许使用Firefox浏览器的主机访问服务器上的首页文件，除此之外的所有请求都将被拒绝
+<Directory "/var/www/html/server">
+SetEnvIf User-Agent "Firefox" ff=1
+Order allow,deny
+Allow from env=ff
+</Directory>
+
+#只允许IP地址为192.168.10.20的主机访问网站资源
+<Directory "/var/www/html/server">
+Order allow,deny #表示先将源主机与允许规则进行匹配，若匹配成功则允许访问请求，反之则拒绝访问请求
+Allow from 192.168.10.20
+</Directory>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
