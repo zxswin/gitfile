@@ -1,0 +1,1008 @@
+================================使用LNMP + Apache 架构部署动态网站环境===============================
+Linux + Nginx + MySQL + PHP组成的动态网站系统解决方案
+一.源码包安装注意要点
+1.如果没有自行使用参数定义目录的话，一般会被默认安装到/usr/local/bin目录中。
+2.使用make clean命令对临时文件进行彻底的清理工作
+3.安装过程
+  ./configure --prefix=/usr/local/program #编译源码包代码 并且指定安装目录
+  make #生成二进制安装程序
+  make install #运行二进制的服务程序安装包
+
+
+二.环境搭建前准备
+1.安装必备的软件
+yum install -y apr* autoconf automake bison bzip2 bzip2* compat* cpp curl curl-devel fontconfig fontconfig-devel freetype freetype* freetype-devel gcc gcc-c++ gd gettext gettext-devel glibc kernel kernel-headers keyutils keyutils-libs-devel krb5-devel libcom_err-devel libpng libpng-devel libjpeg* libsepol-devel libselinux-devel libstdc++-devel libtool* libgomp libxml2 libxml2-devel libXpm* libtiff libtiff* make mpfr ncurses* ntp openssl openssl-devel patch pcre-devel perl php-common php-gd policycoreutils telnet t1lib t1lib* nasm nasm* wget zlib-devel
+2.源码包一般存放位置
+/usr/local/src  #源码包安装程序一般存放位置
+
+
+================================开始安装===============================
+一.CMake编译工具安装
+1.tar -zxvf cmake-2.8.11.2.tar.gz #解压
+2.cd cmake-2.8.11.2/
+3.make 
+4.make install
+
+二.配置Mysql服务
+1.cd ..
+2.useradd mysql -s /sbin/nologin
+创建mysql负责运行MySQL的用户,Bash终端设置成nologin解释器,避免黑客通过该用户登录到服务器中
+3.mkdir -p /usr/local/mysql/var   #/usr/local/mysql/var则是用于保存真实数据库文件的目录
+4.chown -Rf mysql:mysql /usr/local/mysql   #并把该目录的所有者和所属组身份修改为mysql
+/usr/local/mysql是用于保存MySQL数据库服务程序的目录
+
+5.tar -zxvf mysql-5.6.19.tar.gz 
+6.cd mysql-5.6.19/
+7.cmake . -DCMAKE_INSTALL_PREFIX=/usr/local/mysql -DMYSQL_DATADIR=/usr/local/mysql/var -DSYSCONFDIR=/etc
+  -DCMAKE_INSTALL_PREFIX参数用于定义数据库服务程序的保存目录
+  -DMYSQL_DATADIR参数用于定义真实数据库文件的目录
+  -DSYSCONFDIR则是定义MySQL数据库配置文件的保存目录
+6.make
+7.make install
+
+8.rm -rf /etc/my.cnf #删除/etc目录中的默认配置文
+9.cd /usr/local/mysql
+10../scripts/mysql_install_db --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/var
+在MySQL数据库程序的保存目录scripts内找到一个名为mysql_install_db的脚本程序
+--user参数指定MySQL服务的对应账号名称
+--basedir参数指定MySQL服务程序的保存目录
+--datadir参数指定MySQL真实数据库的文件保存目录
+可生成系统数据库文件，也会生成出新的MySQL服务配置文件
+
+11.ln -s my.cnf /etc/my.cnf #新生成的MySQL数据库配置文件链接到/etc目录中
+12.cp ./support-files/mysql.server /etc/rc.d/init.d/mysqld #开机程序文件复制到/etc/rc.d/init.d目录中，以便通过service命令来管理MySQL数据库服务程序
+13.chmod 755 /etc/rc.d/init.d/mysqld #得把数据库脚本文件的权限修改成755以便于让用户有执行该脚本的权限
+
+14.vim /etc/rc.d/init.d/mysqld 
+把第46、47行的basedir与datadir参数分别修改为MySQL数据库程序的保存目录和真实数据库的文件内容。
+………………省略部分输出信息………………
+ 39 #
+ 40 # If you want to affect other MySQL variables, you should make your changes
+ 41 # in the /etc/my.cnf, ~/.my.cnf or other MySQL configuration files.
+ 42 
+ 43 # If you change base dir, you must also change datadir. These may get
+ 44 # overwritten by settings in the MySQL configuration files.
+ 45 
+ 46 basedir=/usr/local/mysql
+ 47 datadir=/usr/local/mysql/var
+ 48 
+………………省略部分输出信息………………
+15.service mysqld start  #用service命令启动mysqld数据库服务了
+16.chkconfig mysqld on   #使用chkconfig命令把mysqld服务程序加入到开机启动项中
+
+17.vim /etc/profile
+把命令所保存的目录永久性地定义到PATH变量 定义mysql环境变量
+………………省略部分输出信息………………
+ 64 
+ 65 for i in /etc/profile.d/*.sh ; do
+ 66 if [ -r "$i" ]; then
+ 67 if [ "${-#*i}" != "$-" ]; then
+ 68 . "$i"
+ 69 else
+ 70 . "$i" >/dev/null
+ 71 fi
+ 72 fi
+ 73 done
+ 74 export PATH=$PATH:/usr/local/mysql/bin
+ 75 unset i
+ 76 unset -f pathmunge
+
+18.source /etc/profile #使用source命令加载一下/ect/profile文件，此时新的PATH变量也可以立即生效了
+
+19.mkdir /var/lib/mysql
+MySQL数据库服务程序还会调用到一些程序文件和函数库文件,手动方式把这些文件链接过来。
+20.ln -s /usr/local/mysql/lib/mysql /usr/lib/mysql
+21.ln -s /tmp/mysql.sock /var/lib/mysql/mysql.sock
+22.ln -s /usr/local/mysql/include/mysql /usr/include/mysql
+
+20.mysql_secure_installation #MySQL数据库进行初始化
+NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MySQL
+      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
+In order to log into MySQL to secure it, we'll need the current
+password for the root user.  If you've just installed MySQL, and
+you haven't set the root password yet, the password will be blank,
+so you should just press enter here.
+Enter current password for root (enter for none): 此处只需按下回车键
+OK, successfully used password, moving on...
+Setting the root password ensures that nobody can log into the MySQL
+root user without the proper authorisation.
+Set root password? [Y/n] y （要为root管理员设置数据库的密码）
+New password: 输入要为root管理员设置的数据库密码
+Re-enter new password: 再输入一次密码
+Password updated successfully!
+Reloading privilege tables..
+ ... Success!
+By default, a MySQL installation has an anonymous user, allowing anyone
+to log into MySQL without having to have a user account created for
+them.  This is intended only for testing, and to make the installation
+go a bit smoother.  You should remove them before moving into a
+production environment.
+Remove anonymous users? [Y/n] y （删除匿名账户）
+ ... Success!
+Normally, root should only be allowed to connect from 'localhost'.  This
+ensures that someone cannot guess at the root password from the network.
+Disallow root login remotely? [Y/n] y （禁止root管理员从远程登录）
+ ... Success!
+By default, MySQL comes with a database named 'test' that anyone can
+access.  This is also intended only for testing, and should be removed
+before moving into a production environment.
+Remove test database and access to it? [Y/n] y （删除test数据库并取消对其的访问权限）
+ - Dropping test database...
+ ... Success!
+ - Removing privileges on test database...
+ ... Success!
+Reloading the privilege tables will ensure that all changes made so far
+will take effect immediately.
+Reload privilege tables now? [Y/n] y （刷新授权表，让初始化后的设定立即生效）
+ ... Success!
+All done!  If you've completed all of the above steps, your MySQL
+installation should now be secure.
+Thanks for using MySQL!
+Cleaning up...
+
+
+================================安装及配置Nginx服务================================
+1.安装pcre
+提供Perl语言兼容的正则表达式库的软件包pcre,是Nginx服务程序用于实现伪静态功能必不可少的依赖包
+cd /usr/local/src
+tar xzvf pcre-8.35.tar.gz 
+cd pcre-8.35
+./configure --prefix=/usr/local/pcre
+make
+make install 
+
+2.安装openssl
+openssl软件包是用于提供网站加密证书服务的程序文件，在安装该程序时需要自定义服务程序的安装目录，以便于稍后调用它们的时候更可控。
+cd /usr/local/src
+tar xzvf openssl-1.0.1h.tar.gz
+cd openssl-1.0.1h
+./config --prefix=/usr/local/openssl
+./config -fPIC --prefix=/usr/local/openssll enable-shared #选择下面这个一个
+make
+make install 
+
+/usr/local/openssl/bin目录中提供很多的可用命令,将目录添加到PATH环境变量中，并写入到配置文件中
+vim /etc/profile
+………………省略部分输出信息………………
+ 64 
+ 65 for i in /etc/profile.d/*.sh ; do
+ 66 if [ -r "$i" ]; then
+ 67 if [ "${-#*i}" != "$-" ]; then
+ 68 . "$i"
+ 69 else
+ 70 . "$i" >/dev/null
+ 71 fi
+ 72 fi
+ 73 done
+ 74 export PATH=$PATH:/usr/local/mysql/bin:/usr/local/openssl/bin
+ 75 unset i
+ 76 unset -f pathmunge
+source /etc/profile #让配置文件立即生效
+
+3.安装zlib
+zlib软件包是用于提供压缩功能的函数库文件
+cd /usr/local/src
+tar xzvf zlib-1.2.8.tar.gz 
+cd zlib-1.2.8
+./configure --prefix=/usr/local/zlib
+make
+make install
+
+4.创建一个用于执行Nginx服务程序的账户
+useradd www -s /sbin/nologin
+
+5.安装Nginx
+--prefix参数用于定义服务程序稍后安装到的位置
+--user与--group参数用于指定执行Nginx服务程序的用户名和用户组
+调用openssl、zlib、pcre软件包时，请写出软件源码包的解压路径，而不是程序的安装路径
+tar xzvf nginx-1.6.0.tar.gz 
+cd nginx-1.6.0/
+./configure --prefix=/usr/local/nginx --without-http_memcached_module --user=www --group=www --with-http_stub_status_module --with-http_ssl_module --with-http_gzip_static_module --with-openssl=/usr/local/src/openssl-1.0.1h --with-zlib=/usr/local/src/zlib-1.2.8 --with-pcre=/usr/local/src/pcre-8.35
+make
+make install
+
+6.编写启动脚本文件
+启动Nginx服务程序以及将其加入到开机启动项中
+vim /etc/rc.d/init.d/nginx
+#!/bin/bash
+# nginx - this script starts and stops the nginx daemon
+# chkconfig: - 85 15
+# description: Nginx is an HTTP(S) server, HTTP(S) reverse \
+# proxy and IMAP/POP3 proxy server
+# processname: nginx
+# config: /etc/nginx/nginx.conf
+# config: /usr/local/nginx/conf/nginx.conf
+# pidfile: /usr/local/nginx/logs/nginx.pid
+# Source function library.
+. /etc/rc.d/init.d/functions
+# Source networking configuration.
+. /etc/sysconfig/network
+# Check that networking is up.
+[ "$NETWORKING" = "no" ] && exit 0
+nginx="/usr/local/nginx/sbin/nginx"
+prog=$(basename $nginx)
+NGINX_CONF_FILE="/usr/local/nginx/conf/nginx.conf"
+[ -f /etc/sysconfig/nginx ] && . /etc/sysconfig/nginx
+lockfile=/var/lock/subsys/nginx
+make_dirs() {
+# make required directories
+user=`$nginx -V 2>&1 | grep "configure arguments:" | sed 's/[^*]*--user=\([^ ]*\).*/\1/g' -`
+        if [ -z "`grep $user /etc/passwd`" ]; then
+                useradd -M -s /bin/nologin $user
+        fi
+options=`$nginx -V 2>&1 | grep 'configure arguments:'`
+for opt in $options; do
+        if [ `echo $opt | grep '.*-temp-path'` ]; then
+                value=`echo $opt | cut -d "=" -f 2`
+                if [ ! -d "$value" ]; then
+                        # echo "creating" $value
+                        mkdir -p $value && chown -R $user $value
+                fi
+        fi
+done
+}
+start() {
+[ -x $nginx ] || exit 5
+[ -f $NGINX_CONF_FILE ] || exit 6
+make_dirs
+echo -n $"Starting $prog: "
+daemon $nginx -c $NGINX_CONF_FILE
+retval=$?
+echo
+[ $retval -eq 0 ] && touch $lockfile
+return $retval
+}
+stop() {
+echo -n $"Stopping $prog: "
+killproc $prog -QUIT
+retval=$?
+echo
+[ $retval -eq 0 ] && rm -f $lockfile
+return $retval
+}
+restart() {
+#configtest || return $?
+stop
+sleep 1
+start
+}
+reload() {
+#configtest || return $?
+echo -n $"Reloading $prog: "
+killproc $nginx -HUP
+RETVAL=$?
+echo
+}
+force_reload() {
+restart
+}
+configtest() {
+$nginx -t -c $NGINX_CONF_FILE
+}
+rh_status() {
+status $prog
+}
+rh_status_q() {
+rh_status >/dev/null 2>&1
+}
+case "$1" in
+start)
+        rh_status_q && exit 0
+        $1
+        ;;
+stop)
+        rh_status_q || exit 0
+        $1
+        ;;
+restart|configtest)
+$1
+;;
+reload)
+        rh_status_q || exit 7
+        $1
+        ;;
+force-reload)
+        force_reload
+        ;;
+status)
+        rh_status
+        ;;
+condrestart|try-restart)
+        rh_status_q || exit 0
+        ;;
+*)
+echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload|force-reload|configtest}"
+exit 2
+esac
+
+chmod 755 /etc/rc.d/init.d/nginx #保存脚本文件后记得为其赋予755权限，以便能够执行这个脚本
+/etc/rc.d/init.d/nginx restart #以绝对路径的方式执行这个脚本，通过restart参数重启Nginx服务程序
+chkconfig nginx on #使用chkconfig命令将Nginx服务程序添加至开机启动项中
+
+出现警告:Warning: nginx.service changed on disk. Run 'systemctl daemon-reload' to reload units.
+解决:直接运行systemctl daemon-reload
+
+出现问题：外网无法访问
+systemctl stop firewalld.service #关闭防火墙服务
+systemctl disable firwalld.service #禁用防火墙开机启动
+
+
+================================安装apache服务器======================================
+一.安装前
+1.rpm -qa | grep httpd #检测系统中是否已经安装了httpd
+2.如果存在则要执行卸载操作
+rpm -e httpd-2.4.6-67.e17.centos.6.x86_64 --nodeps
+rpm -e httpd-tools-2.4.6-67.e17.centos.6.x86_64 --nodeps 
+3.查看软件安装位置
+rpm -qa | grep  pcre
+rpm -ql pcre-8.32-17.el7.x86_64
+
+4.安装apr
+tar -zxvf apr-1.6.3.tar.gz 
+cd apr-1.6.3/
+./configure --prefix=/usr/local/apr
+make 
+make install
+
+5.安装apr-util
+./configure --prefix=/usr/local/apr-util --with-apr=/usr/local/apr 
+make
+make install
+
+
+6.安装zlib
+./configure --prefix=/usr/local/zlib 
+make
+make install
+
+7.安装pcre
+./configure --prefix=/usr/local/pcre
+make
+make install
+
+8.安装openssl
+./config -fPIC --prefix=/usr/local/openssll enable-shared
+
+
+二.安装apache服务器
+
+./configure --prefix=/usr/local/httpd \
+--enable-so \
+--enable-rewrite \
+--enable-ssl \
+--with-ssl=/usr/local/openssl \
+--enable-cgi \
+--enable-modules=most \
+--enable-mods-shared=most \
+--enable-mpms-shared=all \
+--with-mpm=event \
+--with-pcre=/usr/local/pcre \
+--with-z=/usr/local/zlib \
+--with-apr=/usr/local/apr \
+--with-apr-util=/usr/local/apr-util \
+--enable-expires \
+--enable-deflate
+
+make && make install
+
+三.修改httpd.conf配置文件
+1.配置服务器名称
+ServerName  localhost:80
+2.加载PHP处理模块
+LoadModule php5_module modules/libphp5.so
+3.添加PHP等后缀的处理
+AddType application/x-httpd-php .php
+4.服务器优先识别的文件
+DirectoryIndex index.php index.html
+5.如果服务器有任何问题将通知的邮箱地址
+ServerAdmin zdy_521@126.com
+
+6.启动apache服务器
+/usr/local/httpd/bin/apachectl start 
+
+7.设置apache为开机自启动
+cp /usr/local/httpd/bin/apachectl /etc/init.d/httpd #复制apache启动文件到/etc/init.d目录下
+sed -i '1a # chkconfig: 35 85 21' /etc/init.d/httpd
+sed -i '2a # description: apache 2.4.33' /etc/init.d/httpd
+
+8.添加为系统服务并自启动
+chkconfig --add httpd
+chkconfig httpd on
+systemctl restart httpd
+netstat -anpt |grep httpd
+
+9.查看是否添加成功
+chkconfig --list httpd
+httpd          	0:关	1:关	2:开	3:开	4:开	5:开	6:关
+
+10.修改Apache默认端口80
+#Listen 12.34.56.78:80 
+Listen 8080 
+
+11.nginx + apache动静分离
+
+#在nginx配置文件中配置如下
+location ~ \.(php)?$ {
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://127.0.0.1:8080;
+}
+
+#如果不使用apache处理php程序使用下面配置
+location ~ \.php$ {
+            root           html;
+            fastcgi_pass   127.0.0.1:9000;
+            fastcgi_index  index.php;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            include        fastcgi_params;
+        }
+
+
+11.更改Apache默认网站根目录
+找到 DocumentRoot "/usr/local/nginx/html"　　把后面的路径改成我们的根目录
+然后找到 <Directory "/usr/local/nginx/html">　　把这个路径改成和上面的完全一样
+保存httpd.conf文件，重启Apache服务器即可生效
+
+
+12.虚拟主机配置
+<VirtualHost 127.0.0.1:8080>
+DocumentRoot "/usr/local/nginx/html/szdhan"
+ServerName "www.abc.com"
+<Directory "/usr/local/nginx/html/szdhan">
+AllowOverride None
+Require all granted
+</directory>
+</VirtualHost>
+
+
+
+================================配置php服务================================
+1.安装yasm
+yasm源码包是一款常见的开源汇编器
+tar zxvf yasm-1.2.0.tar.gz
+cd yasm-1.2.0
+./configure
+make
+make install
+
+2.安装libmcrypt
+libmcrypt源码包是用于加密算法的扩展库程序
+tar zxvf libmcrypt-2.5.8.tar.gz
+cd libmcrypt-2.5.8
+./configure
+make
+make install
+
+3.安装libvpx
+libvpx源码包是用于提供视频编码器的服务程序
+tar xjvf libvpx-v1.3.0.tar.bz2
+cd libvpx-v1.3.0
+./configure --prefix=/usr/local/libvpx --enable-shared --enable-vp9
+make
+make install
+
+4.安装tiff
+tiff源码包是用于提供标签图像文件格式的服务程序
+cd ..
+tar zxvf tiff-4.0.3.tar.gz
+cd tiff-4.0.3
+./configure --prefix=/usr/local/tiff --enable-shared
+make
+make install
+
+5.安装libpng
+libpng源码包是用于提供png图片格式支持函数库的服务程序
+tar zxvf libpng-1.6.12.tar.gz
+cd libpng-1.6.12
+./configure --prefix=/usr/local/libpng --enable-shared
+make
+make install
+
+6.安装freetype
+freetype源码包是用于提供字体支持引擎的服务程序
+tar zxvf freetype-2.5.3.tar.gz
+cd freetype-2.5.3
+./configure --prefix=/usr/local/freetype --enable-shared
+make
+make install
+
+7.安装jpeg
+jpeg源码包是用于提供jpeg图片格式支持函数库的服务程序
+tar zxvf jpegsrc.v9a.tar.gz
+cd jpeg-9a
+./configure --prefix=/usr/local/jpeg --enable-shared
+make
+make install
+
+8.libgd源码包是用于提供图形处理的服务程序
+在编译libgd源码包时，请记得写入的是jpeg、libpng、freetype、tiff、libvpx等服务程序在系统中的安装路径
+tar zxvf libgd-2.1.0.tar.gz
+cd libgd-2.1.0
+./configure --prefix=/usr/local/libgd --enable-shared --with-jpeg=/usr/local/jpeg --with-png=/usr/local/libpng --with-freetype=/usr/local/freetype --with-fontconfig=/usr/local/freetype --with-xpm=/usr/ --with-tiff=/usr/local/tiff --with-vpx=/usr/local/libvpx
+make
+make install
+
+9.安装t1lib
+t1lib源码包是用于提供图片生成函数库的服务程序
+安装后把/usr/lib64目录中的函数文件链接到/usr/lib目录中，以便系统能够顺利调取到函数文件
+tar zxvf t1lib-5.1.2.tar.gz
+cd t1lib-5.1.2
+./configure --prefix=/usr/local/t1lib --enable-shared
+make
+make install
+ln -s /usr/lib64/libltdl.so /usr/lib/libltdl.so 
+cp -frp /usr/lib64/libXpm.so* /usr/lib/
+
+10.安装php
+tar -zvxf php-5.5.14.tar.gz
+cd php-5.5.14
+定义一个名为LD_LIBRARY_PATH的全局环境变量，该环境变量的作用是帮助系统找到指定的动态链接库文件，这些文件是编译php服务源码包的必须元素之一。
+export LD_LIBRARY_PATH=/usr/local/libgd/lib
+./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --with-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-mysql-sock=/tmp/mysql.sock --with-pdo-mysql=/usr/local/mysql --with-gd --with-png-dir=/usr/local/libpng --with-jpeg-dir=/usr/local/jpeg --with-freetype-dir=/usr/local/freetype --with-xpm-dir=/usr/ --with-vpx-dir=/usr/local/libvpx/ --with-zlib-dir=/usr/local/zlib --with-t1lib=/usr/local/t1lib --with-iconv --enable-libxml --enable-xml --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --enable-opcache --enable-mbregex --enable-fpm --enable-mbstring --enable-ftp --enable-gd-native-ttf --with-openssl --enable-pcntl --enable-sockets --with-xmlrpc --enable-zip --enable-soap --without-pear --with-gettext --enable-session --with-mcrypt --with-curl --enable-ctype 
+#如果配合apache使用需要按下面安装
+./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --with-apxs2=/usr/local/httpd/bin/apxs --with-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-mysql-sock=/tmp/mysql.sock --with-pdo-mysql=/usr/local/mysql --with-gd --with-png-dir=/usr/local/libpng --with-jpeg-dir=/usr/local/jpeg --with-freetype-dir=/usr/local/freetype --with-xpm-dir=/usr/ --with-vpx-dir=/usr/local/libvpx/ --with-zlib-dir=/usr/local/zlib --with-t1lib=/usr/local/t1lib --with-iconv --enable-libxml --enable-xml --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --enable-opcache --enable-mbregex --enable-fpm --enable-mbstring --enable-ftp --enable-gd-native-ttf --with-openssl --enable-pcntl --enable-sockets --with-xmlrpc --enable-zip --enable-soap --without-pear --with-gettext --enable-session --with-mcrypt --with-curl --enable-ctype 
+make test #是为了保证你下载代码可以在你的环境下正确执行，多执行了测试这一步而已 可以省略
+make
+make install
+
+
+11.在php源码包程序安装完成后，需要删除当前默认的配置文件，然后将php服务程序目录中相应的配置文件复制过来
+rm -rf /etc/php.ini
+ln -s /usr/local/php/etc/php.ini /etc/php.ini
+cp php.ini-production /usr/local/php/etc/php.ini
+cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
+ln -s /usr/local/php/etc/php-fpm.conf /etc/php-fpm.conf
+
+12.php-fpm.conf是php服务程序重要的配置文件之一
+我们需要启用该配置文件中第25行左右的pid文件保存目录，然后分别将第148和149行的user与group参数分别修改为www账户和用户组名称：
+vim /usr/local/php/etc/php-fpm.conf
+1 ;;;;;;;;;;;;;;;;;;;;;
+2 ; FPM Configuration ;
+3 ;;;;;;;;;;;;;;;;;;;;;
+4 
+5 ; All relative paths in this configuration file are relative to PHP's instal l
+6 ; prefix (/usr/local/php). This prefix can be dynamically changed by using t he
+7 ; '-p' argument from the command line.
+8 
+9 ; Include one or more files. If glob(3) exists, it is used to include a bunc h of
+10 ; files from a glob(3) pattern. This directive can be used everywhere in the
+11 ; file.
+12 ; Relative path can also be used. They will be prefixed by:
+13 ; - the global prefix if it's been set (-p argument)
+14 ; - /usr/local/php otherwise
+15 ;include=etc/fpm.d/*.conf
+16 
+17 ;;;;;;;;;;;;;;;;;;
+18 ; Global Options ;
+19 ;;;;;;;;;;;;;;;;;;
+20 
+21 [global]
+22 ; Pid file
+23 ; Note: the default prefix is /usr/local/php/var
+24 ; Default Value: none
+25 pid = run/php-fpm.pid
+26 
+………………省略部分输出信息………………
+145 ; Unix user/group of processes
+146 ; Note: The user is mandatory. If the group is not set, the default user's g roup
+147 ; will be used.
+148 user = www
+149 group = www
+150 
+………………省略部分输出信息………………
+
+12.php服务的脚本文件复制到/etc/rc.d/init.d中 赋予755权限
+cp sapi/fpm/init.d.php-fpm /etc/rc.d/init.d/php-fpm
+chmod 755 /etc/rc.d/init.d/php-fpm
+chkconfig php-fpm on #把php-fpm服务程序加入到开机启动项中
+
+13.编辑php.ini配置文件disable_functions参数后面追加上要禁止的功能
+vim /usr/local/php/etc/php.ini
+………………省略部分输出信息………………
+300 
+301 ; This directive allows you to disable certain functions for security reasons.
+302 ; It receives a comma-delimited list of function names. This directive is
+303 ; *NOT* affected by whether Safe Mode is turned On or Off.
+304 ; http://php.net/disable-functions
+305 disable_functions = passthru,exec,system,chroot,scandir,chgrp,chown,shell_exec,proc_open,proc_get_status,ini_alter,ini_alter,ini_restor e,dl,openlog,syslog,readlink,symlink,popepassthru,stream_socket_server,escapeshellcmd,dll,popen,disk_free_space,checkdnsrr,checkdnsrr,g etservbyname,getservbyport,disk_total_space,posix_ctermid,posix_get_last_error,posix_getcwd,posix_getegid,posix_geteuid,posix_getgid,po six_getgrgid,posix_getgrnam,posix_getgroups,posix_getlogin,posix_getpgid,posix_getpgrp,posix_getpid,posix_getppid,posix_getpwnam,posix_ getpwuid,posix_getrlimit,posix_getsid,posix_getuid,posix_isatty,posix_kill,posix_mkfifo,posix_setegid,posix_seteuid,posix_setgid,posix_ setpgid,posix_setsid,posix_setuid,posix_strerror,posix_times,posix_ttyname,posix_uname
+306 
+………………省略部分输出信息………………
+
+14.编辑Nginx服务程序的主配置文件
+写上负责运行Nginx服务程序的账户名称和用户组名称
+写上网站的首页名称
+脚本名称路径参数，其中$document_root变量即为网站信息存储的根目录路径
+
+
+vim /usr/local/nginx/conf/nginx.conf
+ 1 
+ 2 user www www;
+ 3 worker_processes 1;
+ 4 
+ 5 #error_log logs/error.log;
+ 6 #error_log logs/error.log notice;
+ 7 #error_log logs/error.log info;
+ 8 
+ 9 #pid logs/nginx.pid;
+ 10 
+ 11 
+………………省略部分输出信息………………
+ 40 
+ 41 #access_log logs/host.access.log main;
+ 42 
+ 43 location / {
+ 44 root html;
+ 45 index index.html index.htm index.php;
+ 46 }
+ 47 
+………………省略部分输出信息………………
+ 62 
+ 63 #pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+ 64 
+ 65 location ~ \.php$ {
+ 66 root html;
+ 67 fastcgi_pass 127.0.0.1:9000;
+ 68 fastcgi_index index.php;
+ 69 fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+ 70 include fastcgi_params;
+ 71 }
+ 72 
+………………省略部分输出信息………………
+systemctl restart nginx
+systemctl restart php-fpm
+
+
+
+================================搭建Discuz论坛================================
+一.准备文件及权限控制
+cd /usr/local/src/
+unzip Discuz_X3.2_SC_GBK.zip
+rm -rf /usr/local/nginx/html/{index.html,50x.html}*
+mv upload/* /usr/local/nginx/html/
+chown -Rf www:www /usr/local/nginx/html  #网站根目录的所有者和所属组修改为本地的www用户
+chmod -Rf 755 /usr/local/nginx/html   #并为其赋予755权限以便于能够读、写、执行该论坛系统内的文件
+
+================================织梦系统nginx及apache虚拟主机配置================================
+1.nginx中的虚拟主机配置
+server {
+       listen 80;
+       server_name www.abc.com;
+       location / {
+          root   html/szdhan;
+          index index.html index.htm index.php;
+        }
+
+       error_page  404 403 500 502 503 504  /404.html;
+
+       location /404.html {
+          root   html/szdhan;
+        }
+
+        location ~*  \.(jpg|jpeg|gif|bmp|png) {
+           root   html/szdhan;
+           expires 1d;
+        }
+        location ~ uploads {
+          root   html/szdhan;
+          index index.html index.htm index.php;
+        }
+         location ~ \.php$ {
+            proxy_pass   http://127.0.0.1:8080;
+        }
+}
+
+server {
+       listen 80;
+       server_name m.abc.com;
+       location / {
+          root   html/szdhan/m;
+          index index.html index.htm index.php;
+        }
+
+        location ~  m {
+          root   html/szdhan;
+          index index.html index.htm index.php;
+        }
+
+        location ~ uploads {
+          root   html/szdhan;
+          index index.html index.htm index.php;
+        }
+
+
+        location ~ theme {
+          root   html/szdhan;
+          index index.html index.htm index.php;
+        }
+
+       location ~ \.php$ {
+            proxy_pass   http://127.0.0.1:8080;
+        }
+
+
+       error_page  404 403 500 502 503 504  /404.html;
+
+       location /404.html {
+          root   html/szdhan/m;
+        }
+}
+
+二.apache中的虚拟主机配置
+
+<VirtualHost 127.0.0.1:8080>
+DocumentRoot "/usr/local/nginx/html/szdhan"
+ServerName "www.abc.com"
+<Directory "/usr/local/nginx/html/szdhan">
+AllowOverride None
+Require all granted
+</directory>
+</VirtualHost>
+
+<VirtualHost 127.0.0.1:8080>
+DocumentRoot "/usr/local/nginx/html/szdhan"
+ServerName "m.abc.com"
+<Directory "/usr/local/nginx/html/szdhan">
+AllowOverride None
+Require all granted
+</directory>
+</VirtualHost>
+
+
+================================Centos7下的防火墙设置================================
+一.配套配置
+1.firewall-cmd --get-default-zone #查看firewalld服务当前所使用的区域
+2.firewall-cmd --zone=public --query-service=ssh #查询public区域是否允许请求SSH协议的流量：
+3.firewall-cmd --zone=public --query-service=https #查询public区域是否允许请求HTTPS协议的流量：
+
+4.把firewalld服务中请求HTTPS协议的流量设置为永久允许，并立即生效：
+firewall-cmd --zone=public --add-service=https
+firewall-cmd --permanent --zone=public --add-service=https
+firewall-cmd --reload
+
+5.把firewalld服务中请求HTTP协议的流量设置为永久拒绝，并立即生效：
+firewall-cmd --permanent --zone=public --remove-service=http 
+firewall-cmd --reload
+
+6.把在firewalld服务中访问8080和8081端口的流量策略设置为允许，但仅限当前生效
+firewall-cmd --zone=public --add-port=8080-8081/tcp
+firewall-cmd --zone=public --list-ports 
+
+7.把原本访问本机888端口的流量转发到22端口，要且求当前和长期均有效：
+firewall-cmd --permanent --zone=public --add-forward-port=port=888:proto=tcp:toport=22:toaddr=192.168.10.10
+firewall-cmd --reload
+
+
+二.第三方论坛提供的方案
+systemctl start firewalld.service        #开启防火墙服务
+systemctl stop firewalld.service         #停止firewall
+systemctl disable firewalld.service      #禁止firewall开机启动
+systemctl enable firewalld  #开机启动防火墙
+systemctl is-enabled firewalld #查看防火墙是否是开机启动状态
+systemctl list-unit-files|grep enabled #查看启动服务列表
+systemctl --failed #启动服务失败列表
+firewall-cmd --zone=public --query-port=80/tcp # 查看端口状态
+
+firewall-cmd --zone=public --remove-port=80/tcp --permanent #删除开发的端口
+firewall-cmd --zone=public --list-ports #查看所有开启的端口
+
+firewall-cmd --zone=public --add-port=80/tcp --permanent  #开启端口
+firewall-cmd --zone=public --add-port=3306/tcp --permanent  #开启端口
+--zone #作用域
+--add-port=80/tcp #添加端口，格式为：端口/通讯协议
+--permanent #永久生效，没有此参数重启后失效
+
+firewall-cmd --reload #重启防火墙
+
+其他命令
+firewall-cmd --state                           ##查看防火墙状态，是否是running
+firewall-cmd --reload                          ##重新载入配置，比如添加规则之后，需要执行此命令
+firewall-cmd --get-zones                       ##列出支持的zone
+firewall-cmd --get-services                    ##列出支持的服务，在列表中的服务是放行的
+firewall-cmd --query-service ftp               ##查看ftp服务是否支持，返回yes或者no
+firewall-cmd --add-service=ftp                 ##临时开放ftp服务
+firewall-cmd --add-service=ftp --permanent     ##永久开放ftp服务
+firewall-cmd --remove-service=ftp --permanent  ##永久移除ftp服务
+firewall-cmd --add-port=80/tcp --permanent     ##永久添加80端口 
+iptables -L -n                                 ##查看规则，这个命令是和iptables的相同的
+man firewall-cmd                               ##查看帮助
+
+
+三.最终解决方案
+firewall-cmd --zone=public --add-port=80/tcp --permanent  #开启端口
+firewall-cmd --zone=public --add-port=3306/tcp --permanent  #开启端口
+
+firewall-cmd --reload #重启防火墙
+firewall-cmd --zone=public --list-ports #查看所有开启的端口
+systemctl is-enabled firewalld #查看防火墙是否是开机启动状态
+
+firewall-cmd --zone=public --remove-port=3306/tcp --permanent #删除开发的端口
+
+================================mysql数据库远程可访问================================
+
+修改密码
+update mysql.user set password=password("123456") where host='::1';
+flush privileges; #让密码生效
+show  variables #查看系统参数
+
+select user,host,password from user; #查看数据表
+update user set password=password("123456");#修改所有密码
+
+开启远程可访问 
+创建用户用来远程连接,创建用户为navicatmysql,密码也是navicatmysql
+GRANT ALL PRIVILEGES ON *.* TO 'navicatmysql'@'%' IDENTIFIED BY 'navicatmysql' WITH GRANT OPTION;
+flush privileges; #立即生效
+查询数据库用户
+SELECT DISTINCT CONCAT('User: ''',user,'''@''',host,''';') AS query FROM mysql.user;
+
+
+================================Nginx开启Gzip压缩大幅提高页面加载速度================================
+1.修改nginx配置文件
+vim /usr/local/nginx/conf/nginx.conf
+gzip on;
+gzip_min_length 1k;
+gzip_buffers 4 16k;
+#gzip_http_version 1.0;
+gzip_comp_level 8;
+gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php;
+gzip_vary off;
+gzip_disable "MSIE [1-6]\.";
+
+第1行：开启Gzip
+第2行：不压缩临界值，大于1K的才压缩，一般不用改
+第3行：buffer，就是，嗯，算了不解释了，不用改
+第4行：用了反向代理的话，末端通信是HTTP/1.0，有需求的应该也不用看我这科普文了；有这句的话注释了就行了，默认是HTTP/1.1
+第5行：压缩级别，1-10，数字越大压缩的越好，时间也越长，看心情随便改吧
+第6行：进行压缩的文件类型，缺啥补啥就行了，JavaScript有两种写法，最好都写上吧，总有人抱怨js文件没有压缩，其实多写一种格式就行了
+第7行：跟Squid等缓存服务有关，on的话会在Header里增加"Vary: Accept-Encoding"，我不需要这玩意，自己对照情况看着办吧
+第8行：IE6对Gzip不怎么友好，不给它Gzip了
+
+:wq保存退出，重新开启Nginx服务
+/etc/rc.d/init.d/nginx restart
+
+测试：
+curl -I -H "Accept-Encoding: gzip, deflate" "http://192.168.139.128/index.html"
+
+HTTP/1.1 200 OK
+Server: nginx/1.6.0
+Date: Mon, 18 Jun 2018 10:12:31 GMT
+Content-Type: text/html
+Last-Modified: Mon, 18 Jun 2018 09:48:59 GMT
+Connection: keep-alive
+Content-Encoding: gzip
+
+curl -I -H "Accept-Encoding: gzip, deflate" "http://www.slyar.com/blog/wp-content/plugins/photonic/include/css/photonic.css"
+
+
+================================Nginx设置虚拟主机================================
+server { 
+    listen 80; 
+    server_name m.abc.com; 
+    location / { 
+        root   html/m;
+        index index.html index.htm index.php;
+    } 
+}
+
+
+================================Nginx日志切割和日志定期清理================================
+1.cd /usr/local/nginx/sbin #到sbin目录下
+2.vim clear_log.sh #新建clear_log.sh日志分割脚本 并保存退出
+#!/bin/bash
+cp /usr/local/nginx/logs/error.log /usr/local/nginx/logs/error/error-$(date -d "yesterday" +"%Y%m%d").log
+cat /dev/null > /usr/local/nginx/logs/error.log
+cp /usr/local/nginx/logs/access.log /usr/local/nginx/logs/access/access-$(date -d "yesterday" +"%Y%m%d").log
+cat /dev/null > /usr/local/nginx/logs/access.log
+find /usr/local/nginx/logs/error -mtime +1 -type f -name \*.log | xargs rm -f
+find /usr/local/nginx/logs/access -mtime +1 -type f -name \*.log | xargs rm -f
+3.设置clear_log.sh可执行权限
+chmod -Rf 755 clear_log.sh
+4.crontab -e #编辑定时任务
+0 0 * * * /usr/local/nginx/sbin/clear_log.sh
+5.systemctl restart crond.service #重启定时任务
+6.crontab -l #查看定时任务列表
+7.cd /usr/local/nginx/logs  在logs下新建error 和 access文件夹
+mkdir error
+mkdir access
+
+================================图片统一目录处理================================
+server {
+        listen 80;
+        server_name www.abc.com;
+        location / {
+                root   html/szdhan;
+                index index.html index.htm index.php;
+        }
+}
+
+server {
+        listen 80;
+        server_name m.abc.com;
+        location / {
+                root   html/szdhan/m;
+                index index.html index.htm index.php;
+        }
+
+        location ~ theme {
+                root   html/szdhan;
+                index index.html index.htm index.php;
+        }
+
+        location ~ uploads {
+                root   html/szdhan;
+                index index.html index.htm index.php;
+        }
+}
+
+
+================================404页面设置================================
+server {
+        listen 80;
+        server_name www.abc.com;
+        location / {
+                root   html/szdhan;
+                index index.html index.htm index.php;
+        }
+
+        error_page  404 403 500 502 503 504  /404.html;
+
+        location /404.html {
+                root   html/szdhan;
+        }
+
+}
+
+server {
+        listen 80;
+        server_name m.abc.com;
+        location / {
+                root   html/szdhan/m;
+                index index.html index.htm index.php;
+        }
+
+        location ~ theme {
+                root   html/szdhan;
+                index index.html index.htm index.php;
+        }
+
+        location ~ uploads {
+                root   html/szdhan;
+                index index.html index.htm index.php;
+        }
+
+        error_page  404 403 500 502 503 504  /404.html;
+
+        location /404.html {
+                root   html/szdhan/m;
+        }
+}
+
+
+
+================================所有图片均使用expires缓存提升网站负载================================
+server {
+       listen 80;
+       server_name www.abc.com;
+       location / {
+          root   html/szdhan;
+          index index.html index.htm index.php;
+        }
+
+       error_page  404 403 500 502 503 504  /404.html;
+
+       location /404.html {
+          root   html/szdhan;
+        }
+
+        location ~*  \.(jpg|jpeg|gif|bmp|png) {
+           root   html/szdhan;
+           expires 1d;
+        }
+
+     }
+
+
+================================使用Vsftpd服务传输文件================================
+
+
+
