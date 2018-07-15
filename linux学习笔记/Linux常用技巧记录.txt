@@ -1,0 +1,229 @@
+
+cp -a test/. /tmp/newtest #使用指令"cp"将当前目录"test/"下的所有文件复制到新目录"newtest"下
+tar -zxvf japan.tar.gz  #解包 
+tar -xjf japan.tar.bz2  #解包
+unzip test.zip          #解包
+
+rpm -q 包名  查询是否安装
+rpm -qa 查询所有已经安装的包
+rpm -qa | grep httpd 查询和httpd相关的包
+
+
+netstat -lntp | grep 3306 #4查看mysql是否启动成功
+
+pkill mysqld #首先杀死mysql进程
+netstat -lntp | grep 3306
+service mysql start  #启动mysql
+netstat -lntp | grep 3306
+
+
+reboot #重启
+
+mv abc.txt 1234.txt #文件重命名
+
+mkfifo 命令创建命名管道实现进程之间通信
+which cronolog #查看程序的安装路径
+
+nohup #用途：不挂断地运行命令。
+cat 命令用于连接文件并打印到标准输出设备上。
+
+
+
+#!/bin/bash
+#function:cut nginx log files
+
+#set the path to nginx log files
+log_files_path="/usr/local/nginx/logs"
+log_files_dir=${log_files_path}
+#set nginx log files you want to cut
+log_files_name=(access)
+log_error_files_name=(error)
+#set the path to nginx.
+nginx_sbin="/usr/local/nginx/sbin/nginx"
+#Set how long you want to save
+save_days=30
+############################################
+#Please do not modify the following script #
+############################################
+#mkdir -p $log_files_dir
+log_files_num=${#log_files_name[@]}
+
+#cut nginx log files
+for((i=0;i<$log_files_num;i++));do
+mv ${log_files_path}${log_files_name[i]}.log ${log_files_dir}${log_files_name[i]}.log_$(date -d "yesterday" +"%Y-%m-%d")
+mv ${log_files_path}${log_error_files_name[i]}.log ${log_files_dir}${log_error_files_name[i]}.log_$(date -d "yesterday" +"%Y-%m-%d")
+done
+
+#delete 30 days ago nginx log files
+find $log_files_path -mtime +$save_days -exec rm -rf {} \; 
+
+#restart nginx
+#$nginx_sbin -s reload
+/etc/rc.d/init.d/nginx restart
+
+
+
+#!/bin/bash
+logs_path="/usr/local/nginx/logs/"
+DAYS=30
+mv ${logs_path}access.log ${logs_path}access_$(date -d "yesterday" +"%Y%m%d%H%M%S").log
+#mv ${logs_path}access.log ${logs_path}access_$(date +"%Y年%m月%d日%H时%M分%S秒星期%w").log
+kill -USR1 `cat /usr/local/nginx/logs/nginx.pid`
+find ${logs_path} -name "access_*.log" -type f -mtime +$DAYS -exec rm {} \;
+
+
+
+
+
+systemctl restart crond.service
+
+Redirecting to /bin/systemctl restart crond.service
+
+
+
+
+
+
+
+
+#!/bin/bash
+cp /usr/local/nginx/logs/error.log /usr/local/nginx/logs/error/error-$(date -d "yesterday" +"%Y%m%d").log
+cat /dev/null > /usr/local/nginx/logs/error.log
+cp /usr/local/nginx/logs/access.log /usr/local/nginx/logs/access/access-$(date -d "yesterday" +"%Y%m%d").log
+cat /dev/null > /usr/local/nginx/logs/access.log
+find /usr/local/nginx/logs/error -mtime +7 -type f -name \*.log | xargs rm -f
+find /usr/local/nginx/logs/access -mtime +7 -type f -name \*.log | xargs rm -f
+
+
+*/5 * * * * /usr/local/nginx/sbin/clear_log.sh
+0 0 * * * /usr/local/nginx/sbin/clear_log.sh
+0 0 * * * /usr/nginx/dellog.sh
+
+chmod -Rf 755 /usr/local/nginx/html
+
+error_page  404 403 500 502 503 504  /404.html;
+
+/404.html
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+    <h1>我的第一个标题</h1>
+    <p>我的第一个段落。</p>
+</body>
+</html>
+
+
+
+
+./configure --prefix=/usr/local/httpd
+--enable-so
+--enable-rewrite
+--enable-ssl
+--with-ssl=/usr/local/openssl
+--enable-cgi 
+--enable-modules=most
+--enable-mods-shared=most
+--enable-mpms-shared=all
+--with-mpm=event 
+--with-pcre=/usr/local/pcre
+--with-z=/usr/local/zlib
+--with-apr=/usr/local/apr 
+--with-apr-util=/usr/local/apr-util 
+--enable-expires
+--enable-deflate:
+
+
+
+
+
+
+
+
+ ./configure \ #执行当前目录下软件自带的配置命令
+       --prefix=/usr/local/apache2 \指定Apache服务器的配置文件存放位置
+       --sysconfdir=/etc/httpd \ #指定Apache服务器的配置文件存放位置
+       --with-z=/usr/local/zlib/ \#指定zlib库文件的位置
+       --with-included-apr \ #使用捆绑APR/APR-Util的副本
+       --disable-userdir \ #请求的映象到用户指定的目录
+       --enable-so \ #以动态共享对象(DSO)编译
+       --enable-deflate=shared \ #缩小传输编码的支持
+       --enable-expires=shared \ # 期满头控制
+       --enable-rewrite=shared \ # 基于规则的URL操控
+       --enable-static-support \ #建立一个静态链接版本的支持
+
+
+./configure --prefix=/usr/local/apache2 
+--sysconfdir=/etc/httpd 
+--with-z=/usr/local/zlib/ 
+--with-included-apr 
+--enable-so 
+--enable-deflate=shared 
+--enable-expires=shared 
+--enable-rewrite=shared 
+--enable-static=support
+
+
+
+
+参数解释：
+./configure --prefix=/usr/local/http-2.4.23      //指定apache的安装路径
+--enable-so  //这个是支持动态共享模块
+--enable-rewrite  //支持URL重写
+--enable-ssl   //支持ssl
+--with-ssl=/usr/local/openssl  //这个是指定openssl的安装位置
+--enable-cgi   //启用cgi
+--enable-modules=most 指明要静态编译到httpd二进制文件的模块 all或者most，all代表包含所有的模块 most代表大部分的模块
+--enable-mods-shared=most 指明要以DSO方式编译的模块，all代表全部，most代表大部分
+--enable-mpms-shared=all  启用MPM所有支持的模式，这样event，worker，prefork就会以模块化的方式安装，要用哪个就在httpd.conf里面配置就好了
+--with-mpm=event   指定启用mpm模式，默认使用enevt模式，在apache的早期版本2.0默认prefork，2.2版本是worker 2.4版本是event.
+--with-pcre=/usr/local/pcre 支持 pcre
+--with-z=/usr/local/zlib  使用 zlib 压缩库
+--with-apr=/usr/local/apr   指定 apr 的安装路径
+--with-apr-util=/usr/local/apr-util 指定 apr-util 的安装路径
+--enable-expires:激活彧通过配置文件控制 HTTP 的“Expires:”和“Cache-Control:”头内容，即对网站图片、js、css 等内容，提供客户端浏览器缓
+存的设置。这个是 apache 调优的一个重要选项之一。
+--enable-deflate:提供对内容的压缩传输编码支持，一般是 html、js、css 等内容的站点。使用此参数会打打提高传输速度，提升访问者访问的体验。在生产环境中，这是 apache 调优的一个重要选项之一
+到这里必须要知道Apache的三种工作模式：event，worker，prefork ！！！
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
