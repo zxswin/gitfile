@@ -140,7 +140,6 @@ installation should now be secure.
 Thanks for using MySQL!
 Cleaning up...
 
-
 ================================安装及配置Nginx服务================================
 1.安装pcre
 提供Perl语言兼容的正则表达式库的软件包pcre,是Nginx服务程序用于实现伪静态功能必不可少的依赖包
@@ -455,6 +454,34 @@ Require all granted
 </directory>
 </VirtualHost>
 
+================================apache日志分割================================
+为apache重新指定日志生成位置，每天生成一个文件(废弃)
+vim /etc/httpd/conf/httpd.conf  #编辑文件
+#ErrorLog logs/error_log  #注释此行，添加下面这行
+ErrorLog "|/usr/local/httpd/bin/rotatelogs /var/log/httpd/error/error_log%Y%m%d.log 86400 480"  #每天单独生成一个日志文件
+#CustomLog logs/access_log common  #注释此行，添加下面这行
+CustomLog "|/usr/local/httpd/bin/rotatelogs /var/log/httpd/access/access_log%Y%m%d.log 86400 480" common  #每天单独生成一个日志文件
+#ErrorLog /dev/null  #禁用错误日志
+#CustomLog /dev/null common  #禁用访问日志
+
+1.日志按天切割并删除7天前apache日志文件
+1.新建clear_log.sh文件
+#!/bin/bash
+cp /usr/local/httpd/logs/error_log /usr/local/httpd/logs/error/error-$(date -d "yesterday" +"%Y%m%d").log
+cat /dev/null > /usr/local/httpd/logs/error_log
+cp /usr/local/httpd/logs/access_log /usr/local/httpd/logs/access/access-$(date -d "yesterday" +"%Y%m%d").log
+cat /dev/null > /usr/local/httpd/logs/access_log
+find /usr/local/httpd/logs/error -mtime +7 -type f -name \*.log | xargs rm -f
+find /usr/local/httpd/logs/access -mtime +7 -type f -name \*.log | xargs rm -f
+3.设置clear_log.sh可执行权限
+chmod -Rf 755 clear_log.sh
+4.crontab -e #编辑定时任务
+20 7 * * * /usr/local/httpd/logs/clear_log.sh
+5.systemctl restart crond.service #重启定时任务
+6.crontab -l #查看定时任务列表
+7.cd /usr/local/httpd/logs  在logs下新建error 和 access文件夹
+mkdir error
+mkdir access
 
 
 ================================配置php服务================================
@@ -1003,6 +1030,483 @@ server {
 
 
 ================================使用Vsftpd服务传输文件================================
+一.关于SFTP协议和FTP协议
+1.SFTP开启 默认端口22
+/etc/init.d/sshd start  
+/etc/init.d/sshd stop 
+
+2.SFTP优点
+SSHD守护进程（端口号默认是22）
+SFTP同样是使用加密传输认证信息和传输的数据，所以，使用SFTP是非常安全的
+
+
+二.安装Vsftpd服务
+1.检测软件是否已经安装
+rpm -qc vsftpd
+2.安装vsftp
+yum install -y vsftpd
+3.设置开机启动
+systemctl enable vsftpd
+4.启动ftp服务
+systemctl start vsftpd.service
+5.添加21端口打开防火墙
+firewall-cmd --zone=public --add-port=21/tcp --permanent  #开启端口
+firewall-cmd --permanent --zone=public --add-service=ftp #添加ftp服务
+firewall-cmd --reload #重启防火墙
+firewall-cmd --zone=public --list-ports #查看所有开启的端口
+systemctl is-enabled firewalld #查看防火墙是否是开机启动状态
+firewall-cmd --zone=public --remove-port=3306/tcp --permanent #删除开发的端口(如果需要)
+5.添加用户(本地用户访问)
+#此命令会自己建data目录
+drwx------. 2 zxsftp02 root  62 7月  16 22:12 data
+useradd -g root -d /home/data -s /sbin/nologin zxsftp02 #新建zxsftp01用户 添加到root组 但是不允许用户登录，仅仅可以ftp登录 登录后的默认目录是/home/data
+
+6.设置用户密码
+passwd zxsftp02
+
+7.设置权限
+chown -R zxsftp02:root /home/data
+setsebool -P ftpd_full_access on #使FTP客户端可以正常传输文件
+
+8.修改vsftp配置文件，禁止匿名登录
+把：anonymous_enable=YES 改为： anonymous_enable=NO
+输入--->   :wq!  保存退出
+
+
+9.设置只允许访问自身目录，不能跳转根目录
+tail /etc/passwd #查看用户列表
+userdel zxsftp02 #删除用户
+
+local_enable=YES #允许本地用户登录
+write_enable=YES #允许本地用户上传
+local_umask=022 #本地用户上传umask值
+
+户目录限制
+chroot_local_user=YES #开启用户目录限制(只有此行,把所有用户都限制在用户主目录中)
+chroot_list_enable=YES 
+chroot_list_file=/etc/vsftpd/chroot_list_enable
+#写入/etc/vsftpd/chroot_list文件中的用户可以访问任何目录 其他用户限制在用户主目录
+
+改chroot_list_enable=NO # chroot_list文件中的用户限制在用户主目录
+chroot_list 文件中写入zxsftp02 一个用户一行
+
+访问控制
+userlist_enable=YES #开启用户访问控制
+userlist_deny=YES
+userlist_file=/etc/vsftpd/user_list
+#写入/etc/vsftpd/user_list文件中的用户不能访问
+
+ftpusers列表中的用户不能访问FTP：这是vsftpd服务在启动后已经决定的，只要在这个列表里面用户都不能访问FTP，没有其它的开关可以控制
+当 userlist_enable=YES，userlist_deny=YES 时user_list列表内的用户不可以登录，列表外用户可登录
+当 userlist_enable=YES , userlist_deny=NO 时user_list 只允许列表以外的用户登录，并且必需是以命令行的方式
+
+10.systemctl restart vsftpd.service #重启FTP服务
+
+================================添加用户(虚拟用户访问)问题未解决================================
+1.安装依赖包
+yum -y install pam pam-devel db4 de4-devel db4-uitls db4-tcl
+问题-找不可用的安装包
+
+
+================================搭建Git服务器================================
+1.查看是否有安装老版本的git
+rpm -qa | grep git 
+2.删除老版本的git
+yum remove git
+3.安装编译所需要的包
+yum -y install gcc
+yum -y install gcc-c++
+yum -y install curl-devel expat-devel gettext-devel openssl-devel zlib-devel
+yum -y install gcc perl-ExtUtils-MakeMaker
+
+或可全部一起安装
+yum -y install gcc  gcc-c++  curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-MakeMaker
+
+4.解压源码包
+tar zxvf git-2.12.2.tar.gz 
+
+5.进入解压目录
+cd git-2.12.2/
+
+6.配置安装目录
+./configure --prefix=/usr/local/git
+7.编译和安装
+make
+make install
+
+8.添加全局变量
+vim /etc/profile
+把命令所保存的目录永久性地定义到PATH变量 定义git环境变量
+………………省略部分输出信息………………
+ 64 
+ 65 for i in /etc/profile.d/*.sh ; do
+ 66 if [ -r "$i" ]; then
+ 67 if [ "${-#*i}" != "$-" ]; then
+ 68 . "$i"
+ 69 else
+ 70 . "$i" >/dev/null
+ 71 fi
+ 72 fi
+ 73 done
+ 74 export PATH=$PATH:/usr/local/mysql/bin:/usr/local/openssl/bin:/usr/local/git/bin
+ 75 unset i
+ 76 unset -f pathmunge
+source /etc/profile #使用source命令加载一下/ect/profile文件，此时新的PATH变量也可以立即生效了
+
+9.查看git版本
+git --version
+
+10将git设置为默认路径，不然后面克隆时会报错
+先删除/usr/bin目录下已经存在的git文件
+git
+git-receive-pack
+git-shell
+git-upload-archive
+git-upload-pack
+
+将git设置为默认路径
+ln -s /usr/local/git/bin/git /usr/bin/git
+ln -s /usr/local/git/bin/git-receive-pack /usr/bin/git-receive-pack
+ln -s /usr/local/git/bin/git-shell /usr/bin/git-shell
+ln -s /usr/local/git/bin/git-upload-archive /usr/bin/git-upload-archive
+ln -s /usr/local/git/bin/git-upload-pack /usr/bin/git-upload-pack 
+
+11.创建一个git用户组和用户，用来运行git服务
+
+groupadd git
+useradd git -g git
+passwd git  #参数是用户名 12345678
+最好切换到git用户 不然后面新建的git仓库都要改权限 烦烦烦！！
+$ su - git 
+
+12.创建证书登录
+mkdir /home/git/.ssh
+ll -a #可以查看到隐藏的文件
+chmod 700 .ssh
+cd /home/git/.ssh 
+ssh-keygen -t rsa  //默认会生成~/.ssh/id_rsa.pub公钥文件。
+
+初始化完出现3个文件
+authorized_keys #此文件没有出现要自己创建
+id_rsa
+id_rsa.pub
+
+vim authorized_keys
+chmod 600 authorized_keys
+把你客户端生成的公钥复制进去就OK了 
+ssh git@192.168.139.128 'cat >> .ssh/authorized_keys' < ~/.ssh/id_rsa.pub #客户端git-bash复制
+
+13.初始化Git仓库
+$ cd /home/git
+$ git init --bare front.git
+#Initialized empty Git repository in /home/git/front.git/
+以上命令会创建一个空仓库，服务器上的Git仓库通常都以.git结尾。
+
+
+14.进入 /etc/ssh 目录，编辑 sshd_config
+RSAAuthentication yes
+PubkeyAuthentication yes
+AuthorizedKeysFile      .ssh/authorized_keys
+systemctl restart sshd #重启sshd
+
+15.禁用shell登录
+通过编辑/etc/passwd
+改为
+git:x:1001:1001:,,,:/home/git:/bin/bash
+git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell
+
+
+
+16.本地克隆仓库
+$ git clone git@192.168.139.128:/home/git/front.git
+Cloning into 'test'...
+warning: You appear to have cloned an empty repository.
+Checking connectivity... done.
+your-ip 为您 Git 所在服务器 ip
+
+17.提交测试
+git add -A
+git commit -m '123'
+git remote add origin git@192.168.139.128:/home/git/front.git #本地连接远程库
+git push origin master #推送到远程仓库
+
+18.同步文件到服务器
+cd hooks
+touch post-receive          #创建自动执行文件
+chmod -R 777 post-receive   #给个可执行权限
+chown -R  git.git data #改变文件/home/git/data/front的所有者和所属组
+vim post-receive #编辑文件
+#!/bin/sh  
+export LANG=zh_CN.UTF-8
+git --work-tree=/home/git/data/front checkout -f
+
+19.开机启动
+chkconfig git on   #使用chkconfig命令把git服务程序加入到开机启动项中
+
+
+================================搭建NodeJS环境================================
+1.查看linux系统是几位的
+uname -m #输出x86_64表示式64位的
+2.下载并解压nodejs安装包(下载阿里云镜像)
+tar -zvxf nodejs.gz 
+tar -zxvf japan.tar.gz
+
+压缩包围zx后缀说明是压缩后又进行了一次压缩 使用下面命名解压缩（xz有问题解压后没有configure目录）
+tar xvJf  ***.tar.xz
+tar xvJf  node-v8.9.4-linux-x64.tar.xz
+
+3.指定安装路径
+./configure --prefix=/usr/local/node
+4.编译成二进制文件
+make 
+5.安装
+make install 
+
+
+6.添加环境变量
+vim /etc/profile
+把命令所保存的目录永久性地定义到PATH变量 定义nodejs环境变量
+………………省略部分输出信息………………
+ 64 
+ 65 for i in /etc/profile.d/*.sh ; do
+ 66 if [ -r "$i" ]; then
+ 67 if [ "${-#*i}" != "$-" ]; then
+ 68 . "$i"
+ 69 else
+ 70 . "$i" >/dev/null
+ 71 fi
+ 72 fi
+ 73 done
+ 74 export PATH=$PATH:/usr/local/mysql/bin:/usr/local/node/bin
+ 75 unset i
+ 76 unset -f pathmunge
+
+source /etc/profile #使用source命令加载一下/ect/profile文件，此时新的PATH变量也可以立即生效了
+
+7.检测node是否安装成功
+node -v
+npm -v
+
+8.测试一个简单的nodeJs程序
+本地测试需要注意host配置
+配置nginx服务器
+server {
+       listen 80;
+       server_name node.abc.com;
+       location / {
+          root   html/node;
+          index  app.js;
+        }
+
+       location  ~ \.js$ {
+            proxy_pass   http://127.0.0.1:2201;
+        }
+
+     }
+
+/etc/rc.d/init.d/nginx restart #重启nginx服务器
+
+9.新建package.json 文件
+{
+    "name": "hello-koa",
+    "version": "1.0.0",
+    "description": "Hello Koa 2 example with async",
+    "main": "app.js",
+    "scripts": {
+        "start": "node --use_strict app.js"
+    },
+    "keywords": [
+        "koa",
+        "async"
+    ],
+    "author": "Michael Liao",
+    "license": "Apache-2.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/michaelliao/learn-javascript.git"
+    },
+    "dependencies": {
+        "koa": "2.0.0"
+    }
+}
+
+10.新建app.js 文件
+const Koa = require('koa');
+
+const app = new Koa();
+
+app.use(async (ctx, next) => {
+    const start = new Date().getTime();
+    await next();
+    const ms = new Date().getTime() - start;
+    console.log(`${ctx.request.method} ${ctx.request.url}: ${ms}ms`);
+    ctx.response.set('X-Response-Time', `${ms}ms`);
+});
+
+app.use(async (ctx, next) => {
+    await next();
+    ctx.response.type = 'text/html';
+    ctx.response.body = '<h1>Hello, koa2!</h1>';
+});
+
+app.listen(2201);
+console.log('app started at port 2201...');
+
+10.npm install #安装依赖
+11.node app.js #启动程序
+
+12.配置node程序开机自启动
+到/usr/lib/systemd/system/目录下
+新建node-app.service 文件 使用systemd启动nodejs服务
+
+[Unit]
+Description=node-app.service
+[Service]
+ExecStart=/usr/local/node/bin/node  /usr/local/nginx/html/node/app.js
+Restart=always
+User=nobody
+Group=nobody
+[Install]
+WantedBy=multi-user.target
+
+
+systemctl daemon-reload # 重载配置文件
+systemctl start node-app # 启动服务
+systemctl status node-app # 查看服务状态
+systemctl enable node-app # 设为开机启动
+systemctl status node-app.service #查看错误日志
+systemctl enable node-app #运行命令使服务开机自动启动：
+systemctl start node-app #启动程序
+systemctl list-units --type=service #查看所有已启动的服务
+systemctl disable node-app #停止开机自启动
+
+以下为可选操作
+速关闭SElinux，使用如下命令就可以：
+getenforce 
+/usr/sbin/setenforce 0 立刻关闭 SELINUX
+/usr/sbin/setenforce 1 立刻启用 SELINUX
+
+
+
+
+================================搭建Python环境================================
+强制删除老版本的python
+rpm -qa|grep python|xargs rpm -ev --allmatches --nodeps ##强制删除已安装程序及其关联
+whereis python |xargs rm -frv ##删除所有残余文件 ##xargs，允许你对输出执行其他某些命令
+whereis python ##验证删除，返回无结果
+
+
+1.依赖安装
+yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel wget
+2.解压
+tar -zxvf Python-3.6.3.tgz
+3.编译并安装
+./configure --prefix=/usr/local/python && make && make install
+
+4.添加环境变量
+vim /etc/profile
+把命令所保存的目录永久性地定义到PATH变量 定义nodejs环境变量
+………………省略部分输出信息………………
+ 64 
+ 65 for i in /etc/profile.d/*.sh ; do
+ 66 if [ -r "$i" ]; then
+ 67 if [ "${-#*i}" != "$-" ]; then
+ 68 . "$i"
+ 69 else
+ 70 . "$i" >/dev/null
+ 71 fi
+ 72 fi
+ 73 done
+ 74 export PATH=$PATH:/usr/local/mysql/bin:/usr/local/python/bin
+ 75 unset i
+ 76 unset -f pathmunge
+
+source /etc/profile #使用source命令加载一下/ect/profile文件，此时新的PATH变量也可以立即生效了
+
+设置python默认路径
+ln -s /usr/local/python/bin/python3.6 /usr/bin/python
+
+7.检测python是否安装成功
+python -V
+
+8.编写一个简单的hello world文件
+hello.py
+def application(environ, start_response):
+    start_response('200 OK', [('Content-Type', 'text/html')])
+    return [b'<h1>Hello, web!</h1>']
+
+server.py，负责启动WSGI服务器
+# server.py
+# 从wsgiref模块导入:
+from wsgiref.simple_server import make_server
+# 导入我们自己编写的application函数:
+from hello import application
+
+# 创建一个服务器，IP地址为空，端口是8000，处理函数是application:
+httpd = make_server('', 8000, application)
+print('Serving HTTP on port 8000...')
+# 开始监听HTTP请求:
+httpd.serve_forever()
+
+9.配置nginx服务器
+本地测试需要注意host配置
+安装uwsgi模块(可忽略这块操作)
+pip3 install uwsgi
+为了在终端中使用uwsgi命令，执行以下命令
+ln -s /usr/local/python3/bin/uwsgi /usr/bin/uwsgi3
+
+pip3 list #列出pip3已经安装的包
+pip show pycurl #输出pycurl包的信息
+pip uninstall pycurl #卸载包
+
+
+server {
+       listen 80;
+       server_name python.abc.com;
+       location / {
+           proxy_pass       http://127.0.0.1:8000;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header Host $host;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
+     }
+
+/etc/rc.d/init.d/nginx restart #重启nginx服务器
+python sever.py #启动程序
+
+
+8.python程序开机启动
+到/usr/lib/systemd/system/目录下
+新建python-app.service 文件 使用systemd启动python服务
+
+[Unit]
+Description=python-app.service
+[Service]
+ExecStart=/usr/local/python/bin/python3.6  /usr/local/nginx/html/python/server.py
+Restart=always
+User=nobody
+Group=nobody
+[Install]
+WantedBy=multi-user.target
+
+
+systemctl daemon-reload # 重载配置文件
+systemctl start python-app # 启动服务
+systemctl status python-app # 查看服务状态
+systemctl enable python-app # 设为开机启动
+systemctl status python-app.service #查看错误日志
+systemctl start python-app #启动程序
+systemctl list-units --type=service #查看所有已启动的服务
+systemctl disable python-app #停止开机自启动
+
+以下为可选操作
+速关闭SElinux，使用如下命令就可以：
+getenforce 
+/usr/sbin/setenforce 0 立刻关闭 SELINUX
+/usr/sbin/setenforce 1 立刻启用 SELINUX
+
+
+
 
 
 
