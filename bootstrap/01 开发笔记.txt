@@ -1,0 +1,755 @@
+##################20180710##################
+======webpack编译警告问题======
+1.plugins 中加入如下配置信息
+new webpack.ContextReplacementPlugin(
+    /(.+)?angular(\\|\/)core(.+)?/, // fixes WARNING Critical dependency: the request of a dependency is an expression
+    path.join(__dirname, 'src'), // location of your src
+    {} // a map of your routes
+
+),
+new webpack.ContextReplacementPlugin(
+    /(.+)?express(\\|\/)(.+)?/, // fixes WARNING Critical dependency: the request of a dependency is an expression
+    path.join(__dirname, 'src'),
+    {}
+),
+
+##################20180716##################
+======Angular2 路由刷新发送http请求返回404错误问题======
+1.在app.module.ts文件中
+开启 Hash 模式
+URL 中包含的 hash 信息是不会提交到服务端
+import {HashLocationStrategy , LocationStrategy} from '@angular/common';
+在@NgModule中加入
+providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+
+补充：开启 HTML 5 模式(次模式并不能解决刷新404错误的问题,需配合服务器配置路径重新实现)
+import { APP_BASE_HREF, LocationStrategy, PathLocationStrategy } from '@angular/common';
+{ provide: LocationStrategy, useClass: PathLocationStrategy },
+{ provide: APP_BASE_HREF, useValue: '/dist/' }
+
+2.在index.html文件中
+<base> 标签为页面上的所有链接规定默认地址或默认目标
+<base href="/dist/">  
+
+
+======把Router配置数据提取出来======
+import { RouterModule,Routes } from '@angular/router';
+import { PageTwoComponent } from './pagetwo/pagetwo.component';
+import { PageNoComponent } from './nopage/nopage.component';
+
+export const routes: Routes = [
+    { path: 'pagetwo', component: PageTwoComponent },
+    { path: '',   redirectTo: '/pagetwo', pathMatch: 'full' },
+    { path: '**', component: PageNoComponent }
+]
+
+##################20180717##################
+======loadChildren惰性加载报模块找不到错误======
+1.安装angular2-router-loader
+npm install angular2-router-loader -D 
+
+2.webpack.config.js文件中加入angular2-router-loader
+{
+    test: /\.tsx?$/,
+    use:[
+        'ts-loader',
+        'angular2-template-loader',
+        'angular2-router-loader'
+    ],
+    include :path.resolve(__dirname, 'src'),
+    exclude: /\.component.ts$/
+    },
+    { 
+    test: /\.component.ts$/, 
+    use:[
+        'ts-loader',
+        'angular2-template-loader',
+        'angular2-router-loader'
+    ],
+    include :path.resolve(__dirname, 'src'),
+},
+
+2.实现路由懒加载
+{
+    path: '',
+    loadChildren: './pageone/pageone.module#pageOneModule',
+},
+
+3.实现路由预加载
+import { RouterModule,PreloadingStrategy,PreloadAllModules,Routes } from '@angular/router';
+RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules } ),
+
+##################20180718##################
+======实现pug和less文件分离======
+@Component({
+  selector: 'app',
+  templateUrl: './app.component.pug',
+  styleUrls: ['./app.component.less'],
+})
+
+======路由链接调转处理======
+a(routerLink="/login") 调转login
+a(routerLink="/home" , routerLinkActive="active") 调转home
+
+======设置子路由懒加载======
+1.父路由中页面配置
+{ path: '', redirectTo: '/login', pathMatch: 'full' },
+{ path: 'login', component: LoginComponent },
+{
+    path: 'home',
+    loadChildren: './home/home.module#HomeModule',
+},
+
+2.子路由页面中配置
+export const routes: Routes = [
+    { path: '', component: WelcomeComponent},
+]
+
+======父路由默认跳转到指定子路由同时路径发生切换======
+
+{ path: '' , component: HomeComponent,
+    children:[
+        { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+        { path:'welcome' , component:WelcomeComponent },
+        {
+            path: 'products',
+            loadChildren: './pages-products/pages-products.module#PagesProductsModule',
+        },
+        { path:'**',component:GetlostComponent },
+    ]
+},
+
+
+##################20180719##################
+======添加进度条组件共享组件(组件添加和组件使用)======
+1.正常模式编写组件LoadBarComponent
+2.组件module文件中
+import { CommonModule } from '@angular/common'; //引入CommonModule模块
+import { LoadBarComponent } from './load-bar/load-bar.component'; //引入组件
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    CommonModule,  //加入CommonModule模块
+    FormsModule,
+  ],
+  declarations: [
+    LoadBarComponent, //加入组件
+  ],
+  exports:[CommonModule,LoadBarComponent], //导入模块和组件
+})
+
+export class CommonModuleModule  { }  //导出模块
+// exports - 声明（ declaration ）的子集，可用于其它模块中的组件模板;
+// exports: 数组类型的选项,我们这个模块需要导出的一些组件,指令,模块等;
+// 如果别的模块导入了我们这个模块,
+// 那么别的模块就可以直接使用我们在这里导出的组件,指令模块等.
+
+3.再想要引入组件的模块中比如app.moudle.ts 
+import { CommonModuleModule } from './commons/common-module.module'; //引入模块
+imports: [
+    BrowserModule,
+    FormsModule,
+    CommonModuleModule, //加入模块 
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+],
+
+======NgModule的API各个模块属性======
+1.providers: 这个选项是一个数组,需要我们列出我们这个模块的一些需要共用的服务，这个模块的各个组件中通过依赖注入使用了
+2.declarations: 数组类型的选项, 用来声明属于这个模块的指令,管道等等.然后我们就可以在这个模块中使用它们了
+3.imports: 数组类型的选项,我们的模块需要依赖的一些其他的模块,这样做的目的使我们这个模块，可以直接使用别的模块提供的一些指令,组件等等
+4.exports: 数组类型的选项,我们这个模块需要导出的一些组件,指令,模块等;如果别的模块导入了我们这个模块,那么别的模块就可以直接使用我们在这里导出的组件,指令模块等.
+5.entryComponents: 数组类型的选项,指定一系列的组件,这些组件将会在这个模块定义的时候进行编译,Angular会为每一个组件创建一个ComponentFactory然后把它存储在ComponentFactoryResolver
+6.bootstrap: 数组类型选项, 指定了这个模块启动的时候应该启动的组件.当然这些组件会被自动的加入到entryComponents中去
+7.schemas: 不属于Angular的组件或者指令的元素或者属性都需要在这里进行声明.
+8.id: 字符串类型的选项,模块的隐藏ID,它可以是一个名字或者一个路径;用来在getModuleFactory区别模块,如果这个属性是undefined，那么这个模块将不会被注册.
+
+======BrowserModule 与 CommonModule======
+1.根模块中引入BrowserModule(已经导入了CommonModule的所有功能) 重新初始化全应用级的提供商
+2.特征模块中引入CommonModule(包含了*ngIf 和 *ngFor的功能)不需要重新初始化全应用级的提供商
+3.FormsModule模块包含了[(ngModel)]等表单相关功能
+4.RouterModule模块包含了RouterLink等路由功能
+5.如果需要使用某个模块的组件,该模块必须先导入组件模块文件，组件模块可以exports出CommonModule或FormsModule模块则导入模块无需重复导入即可使用CommonModule或FormsModule的功能
+
+==== 单例service文件的引入 ====
+1.service文件中
+import { Injectable } from '@angular/core';
+
+@Injectable()
+
+export class LoadBarService {
+    constructor() { }
+    initData(){
+        console.log('引入load-bar的service文件');
+    }
+}
+
+2.在component文件中
+@Component({
+  selector: 'load-bar',
+  templateUrl: './load-bar.component.pug',
+  styleUrls: ['./load-bar.component.less'],
+  providers: [ LoadBarService ],
+})
+export class LoadBarComponent {
+  constructor(private loadBarService: LoadBarService,) {
+  }
+  title = 'load-bar';
+  ngOnInit(){
+    this.loadBarService.initData();
+    console.log('load-bar页面启动.....');
+  }
+}
+
+==== 公用service文件的引入 ====
+1.新建一个service文件
+2.app.module.ts文件中
+import { LogService } from './services/log.service'; //引入这个service文件
+providers: [LogService], //注册服务商
+3.在其他组件中引入服务并使用
+import { LogService } from './services/log.service'; //引入这个service文件
+constructor(
+    private logService: LogService,
+) { }
+ngOnInit(){
+    this.logService.initData();
+}
+
+
+##################20180720##################
+==== 公用样式处理 ====
+1.reset.less样式重置文件
+2.实现响应式屏幕适配(vw来做移动端的适配问题)
+相对于视口的宽度。视口被均分为100单位的vw
+1px = 1 /clientWidth rem ;
+按照最小的屏幕来设置
+html {
+    font-size: 100vw; 
+}
+body {
+    width:100%;
+    margin:0 auto;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    font-size:0.012rem; //使用rem单位
+    line-height: 1;
+}
+box-sizing: border-box;
+对元素指定宽度和高度包括padding和border的指定
+
+##################20180723##################
+====visual studio code设置制表符为2个空格====
+1.进入首选项-用户设置
+"editor.detectIndentation": false,
+"editor.tabSize": 2,
+
+##################20180730##################
+1.谷歌浏览器调试断点，定位脚本位置
+Event Listener Breakpoints 选项,选中 mouse 里面的 click 或其他事件. 
+这样你点击页面上的按钮 就会触发断点,js会停在你点击的事件位置上.
+
+##################20180731##################
+1.npm更新模块同步到package.js中(升级到最新版本) 只能更新package.json文件不会更新包
+高效升级插件npm-check-updates
+cnpm install -g npm-check-updates
+npm-check-updates
+或
+ncu #查看可以升级的列表
+ncu -u #升级所有
+ncu -a bootstrap #升级指定的包，并更新package.json文件中的版本号
+
+2.npm-check是一个npm包更新工具
+提供图形化界面
+批量更新依赖包，还兼职检测包使用情况
+项目下更新支持自动检测包的 "dependencies" 和"devDependencies"并更新"package.json"信息
+
+npm-check安装
+npm install -g npm-check //全局安装。项目下安装可自行选择
+npm install npm-check    //项目下安装，项目根目录执行
+
+npm-check项目依赖包更新
+npm-check
+
+更新包。分类别展示，使用空格选择包，然后enter开始更新。自动更新package.json内的相关包信息
+npm-check -u
+
+
+让npm-check使用cnpm执行更新
+
+直接升级(最终解决方案)
+cnpm install -S bootstrap
+
+##################20180802##################
+1.CSS3中Flex布局深入研究
+
+
+##################20180809##################
+1.angular2子组件开发
+在子组件中
+import { Component, EventEmitter, Input, Output } from '@angular/core'; //引入组件开发必备模块
+@Input()  name;  //属性-父组件传递数据给子组件
+@Output() onVoted = new EventEmitter(); //事件-子组件发射数据给父组件
+this.onVoted.emit(agreed) ;//子组件通过emit方法发射数据给父组件
+
+在父组件中
+my-voter(*ngFor="let voter of voters" ,[name]="voter" ,(onVoted)="onVoted($event)")
+(onVoted)="onVoted($event) //为获取子组件中发射的数据并做处理
+注意：子组件中执行的事件，在父组件中都能捕获，关键是数据的传递
+
+##################20180813##################
+1.Subject实现父子组件通讯
+import { Subject } from 'rxjs/Subject'; 
+private damageSource = new Subject<number>(); // 用来产生数据流的数据源 
+damage$ = this.damageSource.asObservable(); // 把数据流转换成 Observable
+this.damageSource.next(damage); // 把伤害输入到数据流
+this.textCommonService.damage$.subscribe(damage => { // 订阅服务
+  this.lastDamage = damage;
+  this.damage += damage;
+}, error => {
+  console.log('error: ' + error);
+});
+
+
+
+基本案例
+======text-common.service.ts======
+
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject'; 
+
+@Injectable()
+
+export class TextCommonService {
+  // 用来产生数据流的数据源
+  private damageSource = new Subject<number>();
+  // 把数据流转换成 Observable 可用damageSource替换 需先把damageSource转为公用
+  damage$ = this.damageSource.asObservable();
+  attack(damage: number) {
+    // 把伤害输入到数据流
+    this.damageSource.next(damage);
+  }
+}
+
+======text-common.component.ts======
+import { Component } from '@angular/core';
+import { TextCommonService } from './services/text-common.service';
+@Component({
+  selector: 'text-common',
+  templateUrl: './text-common.component.pug',
+  styleUrls: [ './text-common.component.less' ],
+ // providers: [ TextCommonService ],   子组件无需引入服务 在父组件中引入即可
+})     
+export class TextCommonComponent {
+  private baseDamage: number = 100;
+  damage: number = 0;
+
+  constructor(private textCommonService: TextCommonService) {
+
+  }
+
+  attack() {
+    this.damage = Math.random() * this.baseDamage;
+    // 天行者调用 AttackService 产生伤害
+    this.textCommonService.attack(this.damage);
+  }
+}
+
+======login.component.ts======
+import { Component } from '@angular/core';
+import { TextCommonService } from '../../commons/text-common/services/text-common.service';
+
+@Component({
+  selector: 'login',
+  templateUrl: './login.component.pug',
+  styleUrls: ['./login.component.less'],
+  providers: [ TextCommonService ], //引入服务文件
+})
+export class LoginComponent {
+  damage: number = 0;
+  lastDamage: number = 0;
+
+  constructor(private textCommonService: TextCommonService) {
+    // 父组件订阅来自天行者的伤害
+    this.textCommonService.damage$.subscribe(damage => {
+      this.lastDamage = damage;
+      this.damage += damage;
+    }, error => {
+      console.log('error: ' + error);
+    });
+  }
+  ngOnInit() { }
+}
+
+2.BehaviorSubject 当新增订阅者的时候，自动把当前最新的值发送给订阅者 而不是像Subject什么都不响应直到执行next()
+Subject 最大的不同就是 BehaviorSubject 是用来保存当前最新的值，而不是单纯的发送事件
+BehaviorSubject 会记住最近一次发送的值，并把该值作为当前值保存在内部的属性中
+
+======subject用法示例======
+private  subject = new Subject();
+let observerA = { //可观察对象A
+  next: value => console.log('Observer A get value: ' + value),
+  error: error => console.log('Observer A error: ' + error),
+  complete: () => console.log('Observer A complete!')
+};
+
+let observerB = { //可观察对象B
+  next: value => console.log('Observer B get value: ' + value),
+  error: error => console.log('Observer B error: ' + error),
+  complete: () => console.log('Observer B complete!')
+};
+
+
+this.subject.subscribe(observerA); //订阅可观察对象A
+this.subject.next(1);
+this.subject.next(2);
+this.subject.next(3);
+
+setTimeout(() => {
+  this.subject.subscribe(observerB); // 1秒后订阅
+}, 1000);
+
+======BehaviorSubject用法示例======
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';  //引入BehaviorSubject
+private  subject = new BehaviorSubject(0); // 设定初始值
+其他同上
+
+3.ReplaySubject 在 Subject 新增订阅者后，能向新增的订阅者重新发送最后几个值
+import { ReplaySubject } from 'rxjs/ReplaySubject';  //引入ReplaySubject
+private  subject = new ReplaySubject(2); // 重新发送最后2个值
+其他同上 
+
+4.AsyncSubject 类似于 last 操作符，它会在 Subject 结束后发出最后一个值
+import { AsyncSubject } from 'rxjs/AsyncSubject';  //引入 AsyncSubject
+private  subject = new AsyncSubject();
+let observerA = { //可观察对象A
+  next: value => console.log('Observer A get value: ' + value),
+  error: error => console.log('Observer A error: ' + error),
+  complete: () => console.log('Observer A complete!')
+};
+
+let observerB = { //可观察对象B
+  next: value => console.log('Observer B get value: ' + value),
+  error: error => console.log('Observer B error: ' + error),
+  complete: () => console.log('Observer B complete!')
+};
+
+
+this.subject.subscribe(observerA); //订阅可观察对象A
+this.subject.next(1);
+this.subject.next(2);
+this.subject.next(3);
+
+this.subject.complete(); //结束订阅
+
+setTimeout(() => {
+  this.subject.subscribe(observerB); // 1秒后订阅 
+}, 1000);
+
+##################20180817##################
+一.Promise用法
+1.Promise简单用法
+new Promise(function (resolve, reject) {
+      var timeOut = Math.random() * 2;
+      if (timeOut < 1) {
+        console.log('call resolve()...');
+        resolve('200 OK');
+      }
+      else {
+        console.log('call reject()...');
+        reject('timeout in ' + timeOut + ' seconds.');
+      }
+    }).then(function (r) {
+        console.log('Done: ' + r);
+    }).catch(function (reason) {
+      console.log('Failed: ' + reason);
+    });
+
+2.串行执行一系列需要异步计算获得结果的任务
+定时器启动时候，第三个以后的参数是作为第一个func()的参数传进去。
+
+// 0.5秒后返回input*input的计算结果:
+function multiply(input) {
+  return new Promise(function (resolve, reject) {
+      console.log('calculating ' + input + ' x ' + input + '...');
+      setTimeout(resolve, 500, input * input);
+  });
+}
+
+// 0.5秒后返回input+input的计算结果:
+function add(input) {
+  return new Promise(function (resolve, reject) {
+    console.log('calculating ' + input + ' + ' + input + '...');
+    setTimeout(resolve, 500, input + input);
+  });
+}
+
+var p = new Promise(function (resolve, reject) {
+  console.log('start new Promise...');
+  resolve(123);
+});
+
+p.then(multiply)
+.then(add)
+.then(multiply)
+.then(add)
+.then(function (result) {
+  console.log('Got value: ' + result);
+});
+
+}
+
+3.并行执行异步任务
+var p1 = new Promise(function (resolve, reject) {
+    setTimeout(resolve, 500, 'P1');
+});
+var p2 = new Promise(function (resolve, reject) {
+    setTimeout(resolve, 600, 'P2');
+});
+// 同时执行p1和p2，并在它们都完成后执行then:
+Promise.all([p1, p2]).then(function (results) {
+    console.log(results); // 获得一个Array: ['P1', 'P2']
+});
+
+4.只需要获得先返回的结果
+var p1 = new Promise(function (resolve, reject) {
+    setTimeout(resolve, 500, 'P1');
+});
+var p2 = new Promise(function (resolve, reject) {
+    setTimeout(resolve, 600, 'P2');
+});
+Promise.race([p1, p2]).then(function (result) {
+    console.log(result); // 'P1'
+});
+
+
+二.generator
+1.generator（生成器）是ES6标准引入的新的数据类型。一个generator看上去像一个函数，但可以返回多次
+当执行到done为true时，这个generator对象就已经全部执行完毕，不要再继续调用next()了。
+简单例子
+function* fib(max) { //创建了一个generator对象
+  var
+      t,
+      a = 0,
+      b = 1,
+      n = 0;
+  while (n < max) {
+      yield a;
+      [a, b] = [b, a + b];
+      n ++;
+  }
+  return;
+}
+
+var f = fib(5);
+
+console.log('f',f.next()); //执行generator对象
+console.log('f',f.next());
+console.log('f',f.next());
+console.log('f',f.next());
+console.log('f',f.next());
+console.log('f',f.next());
+
+2.第二个方法是直接用for ... of循环迭代generator对象，这种方式不需要我们自己判断done：
+处理问题1：允许迭代器进行迭代
+##tsconfig.json##
+compilerOptions 编译选项中加入 "downlevelIteration": true, 
+let f = fib(10);
+  for (var x of f) {
+    console.log(x); // 依次输出0, 1, 1, 2, 3, ...
+  }
+
+三.ES2017 新特性：Async Functions (异步函数)
+1.简单示例
+const testSync = async () => {
+      const response = await new Promise(resolve => {
+          setTimeout(() => {
+              resolve("async await test...");
+            }, 5000);
+      });
+      console.log(response);
+    }
+    testSync();//async await test...
+
+2.串行执行
+const p = (num)=> {
+  return  new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if(num>0){
+          resolve('resolve')
+        }else{
+          reject('reject');
+        }
+      }, 5000);
+  })
+}
+    
+const serialFn = async () => { //串行执行
+  console.time('串行');
+  await p(-1).then(v=>{  //等待异步执行1
+    console.log(v);
+  }).catch(e=>{
+    console.log(e);
+  });
+
+  await p(1).then(v=>{ //等待异步执行2
+    console.log(v);
+  }).catch(e=>{
+    console.log(e);
+  });
+
+  console.timeEnd('串行');
+}
+  
+serialFn();
+
+3.并行：将多个promise直接发起请求（先执行async所在函数），然后再进行await操作。
+const p = (str) => {
+  return new Promise((resolve, reject) => {
+      setTimeout(() => {
+          resolve(str)
+      }, 1000);
+  })
+}
+const parallel = async () => { //并行执行
+    console.time('parallel')
+    const parallelOne = p('string 1'); //先执行并缓存了
+    const parallelTwo = p('string 2'); //先执行并缓存了
+    //直接打印
+    console.log(await parallelOne)
+    console.log(await parallelTwo)
+    console.timeEnd('parallel')
+}
+parallel()
+
+4.async、await错误处理
+async function catchErr() {
+try {
+  const errRes = await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          reject("http error...");
+        }, 5000);
+  });
+  } catch(err) {
+      console.log(err);
+  }
+}
+catchErr(); //http error...
+
+5.只要一个await语句后面的 Promise 变为reject，那么整个async函数都会中断执行
+const p = (num)=> {
+return  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if(num>0){
+        resolve('resolve')
+      }else{
+        reject('reject');
+      }
+    }, 1000);
+})
+}
+  
+const serialFn = async () => { //串行执行
+console.time('串行');
+
+await p(-1).then(v=>{  //等待异步执行1
+  console.log(v);
+});
+
+await p(1).then(v=>{ //等待异步执行2  
+  console.log(v);
+});
+
+console.timeEnd('串行');
+}
+
+serialFn().catch(e=>{ //捕获异常中断执行，如果想让后面的也执行，catch可以在await的promise对象中执行
+console.log(e);
+});
+
+##################20180820##################
+1.var 和 let 的区别
+通过var定义的变量，作用域是整个封闭函数，是全域的 。通过let定义的变量，作用域是在块级或是子块中。
+变量提升现象：浏览器在运行代码之前会进行预解析，首先解析函数声明，定义变量，解析完之后再对函数、变量进行运行、赋值等。 
+2.使用块级函数代替自动执行函数
+{
+  console.log(111)
+}
+3.ng2中 如何使用自定义属性data-id 以及赋值和取值操作
+<div [attr.data-nurseKey]="k.nurseKey"></div>
+取值操作：和传统的取自定义属性的值操作一样
+let nurseKey = $(element).attr("data-nursekey");
+console.log('nurseKey',nurseKey);
+
+##################201800829##################
+1.构建环境接口代理问题解决
+Webpack dev server使用http-proxy解决跨域问题
+devServer: {
+  contentBase: '/dist/',
+  hot: true,
+  historyApiFallback: true,
+  inline: true,
+  progress: true,
+  proxy: {
+    '/api/*': {
+      target: 'http://localhost',
+      changeOrigin: true,
+      secure: false
+    }
+  }
+},
+
+ <link rel="alternate" media="only screen and (max-width: 640px)" href="http://m.by-health.com/">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+单词：
+strategy 策略
+restoration 恢复
+manual 手册
+state 状况
+providers 提供者
+justify 证明 整理版面
+shorthand 速记
+hotfix 补丁 热修复
+grow 扩大
+shrink 收缩
+basis 基础
+pattern 模式
+publish 出版 发现
+subscribe 订阅
+subject 主题
+observer 观察者
+multicast 组播
+behavior 行为
+ref 裁判
+reactive 反应式的
+proxy 代理
+
+
+

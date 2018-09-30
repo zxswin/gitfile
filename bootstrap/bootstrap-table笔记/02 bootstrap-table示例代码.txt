@@ -1,0 +1,303 @@
+=============pug文件结构=============
+.wrap
+  .container-fluid.mt-3
+      #toolbar.btn-group
+        button#btn_add.btn.btn-default(type="button",(click)="pdfOutput()")
+          span.fa.fa-download(aria-hidden="true") 导出中文PDF测试
+      .table
+        table#tb_departments
+        .btn-group
+          button#btn_edie.btn.btn-default(type="button")
+            span.fa.fa-download(aria-hidden="true") 行内编辑测试
+
+
+      ul#context-menu.dropdown-menu
+        li([attr.data-item]="'edit'")
+          a 编辑
+        li([attr.data-item]="'delete'")
+          a 删除
+        li([attr.data-item]="'action1'")
+          a 动作1
+        li([attr.data-item]="'action2'")
+          a 动作2
+
+
+=============less文件结构=============
+
+.wrap{
+  padding:00px;
+  position: relative; 
+  a{
+    color:#000;
+  }
+  .table{
+    width:1200px;
+    margin:0 auto;
+    overflow-y:auto;
+  }
+
+}
+.success{
+  background:#f00;
+}
+.export{
+  ul{
+    border:1px solid #f00;
+  }
+}
+
+=============ts文件结构=============
+
+import { Component } from '@angular/core';
+import 'xlsx';
+import 'pdfmake/build/pdfmake.js';
+import 'pdfmake/build/vfs_fonts.js';
+
+@Component({
+  selector: 'login',
+  templateUrl: './login.component.pug',
+  styleUrls: ['./login.component.less'],
+})
+export class LoginComponent {
+  queryParams;
+  data = [
+    {"name":"滚筒","mideaNum":"10","mideaPercent":"29%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"波轮","mideaNum":"9","mideaPercent":"28%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"滚筒","mideaNum":"10","mideaPercent":"29%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"波轮","mideaNum":"9","mideaPercent":"28%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"滚筒","mideaNum":"10","mideaPercent":"29%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"波轮","mideaNum":"9","mideaPercent":"28%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"滚筒","mideaNum":"10","mideaPercent":"29%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"波轮","mideaNum":"9","mideaPercent":"28%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"波轮","mideaNum":"9","mideaPercent":"28%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"波轮","mideaNum":"9","mideaPercent":"28%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"波轮","mideaNum":"9","mideaPercent":"28%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"波轮","mideaNum":"9","mideaPercent":"28%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"波轮","mideaNum":"9","mideaPercent":"28%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"波轮","mideaNum":"9","mideaPercent":"28%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"波轮","mideaNum":"9","mideaPercent":"28%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"波轮","mideaNum":"9","mideaPercent":"28%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"波轮","mideaNum":"9","mideaPercent":"28%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"波轮","mideaNum":"9","mideaPercent":"28%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"波轮","mideaNum":"9","mideaPercent":"28%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"波轮","mideaNum":"9","mideaPercent":"28%","panasonicNum":"10","panasonicPercent":"29%"},
+    {"name":"波轮","mideaNum":"9","mideaPercent":"28%","panasonicNum":"10","panasonicPercent":"29%"},
+  ]
+  constructor() {
+  }
+
+  ngOnInit() {
+    //console.log('XLSX',XLSX);
+    this.queryParams = (params)=>{
+      console.log('params',params)
+      var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+        limit: params.limit,   // 每页显示数量
+        offset: params.offset,  // SQL语句偏移量
+        startPage:params.offset/params.limit + 1 //第几页
+      };
+      console.log('temp',temp);
+      return temp;
+    }
+   }
+
+  ngAfterViewInit(){
+    
+    $('#tb_departments').bootstrapTable({
+      //url: '/api/data.php',              //请求后台的URL（*）
+      //method: 'get',                      //请求方式（*）
+      toolbar: '#toolbar',                //工具按钮用哪个容器
+      striped: true,                      //是否显示行间隔色
+      cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+      pagination: true,                   //是否显示分页（*）
+      sortable: true,                     //是否启用排序
+      sortOrder: "asc",                   //排序方式
+      sortName: 'mideaNum',               //排序字段
+      queryParams: this.queryParams,      //传递参数（*）
+      sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+      pageNumber:1,                       //初始化加载第一页，默认第一页
+      pageSize: 10,                       //每页的记录行数（*）
+      pageList: [2, 10, 50, 100],        //可供选择的每页的行数（*）
+      search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+      strictSearch: false,                 //设置为 true启用全匹配搜索，否则为模糊搜索
+      showColumns: true,                  //是否显示所有的列按钮
+      showRefresh: true,                  //是否显示刷新按钮
+      minimumCountColumns: 2,             //最少允许的列数
+      clickToSelect: true,                //是否启用点击选中行
+      uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+      cardView: false,                    //是否显示详细视图
+      detailView: false,            //是否显示父子表
+      contextMenu: '#context-menu', //右键显示菜单
+      checkboxHeader:false, //设置 false 将在列头隐藏全选复选框。Boolean 默认值：	true
+
+      rightFixedColumns: true,
+      rightFixedNumber: 2,
+
+      
+
+      showExport: true,                     //是否显示导出按钮
+      showFullscreen: true,                //是否显示全屏按钮
+      exportTypes:['excel', 'xlsx', 'pdf'], //导出文件类型
+      exportDataType: "all",             //basic当前页', 'all所有, 'selected'.
+      exportOptions: { 
+        fileName: '用户信息报表',  //文件名称设置
+      },
+
+      columns:[
+        [
+          {
+            checkbox:true,
+          },
+          
+          {
+            field: 'name',
+            title: '用户名',
+            valign:"middle",
+            width:'400px',
+            align:"center",
+            sortable : true,
+          },
+         
+          {
+            field: 'mideaNum',
+            title: '排序数字',
+            valign:"middle",
+            width:'400px',
+            align:"center",
+            sortable : true,
+          },
+          
+         
+          {
+            title:'状态',
+            //field:"fffffffffffff", //设置图标的字段不可和之前的字段重复，否则事件失效
+            align:'center',
+            width:'400px',
+            //图标点击事件
+            events:{
+              'click .a1': function(e, value, row, index) {
+                console.log(e, value, row, index);
+                $('#tb_departments').bootstrapTable('togglePagination'); //切换到分页选项加载全量数据
+                $('#tb_departments')['tableExport']({
+                  //仅仅能导出当前表
+                  type:'xlsx',
+                  fileName:"表格文件",
+                  escape:'false', 
+                  mso: {                            // Excel样式设置选项
+                    fileFormat:        'xlsx',     // xlshtml = Excel 2000 html format
+                                                    // xmlss = XML Spreadsheet 2003 file format (XMLSS)
+                                                    // xlsx = Excel 2007 Office Open XML format
+                    onMsoNumberFormat: null,        // 仅Excel 2000 HTML格式
+                    pageFormat:        'a4',        // 打印纸的格式如A4
+                    pageOrientation:   'portrait',  // portrait, landscape (xlshtml format only)
+                    rtl:               false,       // true 工作表格从右到左排列
+                    styles:            ['border-bottom:#f00', 'border-top', 'border-left', 'border-right'], // 没有效果 E.g. ['border-bottom', 'border-top', 'border-left', 'border-right']
+                    worksheetName:     '工作表名称' //工作表名称
+                  },
+                }); //导出表格操作
+                $('#tb_departments').bootstrapTable('togglePagination'); //再切换回分页模式
+              },
+              'click .a2': function(e, value, row, index) {
+                var docDefinition = { 
+                  content: '中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文' 
+                };
+                window['pdfMake'].createPdf(docDefinition).open(); //浏览器中打卡
+              },
+            },
+            //列数据格式化 列中的操作菜单
+            formatter:(value,row,index)=>{
+              console.log(value,row,index);
+              return `<a style="width:200px;height:200px;border:1px solid #000; cursor: pointer;" class="a1"><i class="fa fa-lock" style="color:red"></i>导出Excel</a>
+              <a style="width:200px;height:200px;border:1px solid #000;cursor: pointer;" class="a2"><i class="fa fa-unlock" style="color:green">导出PDF</i></a>`
+            },
+          },
+
+
+          {
+            title:'操作',
+            //field:"dddddddddd", //设置图标的字段不可和之前的字段重复，否则事件失效
+            align:'center',
+            width:'400px',
+            //图标点击事件
+            events:{
+              'click .b1': function(e, value, row, index) {
+                console.log('b1');
+               
+              },
+              'click .b2': function(e, value, row, index) {
+                console.log('b2');
+              },
+            },
+            //列数据格式化 列中的操作菜单
+            formatter:(value,row,index)=>{
+              console.log(value,row,index);
+              return `<a style="width:200px;height:200px;border:1px solid #000; cursor: pointer;" class="b1"><i class="fa fa-lock" style="color:red"></i>导出Excel</a>
+              <a style="width:200px;height:200px;border:1px solid #000;cursor: pointer;" class="b2"><i class="fa fa-unlock" style="color:green">导出PDF</i></a>`
+            },
+          }
+          
+        ],
+        
+      ],
+      data:this.data, //加载本地数据
+      onLoadSuccess:(data)=>{
+        //数据加载完成后执行 修改默认按钮样式
+        console.log('数据加载完毕')
+        // $("#tb_user a")['editable']({
+
+        // });
+        
+      },
+
+      onRefresh(){
+        //刷新表格的时候触发
+        console.log('已经刷新表格了')
+        //$('#tb_departments').bootstrapTable('mergeCells', {index: 1, field: 'name', rowspan: 3,colspan:3});
+      },
+
+      onContextMenuItem: function(row, $el){
+        //右键点击菜单
+        if($el.data("item") == "edit"){
+          console.log('row',row)
+        }
+      },
+      onContextMenuRow:(row,$element)=>{
+        //右键点击行
+        console.log('点击了鼠标右键',row,$element);
+      },
+      onClickRow:(row ,$element)=>{
+        console.log('点击了行',row ,$element);
+      },
+
+      onExpandRow: function(index, row, $detail) {
+        console.log('子表展开',row);
+        $detail.html('111')
+      },
+
+      onEditableSave: function (field, row, oldValue, $el) {
+        console.log('保存成功',field, row, oldValue, $el);
+      }
+
+
+    });
+
+    // $('#tb_departments')['DataTable']();
+
+    $('.export ul').css({
+      border:"1px solid #f00;"
+    });
+    $('#btn_edie')['editable']({
+      type: 'text',
+      success: function(response, newValue) {
+        console.log('更新成功',response, newValue);
+      }
+    });
+  }
+
+  pdfOutput(){
+    var docDefinition = { 
+      content: '中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文中文' 
+    };
+    window['pdfMake'].createPdf(docDefinition).open(); 
+  }
+  
+}

@@ -1,0 +1,1229 @@
+===================================基本参数===================================
+一.安装Bootstrap Table组件
+1.可通过npm安装
+npm install bootstrap-table
+
+2.引入必要依赖
+<link rel="stylesheet" href="bootstrap.min.css">
+<link rel="stylesheet" href="bootstrap-table.css">
+<script src="jquery.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<script src="bootstrap-table.js"></script>
+<-- put your locale files after bootstrap-table.js -->
+<script src="bootstrap-table-zh-CN.js"></script>
+
+二.通过 data 属性的方式使用
+1.data-toggle="table" 属性必须添加 不然为普通表格样式
+table(data-toggle="table")
+  thead
+    tr
+      th Item ID
+      th Item Name 
+      th Item Price
+  tbody
+    tr 
+      td 1
+      td Item 1
+      td $1
+    tr
+      td 2
+      td Item 2
+      td $2
+
+2.设置远程的 url 如 data-url="data1.json" 来加载数据
+table(data-toggle="table" ,data-url="data1.json")
+  thead
+    tr
+      th(data-field="id") Item ID
+      th(data-field="name") Item Name
+      th(data-field="price") Item Price
+
+三.通过 JavaScript 的方式使用
+1.一般用法
+$('#table').bootstrapTable({
+  columns: [{
+      field: 'id',
+      title: 'Item ID'
+  }, {
+      field: 'name',
+      title: 'Item Name'
+  }, {
+      field: 'price',
+      title: 'Item Price'
+  }],
+  data: [{
+      id: 1,
+      name: 'Item 1',
+      price: '$1'
+  }, {
+      id: 2,
+      name: 'Item 2',
+      price: '$2'
+  }]
+});
+
+2.设置远程的 url 如 url: 'data1.json' 来加载数据
+$('#table').bootstrapTable({
+    url: 'data1.json',
+    columns: [{
+        field: 'id',
+        title: 'Item ID'
+    }, {
+        field: 'name',
+        title: 'Item Name'
+    }, {
+        field: 'price',
+        title: 'Item Price'
+    }, ]
+});
+
+
+三.常用技术参数详解
+1.resetView	重置引导表视图，例如重置表高度
+$table.bootstrapTable('resetView'); //防止表头与表格不对齐
+2.hideLoading	隐藏加载状态
+$table.bootstrapTable('hideLoading');//隐藏加载
+3.destroy	销毁表
+$table.bootstrapTable('destroy');//先销毁表格
+
+常用表格参数
+1.url	服务器数据的加载地址
+2.method 服务器数据的请求方式 'get' 或 'post'
+3.contentType	 'application/json'	发送到服务器的数据编码类型
+4.dataType	'json'	服务器返回的数据类型
+5.height 定义表格的高度。如果没有设置，表格自动根据记录条数觉得表格高度
+6.striped	设置为 true 会有隔行变色效果
+7.sortable 设置为false 将禁止所有列的排序
+8.sortOrder	定义排序方式，'asc' 或者 'desc'
+9.cache	设置为 false 禁用 AJAX 数据缓存,是否启用缓存
+10.uniqueId	对每一行指定唯一标识符
+11.toolbar	指定自定义的 toolbar工具栏,例如:#toolbar, .toolbar.
+12.showRefresh 是否显示刷新按钮。
+13.showToggle	是否显示切换视图（table/card）按钮,切换显示样式
+14.cardView	设置为 true将显示card视图，适用于移动设备。否则为table试图，适用于pc端。 默认显示详细视图
+15.search	是否启用搜索框
+16.clickToSelect 是否启用点击选中行,自动选择 rediobox 和 checkbox。
+17.minimumCountColumns 最小隐藏列的数量 最少要显示的列数
+18.showColumns 是否显示内容列下拉框  显示隐藏列
+19.undefinedText	 当数据为 undefined 时显示的字符 cell没有值时显示
+20.sidePagination	设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置服务器数据地址（url）或者重写ajax方法。
+21.pageSize 如果设置了分页,页面数据条数 每页的记录行数
+22.pageNumber 如果设置了分页，首页页码,初始化加载第1页，默认第1页
+23.pageList	[10, 25, 50, 100, All] 如果设置了分页，设置可供选择的页面数据条数。设置为 All 或者 Unlimited，则显示所有记录。
+24.paginationFirstText: "首页",
+25.paginationPreText: "上一页",
+26.paginationNextText: "下一页",
+27.paginationLastText: "末页",
+28.queryParams function(params) { //查询条件
+return params;
+}	请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，
+例如 toolbar 中的参数 如果 queryParamsType = 'limit' ,返回参数必须包含
+limit, offset, search, sort, order 
+否则, 需要包含: 
+pageSize, pageNumber, searchText, sortName, sortOrder. 
+返回false将会终止请求。
+29.columns	表头 列配置项，详情请查看 列参数 表格.
+30.onLoadSuccess		远程数据加载成功时触发成功。
+31.onLoadError		远程数据加载失败时触发成功。
+32.formatLoadingMessage 正在加载文字
+33.formatNoMatches 没有匹配的结果
+34.events: window.operateEvents,
+//操作事件建议卸载内部,防止第一次点击操作不生效
+window.operateEvents = {
+    /**
+     * 注册操作按钮事件
+     */
+    'click .trbtn-edit': function (e, value, row, index) {
+        editData(row);
+    },
+    'click .trbtn-remove': function (e, value, row, index) {
+        delData(row.custNo);
+    }
+};
+
+35.formatter: genderOpt//如需操作行数据,直接添加formatter对应函数名参数分别为value, row, index
+function genderOpt() {
+    /**
+     * 自定义列内容
+     */
+    return [
+        '<a class="trbtn-edit" href="javascript:void(0)" title="编辑">',
+        '<i class="icon icon-pencil"></i>',
+        '</a>  ',
+        '<a class="trbtn-remove" href="javascript:void(0)" title="删除">',
+        '<i class="icon icon-trash"></i>',
+        '</a>'
+    ].join('');
+}
+
+36.$table.bootstrapTable('refresh'); 刷新表格数据
+
+
+===============================最新文档技术参数===============================
+一.表格参数
+1.classes 'table-no-bordered' 来删除表格的边框样式 String 默认值：'table table-hover'  
+2.sortClass 被排序的td元素的类名 String 默认值： undefined
+3.height 定义表格的高度 Number 默认值：undefined
+4.undefinedText 当数据为 undefined 时显示的字符 String 默认值： '-'
+5.striped 设置为 true 会有隔行变色效果 Boolean	默认值：false
+6.sortName 定义排序列，通过url方式获取数据填写字段名，否则填写下标。String	默认值：undefined
+7.sortOrder 定义排序方式，'asc' 或者 'desc' String	默认值：'asc'
+8.sortStable 设置为 true 将获得稳定的排序，我们会添加\_position属性到 row 数据中 Boolean	默认值：false
+9.iconsPrefix 定义字体库 String	默认值：'glyphicon'
+10.icons 自定义图标 Object
+11.columns 列配置项 Array	默认值：[] 
+12.data 加载json格式的数据,用于本地数据获取 Array	默认值：[] 
+13.ajax 自定义 AJAX 方法，须实现 jQuery AJAX API Function	默认值：undefined
+14.method 服务器数据的请求方式 'get' 或 'post',String	默认值：'get'
+15.url 服务器数据的加载地址 String	默认值：undefined
+16.cache 设置为 false 禁用 AJAX 数据缓存 Boolean	默认值：true
+17.contentType 发送到服务器的数据编码类型。String 默认值：'application/json'
+18.dataType 服务器返回的数据类型 String	默认值：'json'
+19.ajaxOptions 提交ajax请求时的附加参数 Object 默认值：{} 
+20.queryParams Function 
+默认值：
+function(params) {
+  return params;
+}
+重写参数的方式添加一些额外的参数，如果 queryParamsType = 'limit' ,返回参数必须包含limit, offset, search, sort, order 
+否则, 需要包含: pageSize, pageNumber, searchText, sortName, sortOrder. 
+返回false将会终止请求。
+21.queryParamsType 设置为 'limit' 则会发送符合 RESTFul 格式的参数。String 默认值：'limit'
+22.responseHandler 加载服务器数据之前的处理程序，可以用来格式化数据。参数：res为从服务器请求到的数据。Function	
+默认值：
+function(res) {
+  return res;
+}
+23.pagination 设置为 true 会在表格底部显示分页条。Boolean	默认值：false
+24.paginationLoop 设置为 true 启用分页条无限循环的功能。Boolean	默认值：true
+25.onlyInfoPagination 设置为 true 只显示总数据数，而不显示分页按钮。需要设置 pagination='true'。Boolean 默认值：false
+26.sidePagination String 默认值：'client'
+设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置服务器数据地址（url）或者重写ajax方法。
+27.pageNumber 如果设置了分页，首页页码。Number	默认值 1
+28.pageSize 如果设置了分页，页面数据条数 Number	10
+29.pageList 如果设置了分页，设置可供选择的页面数据条数。设置为 All 或者 Unlimited，则显示所有记录。Array 默认值：[10, 25, 50, 100, All]
+30.selectItemName radio 或者 checkbox 的字段 name 名。String 默认值：'btSelectItem'
+31.smartDisplay 设置为 true 是程序自动判断显示分页信息和 card 视图。Boolean	默认值：true
+32.escape 转义HTML字符串，替换 &, <, >, ", \`, 和 ' 字符。Boolean	默认值：false
+33.search 是否启用搜索框。Boolean	默认值：false
+34.searchOnEnterKey 设置为 true时，按回车触发搜索方法，否则自动触发搜索方法。Boolean 默认值：false
+35.strictSearch 设置为 true启用全匹配搜索，否则为模糊搜索。Boolean 默认值：	false
+36.searchText 初始化搜索文字 String	默认值：''
+37.searchTimeOut  设置搜索超时时间  Number 默认值：500
+38.trimOnSearch 设置为 true 将自动去掉搜索字符的前后空格。Boolean	默认值：true
+39.showHeader 是否显示列头。Boolean	默认值：true
+40.showFooter 是否显示列脚。 Boolean	默认值：false
+41.showColumns 是否显示内容列下拉框。Boolean	默认值：false
+42.showRefresh 是否显示刷新按钮。Boolean	默认值：false
+43.showToggle 是否显示切换视图（table/card）按钮。Boolean	默认值：false
+44.showPaginationSwitch 是否显示切换分页按钮。Boolean	默认值：false
+45.showFullscreen 是否显示全屏按钮。Boolean	默认值：false
+46.minimumCountColumns 最小隐藏列的数量 Number 默认值：1
+47.idField 指定主键列 String	默认值：undefined
+48.uniqueId 对每一行指定唯一标识符。String	默认值：undefined
+49.cardView 设置为 true将显示card视图，适用于移动设备。否则为table视图，适用于pc端。 Boolean	默认值：false
+50.detailView 设置为 true 可以显示详细页面模式 Boolean	默认值：false
+51.detailFormatter 格式化详细页面模式的视图。
+Function
+function(index, row) {
+  return '';
+}
+52.searchAlign 指定 搜索框 水平方向的位置。'left' 或 'right'。String 默认值：'right'
+53.buttonsAlign 指定 按钮栏 水平方向的位置。'left' 或 'right'。String	默认值：'right'
+54.toolbarAlign 指定 toolbar 水平方向的位置。'left' 或 'right'。String	默认值：'left'
+55.paginationVAlign 指定 分页条 在垂直方向的位置。'top'，'bottom' 或 'both'。 String	默认值：'bottom'
+56.paginationHAlign 指定 分页条 在水平方向的位置。'left' 或 'right'。 String 默认值：'right'
+57.paginationDetailHAlign 指定 分页详细信息 在水平方向的位置。'left' 或 'right'。String	默认值：'left'
+56.paginationPreText 指定分页条中上一页按钮的图标或文字。String 默认值：	'<'
+57.paginationNextText 指定分页条中下一页按钮的图标或文字。String 默认值：'>'
+58.clickToSelect 设置 true 将在点击行时，自动选择 rediobox 和 checkbox。Boolean	默认值：false
+59.ignoreClickToSelectOn 
+包含一个参数：
+element: 点击的元素。
+返回 true 是点击事件会被忽略，返回 false 将会自动选中。该选项只有在 clickToSelect 为 true 时才生效。
+Function
+默认值：{ return $.inArray(element.tagName, ['A', 'BUTTON']); }
+60.singleSelect 设置 true 将禁止多选。Boolean 默认值：false
+61.toolbar 一个jQuery 选择器，指明自定义的 toolbar。例如:#toolbar, .toolbar. String	默认值：undefined
+62.buttonsToolbar 一个jQuery 选择器，指明自定义的 buttons toolbar。例如:#buttons-toolbar, .buttons-toolbar 或 DOM 节点。String | Node	默认值：undefined
+63.checkboxHeader 设置 false 将在列头隐藏全选复选框。Boolean 默认值：	true
+64.maintainSelected 设置为 true 在点击分页按钮或搜索按钮时，将记住checkbox的选择项。 Boolean 默认值：false
+65.sortable 设置为false 将禁止所有列的排序。Boolean	默认值：true
+66.silentSort 设置为 false 将在点击分页按钮时，自动记住排序项。仅在 sidePagination设置为 server时生效。Boolean 默认值：true
+67.rowStyle 自定义行样式 参数为：row: 行数据index: 行下标,返回值可以为class或者css
+Function	
+function(row,index) {
+  return class;
+}
+68.rowAttributes 
+自定义行属性 参数为：
+row: 行数据
+index: 行下标
+返回值可以为class或者css 支持所有自定义属性
+Function
+function(row,index) {
+  return attributes;
+}
+
+69.customSearch 自定义搜索方法来替代内置的搜索功能，它包含一个参数：text：搜索文字。
+function customSearch(text) {
+  //Search logic here.
+  //You must use `this.data` array in order to filter the data. NO use `this.options.data`.
+}
+Function 默认值： $.noop
+
+70.customSort  自定义排序方法来替代内置的搜索功能，它包含一个参数：sortName: 排序名。sortOrder: 排序顺序。
+用法示例：
+function customSort(sortName, sortOrder) {
+  //Sort logic here.
+  //You must use `this.data` array in order to sort the data. NO use `this.options.data`.
+}
+Function 默认值： $.noop
+
+二.列参数
+1.radio 显示一个具有固定的宽度的单选按钮 Boolean 默认值：	false
+2.checkbox 显示一个具有固定的宽度的复选框 Boolean 默认值：	false
+3.field 列字段名称 String	默认值：undefined
+4.title 列标题 String	默认值：undefined
+5.titleTooltip 列标题提示文本 支持html标签属性 String 默认值：undefined 
+6.class 列的class名 String 默认值：undefined 
+7.rowspan 指示一个单元格应该占用多少行 竖向合并单元格 Number 默认值：	undefined
+8.colspan 指示单元格应该占用多少列 横向合并单元格 Number 默认值：	undefined
+9.align 列内容的对齐方式 可以使用'left', 'right', 'center'  String	默认值：undefined
+10.halign 指定表头的对齐方式 可以使用'left', 'right', 'center' String	默认值：undefined
+11.falign 指定ftable得到对齐方式可以使用'left', 'right', 'center' String	默认值：undefined
+12.valign 指定列内容垂直方向的对齐方式 可以使用 'top', 'middle', 'bottom'  默认值：undefined
+13.width 指定列的宽带，不然会适应内容自动扩展，可以使用百分比，没有单位或者单位为px时，使用px Number {Pixels or Percentage}	默认值：undefined
+14.sortable 为true时列允许被排序  Boolean	默认值： false
+15.order 排序顺序只能使用'asc' 或 'desc'. String	默认值：'asc'
+16.visible 控制是否显示列 false隐藏列项目 Boolean	默认值：true
+17.cardVisible 同上
+18.switchable 为false时候不允许切换 Boolean 默认值：true
+19.clickToSelect 当列点击的时候去选中单选按钮或复选框 Boolean	默认值：true
+20.formatter 上下文语境是列的对象  格式化程序有三个参数 value row index Function	默认值：undefined
+21.footerFormatter 上下文语境是列对象 格式程序有一个参数 data表示所有数据记录 必须返回一个字符串文本显示在页脚 Function	默认值：undefined
+22.events 当你使用formatter格式程序，将会监听事件否则无效 有三个参数event:jquery事件 ，value ，row ，index Object 默认值：undefined
+23.sorter 本地排序 本地培训方法参数 a:第一个字段的value值 b:第二个字段的value值 rowA：第一条数据记录 rowB：第二条数据记录 Function 默认值：	undefined	
+24.sortName 提供一个可定制的排序名称 不是表头的默认字段或列的字段名 String	默认值：undefined
+25.cellStyle 表格格式样式方法 value,row,index,field支持css 和 sytle Function 默认值：	undefined
+26.searchable 为true时从列中搜索 Boolean	默认值：true
+27.searchFormatter 为true从列中搜索格式后的数据Boolean	默认值：true
+28.escape 格式html代码 Boolean 默认值：	false
+29.showSelectTitle  true时显示选择的单选按钮列或单选的复选框列的列标题 Boolean 默认值：	false
+
+三.事件
+jQuery 事件用法 $('#teacher_table').on('click-row.bs.table', function (e, row, element) {}
+
+1.onAll 所有的事件都会触发该事件 参数name, args
+2.onClickRow 点击某一行的时候触发 参数 row ,$element：tr 元素,field：点击列的 field 名称。
+3.onDblClickRow 双击某一行的时候触发 参数 row ,$element：tr 元素,field：点击列的 field 名称。
+4.onClickCell 点击某一列的时候触发，参数包括：field：点击列的 field 名称，value：点击列的 value 值，row：点击列的整行数据，$element：td 元素。
+5.onDblClickCell 双击某一列的时候触发，参数包括：field：点击列的 field 名称，value：点击列的 value 值，row：点击列的整行数据，$element：td 元素。
+6.onSort 对某列进行排序时触发，参数包括：name：排序列的 filed 名称，order：排序顺序。
+7.onCheck 当用户选择某一行时触发，参数包含：row：与点击行对应的记录，$element：选择的DOM元素。
+8.onUncheck	当用户反选某一行时触发，参数包含：row：与点击行对应的记录，$element：选择的DOM元素。
+9.onCheckAll 当用户全选所有的行时触发，参数包含：rows：最新选择的所有行的数组。
+10.onUncheckAll 当用户反选所有的行时触发，参数包含：rows：最新选择的所有行的数组。
+11.onCheckSome 当用户选择某些行时触发，参数包含：rows：相对于之前选择的行的数组
+12.onUncheckSome 当用户反选某些行时触发，参数包含：rows：相对于之前选择的行的数组。
+13.onLoadSuccess 远程数据加载成功时触发成功。 参数 data
+14.onLoadError 远程数据加载失败时触发成功。 参数 status
+15.onColumnSwitch 当切换列的时候触发 参数 field, checked
+16.onColumnSearch 当搜索列时触发。参数 field, text
+17.onPageChange 当页面更改页码或页面大小时触发。参数 number, size
+18.onSearch 当搜索表格时触发。 参数text	
+19.onToggle 切换表格视图时触发。 参数cardView	
+20.onPreBody 在表格 body 渲染之前触发 参数data
+21.onPostBody 在表格 body 渲染完成后触发 参数none
+22.onPostHeader 在表格 header 渲染完成后触发。参数none
+23.onExpandRow 当点击详细图标展开详细页面的时候触发 参数index, row, $detail
+24.onCollapseRow 当点击详细图片收起详细页面的时候触发。 参数index, row
+25.onRefreshOptions 刷新选项之后并在销毁和初始化表之前触发。参数 options
+26.onRefresh 点击刷新按钮后触发。参数params
+27.onScrollBody 表格 body 滚动时触发 参数none
+
+四.方法
+使用方法的语法：$('#table').bootstrapTable('method', parameter);
+1.getOptions	none	返回表格的 Options。
+2.getSelections	none	返回所选的行，当没有选择任何行的时候返回一个空数组。
+3.getAllSelections	none	返回所有选择的行，包括搜索过滤前的，当没有选择任何行的时候返回一个空数组。
+4.getData	useCurrentPage	或者当前加载的数据。假如设置 useCurrentPage 为 true，则返回当前页的数据。
+5.getRowByUniqueId	id	根据 uniqueId 获取行数据。
+6.load	data	加载数据到表格中，旧数据会被替换。
+7.showAllColumns	none	显示所有列。
+8.hideAllColumns	none	隐藏所有列。
+9.append	data	添加数据到表格在现有数据之后。
+10.prepend	data	插入数据到表格在现有数据之前。
+11.remove	params	从表格中删除数据，包括两个参数： field: 需要删除的行的 field 名称，values: 需要删除的行的值，类型为数组。
+12.removeAll	-	删除表格所有数据。
+13.removeByUniqueId	id	根据 uniqueId 删除指定的行。
+14.insertRow	params	插入新行，参数包括：
+index: 要插入的行的 index，
+row: 行的数据，Object 对象。
+15.updateRow	params	更新指定的行，参数包括：
+index: 要更新的行的 index，
+row: 行的数据，Object 对象。
+16.showRow	params	显示指定的行，参数包括：
+index: 要显示的行的 index 或者 uniqueId，
+isIdField: 指定 index 是否为 uniqueid。
+17.hideRow	params	隐藏指定的行，参数包括：
+index: 要隐藏的行的 index，
+uniqueId: 或者要隐藏的行的 uniqueid。
+18.getHiddenRows	show	获取所有隐藏的行，如果show参数为true，行将再次显示，否则，只返回隐藏的行。
+19.mergeCells	options	将某些单元格合并到一个单元格，选项包含以下属性： 
+index: 行索引，
+field: 字段名称，
+rowspan: 要合并的rowspan数量，
+colspan: 要合并的colspan数量。
+20.updateCell	params	更新一个单元格，params包含以下属性：
+index: 行索引。
+field: 字段名称。
+value: 新字段值。
+21.refresh	params	刷新远程服务器数据，可以设置{silent: true}以静默方式刷新数据，并设置{url: newUrl}更改URL。 要提供特定于此请求的查询参数，请设置{query: {foo: 'bar'}}。
+22.refreshOptions	options	刷新选项。
+23.resetSearch	text	设置搜索文本。
+24.showLoading	none	显示加载状态。
+25.hideLoading	none	隐藏加载状态。
+26.checkAll	none	选中当前页面所有行。
+27.uncheckAll	none	取消选中当前页面所有行。
+28.check	index	选中某一行，行索引从0开始。
+29.uncheck	index	取消选中某一行，行索引从0开始。
+30.checkBy	params	按值或数组选中某行，参数包含：
+field: 用于查找记录的字段的名称，
+values: 要检查的行的值数组。
+例子: 
+$("#table").bootstrapTable("checkBy", {field:"field_name", values:["value1","value2","value3"]})
+31.uncheckBy	params	按值数组取消选中某行，参数包含：
+field: 用于查找记录的字段的名称，
+values: 要检查的行的值数组。
+例子: 
+$("#table").bootstrapTable("uncheckBy", {field:"field_name", values:["value1","value2","value3"]})
+31.resetView	params	重置引导表视图，例如重置表高度。
+32.resetWidth	none	调整页眉和页脚的大小以适合当前列宽度。
+33.destroy	none	销毁表。
+34.showColumn	field	显示指定的列。
+35.hideColumn	field	隐藏指定的列。
+36.getHiddenColumns	-	获取隐藏的列。
+37.getVisibleColumns	-	获取可见列。
+38.scrollTo	value	滚动到指定位置，单位为 px，设置 'bottom' 表示跳到最后。
+39.getScrollPosition	none	获取当前滚动条的位置，单位为 px。
+40.filterBy	params	（只能用于 client 端）过滤表格数据， 你可以通过过滤{age: 10}来显示 age 等于 10 的数据。
+41.selectPage	page	跳到指定的页。
+42.prevPage	none	跳到上一页。
+43.nextPage	none	跳到下一页。
+44.togglePagination	none	切换分页选项。
+45.toggleView	none	切换 card/table 视图
+46.expandRow	index	如果详细视图选项设置为True，可展开索引为 index 的行。
+47.collapseRow	index	如果详细视图选项设置为True，可收起索引为 index 的行。.
+48.expandAllRows	none	如果详细视图选项设置为True，可展开所有行。
+49.collapseAllRows	none	如果详细视图选项设置为True，可收起开所有行。
+
+五.多语言使用
+<script src="bootstrap-table-en-US.js"></script>
+<script src="bootstrap-table-zh-CN.js"></script>  //实际上引入此文件就可以了,下面代码已经写在文件中了 
+$.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['en-US']);
+// $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['zh-CN']);
+
+
+========================简单案例(常用)========================
+适合用于客户端分页和服务端分页,不同模式插件的查询参数有所不同
+功能：常规表格功能  工具栏 分行分格变色 鼠标右键 栏目右边操作图标及事件
+##pug文件
+.wrap
+  .container-fluid.mt-3
+      #toolbar.btn-group
+        button#btn_add.btn.btn-default(type="button")
+          span.fa.fa-camera-retro(aria-hidden="true") 新增
+        button#btn_edit.btn.btn-default(type="button")
+          span.fa.fa-pencil(aria-hidden="true") 修改
+        button#btn_delete.btn.btn-default(type="button")
+          span.fa.fa-camera-retro(aria-hidden="true") 删除
+
+      table#tb_departments
+
+      ul#context-menu.dropdown-menu
+        li([attr.data-item]="'edit'")
+          a 编辑
+        li([attr.data-item]="'delete'")
+          a 删除
+        li([attr.data-item]="'action1'")
+          a 动作1
+        li([attr.data-item]="'action2'")
+          a 动作2
+
+##ts文件
+  ngOnInit() {
+    this.queryParams = (params)=>{
+      console.log('params',params)
+      var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+        limit: params.limit,   // 每页显示数量
+        offset: params.offset,  // SQL语句偏移量
+        startPage:params.offset/params.limit + 1 //第几页
+      };
+      console.log('temp',temp);
+      return temp;
+    }
+   }
+
+  ngAfterViewInit(){
+    $('#tb_departments').bootstrapTable({
+      
+      url: '/api/data.php',              //请求后台的URL（*）
+      method: 'get',                      //请求方式（*）
+      toolbar: '#toolbar',                //工具按钮用哪个容器
+      striped: true,                      //是否显示行间隔色
+      cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+      pagination: true,                   //是否显示分页（*）
+      sortable: false,                     //是否启用排序
+      sortOrder: "asc",                   //排序方式
+      queryParams: this.queryParams,      //传递参数（*）
+      sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+      pageNumber:1,                       //初始化加载第一页，默认第一页
+      pageSize: 10,                       //每页的记录行数（*）
+      pageList: [2, 10, 50, 100],        //可供选择的每页的行数（*）
+      search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+      strictSearch: false,                 //设置为 true启用全匹配搜索，否则为模糊搜索
+      showColumns: true,                  //是否显示所有的列按钮
+      showRefresh: true,                  //是否显示刷新按钮
+      minimumCountColumns: 2,             //最少允许的列数
+      clickToSelect: true,                //是否启用点击选中行
+      uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+      cardView: false,                    //是否显示详细视图
+      detailView: false,                   //是否显示父子表
+      dataField: "data",//这是返回的json数组的key.默认好像是"rows".这里只有前后端约定好就行
+      contextMenu: '#context-menu', //右键显示菜单
+      rowStyle: function (row, index) {
+        //行间样式替换
+        var style = {};             
+        style={css:{'color':'#ff0','background':'#f0f'}};                
+        return style;
+      },
+      
+
+      responseHandler:(res)=>{
+        //加载服务器数据之前的处理程序，可以用来格式化数据。参数：res为从服务器请求到的数据。
+        console.log('res',res);
+        return {
+          total : res.total, //总页数,前面的key必须为"total"
+          data : res.data //行数据，前面的key要与之前设置的dataField的值一致.
+        }
+      },
+      
+
+      columns:[
+        {
+          checkbox:true,
+        },
+        {
+          field:"name",
+          title:"姓名"
+        },
+        {
+          field:"pwd",
+          title:"密码"
+        },
+        {
+          field:"t_name",
+          title:"昵称",
+          cellStyle:{
+            //表格颜色替换
+            css:{"background-color":"red"}
+          }
+        },
+        {
+          title:'状态',
+          field:"", //设置图标的字段不可和之前的字段重复，否则事件失效
+          align:'center',
+          //图标点击事件
+          events:{
+            'click .a1': function(e, value, row, index) {
+              console.log(e, value, row, index)
+            },
+            'click .a2': function(e, value, row, index) {
+              console.log(e, value, row, index)
+            },
+          },
+          //列数据格式化 列中的操作菜单
+          formatter:(value,row,index)=>{
+            console.log(value,row,index);
+            return `<a style="width:200px;height:200px;border:1px solid #000; cursor: pointer;" class="a1"><i class="fa fa-lock" style="color:red"></i>1111</a>
+            <a style="width:200px;height:200px;border:1px solid #000;cursor: pointer;" class="a2"><i class="fa fa-unlock" style="color:green">2222</i></a>`
+          },
+        }
+      ],
+
+      onLoadSuccess:(data)=>{
+        //数据加载完成后执行 修改默认按钮样式
+      },
+
+      onContextMenuItem: function(row, $el){
+        //右键点击菜单
+        if($el.data("item") == "edit"){
+          console.log('row',row)
+        }
+      },
+      onContextMenuRow:(row,$element)=>{
+        //右键点击行
+        console.log('点击了鼠标右键',row,$element);
+      }
+
+    });
+  }
+
+
+========================自定义工具栏图标及表格行样式设置========================
+icons: {
+  //自定义图标
+  refresh: "fa-refresh", 
+  toggle: "fa-list-alt", 
+  columns: "fa-list",
+  export: 'fa-download',
+  fullscreen:"fa-arrows-alt"
+}, 
+
+rowStyle: function (row, index) {
+    //行间样式替换
+    var style = {};             
+    style={css:{'color':'#ff0','background':'#f0f'}};                
+    return style;
+},
+
+{
+  //单元格样式替换
+  field:"t_name",
+  title:"昵称",
+  cellStyle:{
+    //表格颜色替换
+    css:{"background-color":"red"}
+  }
+},
+
+========================支持行内搜索========================
+import 'bootstrap-table/dist/extensions/filter-control/bootstrap-table-filter-control.js'; --引入插件
+--pug文件
+table#tb_departments([attr.data-filter-control]="true",
+      [attr.data-filter-show-clear]="true")
+        thead
+          tr
+            th([attr.data-field]="") 
+            th([attr.data-field]="'name'",[attr.data-filter-control]="'select'") 名称
+            th([attr.data-field]="'mideaNum'",[attr.data-filter-control]="'input'") 数量
+            th([attr.data-field]="'mideaPercent'",[attr.data-filter-control]="'input'") 占比
+
+========================父子表========================
+detailView: true //启动父子表
+
+子表加载事件onExpandRow对应方法function (index, row, $detail)的三个参数，
+index：父表当前行的行索引。
+row：父表当前行的Json数据对象。
+$detail：当前行下面创建的新行里面的td对象。
+
+onExpandRow: function(index, row, $detail) {
+  console.log('子表展开',row);
+  $detail.html('111')
+}
+icons: {
+  //自定义图标
+  refresh: "fa-refresh", 
+  toggle: "fa-list-alt", 
+  columns: "fa-list",
+  export: 'fa-download',
+  fullscreen:"fa-arrows-alt",
+  paginationSwitchDown:"",
+  paginationSwitchUp:"",
+  detailOpen:"fa-plus", //自定义展开图标
+  detailClose:"fa-minus", //自定义关闭图标
+}, 
+
+========================表格行列合并========================
+简单例子
+方法一：
+data = [
+  {"name":"滚筒","mideaNum":"10","mideaPercent":"29%","panasonicNum":"10","panasonicPercent":"29%"},
+  {"name":"波轮","mideaNum":"9","mideaPercent":"28%","panasonicNum":"10","panasonicPercent":"29%"}
+]
+
+ngOnInit() {
+  this.queryParams = (params)=>{
+    console.log('params',params)
+    var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+      limit: params.limit,   // 每页显示数量
+      offset: params.offset,  // SQL语句偏移量
+      startPage:params.offset/params.limit + 1 //第几页
+    };
+    console.log('temp',temp);
+    return temp;
+  }
+  }
+
+ngAfterViewInit(){
+  $('#tb_departments').bootstrapTable({
+    method: 'get',                      //请求方式（*）
+    toolbar: '#toolbar',                //工具按钮用哪个容器
+    striped: true,                      //是否显示行间隔色
+    cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+    pagination: true,                   //是否显示分页（*）
+    sortable: false,                     //是否启用排序
+    sortOrder: "asc",                   //排序方式
+    queryParams: this.queryParams,      //传递参数（*）
+    sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+    pageNumber:1,                       //初始化加载第一页，默认第一页
+    pageSize: 10,                       //每页的记录行数（*）
+    pageList: [2, 10, 50, 100],        //可供选择的每页的行数（*）
+    search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+    strictSearch: false,                 //设置为 true启用全匹配搜索，否则为模糊搜索
+    showColumns: true,                  //是否显示所有的列按钮
+    showRefresh: true,                  //是否显示刷新按钮
+    minimumCountColumns: 2,             //最少允许的列数
+    clickToSelect: true,                //是否启用点击选中行
+    uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+    cardView: false,                    //是否显示详细视图
+    detailView: false,                   //是否显示父子表
+    contextMenu: '#context-menu', //右键显示菜单
+    checkboxHeader:false, //设置 false 将在列头隐藏全选复选框。Boolean 默认值：	true
+
+    columns:[
+      [
+          {
+            title: "洗衣机统计表",
+            halign:"center",
+            align:"center",
+            colspan: 11
+          }
+      ],
+      [
+        {
+          title: "11",
+          valign:"middle",
+          align:"center",
+          checkbox:true,
+          colspan: 1,
+          rowspan: 2
+        },
+
+        {
+            field: 'name',
+            title: "功能分组",
+            valign:"middle",
+            align:"center",
+            colspan: 1,
+            rowspan: 2
+        },
+        {
+            title: "美的",
+            valign:"middle",
+            align:"center",
+            colspan: 4,
+            rowspan: 1
+        },
+        {
+            title: "松下",
+            valign:"middle",
+            align:"center",
+            colspan: 4,
+            rowspan: 1
+        },
+        {
+          title:'状态',
+          field:"", //设置图标的字段不可和之前的字段重复，否则事件失效
+          align:'center',
+          colspan: 1,
+          rowspan: 2,
+          //图标点击事件
+          events:{
+            'click .a1': function(e, value, row, index) {
+              console.log(e, value, row, index)
+            },
+            'click .a2': function(e, value, row, index) {
+              console.log(e, value, row, index)
+            },
+          },
+          //列数据格式化 列中的操作菜单
+          formatter:(value,row,index)=>{
+            console.log(value,row,index);
+            return `<a style="width:200px;height:200px;border:1px solid #000; cursor: pointer;" class="a1"><i class="fa fa-lock" style="color:red"></i>1111</a>
+            <a style="width:200px;height:200px;border:1px solid #000;cursor: pointer;" class="a2"><i class="fa fa-unlock" style="color:green">2222</i></a>`
+          },
+        }
+        
+      ],
+      [
+        {
+            field: 'mideaNum',
+            title: '数量',
+            valign:"middle",
+            align:"center"
+        },
+        {
+            field: 'mideaPercent',
+            title: '占比',
+            valign:"middle",
+            align:"center"
+        },
+        {
+            field: 'panasonicNum',
+            title: '数量',
+            valign:"middle",
+            align:"center"
+        },
+        {
+            field: 'panasonicPercent',
+            title: '占比',
+            valign:"middle",
+            align:"center"
+        },
+        {
+          field: 'mideaNum',
+          title: '数量',
+          valign:"middle",
+          align:"center"
+        },
+        {
+            field: 'mideaPercent',
+            title: '占比',
+            valign:"middle",
+            align:"center"
+        },
+        {
+            field: 'panasonicNum',
+            title: '数量',
+            valign:"middle",
+            align:"center"
+        },
+        {
+            field: 'panasonicPercent',
+            title: '占比',
+            valign:"middle",
+            align:"center"
+        },
+        
+      ]
+    ],
+    data:this.data, //加载本地数据
+    onLoadSuccess:(data)=>{
+      //数据加载完成后执行 修改默认按钮样式
+      // $('#tb_departments').bootstrapTable('mergeCells', {index: 1, field: 'name', rowspan: 3,colspan:3});
+    },
+
+    onRefresh(){
+      //刷新表格的时候触发
+      console.log('已经刷新表格了')
+      //$('#tb_departments').bootstrapTable('mergeCells', {index: 1, field: 'name', rowspan: 3,colspan:3});
+    },
+
+    onContextMenuItem: function(row, $el){
+      //右键点击菜单
+      if($el.data("item") == "edit"){
+        console.log('row',row)
+      }
+    },
+    onContextMenuRow:(row,$element)=>{
+      //右键点击行
+      console.log('点击了鼠标右键',row,$element);
+    },
+    onClickRow:(row ,$element)=>{
+      console.log('点击了行',row ,$element);
+    }
+
+  });
+}
+
+
+方法二：缺点，表格刷新后合并消失
+使用方法的语法：$('#table').bootstrapTable('method', parameter);
+mergeCells	options	将某些单元格合并到一个单元格，选项包含以下属性： 
+index: 行索引，
+field: 字段名称，
+rowspan: 要合并的rowspan数量，
+colspan: 要合并的colspan数量。
+
+========================表格数据导出========================
+1.下载必要插件
+npm install --save xlsx
+
+2.webpack.config文件中配置
+new webpack.ProvidePlugin({ 
+  //使用ProvidePlugin加载的模块在使用时将不再需要import和require进行引入
+  XLSX:'xlsx'
+}),
+
+3.引入相关文件库
+import  'xlsx'; --引入文件(可以全局引入,也可以在需要的文件引入) 支持Excel 2007+ XML (XLSX/XLSM)
+
+import 'bootstrap-table/dist/extensions/export/tableExport.js'; --导出文件库
+import 'bootstrap-table/dist/extensions/export/bootstrap-table-export.js';  --bootstrap导出图标展示
+
+4.代码示例：
+$('#tb_departments')['tableExport']({
+  type:'xlsx',
+  fileName:"表格文件"
+}); //导出表格操作
+
+5.导出全部数据实现
+--如果是自带的导出按钮在bootstrap table组件中的全局配置入校
+showExport: true,                     //是否显示导出按钮
+showFullscreen: true,                //是否显示全屏按钮
+exportTypes:['excel', 'xlsx', 'pdf'], //导出文件类型
+exportDataType: "all",             //basic当前页', 'all所有, 'selected'.
+exportOptions: { 
+  fileName: '用户信息报表',  //文件名称设置
+},
+
+--如果是自定义导出按钮事件(默认为导出表格当前页数据)
+=>导出全部数据
+$('#tb_departments').bootstrapTable('togglePagination'); //切换分页选项加载全量数据
+$('#tb_departments')['tableExport']({
+  //仅仅能导出当前表
+  type:'xlsx',
+  fileName:"表格文件",
+  escape:'false', 
+  ignoreRows: [],                           
+  ignoreCols: [],     
+}); //导出表格操作
+$('#tb_departments').bootstrapTable('togglePagination'); //再切换回分页模式
+
+=>导出选中的数据
+var data = $('#tb_departments').bootstrapTable('getData');//参数为true则返回当前页的数据，否则为全量数据
+var selectedData = $('#tb_departments').bootstrapTable('getSelections'); //选中的数据
+$('#tb_departments').bootstrapTable('load',selectedData); //加载选中的数据
+$('#tb_departments')['tableExport']({  //导出表格操作
+  type:'xlsx',
+  fileName:"表格文件",
+  escape:'false',      
+});
+$('#tb_departments').bootstrapTable('load',data); //加载全量数据
+
+
+========================bootstrap-table-export.js选项详解========================
+showExport: false,
+exportDataType: 'basic', // basic, all, selected
+// 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'powerpoint', 'pdf'
+exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel'],
+exportOptions: {} //选项内容会覆盖tableExport选项
+========================tableExport选项详解========================
+var defaults = {
+  csvEnclosure:        '"',
+  csvSeparator:        ',',
+  csvUseBOM:           true,
+  displayTableName:    false,
+  escape:              false,
+  exportHiddenCells:   false, //true导出隐藏的单元格
+  fileName:            'tableExport',
+  htmlContent:         false,
+  ignoreColumn:        [],
+  ignoreRow:           [],
+  jsonScope:           'all',       // head, data, all
+  jspdf: { // jsPDF插件参数选项
+    orientation:       'p',
+    unit:              'pt',
+    format:            'a4',        // 自动纸格式选择如a4纸
+    margins:           {left: 20, right: 10, top: 10, bottom: 10},
+    onDocCreated:      null,
+    autotable: {
+      styles: {
+        cellPadding:   2,
+        rowHeight:     12,
+        fontSize:      8,
+        fillColor:     255,         // 背景颜色
+        textColor:     50,          // 文字颜色
+        fontStyle:     'normal',    // 字体样式 normal, bold, italic, bolditalic
+        overflow:      'ellipsize', // 溢出处理 visible, hidden, ellipsize or linebreak
+        halign:        'inherit',   // 水平对齐方式 left, center, right or 'inherit' 
+        valign:        'middle'     // 垂直对齐方式 top, middle, bottom
+      },
+      headerStyles: { //头部样式
+        fillColor:     [52, 73, 94],
+        textColor:     255,
+        fontStyle:     'bold',
+        halign:        'inherit',   
+        valign:        'middle'    
+      },
+      alternateRowStyles: { //行的样式
+        fillColor:     245
+      },
+      tableExport: {
+        doc:               null,    //如果设置将创建的DOC导出
+        onAfterAutotable:  null,
+        onBeforeAutotable: null,
+        onAutotableText:   null,
+        onTable:           null,
+        outputImages:      true
+      }
+    }
+  },
+  maxNestedTables: 1,               // 将导出的嵌套表的最大数目。0 导出所有。默认值＝1
+  mso: {                            // Excel样式设置选项
+    fileFormat:        'xlshtml',   // xlshtml = Excel 2000 html format
+                                    // xmlss = XML Spreadsheet 2003 file format (XMLSS)
+                                    // xlsx = Excel 2007 Office Open XML format
+    onMsoNumberFormat: null,        // 仅Excel 2000 HTML格式
+    pageFormat:        'a4',        // 打印纸的格式如A4
+    pageOrientation:   'portrait',  // portrait, landscape (xlshtml format only)
+    rtl:               false,       // true 工作表格从右到左排列
+    styles:            [],          // E.g. ['border-bottom', 'border-top', 'border-left', 'border-right']
+    worksheetName:     ''           //工作表名称
+  },
+  numbers: {
+    html: {
+      decimalMark:        '.',
+      thousandsSeparator: ','
+    },
+    output: {                       // Use 'output: false', false”在输出输出中保持数字格式
+      decimalMark:        '.',
+      thousandsSeparator: ','
+    }
+  },
+  onCellData:          null,
+  onCellHtmlData:      null,
+  onIgnoreRow:         null,        // onIgnoreRow($tr, rowIndex): function should return true to not export a row
+  outputMode:          'file',      // 'file', 'string', 'base64' or 'window' (实验性的)
+  pdfmake: {
+    enabled:           false,       // true: use pdfmake 代替 jspdf and jspdf-autotable (实验性的)
+    docDefinition: {
+      pageOrientation: 'portrait',  // 'portrait' or 'landscape'
+      defaultStyle: {
+        font:          'Roboto'     // Default is 'Roboto', 对于阿拉伯文字体，将此选项设置为 'Mirza' 包含 mirza_fonts.js
+      }
+    },
+    fonts: {}
+  },
+  preserve: {
+    leadingWS:         false,       // 保持前导白空间
+    trailingWS:        false        // 保留尾白空间
+  },
+  preventInjection:    true,
+  tbodySelector:       'tr',
+  tfootSelector:       'tr',        // Set empty ('') to prevent export of tfoot rows
+  theadSelector:       'tr',
+  tableName:           'Table',
+  type:                'csv'        // 'csv', 'tsv', 'txt', 'sql', 'json', 'xml', 'excel', 'doc', 'png' or 'pdf'
+};
+
+
+========================导出PDF数据(废弃)========================
+1.下载jspdf插件
+npm install --save jspdf
+2.webpack.config文件中配置
+new webpack.ProvidePlugin({ 
+  jsPDF:'jspdf'
+}),
+3.引入插件
+import  'jspdf';
+import 'bootstrap-table/dist/extensions/export/html2canvas.min.js';--html2canvas.js(调用jsPDF的addHTML（）接口必须的js库)
+import 'bootstrap-table/dist/extensions/export/jspdf.plugin.autotable.js';
+
+4.代码示例
+var pdf = new jsPDF('p', 'pt', 'a4');
+pdf.text('Hello world!', 10, 10);
+pdf.save('hello.pdf');
+
+
+========================导出pdfmake PDF数据========================
+1.安装插件
+npm install pdfmake
+2.引入文件 window['pdfMake'] 全局变量引用
+import 'pdfmake/build/pdfmake.js';
+import 'pdfmake/build/vfs_fonts.js'; //安装文件中存在 用于兼容中文输出 需要把中文字体ttf文件转换为base64编码 并加入vfs_fonts.js中的字体编码内容
+可以使用FontCreator字体裁剪软件
+在线转换网址：https://www.motobit.com/util/base64-decoder-encoder.asp
+
+注意：vfs_fonts.js需要做修改才能使用
+this.pdfMake = this.pdfMake || {}; this.pdfMake.vfs 改为
+pdfMake = pdfMake || {}; pdfMake.vfs
+
+3.简单例子
+var docDefinition = { content: 'This is an sample PDF printed with pdfMake' };
+//window['pdfMake'].createPdf(docDefinition).download(); //直接下载
+//window['pdfMake'].createPdf(docDefinition).open(); //浏览器中打卡
+window['pdfMake'].createPdf(docDefinition).print(); //直接打印
+
+var docDefinition = { 
+  //输出表格
+  content: [
+    {
+      style: 'tableExample',
+      table: {
+        body: [
+          ['Column 1', 'Column 2', 'Column 3'],
+          ['One value goes here', 'Another one here', 'OK?'],
+          ['One value goes here', 'Another one here', 'OK?']
+        ]
+      }
+    },
+  ]
+};
+
+
+========================表格行内编辑========================
+1.按照扩展
+cnpm install x-editable -S
+
+可选Angular-xeditable(暂时不推荐使用)
+npm install angular-xeditable -S
+
+引入必要依赖
+import './static/js/v3/css/bootstrap.css';
+import './static/js/v3/js/bootstrap.js';
+import 'x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css';
+import 'x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js';
+import 'bootstrap-table/dist/extensions/editable/bootstrap-table-editable.js';
+
+2.处理编译过程中找不到图标路径的报错问题
+{
+  test: /\.(png|jpg|jpeg|svg|gif)/,
+  loaders: [
+    'url-loader?sourceMap=true&limit=100&name=img/[name].[ext]',
+    'image-webpack-loader'
+  ],
+  //include :path.resolve(__dirname, 'src'),
+},
+
+3.需要使用boostrap3版本，使用boostrap4版本代码会报错
+
+4.简单用例
+{
+  field: 'name',
+  title: '用户名',
+  valign:"middle",
+  align:"center",
+  editable:true, //启动行内编辑
+},
+
+或
+{
+  field: 'name',
+  title: '用户名',
+  valign:"middle",
+  align:"center",
+  editable:{
+    highlight:'#f00', //设置修改后的动态背景
+    type:'select',
+    value: 'wangwu',    
+    source: [
+        {value: 'wangwu', text: 'wangwu'},
+        {value: 'lisi', text: 'lisi'},
+        {value: 'aoze', text: 'aoze'}
+    ]
+  },
+},
+
+//保存成功执行事件
+onEditableSave: function (field, row, oldValue, $el) {
+  console.log('保存成功',field, row, oldValue, $el);
+}
+
+//普通元素使用案例
+$('#btn_edie')['editable']({
+  type: 'text',
+  pk: 1,
+  url: '/post',
+  title: 'Enter username',
+  success: function(response, newValue) {
+    console.log('更新成功',response, newValue);
+  }
+});
+
+x-editable使用文档
+$().editable(options)
+1.ajaxOptions
+ajaxOptions: {
+    type: 'put',
+    dataType: 'json'
+}
+2.type
+text
+textarea
+select
+date
+datetime
+dateui
+combodate
+html5types
+checklist
+wysihtml5
+typeahead
+typeaheadjs
+select2
+
+
+========================bootstrap-table固定表头固定列========================
+1.引入依赖 
+import 'bootstrap-table/dist/extensions/fixed-columns/css/bootstrap-table-fixed-columns.css';
+import 'bootstrap-table/dist/extensions/fixed-columns/js/bootstrap-table-fixed-columns.js';
+
+2.参数设置
+height:500, //限制表格高度，默认会固定头部 该属性默认最佳实践为不启用
+fixedColumns: true, //是否固定列
+fixedNumber: 2, //固定几列
+
+rightFixedColumns: true, //右边固定
+rightFixedNumber: 2, //右边固定多少列
+
+
+========================Bootstrap table如何实现点击表头列头升降排序========================
+1.一般排序方式
+sortable: true,                     //是否启用排序
+sortOrder: "asc",                   //排序方式
+sortName: 'mideaNum',               //排序字段
+
+{
+  field: 'name',
+  title: '用户名',
+  valign:"middle",
+  width:'400px',
+  align:"center",
+  sortable : true,  //在表头会显示上下切换图标 支持排序功能
+},
+
+
+
+注意要点
+1.queryParams参数名可以随便取，最后返回查询参数即可
+
+相关资源地址
+http://www.cnblogs.com/landeanfen/p/5005367.html
+http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/
+https://github.com/wenzhixin/bootstrap-table
+https://github.com/hhurz/tableExport.jquery.plugin
+https://www.bootcdn.cn/TableExport/readme/
+https://github.com/SheetJS/js-xlsx
+https://github.com/MrRio/jsPDF
+https://github.com/niklasvh/html2canvas
+
+pdfmake相关网站
+http://pdfmake.org/
+https://github.com/bpampuch/pdfmake
+http://pdfmake.org/playground.html
+http://pdfmake.org/index.html#/gettingstarted
+https://www.jishux.com/p/beab330ddc170e38
+
+资源下载
+https://www.bootcdn.cn/pdfmake/
+
+行内编辑相关资源地址
+http://vitalets.github.io/x-editable/demo.html
+http://vitalets.github.io/x-editable/
+
+单词
+pagination 分页
+escape 逃跑 泄露
+strict 严格的
+tain 薄锡板，锡箔
+silent 沉默的
+logic 逻辑
+noop 空操作
+Indicate 指定 
+fit 适合
+percentage 百分比
+unit 单元 单位
+otherwise 否则
+state 州 状态
+switchable 可切换的
+formatter 格式化程序
+context 上下文 语境
+provide 提供 供养
+collapse 坍塌 崩溃 折叠
+expand 扩展
+extend 增加
+remote 远程 
+alternate 交替的
