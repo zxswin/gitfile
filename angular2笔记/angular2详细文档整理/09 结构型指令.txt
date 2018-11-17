@@ -1,0 +1,115 @@
+==================结构型指令基本概念==================
+一.关于结构型指令的认识
+1.结构型指令操纵 DOM 树
+2.结构型指令：星号（*）被放在指令的属性名之前
+Angular 会解开这个语法糖，变成一个 <ng-template> 标记，包裹着宿主元素及其子元素。
+<ng-template [ngIf]="hero">
+  <div class="name">{{hero.name}}</div>
+</ng-template>
+
+二.三个常用的内置结构型指令 —— NgIf、NgFor和NgSwitch
+3.指令的拼写形式
+NgIf 引用的是指令的类名，而 ngIf 引用的是指令的属性名*
+
+4.指令的区分
+-组件可以在原生 HTML 元素中管理一小片区域的 HTML。从技术角度说，它就是一个带模板的指令。
+-属性型指令会改变某个元素、组件或其它指令的外观或行为。 比如，内置的NgStyle指令可以同时修改元素的多个样式。
+-你可以在一个宿主元素上应用多个属性型指令，但只能应用一个结构型指令。
+
+5.模板输入变量和引用变量
+-模板输入变量和引用变量具有各自独立的命名空间。let hero 中的 hero 和 #hero 中的 hero 并不是同一个变量。
+
+6.优先使用星号（*）语法
+-如果找不到单一的元素来应用该指令，可以使用<ng-container>作为该指令的容器。
+
+三.<ng-template>指令
+1. <ng-template>是一个 Angular 元素，用来渲染 HTML。 
+2.不会直接显示出来,在渲染视图之前，Angular 会把 <ng-template> 及其内容替换为一个注释。
+3.结构型指令会让 <ng-template> 正常工作
+
+4.使用<ng-container>把一些兄弟元素归为一组
+- Angular 的 <ng-container> 是一个分组元素，但它不会污染样式或元素布局，因为 Angular 压根不会把它放进 DOM 中。
+01 使用例子1
+p
+  i I turned the corner
+  ng-container(*ngIf="true") and saw name. I waved
+  i and continued on my way.
+01 使用例子2
+select
+  ng-container( *ngFor="let h of [1,2,3,4,5]")
+    ng-container( *ngIf="true")
+      option([ngValue]="h") {{h}}
+
+6.<ng-container> 是一个由 Angular 解析器负责识别处理的语法元素。 它不是一个指令、组件、类或接口，更像是 JavaScript 中 if 块中的花括号。
+
+
+四.写一个结构型指令
+1.开发步骤
+-导入 Directive 装饰器（而不再是 Component）。
+-导入符号 Input、TemplateRef 和 ViewContainerRef，你在任何结构型指令中都会需要它们。
+-给指令类添加装饰器。
+-设置 CSS 属性选择器 ，以便在模板中标识出这个指令该应用于哪个元素。
+
+======unless.directive.ts 自定义结果指令====
+
+import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+
+@Directive({ selector: '[appUnless]'}) //定义CSS属性选择器 拼写成小驼峰形式 这个前缀不能用 ng
+export class UnlessDirective {
+
+  constructor(
+    //使用TemplateRef取得 <ng-template> 的内容，并通过ViewContainerRef来访问这个视图容器。
+    private templateRef: TemplateRef<any>, //创建一个内嵌的视图
+    private viewContainer: ViewContainerRef) { } //获取视图容器
+
+  @Input() set appUnless(condition: boolean) { //它定义一个设置器
+    if (!condition) {
+      this.viewContainer.createEmbeddedView(this.templateRef); //创建视图并插入内容
+    } else if (condition) {
+      this.viewContainer.clear(); //清除该容器，并销毁该视图
+    }
+  }
+}
+
+======pug文件中使用==========
+p(*appUnless="false") 显示
+p(*appUnless="true") 隐藏
+
+
+
+
+
+
+单词
+implicit 隐性的
+directive 指令  
+unless  除了 除非  
+condition 条件
+embedde 嵌入
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

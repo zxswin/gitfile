@@ -1,0 +1,133 @@
+一.HttpClient 简单用例
+1.app.module.ts文件中导入HttpClientModule模块
+import { HttpClientModule }    from '@angular/common/http';
+
+2.login.component.ts文件中导入HttpClient模块
+import { HttpClient } from '@angular/common/http';
+
+=======get请求用法示例=======
+import { Component} from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+@Component({
+  selector: 'login',
+  templateUrl: './login.component.pug',
+  styleUrls: ['./login.component.less'],
+})
+export class LoginComponent {
+ 
+  constructor(private http: HttpClient,) { }
+  ngOnInit() {
+    this.http.get('/api/products').subscribe(v=>{
+      console.log('data',v);
+    });
+  }
+}
+
+=======post请求用法示例=======
+参数说明:URL 地址,数据,选项
+
+01.简单用法
+this.http.post('/api/products',{
+  id:"test",
+  manufacturer:"测试数据",
+  name:"测试数据1",
+  price:888888,
+}).subscribe(v=>{
+  console.log('post',v);
+});
+
+02.加入headers选项
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
+this.http.post('/api/products',{
+  id:"p1",
+  manufacturer:"测试数据333",
+  name:"测试数据3",
+  price:333333,
+},httpOptions).subscribe(v=>{
+  console.log('post',v);
+});
+
+
+=======delete请求用法示例=======
+this.http.delete('/api/products/p1').subscribe(v=>{
+  console.log('get',v);
+});
+
+
+
+
+
+
+注意要点：
+1.所有的 HttpClient 方法都会返回某个值的 RxJS Observable。但来自 HttpClient 的 Observable 总是发出一个值，然后结束
+2.使用 .pipe() 方法来扩展 Observable 的结果
+3.Observable 在有人订阅之前什么都不会做。必须在调用了subscribe() 才会执行
+4.非纯管道 AsyncPipe 会自动订阅到 Observable，这样你就不用再在组件类中订阅了。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+单词
+fetch 取来
+instanceof 运算符 关键字 实例
+functional 函数式
+reactive 反应性的
+tap 开发 水龙头
+wiretap 窃听
+mime 模拟 喜剧演员
+token 令牌 象征
+authorization 授权
+debounce 去抖动
+intercept 拦截
+abstract 摘要
+handle 手柄 句柄
+barrel 桶
+secure 安全的 保护
+since 自从
+finalize 定稿 完成
+cachable 可缓存的
+report 报告
+progress 进度
+salt 盐
+mock 模仿的
+flush 冲刷 脸红
+bed 床
+describe 描述
+equal 平等
+verify 验证
+expect 期望
+encapsulation 包装
+collection 收集
+put 放 使……受到影响
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

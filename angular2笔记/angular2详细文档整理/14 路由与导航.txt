@@ -1,0 +1,1026 @@
+一.使用路由遇到的常见问题及解决方案
+======Angular2 路由刷新发送http请求返回404错误问题======
+1.在app.module.ts文件中
+开启 Hash 模式
+URL 中包含的 hash 信息是不会提交到服务端
+import {HashLocationStrategy , LocationStrategy} from '@angular/common';
+在@NgModule中加入
+providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+
+补充：开启 HTML 5 模式(次模式并不能解决刷新404错误的问题,需配合服务器配置路径重新实现)
+import { APP_BASE_HREF, LocationStrategy, PathLocationStrategy } from '@angular/common';
+{ provide: LocationStrategy, useClass: PathLocationStrategy },
+{ provide: APP_BASE_HREF, useValue: '/dist/' }
+
+2.在index.html文件中
+<base> 标签为页面上的所有链接规定默认地址或默认目标
+<base href="/dist/">  
+
+
+======把Router配置数据提取出来======
+import { RouterModule,Routes } from '@angular/router';
+import { PageTwoComponent } from './pagetwo/pagetwo.component';
+import { PageNoComponent } from './nopage/nopage.component';
+
+export const routes: Routes = [
+    { path: 'pagetwo', component: PageTwoComponent },
+    { path: '',   redirectTo: '/pagetwo', pathMatch: 'full' },
+    { path: '**', component: PageNoComponent }
+]
+
+##################20180717##################
+======loadChildren惰性加载报模块找不到错误======
+1.安装angular2-router-loader
+npm install angular2-router-loader -D 
+
+2.webpack.config.js文件中加入angular2-router-loader
+{
+    test: /\.tsx?$/,
+    use:[
+        'ts-loader',
+        'angular2-template-loader',
+        'angular2-router-loader'
+    ],
+    include :path.resolve(__dirname, 'src'),
+    exclude: /\.component.ts$/
+    },
+    { 
+    test: /\.component.ts$/, 
+    use:[
+        'ts-loader',
+        'angular2-template-loader',
+        'angular2-router-loader'
+    ],
+    include :path.resolve(__dirname, 'src'),
+},
+
+2.实现路由懒加载(异步路由)
+{
+    path: '',
+    loadChildren: './pageone/pageone.module#pageOneModule',
+},
+
+3.实现路由预加载
+import { RouterModule,PreloadingStrategy,PreloadAllModules,Routes } from '@angular/router';
+RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules } ),
+
+##################20180718##################
+======实现pug和less文件分离======
+@Component({
+  selector: 'app',
+  templateUrl: './app.component.pug',
+  styleUrls: ['./app.component.less'],
+})
+
+======路由链接调转处理======
+a(routerLink="/login") 调转login
+a(routerLink="/home" , routerLinkActive="active") 调转home
+
+======设置子路由懒加载======
+1.父路由中页面配置
+{ path: '', redirectTo: '/login', pathMatch: 'full' },
+{ path: 'login', component: LoginComponent },
+{
+    path: 'home',
+    loadChildren: './home/home.module#HomeModule',
+},
+
+2.子路由页面中配置
+export const routes: Routes = [
+    { path: '', component: WelcomeComponent},
+]
+
+======父路由默认跳转到指定子路由同时路径发生切换======
+
+{ path: '' , component: HomeComponent,
+    children:[
+        { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+        { path:'welcome' , component:WelcomeComponent },
+        {
+            path: 'products',
+            loadChildren: './pages-products/pages-products.module#PagesProductsModule',
+        },
+        { path:'**',component:GetlostComponent },
+    ]
+},
+
+
+
+二.基础知识
+1.index.html文件中需要添加 <base href> 元素,来告诉路由器该如何合成导航用的 URL。
+<base href="/">
+
+2.常用路由配置说明
+-path 不能以斜杠（/）开头
+-路由器使用先匹配者优先的策略来选择路由。 通配符路由是路由配置中最没有特定性的那个，因此务必确保它是配置中的最后一个路由。
+
+const appRoutes: Routes = [
+  { path: 'crisis-center', component: CrisisListComponent },  //把一个 URL 的 path 映射到一个组件
+  { path: 'hero/:id',      component: HeroDetailComponent },  //添加了路由参数
+  {
+    path: 'heroes',
+    component: HeroListComponent,
+    // data 属性用来存放于每个具体路由有关的任意信息。该数据可以被任何一个激活路由访问，并能用来保存诸如 页标题、面包屑以及其它静态只读数据。你将使用resolve 守卫来获取动态数据。
+    data: { title: 'Heroes List' } 
+  },
+  { path: '',  
+    redirectTo: '/heroes', //添加默认路径
+    //pathMatch另外的一个值为prefix 如果 pathMatch 的值是 'prefix'，那么每个URL 都会匹配上 ''
+    pathMatch: 'full' //路由器应该只有在完整的 URL等于 '' 时才选择 HeroListComponent 组件，因此要把 pathMatch 设置为 'full'
+  },
+  //路径通配符号 URL 不匹配前面定义的路由表中的任何路径时，路由器就会选择此路由
+  { path: '**', component: PageNotFoundComponent } 
+];
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(
+      appRoutes,
+      //把每个导航生命周期中的事件输出到浏览器的控制台,只用于调试
+      { enableTracing: true }
+    )
+  ],
+  ...
+})
+export class AppModule { }
+
+
+3.路由出口 相当于一个占位符号的作用 组件内容会显示在它的下方
+<router-outlet></router-outlet>
+
+4.路由器链接
+<a routerLink="/crisis-center" routerLinkActive="active">Crisis Center</a>
+<a routerLink="/heroes" routerLinkActive="active">Heroes</a>
+
+5.路由链接的激活状态
+routerLinkActive="active" ;routerLinkActive右边放的是类名 可以自定义
+当这个链接激活时，路由器将会把它们加上去（并在处于非活动状态时移除）。
+你还可以把 RouterLinkActive 设置为一个类组成的字符串，如 [routerLinkActive]="'active fluffy'"
+让父子组件路由只能激活一个，可以把 [routerLinkActiveOptions] 绑定为 { exact: true } 表达式
+
+6.路由器状态
+routerState 属性保存了路由当前状态,可以获得关于父、子、兄弟路由的信息。
+
+7.激活的路由
+激活路由的路径和参数可以通过注入进来的一个名叫ActivatedRoute的路由服务来获取 返回的参数大多为Observable对象
+url:是一个由路由路径中的各个部分组成的字符串数组
+data:包含提供给路由的 data 对象。也包含由解析守卫（resolve guard）解析而来的值
+paramMap:当前路由的必要参数和可选参数组成的map对象。用这个 map 可以获取来自同名参数的单一值或多重值
+queryParamMap:含一个对所有路由都有效的查询参数组成的map对象。 用这个 map 可以获取来自查询参数的单一值或多重值
+fragment：一个适用于所有路由的 URL 的 fragment（片段）的 Observable
+
+outlet:要把该路由渲染到的 RouterOutlet 的名字。对于无名路由，它的路由名是 primary，而不是空串
+routeConfig：用于该路由的路由配置信息，其中包含原始路径
+parent：当该路由是一个子路由时，表示该路由的父级 ActivatedRoute
+firstChild：包含该路由的子路由列表中的第一个 ActivatedRoute
+children：包含当前路由下所有已激活的子路由
+
+8.路由事件
+Router.events 属性发布一些导航事件。这些事件的范围涵盖了从开始导航到结束导航之间的很多时间点
+NavigationStart：本事件会在导航开始时触发。
+RouteConfigLoadStart：本事件会在 Router 惰性加载 某个路由配置之前触发。
+RouteConfigLoadEnd：本事件会在惰性加载了某个路由后触发。
+RoutesRecognized：本事件会在路由器解析完 URL，并识别出了相应的路由时触发
+GuardsCheckStart：本事件会在路由器开始 Guard 阶段之前触发。
+ChildActivationStart：本事件会在路由器开始激活路由的子路由时触发。
+ActivationStart：本事件会在路由器开始激活某个路由时触发。
+GuardsCheckEnd：本事件会在路由器成功完成了 Guard 阶段时触发。
+ResolveStart：本事件会在 Router 开始解析（Resolve）阶段时触发。
+ResolveEnd：本事件会在路由器成功完成了路由的解析（Resolve）阶段时触发。
+ChildActivationEnd：本事件会在路由器激活了路由的子路由时触发。
+ActivationEnd：本事件会在路由器激活了某个路由时触发。
+NavigationEnd：本事件会在导航成功结束之后触发。
+NavigationCancel：本事件会在导航被取消之后触发。 这可能是因为在导航期间某个路由守卫返回了 false。
+NavigationError：这个事件会在导航由于意料之外的错误而失败时触发。
+Scroll：本事件代表一个滚动事件。
+
+9.路由器中的关键词汇及其含义
+Router（路由器）：为激活的 URL 显示应用组件。管理从一个组件到另一个组件的导航
+RouterModule：一个独立的 Angular 模块，用于提供所需的服务提供商，以及用来在应用视图之间进行导航的指令。
+Routes（路由数组）：定义了一个路由数组，每一个都会把一个 URL 路径映射到一个组件。
+Route（路由）：定义路由器该如何根据 URL 模式（pattern）来导航到组件。大多数路由都由路径和组件类构成。
+RouterOutlet（路由出口）：该指令（<router-outlet>）用来标记出路由器该在哪里显示视图。
+RouterLink（路由链接）：这个指令把可点击的 HTML 元素绑定到某个路由。点击带有 routerLink 指令（绑定到字符串或链接参数数组）的元素时就会触发一次导航。
+RouterLinkActive（活动路由链接）：当 HTML 元素上或元素内的routerLink变为激活或非激活状态时，该指令为这个 HTML 元素添加或移除 CSS 类。
+ActivatedRoute（激活的路由）：为每个路由组件提供提供的一个服务，它包含特定于路由的信息，比如路由参数、静态数据、解析数据、全局查询参数和全局碎片（fragment）。
+RouterState（路由器状态）：路由器的当前状态包含了一棵由程序中激活的路由构成的树。它包含一些用于遍历路由树的快捷方法。
+链接参数数组：这个数组会被路由器解释成一个路由操作指南。你可以把一个RouterLink绑定到该数组，或者把它作为参数传给Router.navigate方法。
+路由组件：一个带有RouterOutlet的 Angular 组件，它根据路由器的导航来显示相应的视图。
+
+
+10.路由事件使用示例
+Router.events 以可观察对象的形式提供了其事件。
+要点补充 监听路由URL的变化
+可以使用router.events来监听：
+-NavigationStart：导航开始
+-NavigationEnd：导航结束
+-NavigationCancel：取消导航
+-NavigationError：导航出错
+-RoutesRecoginzed：路由已认证
+
+用法示例(简单方式)
+import { Router, NavigationStart } from '@angular/router';
+constructor(private router: Router) { }
+this.router.events.pipe(
+  filter(evt => evt instanceof NavigationStart)
+).subscribe(evt => console.log('Navigation Started!'));
+
+用法示例(严谨方式)
+import { Router, NavigationStart } from '@angular/router';
+constructor(private router: Router) { }
+
+navStart: Observable<NavigationStart>;
+
+this.navStart = this.router.events.pipe(
+  filter(evt => evt instanceof NavigationStart)
+) as Observable<NavigationStart>;
+
+this.navStart.subscribe(evt => console.log('Navigation Started!'));
+
+evt打印出来的结果
+evt:{
+  NavigationStart {id: 4, url: "/login"}
+  id:4,
+  url:"/login",
+  __proto__:RouterEvent,
+}
+
+
+--ActivatedRoute
+ActivatedRoute 是一个可注入的路由器服务，它使用可观察对象来获取关于路由路径和路由参数的信息。
+比如，ActivateRoute.url 包含一个用于汇报路由路径的可观察对象。例子如下：
+
+import { Router, NavigationStart ,ActivatedRoute } from '@angular/router';
+this.activatedRoute.url
+      .subscribe(url => console.log('The URL changed to: ' + url)); //The URL changed to: login
+
+
+三.路由参数
+1.带参数的路由定义
+:id 令牌。它为路由参数在路径中创建一个“空位”(通过ActivatedRoute获取ParamMap中才有对应的key)
+{ path: 'hero/:id', component: HeroDetailComponent }
+在浏览器中可以访问：localhost:4200/hero/15
+
+2.路由参数可以是单独的一个值或变量
+a([routerLink]="['/login', 1]" , routerLinkActive="active") 单个数字参数
+在浏览器中的URL:http://127.0.0.1:8080/dist/#/login/1
+
+3.路由参数可以是一个对象
+a([routerLink]="['/login', { id: 1, foo: 'foo' }]" , routerLinkActive="active") 调整到login带参数
+在浏览器中的URL:http://127.0.0.1:8080/dist/#/login;id=1;foo=foo // 这是矩阵 URL标记法 
+
+
+4.路由器从 URL 中解析出路由参数，并通过 ActivatedRoute 服务来把它提供给组件。
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+this.activatedRoute.paramMap.subscribe(params=>{
+  //返回一个对象 keys属性是一个包含所有键数组; params属性是包含所有参数的对象
+  console.log('params',params);
+})
+
+this.activatedRoute.paramMap.subscribe(params=>{
+  let id = params.get('id');  //可通过get方法获取参数
+  console.log('id',id);
+})
+
+5.ParamMap API列表
+has(name)：如果参数名位于参数列表中，就返回 true 。
+get(name)：如果这个 map 中有参数名对应的参数值（字符串），就返回它，否则返回 null。如果参数值实际上是一个数组，就返回它的第一个元素。
+getAll(name)：如果这个 map 中有参数名对应的值，就返回一个字符串数组，否则返回空数组。当一个参数名可能对应多个值的时候，请使用 getAll。
+keys：返回这个 map 中的所有参数名组成的字符串数组。
+
+
+6.Snapshot（快照）：当不需要 Observable 时的替代品
+route.snapshot 提供了路由参数的初始值。
+this.activatedRoute.snapshot.paramMap.get('id');
+
+7.navigate方法导航到指定路由
+this.router.navigate(['/heroes']);
+this.router.navigate(['/heroes', { id: heroId, foo: 'foo' }]);
+
+
+
+四.添加路由动画
+1.在app.module.ts添加 BrowserAnimationsModule
+导入 BrowserAnimationsModule，并添加到 imports 数组中：
+
+2.添加一个 data 对象。 添加转场的动画states
+使用来自路由的 animation 数据为转场提供一个有名字的动画 state。
+{ path: 'heroes',  component: HeroListComponent, data: { animation: 'heroes' } },
+{ path: 'hero/:id', component: HeroDetailComponent, data: { animation: 'hero' } }
+
+3.创建路由动画并导出
+=======animations.ts======
+import {
+  trigger, animateChild, group,
+  transition, animate, style, query
+} from '@angular/animations';
+
+
+//导出路由动画
+export const slideInAnimation =
+  trigger('routeAnimation', [
+    transition('heroes <=> hero', [
+      style({ position: 'relative' }),
+      query(':enter, :leave', [
+        style({
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%'
+        })
+      ]),
+      query(':enter', [
+        style({ left: '-100%'})
+      ]),
+      query(':leave', animateChild()),
+      group([
+        query(':leave', [
+          animate('300ms ease-out', style({ left: '100%'}))
+        ]),
+        query(':enter', [
+          animate('300ms ease-out', style({ left: '0%'}))
+        ])
+      ]),
+      query(':enter', animateChild()),
+    ])
+  ]);
+
+4.把一个包含 slideInAnimation 的 animations 数组添加到 @Component 的元数据中。
+在需要添加动画转场的模块中 比如 app.component.ts 也可以是在其他模块
+
+import { RouterOutlet } from '@angular/router';
+import { slideInAnimation } from './animations';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.css'],
+  animations: [ slideInAnimation ]
+})
+
+
+getAnimationData(outlet) {
+  console.log('outlet.activatedRouteData',outlet.activatedRouteData)
+  return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
+}
+
+app.component.pug文件中
+//#routerOutlet="outlet" 必须为outlet 要不然会报错
+div([@routeAnimation]="getAnimationData(routerOutlet)")
+  router-outlet(#routerOutlet="outlet")
+
+
+五.子路由
+1.子路由配置
+const crisisCenterRoutes: Routes = [
+  {
+    path: 'crisis-center',
+    component: CrisisCenterComponent,
+    children: [
+      {
+        path: '',
+        component: CrisisListComponent,
+        children: [
+          {
+            path: ':id',
+            component: CrisisDetailComponent
+          },
+          {
+            path: '',
+            component: CrisisCenterHomeComponent
+          }
+        ]
+      }
+    ]
+  }
+];
+
+2.RouterModule.forChild导入路由配置
+RouterModule.forChild(crisisCenterRoutes)
+
+3.路由返回上一级使用 ../  relativeTo为重定向属性
+this.router.navigate(['../', { id: crisisId, foo: 'foo' }], { relativeTo: '/home' });
+
+4.用命名出口（outlet）显示多重路由
+在每个模板中，路由器只能支持一个无名主路由出口。
+模板还可以有多个命名的路由出口。多重出口可以在同一时间根据不同的路由来显示不同的内容。
+<div [@routeAnimation]="getAnimationData(routerOutlet)">
+  <router-outlet #routerOutlet="outlet"></router-outlet>
+</div>
+<router-outlet name="popup"></router-outlet>   //此处为命名路由的出口
+
+5.添加第二路由
+{
+  path: 'compose',
+  component: ComposeMessageComponent,
+  outlet: 'popup'
+},
+
+6.调转到第二路由
+router-outlet定义在哪个页面则必须在哪个页面添加跳转 在其他页面则跳转无效
+<a [routerLink]="[{ outlets: { popup: ['compose'] } }]">Contact</a>
+
+7.清除第二路由
+closePopup() {
+    this.router.navigate([{ outlets: { popup: null }}]);
+}
+   
+8.重新载入第二路由
+showPopup() {
+    this.router.navigate([{ outlets: { popup: 'two' }}]);
+}
+
+
+
+六.路由守卫
+1.守卫返回一个值，以控制路由器的行为：
+如果它返回 true，导航过程会继续
+如果它返回 false，导航过程会终止，且用户会留在原地。
+守卫还可以告诉路由器导航到别处，这样也取消当前的导航。
+
+2.路由的守卫可以返回一个 Observable<boolean> 或 Promise<boolean>，并且路由器会等待这个可观察对象被解析为 true 或 false。
+提供给路由器的可观察对象还必须能结束（complete）。否则，导航就不会继续。
+
+3.支持多种守卫接口
+用CanActivate来处理导航到某路由的情况。
+用CanActivateChild来处理导航到某子路由的情况。
+用CanDeactivate来处理从当前路由离开的情况.
+用Resolve在路由激活之前获取路由数据。
+用CanLoad来处理异步导航到某特性模块的情况。
+
+4.CanActivate: 要求认证(来处理导航到某路由的情况)
+无组件路由：分组路由，而不需要组件，方便添加子组件路由守卫 而不需要每个都去单独添加
+一个无组件的路由能让守卫子路由变得更容易。
+providedIn: 'root' 指定该服务应该在根注入器中提供,然后再任何组件随意使用 只有6以上版本可用
+
+==============路由配置==============
+const adminRoutes: Routes = [
+  {
+    path: 'admin',
+    component: AdminComponent,
+    children: [
+      {
+        path: '',
+        children: [
+          { path: 'crises', component: ManageCrisesComponent },
+          { path: 'heroes', component: ManageHeroesComponent },
+          { path: '', component: AdminDashboardComponent }
+        ]
+      }
+    ]
+  }
+];
+
+@NgModule({
+  imports: [
+    RouterModule.forChild(adminRoutes)
+  ],
+  exports: [
+    RouterModule
+  ]
+})
+export class AdminRoutingModule {}
+
+
+=============auth.guard.ts==============
+import { Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+
+@Injectable()
+export class AuthGuard implements CanActivate {
+  //AuthGuard 实现了 CanActivate接口
+  //CanActivate接口中定义了canActivate的方法 接收next,state两个参数 并且返回一个布尔值
+  //state应该是路由导航被激化前的回调函数 返回true则正常导航 返回false则阻止导航
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): boolean {
+    console.log('AuthGuard#canActivate called');
+    return true;
+  }
+}
+
+注意:如果是5及其以下版本 则 需要在app.module.ts中引入该服务 这样其他模块组件均可直接使用
+
+=============pages-products.routes.ts==============
+import { RouterModule,Routes } from '@angular/router';
+import { ProductsShowComponent } from './products-show/products-show.component';
+import { BaseInfoFundComponent } from './base-info-fund/base-info-fund.component';
+import { BaseInfoBundComponent } from './base-info-bund/base-info-bund.component';
+import { AuthGuard } from '../../auth/auth.guard'; //引入守卫服务
+
+
+export const routes: Routes = [
+    { path: '' , 
+      component: ProductsShowComponent,
+      canActivate: [AuthGuard], //提交路由守卫
+      //无组件路由：分组路由，而不需要组件，方便添加子组件路由守卫 而不需要每个都去单独添加
+      children: [
+        {
+          path: '',
+          children:[
+            { path: '', redirectTo: 'fund', pathMatch: 'full' },
+            { path:'fund' , component:BaseInfoFundComponent },
+            { path:'bund' , component:BaseInfoBundComponent },
+          ]
+        }
+      ]
+    },
+]
+
+
+5.CanActivateChild：保护子路由
+CanActivateChild 会在任何子路由被激活之前运行。
+CanActivateChild 方法可以返回 Observable<boolean> 或 Promise<boolean> 来支持异步检查，或 boolean 来支持同步检查。 这里返回的是 boolean：
+
+=============auth.guard.ts==============
+import { Injectable } from '@angular/core';
+import { 
+  CanActivate, Router,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  CanActivateChild
+} from '@angular/router';
+
+@Injectable()
+export class AuthGuard implements CanActivate, CanActivateChild {
+  //AuthGuard 实现了 CanActivate接口
+  //CanActivate接口中定义了canActivate的方法 接收next,state两个参数 并且返回一个布尔值
+  //state应该是路由导航被激化前的回调函数
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): boolean {
+    console.log('路由守护 已经导航到products模块页面');
+    return true;
+  }
+
+  canActivateChild(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): boolean {
+    console.log('子路由守护 已经导航到products模块页面的子路由页面');
+    return true;
+  }
+}
+
+=============pages-products.routes.ts==============
+import { RouterModule,Routes } from '@angular/router';
+import { ProductsShowComponent } from './products-show/products-show.component';
+import { BaseInfoFundComponent } from './base-info-fund/base-info-fund.component';
+import { BaseInfoBundComponent } from './base-info-bund/base-info-bund.component';
+import { AuthGuard } from '../../auth/auth.guard'; //引入守卫服务
+
+
+export const routes: Routes = [
+    { path: '' , 
+      component: ProductsShowComponent,
+      canActivate: [AuthGuard], //提供路由守卫
+      //无组件路由：分组路由，而不需要组件，方便添加子组件路由守卫 而不需要每个都去单独添加
+      children: [
+        {
+          path: '',
+          canActivateChild: [AuthGuard], //提供子路由守卫
+          children:[
+            { path: '', redirectTo: 'fund', pathMatch: 'full' },
+            { path:'fund' , component:BaseInfoFundComponent },
+            { path:'bund' , component:BaseInfoBundComponent },
+          ]
+        }
+      ]
+    },
+]
+
+
+6. CanDeactivate 守卫,要离开导航的时候
+CanDeactivate：(停用路由)处理未保存的更改 
+
+can-deactivate.guard.ts 作为服务 如果要全局使用需要 先在app.module.ts中引入 如果是6以上则不用 可直接使用providedIn: 'root' 
+
+=============can-deactivate.guard.ts==============
+import { Injectable }           from '@angular/core';
+import { CanDeactivate,
+         ActivatedRouteSnapshot,
+         RouterStateSnapshot }  from '@angular/router';
+import {Observable} from 'rxjs/Rx'; 
+
+//引入要守卫的组件 可以忽略，仅当需要获取组件中的属性值或方法的时候使用
+import { BaseInfoBundComponent } from '../pages/pages-products/base-info-bund/base-info-bund.component';
+
+@Injectable()
+export class CanDeactivateGuard implements CanDeactivate<BaseInfoBundComponent> {
+
+  canDeactivate(
+    component: BaseInfoBundComponent,  //这个参数是必须的 可以通过它获取对应组件中的方法或属性
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean> | boolean {
+    console.log('准备好离开导航')
+    console.log('route.paramMap',route.paramMap);//route.paramMap.get('id')可用于获取路由参数
+    console.log('当前准备离开的导航链接',state.url); //获取当前导航的链接
+
+    if (false) {
+      return true;
+    }
+    
+    let dialogService = (message?: string) : Observable<boolean> =>{
+      //message为一个字符串的可选参数
+      //返回一个可观察者对象 并且这个可观察者对象 发出的值为布尔型
+      const confirmation = window.confirm(message); //如果用户点击确定按钮，则 confirm() 返回 true。如果点击取消按钮，则 confirm() 返回 false。
+      return Observable.of(confirmation);
+
+    };
+    return dialogService('你确定要离开吗');
+  }
+}
+
+=============pages-products.routes.ts==============
+import { RouterModule,Routes } from '@angular/router';
+import { ProductsShowComponent } from './products-show/products-show.component';
+import { BaseInfoFundComponent } from './base-info-fund/base-info-fund.component';
+import { BaseInfoBundComponent } from './base-info-bund/base-info-bund.component';
+import { AuthGuard } from '../../auth/auth.guard'; //引入守卫服务
+
+import { CanDeactivateGuard }    from '../../auth/can-deactivate.guard';
+
+
+export const routes: Routes = [
+    { path: '' , 
+      component: ProductsShowComponent,
+      canActivate: [AuthGuard], //提供路由守卫
+      //无组件路由：分组路由，而不需要组件，方便添加子组件路由守卫 而不需要每个都去单独添加
+      children: [
+        {
+          path: '',
+          canActivateChild: [AuthGuard], //提供子路由守卫
+          children:[
+            { path: '', redirectTo: 'fund', pathMatch: 'full' },
+            { path:'fund' , component:BaseInfoFundComponent },
+            { path:'bund' , 
+              component:BaseInfoBundComponent,
+              canDeactivate: [CanDeactivateGuard], //添加CanDeactivate 守卫,要离开导航的时候
+            },
+          ]
+        }
+      ]
+    },
+]
+
+七.Resolve: 预先获取组件数据
+
+==============bund.ts=========
+//定义一个boud类的数据结构
+export class Bund {
+  id: number;
+  name: string;
+}
+
+==============resolver.service.ts=========
+import { Injectable }             from '@angular/core';
+import {Observable} from 'rxjs/Rx'; 
+import { Bund } from './bund';  //引入 Resolve: 需要预先获取的数据结构
+import { tap, delay } from 'rxjs/operators';
+
+import {
+  Router, Resolve,
+  RouterStateSnapshot,
+  ActivatedRouteSnapshot
+} from '@angular/router';
+ 
+ 
+@Injectable()
+export class ResolverService implements Resolve<Bund> {
+  constructor( private router: Router) {}
+ 
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Observable<Bund> | Promise<Bund> | Bund  {
+   
+    if(false){
+      this.router.navigate(['/home']); //当条件不匹配的时候可以重定向到其他页面
+      return {id:111,name:'name11'}; 
+    }else{
+      let id = route.paramMap.get('id');
+      console.log('预先获取路由信息id',id)
+
+      return Observable.of({
+        //返回一个数据结构为Bund类的可观察对象
+        id: 11,
+        name: 'name',
+      }).pipe(
+        delay(5000), //延迟5秒 模仿接口返回
+      );
+    }
+    
+  }
+}
+
+==============pages-products.routes.ts=========
+
+import { RouterModule,Routes } from '@angular/router';
+import { ProductsShowComponent } from './products-show/products-show.component';
+import { BaseInfoFundComponent } from './base-info-fund/base-info-fund.component';
+import { BaseInfoBundComponent } from './base-info-bund/base-info-bund.component';
+
+import { AuthGuard } from '../../auth/auth.guard'; //引入守卫服务
+import { CanDeactivateGuard }    from '../../auth/can-deactivate.guard';
+import { ResolverService } from '../../auth/resolver.service';
+
+
+export const routes: Routes = [
+    { path: '' , 
+      component: ProductsShowComponent,
+      canActivate: [AuthGuard], //提供路由守卫
+      //无组件路由：分组路由，而不需要组件，方便添加子组件路由守卫 而不需要每个都去单独添加
+      children: [
+        {
+          path: '',
+          canActivateChild: [AuthGuard], //提供子路由守卫
+          children:[
+            { path: '', redirectTo: 'fund', pathMatch: 'full' },
+            { path:'fund' , component:BaseInfoFundComponent },
+            { path:'bund/:id' , 
+              component:BaseInfoBundComponent,
+              canDeactivate: [CanDeactivateGuard], //添加CanDeactivate 守卫,要离开导航的时候
+              resolve: {
+                //添加 Resolve: 预先获取组件数据设置
+                bund: ResolverService
+              }
+            },
+          ]
+        }
+      ]
+    },
+]
+
+
+==============base-info-bund.component.ts=========
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+@Component({
+  selector: 'base-info-bund',
+  templateUrl: './base-info-bund.component.pug',
+  styleUrls: ['./base-info-bund.component.less'],
+})     
+export class BaseInfoBundComponent {
+  title = 'base-info-bund';
+  constructor(private route: ActivatedRoute,
+              private router: Router,) { }
+
+  ngOnInit(){
+    console.log('base-info-bund页面启动......');
+    this.route.data
+    .subscribe((data) => {
+      console.log('data.bund',data.bund); //获取Resolve: 预先获取组件数据 返回的数据
+    });
+  }
+}
+
+
+八.查询参数及片段
+定义一些所有路由中都可用的可选参数
+
+1.在auth.guard.ts路由守卫中添加参数 关键词NavigationExtras
+import { Injectable } from '@angular/core';
+import { 
+  CanActivate, Router,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  CanActivateChild,
+  NavigationExtras
+} from '@angular/router';
+
+@Injectable()
+export class AuthGuard implements CanActivate, CanActivateChild {
+  //AuthGuard 实现了 CanActivate接口
+  //CanActivate接口中定义了canActivate的方法 接收next,state两个参数 并且返回一个布尔值
+  //state应该是路由导航被激化前的回调函数
+  constructor( private router: Router) {}
+
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): boolean {
+    console.log('路由守护 已经导航到products模块页面');
+    return true;
+  }
+
+  canActivateChild(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): boolean {
+    console.log('子路由守护 已经导航到products模块页面的子路由页面');
+    let navigationExtras: NavigationExtras = {
+      //添加路由参数
+      queryParams: { 'session_id': '11111111111111111111' },
+      fragment: 'anchor'
+    };
+
+    // 127.0.0.1:8080/dist/#/login?session_id=11111111111111111111#anchor
+    this.router.navigate(['/login'], navigationExtras);
+
+    return false;
+  }
+}
+
+
+参数获取
+constructor(private route: ActivatedRoute) { }
+this.route
+      .queryParamMap
+      .pipe(map(params => params.get('session_id') || 'None')).subscribe(v=>{
+        console.log('session_id',v);
+      });
+
+
+    this.route
+      .fragment
+      .pipe(map(fragment => fragment || 'None')).subscribe(v=>{
+        console.log('fragment',v);
+      });
+
+
+
+
+九.CanLoad 守卫：保护对特性模块的未授权加载
+CanLoad 会阻塞预加载
+PreloadAllModules 策略不会加载被CanLoad守卫所保护的特性区。这是刻意设计的。CanLoad 守卫的优先级高于预加载策略。
+
+
+===============auth.guard.ts=============
+import { Injectable } from '@angular/core';
+import { 
+  CanActivate, Router,Route,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  CanActivateChild,
+  NavigationExtras,
+  CanLoad
+} from '@angular/router';
+
+@Injectable()
+export class AuthGuard implements CanActivate, CanActivateChild,CanLoad {
+  //AuthGuard 实现了 CanActivate接口
+  //CanActivate接口中定义了canActivate的方法 接收next,state两个参数 并且返回一个布尔值
+  //state应该是路由导航被激化前的回调函数
+  constructor( private router: Router) {}
+
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): boolean {
+    console.log('路由守护 已经导航到products模块页面');
+    return true;
+  }
+
+  canActivateChild(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): boolean {
+    console.log('子路由守护 已经导航到products模块页面的子路由页面');
+    let navigationExtras: NavigationExtras = {
+      queryParams: { 'session_id': '11111111111111111111' },
+      fragment: 'anchor'
+    };
+
+    // 127.0.0.1:8080/dist/#/login?session_id=11111111111111111111#anchor
+    this.router.navigate(['/login'], navigationExtras);
+
+    return false;
+  }
+
+
+  canLoad(route: Route): boolean {
+    //添加 CanLoad 守卫
+    return true;
+  }
+
+}
+
+===============pages.routes.ts=============
+
+import { RouterModule,Routes } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { GetlostComponent } from './getlost/getlost.component';
+import { TwooutletComponent } from '../pages/twooutlet/twooutlet.component';
+import { AuthGuard } from '../auth/auth.guard'; //引入守卫服务
+
+export const routes: Routes = [
+    { path: '' , component: HomeComponent,
+        children:[
+            { path: '', redirectTo: 'welcome', pathMatch: 'full', data: { animation: 'welcome' } },
+            { path:'welcome' , component:WelcomeComponent, data: { animation: 'welcome' }},
+            {
+                path: 'products',
+                loadChildren: './pages-products/pages-products.module#PagesProductsModule',
+                canLoad: [AuthGuard], //添加CanLoad 守卫：保护对特性模块的未授权加载
+                data: { animation: 'products' }
+            },
+            {
+              path: 'two',
+              component: TwooutletComponent, 
+              outlet: 'popup'
+            },
+            { path:'**',component:GetlostComponent, data: { animation: 'getlost' } },
+        ]
+    },
+]
+
+
+十.自定义预加载策略
+1.只预加载那些 data.preload 标志为 true 的路由
+实现了 PreloadingStrategy，它只有一个方法 preload。
+preload 的实现必须返回一个 Observable。 如果该路由应该预加载，它就会返回调用加载器函数所返回的 Observable。 如果该路由不应该预加载，它就返回一个 null 值的 Observable 对象。
+所选路由的 path 记录在它的公共数组 preloadedModules 中。
+
+========= app.routes.ts =============
+import { Routes } from '@angular/router';
+import { LoginComponent } from './pages/login/login.component';
+
+export const routes: Routes = [
+    { path: '', redirectTo: '/login', pathMatch: 'full',data: { animation: 'login' } },
+    { path: 'login', component: LoginComponent ,data: { animation: 'login' }},
+    {
+        path: 'home',
+        loadChildren: './pages/pages.module#PagesModule',
+        data: { 
+          animation: 'home' ,
+          preload: true  //自定义预加载策略属性 为true进行预加载 为false 或 没有配置不预先加载
+        }
+    },
+    { path:'**',component:LoginComponent },
+]
+
+========preload-config.service.ts========
+import { Injectable } from '@angular/core';
+import { PreloadingStrategy, Route } from '@angular/router';
+import {Observable} from 'rxjs/Rx'; 
+
+@Injectable() 
+export class PreloadConfigService implements PreloadingStrategy {
+  preloadedModules: string[] = [];
+
+  preload(route: Route, load: () => Observable<any>): Observable<any> {
+    console.log('route.data888',route.data);
+    if (route.data && route.data['preload']) {
+      //如果路由配置中设置了preload为true 则进行预加载
+      this.preloadedModules.push(route.path);
+      console.log('Preloaded: ' + route.path);
+      return load();
+    } else {
+      //返回null的可观察者对象 不进行预加载
+      return Observable.of(null);
+    }
+  }
+}
+
+========app.module.ts中========
+import { PreloadConfigService } from './config/preload-config.service';  //引入服务
+
+//配置路由自定义预加载策略
+RouterModule.forRoot(routes, { 
+  //preloadingStrategy: PreloadAllModules 
+  preloadingStrategy: PreloadConfigService,
+}),
+
+
+
+
+
+知识补充：
+1.Set对象类似于数组，且成员的值都是唯一的 可以用于数组去重
+2.Map 对象是键值对集合，和 JSON 对象类似，但是 key 不仅可以是字符串还可以是对象
+3.泛型变量
+function identity<T>(arg: T): T {
+    return arg;
+}
+定义了泛型函数后第一种使用方法
+let output = identity<string>("myString");  // 返回必须是字符串
+定义了泛型函数后第二种使用方法
+let output = identity("myString");  // 返回必须是字符串
+
+
+未解决问题
+[routerLinkActiveOptions]="{ exact: true }" 
+<a routerLink="./" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+[routerLinkActiveOptions]="{ exact: true }"， 这样就只有当用户导航到 /admin 这个 URL 时才会激活它，而不会在导航到它的某个子路由时。
+
+解决：仅当路由完全匹配才会被激活 使用如下
+a( routerLink="/home/products",routerLinkActive="active",[routerLinkActiveOptions]="{ exact: true }") 跳转products
+
+
+单词
+tracing 追踪
+exact 准确的
+guard 警卫 守卫
+fragment 片段
+primary 初级的 主要的
+recognized 识别
+pattern 模式 
+deactivate 停用 解除人员
+redirect 重定向
+prefix 前缀
+declarations 声明
+snapshot 快照
+matrix 矩阵
+provided 假如 提供 
+dialog 对话 
+
+
+
+
+
+

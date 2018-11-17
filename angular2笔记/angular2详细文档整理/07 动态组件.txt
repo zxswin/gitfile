@@ -1,0 +1,218 @@
+===============ViewChild和ViewChildren概念剖析 及 简单代码示例===============
+
+一.ViewChild和ViewChildren概念剖析 及 简单代码示例
+1.ViewChild
+- 装饰器用于获取模板视图中的元素或直接调用其组件中的方法
+它支持 Type 类型或 string 类型的选择器，同时支持设置 read 查询条件，以获取不同类型的实例。比如ElementRef和ViewContainerRef.
+2.ViewChildren
+ViewChildren 装饰器是用来从模板视图中获取匹配的多个元素，返回的结果是一个 QueryList 集合。
+
+
+二.简单代码示例
+1.ts文件
+
+import { Component, ElementRef, ViewContainerRef,ViewChild, ViewChildren,AfterViewInit } from '@angular/core';
+import { ViewChildComponent } from '../../test-component/view-child/view-child.component';
+
+@Component({
+  selector: 'login',
+  templateUrl: './login.component.pug',
+  styleUrls: ['./login.component.less'],
+})
+export class LoginComponent {
+  @ViewChild('childA')
+  child1;
+  @ViewChild(ViewChildComponent)
+  child2;
+  @ViewChild('childB', {read: ElementRef}) //置 read 查询条件，以获取不同类型的实例。
+  child3;
+  @ViewChild('childB', {read: ViewContainerRef}) //置 read 查询条件，以获取不同类型的实例。
+  child4;
+
+  @ViewChildren(ViewChildComponent)
+  children;
+
+  clickMe() {
+    console.log('child1',this.child1);   //ViewChildComponent类组件 通过模板变量获取
+    console.log('child2',this.child2);   //ViewChildComponent类组件 通过组件直接获取
+    console.log('child3',this.child3);   //获取 view-child 组件视图
+    console.log('child4',this.child4);   //获取 视图容器 里面包含有 view-child 组件视图
+    console.log('children',this.children); //获取一个QueryList _results包含了页面中 所有view-child 组件
+
+    this.child1.greeting('child1');
+    this.child2.name = '我是child2';
+    this.child3.nativeElement.lastElementChild.firstElementChild.value = '我是child3~';
+    this.child4._data.componentView.component.greeting('child4');
+    this.children._results[0].greeting('children');
+  }
+}
+
+2.pug文件
+view-child(#childA="")
+view-child(#childB="")
+button((click)="clickMe()") 点我
+
+=====================================动态组件案例=================================
+一.核心要的剖析
+
+1.ComponentFactoryResolver 来动态添加组件。
+import { ComponentFactoryResolver} from '@angular/core';
+- 通常，Angular 编译器会为模板中所引用的每个组件都生成一个 ComponentFactory 类。 但是，对于动态加载的组件，模板中不会出现对它们的选择器的引用。
+-使用 ComponentFactoryResolver 来为每个具体的组件解析出一个 ComponentFactory。 然后 ComponentFactory 会为每一个组件创建一个实例。
+-动态组件的内容会放在ng-component标签中
+-ng-template(ad-host) 不需要加中括号 加入自定义属性指令 作用为获取要操作的元素对象 没必要一定这么处理 可忽略
+
+2.官网例子核心原来分析
+-核心用法为在组件中使用动态组件 如在login.component.put文件中
+<app-ad-banner [ads]="ads"></app-ad-banner>
+
+-动态组件为在app-ad-banner组件中添加 ad-banner.component.ts核心代码分析
+第一步：引入必要的依赖
+import { Component, Input, OnInit, ViewChild, ComponentFactoryResolver, OnDestroy } from '@angular/core';
+
+第二步：componentFactoryResolver用于添加动态组件
+constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
+//提取动态组件模板
+let componentFactory = this.componentFactoryResolver.resolveComponentFactory(adItem.component);
+
+//生成动态组件插入的视图容器
+let viewContainerRef = this.adHost.viewContainerRef;
+viewContainerRef.clear(); //清空视图容器
+
+let componentRef = viewContainerRef.createComponent(componentFactory); //把动态组件插入到视图容器中
+//componentRef.instance 打印出来是  HeroJobAdComponent {} 或 HeroProfileComponent {}
+componentRef.instance.data = adItem.data;  //传入动态组件入参
+
+第三步：在对应模块的module文件中配置entryComponents
+确保编译器照常生成工厂类，就要把这些动态加载的组件添加到 NgModule 的 entryComponents 数组中：
+
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+  ],
+  declarations: [
+    componentsList,
+  ],
+  providers: [AdService],
+  entryComponents: [ HeroJobAdComponent, HeroProfileComponent ], //确保编译器照常生成工厂类，就要把这些动态加载的组件添加到 NgModule 的 entryComponents 数组中：
+  exports:[CommonModule,FormsModule,componentsList],
+})
+
+二.简单的案例
+
+1.login.component.ts;
+
+import { Component, ElementRef,ComponentFactoryResolver, ViewContainerRef,ViewChild, ViewChildren,AfterViewInit } from '@angular/core';
+import { HeroProfileComponent } from '../../test-component/ad-banner/hero-profile.component';
+
+@Component({
+  selector: 'login',
+  templateUrl: './login.component.pug',
+  styleUrls: ['./login.component.less'],
+})
+export class LoginComponent {
+  data = {
+    name:'动态组件名称',
+    bio:'动态组件介绍文字'
+  };
+  // ComponentFactoryResolver 来动态添加组件。
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,
+              private viewContainerRef: ViewContainerRef) { }
+
+  ngOnInit() {
+    //提取动态组件模板
+    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(HeroProfileComponent);
+    //生成动态组件插入的视图容器
+    this.viewContainerRef.clear(); //清空视图容器
+    let componentRef = this.viewContainerRef.createComponent(componentFactory); //把动态组件插入到视图容器中
+    componentRef.instance.data = this.data;  //可以去掉 <AdComponent> 实例化 传入动态组件入参
+  }
+}
+
+2.hero-profile.component.ts(动态组件模板)
+import { Component, Input }  from '@angular/core';
+
+import { AdComponent }       from './ad.component';
+
+@Component({
+  template: `
+    <div class="hero-profile">
+      <h3>有特色的英雄简介</h3>
+      <h4>{{data.name}}</h4>
+
+      <p>{{data.bio}}</p>
+
+      <strong>租用今天的英雄!</strong>
+    </div>
+  `
+})
+export class HeroProfileComponent implements AdComponent {
+  @Input() data: any;
+}
+
+
+
+
+
+单词：
+ViewContainerRef 视图容器
+abstract 摘要 抽象
+embedded 嵌入的
+factory 工厂
+resolver 解决者
+banner 横幅 标语
+implements 工具 实现
+current 现在的
+instance 实例
+featured 有特色的
+profile 简介
+hire 租用 雇佣
+several 几个
+resume 简历
+departments 部门
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

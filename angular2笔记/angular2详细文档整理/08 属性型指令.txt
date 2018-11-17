@@ -1,0 +1,145 @@
+一.自定义一个简单的属性型指令
+
+=======highlight.directive.ts=======
+import { Directive, ElementRef } from '@angular/core';
+
+@Directive({
+  selector: '[appHighlight]'  //这里的方括号([])表示它的属性型选择器。
+})
+export class HighlightDirective {
+    constructor(el: ElementRef) {  //指令的构造函数中注入 ElementRef，来引用宿主 DOM 元素
+       el.nativeElement.style.backgroundColor = 'yellow'; //ElementRef 通过其 nativeElement 属性给你了直接访问宿主 DOM 元素的能力
+    }
+}
+
+
+=======app.module.ts文件中引入=======
+import { HighlightDirective } from './pages/login/highlight.directive';
+
+declarations: [
+    componentsList,
+    FlyingHeroesPipe,
+    UnlessDirective,
+    HighlightDirective,
+  ],
+
+=======pug文件中使用=======
+p(appHighlight) Highlight me!
+
+
+二.响应用户引发的事件(鼠标移入或鼠标移出)
+=======highlight.directive.ts=======
+import { Directive, ElementRef, HostListener } from '@angular/core';
+ 
+@Directive({
+  selector: '[appHighlight]'
+})
+export class HighlightDirective {
+  constructor(private el: ElementRef) { }
+ 
+  @HostListener('mouseenter') onMouseEnter() {
+    this.highlight('yellow');
+  }
+ 
+  @HostListener('mouseleave') onMouseLeave() {
+    this.highlight(null);
+  }
+ 
+  private highlight(color: string) {
+    this.el.nativeElement.style.backgroundColor = color;
+  }
+}
+
+
+三.使用 @Input 数据绑定向指令传递值
+=======highlight.directive.ts=======
+import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+
+@Directive({
+  selector: '[appHighlight]'
+})
+export class HighlightDirective {
+
+  constructor(private el: ElementRef) { }
+
+  @Input('appHighlight') highlightColor: string;  //绑定别名 在指令内部，该属性叫 highlightColor，在外部，你绑定到它地方，它叫 appHighlight。
+
+  @HostListener('mouseenter') onMouseEnter() {
+    this.highlight(this.highlightColor || 'red');
+  }
+
+  @HostListener('mouseleave') onMouseLeave() {
+    this.highlight(null);
+  }
+
+  private highlight(color: string) {
+    this.el.nativeElement.style.backgroundColor = color;
+  }
+}
+
+=======pug文件中使用=======
+p([appHighlight]="color") Highlight me!
+
+三.一个比较完整的案例
+=======highlight.directive.ts=======
+import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+
+@Directive({
+  selector: '[appHighlight]'
+})
+export class HighlightDirective {
+
+  constructor(private el: ElementRef) { }
+
+  @Input('appHighlight') highlightColor: string;
+  @Input() defaultColor: string;
+
+  
+
+  @HostListener('mouseenter') onMouseEnter() {
+    this.highlight(this.highlightColor || this.defaultColor || 'red');
+  }
+
+  @HostListener('mouseleave') onMouseLeave() {
+    this.highlight(null);
+  }
+
+  private highlight(color: string) {
+    this.el.nativeElement.style.backgroundColor = color;
+  }
+}
+
+=======pug文件=======
+h1 我的第一个自定义属性指令
+h4 选择一个高亮的颜色
+div 
+  input(type="radio" name="colors" (click)="color='lightgreen'") 
+  |绿色
+  input(type="radio" name="colors" (click)="color='yellow'") 
+  |绿色
+  input(type="radio" name="colors" (click)="color='cyan'") 
+  |青色
+
+p([appHighlight]="color") 高亮显示 不带默认值
+p([appHighlight]="color" ,defaultColor="violet") 高亮显示 带默认值
+
+
+
+概念
+1.在 Angular 中有三种类型的指令：
+- 组件 — 拥有模板的指令
+- 结构型指令 — 通过添加和移除 DOM 元素改变 DOM 布局的指令
+- 属性型指令 — 改变元素、组件或其它指令的外观和行为的指令。
+
+
+注意要点：
+@Input 装饰器都告诉 Angular，该属性是公共的，并且能被父组件绑定。 如果没有 @Input，Angular 就会拒绝绑定到该属性。
+
+
+
+单词：
+constructor 构造函数 构造器
+Listener 倾听者
+
+
+

@@ -1,0 +1,73 @@
+
+
+
+
+
+
+一.用法示例
+1.属性绑定变量
+<p><img [src]="heroImageUrl"> is the <i>property bound</i> image.</p>
+
+2.innerHTML 插入html结构会过滤script标签
+<p>"<span [innerHTML]="evilTitle"></span>" is the <i>property bound</i> evil title.</p>
+
+3.一些自定义属性的绑定方法
+<tr><td [attr.colspan]="1 + 1">One-Two</td></tr>
+
+4.class属性的绑定(可以用驼峰写法)
+<div [ngClass]="classes">[ngClass] binding to the classes property</div>
+<div class="bad curly special" [class]="badCurly">Bad curly</div>
+<div [class.special]="isSpecial">The class binding is special</div>
+
+5.样式属性的绑定(可以用驼峰写法)
+<div [ngStyle]="currentStyles">and extra large (24px).</div>
+<button [style.background-color]="canSave ? 'cyan': 'grey'" >Save</button>
+<button [style.font-size.em]="isSpecial ? 3 : 1" >Big</button>
+<button [style.font-size.%]="!isSpecial ? 150 : 50" >Small</button>
+
+6.事件双向绑定(非表单模式)
+遵循 x 值和 xChange 事件的模式。
+<app-sizer [size]="fontSizePx" (sizeChange)="fontSizePx=$event"></app-sizer>
+<app-sizer [(size)]="fontSizePx"></app-sizer>
+
+7.带 trackBy 的 *ngFor
+有了 trackBy，则只有修改了 id 的按钮才会触发元素替换。
+trackByHeroes(index: number, hero: Hero): number { return hero.id; }
+<div *ngFor="let hero of heroes; trackBy: trackByHeroes">
+  ({{hero.id}}) {{hero.name}}
+</div>
+
+8.使用模板变量注意事项
+用 ref- 前缀代替 #。 下面的例子中就用把 fax 变量声明成了 ref-fax 而不是 #fax。
+
+9.别名的定义方法
+@Output('myClick') clicks = new EventEmitter<string>();
+左侧是指令中的属性名，右侧则是公共别名。 和上面放过了
+outputs: ['clicks:myClick']
+
+10.安全导航
+The current hero's name is {{currentHero?.name}}
+The null hero's name is {{nullHero && nullHero.name}}
+
+11.非空断言操作符（!） 感觉比较少用
+非空断言操作符不会防止出现 null 或 undefined。 它只是告诉 TypeScript 的类型检查器对特定的属性表达式，不做 "严格空值检测"。
+如果你打开了严格控制检测，那就要用到这个模板操作符，而其它情况下则是可选的。
+The hero's name is {{hero!.name}}
+
+12.类型转换函数 $any （$any( <表达式> )）
+The hero's marker is {{$any(hero).marker}}
+$any 转换函数可以和 this 联合使用，以便访问组件中未声明过的成员。
+Undeclared members is {{$any(this).member}}
+
+
+
+单词：
+track  追踪
+
+
+
+
+
+
+
+

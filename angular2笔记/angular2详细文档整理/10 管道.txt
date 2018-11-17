@@ -1,0 +1,282 @@
+==================简单自定义管道实现示例==================
+
+-你使用自定义管道的方式和内置管道完全相同。
+-你必须在 AppModule 的 declarations 数组中包含这个管道。
+1.login.pipe.ts
+import { Pipe, PipeTransform } from '@angular/core';
+@Pipe({name: 'exponentialStrength'})
+export class ExponentialStrengthPipe implements PipeTransform {
+  transform(value: number, exponent: string): number {
+    let exp = parseFloat(exponent);
+    return Math.pow(value, isNaN(exp) ? 1 : exp);
+  }
+}
+
+2.login.component.pug 
+p Super power boost: {{2 | exponentialStrength: 10}}
+
+3.在app.module.ts文件引入管道模块
+import { ExponentialStrengthPipe } from './pages/login/login.pipe';
+declarations: [
+    componentsList,
+    ExponentialStrengthPipe,
+  ],
+
+===================管道的概念部分=================
+一.使用管道
+p The hero's birthday is {{ birthday | date }}
+
+二.内置的管道
+比如 DatePipe、UpperCasePipe、LowerCasePipe、CurrencyPipe 和 PercentPipe。 它们全都可以直接用在任何模板中。
+
+三.对管道进行参数化
+- 可以在管道名后面添加一个冒号( : )再跟一个参数值，来为管道添加参数(比如 currency:'EUR')。
+- 如果这个管道可以接受多个参数，那么就用冒号来分隔这些参数值(比如 slice:1:5)。
+p The hero's birthday is {{ birthday | date:"yyyy/MM/dd" }}   //1988/04/15
+
+三.把管道的格式参数绑定到组件的 format 属性
+1.pug文件中
+p The hero's birthday is {{ birthday | date:format  }} 
+button((click)="toggleFormat()") 切换管道参数
+
+2.ts文件中
+birthday = new Date(1988, 3, 15); 
+toggle = true; 
+
+get format()   { return this.toggle ? 'shortDate' : 'fullDate'; } //get 让后面的方法执行 模板中引用不用加()
+toggleFormat() { this.toggle = !this.toggle; }
+
+四.链式管道
+p The hero's birthday is {{  birthday | date:'fullDate' | uppercase}}
+
+五.自定义管道
+-你使用自定义管道的方式和内置管道完全相同。
+-你必须在 AppModule 的 declarations 数组中包含这个管道。
+1.login.pipe.ts
+import { Pipe, PipeTransform } from '@angular/core';
+@Pipe({name: 'exponentialStrength'})
+export class ExponentialStrengthPipe implements PipeTransform {
+  transform(value: number, exponent: string): number {
+    let exp = parseFloat(exponent);
+    return Math.pow(value, isNaN(exp) ? 1 : exp);
+  }
+}
+
+2.login.component.pug 
+p Super power boost: {{2 | exponentialStrength: 10}}
+
+3.在app.module.ts文件引入管道模块
+import { ExponentialStrengthPipe } from './pages/login/login.pipe';
+declarations: [
+    componentsList,
+    ExponentialStrengthPipe,
+  ],
+
+六.能力倍增计算器（双向数据绑定 动态改变）
+input(type="text",[(ngModel)]="power")
+input(type="text",[(ngModel)]="factor")
+p 能力值为 {{power | exponentialStrength: factor}}
+
+
+七.管道与变更检测
+当使用管道时，Angular 会选用一种更简单、更快速的变更检测算法。
+
+八.“会飞的英雄”管道（FlyingHeroesPipe）
+- 需要替换数组，改变数组的引用才能更新视图 
+- 如果你修改了这个数组，没有管道被执行，也没有显示被更新。 如果你替换了这个数组，管道就会被执行，显示也更新了。 这个飞行英雄的例子用检查框和其它显示内容扩展了原有代码，来帮你体验这些效果。
+
+1.login.component.ts
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({ name: 'flyingHeroes' })
+export class FlyingHeroesPipe implements PipeTransform {
+  transform(allHeroes) {
+    return allHeroes.filter(hero => hero.canFly);
+  }
+}
+
+2.login.component.pug 
+ul 
+  li(*ngFor="let hero of (heroes | flyingHeroes);let i=index") {{hero.name}}
+label 姓名
+input(type="text",[(ngModel)]="name")
+
+button((click)="add()") 新增
+button((click)="delete()") 删除
+
+3.login.component.ts
+import {
+  Component,
+  Input
+} from '@angular/core';
+
+@Component({
+  selector: 'login',
+  templateUrl: './login.component.pug',
+  styleUrls: ['./login.component.less'],
+})
+export class LoginComponent {
+  name = '';
+  heroes = [
+    {name:'1',canFly:true},
+    {name:'2',canFly:false},
+    {name:'3',canFly:true},
+    {name:'4',canFly:false},
+    {name:'5',canFly:true},
+    {name:'6',canFly:false},
+  ];
+
+  constructor() { }
+  ngOnInit(){ }
+
+  add(){
+    let json = {
+      name:'',
+      canFly:true,
+    };
+    json['name'] = this.name;
+    this.heroes.push(json);
+    this.heroes = [...this.heroes];
+  };
+
+  delete(){
+    this.heroes.splice(0,1);
+    this.heroes = [...this.heroes];
+  }
+}
+
+九.纯(pure)管道与非纯(impure)管道
+1.通过把它的 pure 标志设置为 false，你可以制作一个非纯管道
+@Pipe({
+  name: 'flyingHeroesImpure',
+  pure: false  //设置为false即可试试更新视图了
+})
+
+2.Angular 会忽略(复合)对象内部的更改。 如果你更改了输入日期(Date)中的月份、往一个输入数组(Array)中添加新值或者更新了一个输入对象(Object)的属性，Angular 都不会调用纯管道。
+对象引用的检查是非常快的(比递归的深检查要快得多)
+
+3.Angular 会在每个组件的变更检测周期中执行非纯管道。 非纯管道可能会被调用很多次，和每个按键或每次鼠标移动一样频繁。
+要在脑子里绷着这根弦，必须小心翼翼的实现非纯管道。 一个昂贵、迟钝的管道将摧毁用户体验。
+
+十一.非纯 AsyncPipe
+1.pug文件中
+h2 Async Hero Message and AsyncPipe
+p Message: {{ message$ | async }}
+button((click)="resend()") Resend
+
+
+2.ts文件中
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
+import { map, take ,} from 'rxjs/operators';
+
+@Component({
+  selector: 'login',
+  templateUrl: './login.component.pug',
+  styleUrls: ['./login.component.less'],
+})
+export class LoginComponent {
+  message$: Observable<string>;
+ 
+  private messages = [
+    'You are my hero!',
+    'You are the best hero!',
+    'Will you be my hero?'
+  ];
+ 
+  constructor() { this.resend(); }
+ 
+  resend() {
+    //不用订阅这个异步数据源，自动更新数据
+    this.message$ = Observable.interval(500).pipe(
+      map(i => this.messages[i]), //映射新的值
+      take(this.messages.length) //当达到几次后 停止
+    );
+  }
+}
+
+十二.一个非纯而且带缓存的管道
+-非纯管道可能每隔几微秒就会被调用一次。 如果你不小心点，这个管道就会发起一大堆请求“攻击”服务器。
+-管道可以使用ajax去调用接口 并 最后返回结果集
+
+1.pipe.ts文件中
+import { Pipe, PipeTransform } from '@angular/core';
+import { HttpClient }          from '@angular/common/http';
+@Pipe({
+  name: 'fetch',
+  pure: false
+})
+export class FetchJsonPipe  implements PipeTransform {
+  private cachedData: any = null;
+  private cachedUrl = '';
+ 
+  constructor(private http: HttpClient) { }
+ 
+  transform(url: string): any {
+    if (url !== this.cachedUrl) {
+      this.cachedData = null;
+      this.cachedUrl = url;
+      this.http.get(url).subscribe( result => this.cachedData = result );
+    }
+ 
+    return this.cachedData;
+  }
+}
+
+2.pug文件中
+
+div(*ngFor="let hero of ('assets/heroes.json' | fetch) ") {{hero.name}}
+
+3.JsonPipe
+串联上内置管道 JsonPipe 来把英雄数据显示成了 JSON 格式。
+p Heroes as JSON: {{'assets/heroes.json' | fetch | json}}
+
+
+
+单词：
+WebSocket 网络套接字
+socket 插座
+exponent 指数
+pure 纯的
+impure 不存的
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

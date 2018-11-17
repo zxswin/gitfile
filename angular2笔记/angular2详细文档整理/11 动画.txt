@@ -1,0 +1,507 @@
+==================简单的angular2动画实现示例==================
+
+一.ng2动画简单案例步骤
+第一步：引入动画相关的模块及函数 app.module.ts文件中引入
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+  ],
+})
+
+第二步：在需要处理动画的逻辑文件中，比如login.component.ts文件中引入动画需要的模块函数
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
+
+第三步：动画会被定义在 @Component 元数据中
+animations: [
+  trigger('heroState', [
+    state('inactive', style({
+      backgroundColor: '#eee',
+      transform: 'scale(1)'
+    })),
+    state('active',   style({
+      backgroundColor: '#cfd8dc',
+      transform: 'scale(1.1)'
+    })),
+    transition('inactive => active', animate('100ms ease-in')),
+    transition('active => inactive', animate('100ms ease-out'))
+  ])
+]
+
+第四步：使用 [@triggerName] 语法来把刚刚定义的动画附加到组件模板中一个或多个元素上
+<ul>
+  <li *ngFor="let hero of heroes"
+      [@heroState]="hero.state"
+      (click)="hero.toggleState()">
+    {{hero.name}}
+  </li>
+</ul>
+
+二.ng2简单动画代码示例
+=======login.component.less======
+ul {
+  li {
+    list-style: none;
+    width:200px;
+    height: 30px;
+    margin-bottom:10px;
+  }
+}
+
+=======login.component.pug======
+ul
+  li(*ngFor="let hero of heroes; let i=index;",[@heroState]="hero.state",(click)="toggleState(hero.state,i)") {{hero.state}}
+
+=======login.component.ts======
+import {
+  Component,
+  Input
+} from '@angular/core';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
+
+@Component({
+  selector: 'login',
+  templateUrl: './login.component.pug',
+  styleUrls: ['./login.component.less'],
+  animations: [
+    trigger('heroState', [
+      state('inactive', style({
+        backgroundColor: '#eee',
+        transform: 'scale(1)'
+      })),
+      state('active',   style({
+        backgroundColor: '#cfd8dc',
+        transform: 'scale(1.1)'
+      })),
+      transition('inactive => active', animate('100ms ease-in')),
+      transition('active => inactive', animate('100ms ease-out'))
+    ])
+  ]
+})
+export class LoginComponent {
+
+  heroes = [
+    {
+      state:'active',
+      name:'1111'
+    },
+    {
+      state:'inactive',
+      name:'2222'
+    }
+  ];
+
+  constructor() { }
+
+  toggleState(state,i) {
+    this.heroes[i].state = state === 'active' ? 'inactive' : 'active';
+  }
+
+  ngOnInit(){
+  }
+}
+
+==================angular2动画基本概念==================
+一.状态与转场
+1.state 具体定义了每个状态的最终样式 有点类似于样式中的class,定义该元素在不同状态时应该具有的样式。
+state('inactive', style({
+  backgroundColor: '#eee',
+  transform: 'scale(1)'
+})),
+state('active',   style({
+  backgroundColor: '#cfd8dc',
+  transform: 'scale(1.1)'
+})),
+
+2.每个转场都会控制一条在一组样式和下一组样式之间切换的时间线
+transition('inactive => active', animate('100ms ease-in')),
+transition('active => inactive', animate('100ms ease-out'))
+
+3.多个转场都有同样的时间线配置，就可以把它们合并进同一个 transition 定义中
+transition('inactive => active, active => inactive',
+ animate('100ms ease-out'))
+
+4.对同一个转场的两个方向都使用相同的时间线 就可以使用 <=> 这种简写语法
+transition('inactive <=> active', animate('100ms ease-out'))
+
+5.有时希望一些样式只在动画期间生效，但在结束后并不保留它们,切记不要把样式保留在state中
+当转场结束时，这些样式并不会被保留，因为它们并没有被定义在 state 中。
+trigger('heroState', [
+      // state('inactive', style({
+      //   backgroundColor: '#eee',
+      //   transform: 'scale(1)'
+      // })),
+      // state('active',   style({
+      //   backgroundColor: '#cfd8dc',
+      //   transform: 'scale(1.1)'
+      // })),
+      // transition('inactive => active', animate('100ms ease-in')),
+      // transition('active => inactive', animate('100ms ease-out')),
+      transition('active => inactive', [
+        style({
+          backgroundColor: '#eee',
+          transform: 'scale(1)'
+        }),
+        animate('80ms ease-in', style({
+          backgroundColor: '#cfd8dc',
+          transform: 'scale(1.3)'
+        }))
+      ]),
+      transition('inactive => active', [
+        style({
+          backgroundColor: '#cfd8dc',
+          transform: 'scale(1.3)'
+        }),
+        animate('80ms ease-in', style({
+          backgroundColor: '#eee',
+          transform: 'scale(1)'
+        }))
+      ]),
+    ])
+  ]
+
+6.(通配符)状态
+当该元素的状态从 active 变成任何其它状态时，active => * 转场都会生效
+当在任意两个状态之间切换时，* => * 转场都会生效。
+
+transition('* <=> *', [
+        style({
+          backgroundColor: '#eee',
+          transform: 'scale(1)'
+        }),
+        animate('80ms ease-in', style({
+          backgroundColor: '#cfd8dc',
+          transform: 'scale(1.3)'
+        }))
+      ]),
+    ])
+
+7.void 状态
+这种情况可能是由于它尚未被添加进来或者已经被移除了。 void 状态在定义“进场”和“离场”的动画时会非常有用。
+比如当一个元素离开视图时，* => void 转场就会生效，而不管它在离场以前是什么状态。
+* 通配符状态也能匹配 void。
+
+8.进场与离场简单例子
+进场：void => *
+离场：* => void
+
+=====less文件中======
+ul {
+  list-style-type: none;
+  padding: 0;
+  border:1px solid #f00;
+  width:300px;
+  margin:10px auto;
+}
+
+li {
+  display: block;
+  width: 120px;
+  line-height: 50px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  background-color: #eee;
+  border-radius: 4px;
+  margin: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.active {
+  background-color: #cfd8dc;
+  transform: scale(1.1);
+}
+.inactive {
+  background-color: #eee;
+  transform: scale(1);
+}
+
+======pug文件中======
+ul
+  li(*ngFor="let hero of heroes; let i=index;",[@flyInOut]="'in'",(click)="toggleState(hero.state,i)") {{hero.state}}
+
+=====ts文件中======
+
+import {
+  Component,
+  Input
+} from '@angular/core';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
+
+import { Hero } from './login.service';
+
+@Component({
+  selector: 'login',
+  templateUrl: './login.component.pug',
+  styleUrls: ['./login.component.less'],
+  animations: [
+    trigger('flyInOut', [
+      state('in', style({transform: 'translateX(0)'})),
+      transition('void => *', [
+        style({transform: 'translateX(-100%)'}),
+        animate(100)
+      ]),
+      transition('* => void', [
+        animate(100, style({transform: 'translateX(100%)'}))
+      ])
+    ])
+  ]
+})
+export class LoginComponent {
+
+  heroes = [
+    {
+      state:'in88',
+      name:'1111'
+    },
+    {
+      state:'out88',
+      name:'2222'
+    }
+  ];
+
+  constructor() { }
+
+  toggleState(state,i) {
+    this.heroes.splice(i,1);
+  }
+
+  ngOnInit(){
+  }
+ 
+}
+
+
+这两个常见的动画有自己的别名：
+transition(':enter', [ ... ]); // void => *
+transition(':leave', [ ... ]); // * => void
+
+9.从不同的状态下进场和离场
+animations: [
+    trigger('heroState', [
+      state('inactive', style({transform: 'translateX(0) scale(1)'})),
+      state('active',   style({transform: 'translateX(0) scale(1.1)'})),
+      transition('inactive => active', animate('100ms ease-in')),
+      transition('active => inactive', animate('100ms ease-out')),
+      transition('void => inactive', [
+        style({transform: 'translateX(-100%) scale(1)'}),
+        animate(100)
+      ]),
+      transition('inactive => void', [
+        animate(100, style({transform: 'translateX(100%) scale(1)'}))
+      ]),
+      transition('void => active', [
+        style({transform: 'translateX(0) scale(0)'}),
+        animate(200)
+      ]),
+      transition('active => void', [
+        animate(200, style({transform: 'translateX(0) scale(0)'}))
+      ])
+    ])
+  ]
+
+10.可动的(Animatable)属性与单位
+一般为所以可包含数字表示的属性
+11.自动属性值计算
+就可以用一个特殊的 * 属性值来处理这种情况。该属性的值将会在运行期被计算出来，然后插入到这个动画中。
+animations: [
+    trigger('heroState', [
+      state('in', style({height: '*'})),
+      transition('* => void', [
+        style({height: '*'}),
+        animate(250, style({height: 0}))
+      ])
+    ])
+  ]
+
+12.动画时间线
+对每一个动画转场效果，有三种时间线属性可以调整：持续时间(duration)、延迟(delay)和缓动(easing)函数。它们被合并到了一个单独的转场时间线字符串。
+01.持续时间控制动画从开始到结束要花多长时间。可以用三种方式定义持续时间：
+-作为一个普通数字，以毫秒为单位，如：100
+-作为一个字符串，以毫秒为单位，如：'100ms'
+-作为一个字符串，以秒为单位，如：'0.1s'
+
+02.延迟控制的是在动画已经触发但尚未真正开始转场之前要等待多久。可以把它添加到字符串中的持续时间后面，它的选项格式也跟持续时间是一样的：
+-等待 100 毫秒，然后运行 200 毫秒：'0.2s 100ms'。
+
+03.缓动函数用于控制动画在运行期间如何加速和减速。
+-等待 100 毫秒，然后运行 200 毫秒，并且带缓动：'0.2s 100ms ease-out'
+-运行 200 毫秒，并且带缓动：'0.2s ease-in-out'
+
+animations: [
+    trigger('heroState', [
+      state('in', style({opacity: 1, transform: 'translateX(0)'})),
+      transition('void => *', [
+        style({
+          opacity: 0,
+          transform: 'translateX(-100%)'
+        }),
+        animate('0.2s ease-in')
+      ]),
+      transition('* => void', [
+        animate('0.2s 1s ease-out', style({
+          opacity: 0,
+          transform: 'translateX(100%)'
+        }))
+      ])
+    ])
+  ]
+
+13.基于关键帧(Keyframes)的多阶段动画
+通过定义动画的关键帧，可以把两组样式之间的简单转场，升级成一种更复杂的动画，它会在转场期间经历一个或多个中间样式
+-偏移量是一个介于 0(表示动画起点)和 1(表示动画终点)之间的数组 用来定义该关键帧将被用在动画期间的哪个时间点
+
+-关键帧来为进场和离场动画添加一些“反弹效果”
+-为关键帧定义偏移量是可选的。如果省略它们，偏移量会自动根据帧数平均分布出来。
+animations: [
+    trigger('heroState', [
+      state('in', style({transform: 'translateX(0)'})),
+      transition('void => *', [
+        animate(300, keyframes([
+          style({opacity: 0, transform: 'translateX(-100%)', offset: 0}),
+          style({opacity: 1, transform: 'translateX(15px)',  offset: 0.3}),
+          style({opacity: 1, transform: 'translateX(0)',     offset: 1.0})
+        ]))
+      ]),
+      transition('* => void', [
+        animate(300, keyframes([
+          style({opacity: 1, transform: 'translateX(0)',     offset: 0}),
+          style({opacity: 1, transform: 'translateX(-15px)', offset: 0.7}),
+          style({opacity: 0, transform: 'translateX(100%)',  offset: 1.0})
+        ]))
+      ])
+    ])
+  ]
+
+14.并行动画组(Group)
+-同时对两个 CSS 属性做动画，但又得为它们定义不同的缓动函数。
+animations: [
+    trigger('heroState', [
+      state('in', style({width: 120, transform: 'translateX(0)', opacity: 1})),
+      transition('void => *', [
+        style({width: 10, transform: 'translateX(50px)', opacity: 0}),
+        group([
+          animate('0.3s 0.1s ease', style({
+            transform: 'translateX(0)',
+            width: 120
+          })),
+          animate('0.3s ease', style({
+            opacity: 1
+          }))
+        ])
+      ]),
+      transition('* => void', [
+        group([
+          animate('0.3s ease', style({
+            transform: 'translateX(50px)',
+            width: 10
+          })),
+          animate('0.3s 0.2s ease', style({
+            opacity: 0
+          }))
+        ])
+      ])
+    ])
+  ]
+
+15.动画回调
+这些回调接收一个 AnimationTransitionEvent 参数，它包含一些有用的属性，例如 fromState，toState 和 totalTime。
+无论动画是否实际执行过，那些回调都会触发。
+ul
+  li(*ngFor="let hero of heroes; let i=index;",
+  [@heroState]="'in'",(click)="toggleState(hero.state,i)",
+  (@heroState.start)="animationStarted($event)",
+  (@heroState.done)="animationDone($event)"
+  ) {{hero.state}}
+
+animationStarted($event){
+  console.log('动画开始',$event);
+}
+
+animationDone($event){
+  console.log('动画执行结束',$event);
+}
+
+$event：
+  fromState:"void"
+  phaseName:"done"
+  toState:"in"
+  totalTime:300
+  triggerName:"heroState"
+  _data:2
+
+
+三.动画模块引用到的方法
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  keyframes,
+  group
+} from '@angular/animations';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+单词：
+void 无效
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

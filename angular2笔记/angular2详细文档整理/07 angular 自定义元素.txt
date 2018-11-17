@@ -1,0 +1,373 @@
+一、概念
+1.Angular 元素就是打包成自定义元素的 Angular 组件。所谓自定义元素就是一套与具体框架无关的用于定义新 HTML 元素的 Web 标准。
+2.@angular/elements 包导出了一个 createCustomElement() API，它在 Angular 组件接口与变更检测功能和内置 DOM API 之间建立了一个桥梁。
+把组件转换成自定义元素可以让所有所需的 Angular 基础设施都在浏览器中可用。 创建自定义元素的方式简单直接，并且会自动把你组件定义的视图连同变更检测与数据绑定等 Anuglar 的功能映射为相应的原生 HTML 等价物。
+3.自定义元素会自己启动 —— 它们在添加到 DOM 中时就会自行启动自己，并在从 DOM 中移除时自行销毁自己。
+
+二、工作原理
+使用 createCustomElement() 函数来把组件转换成一个可注册成浏览器中自定义元素的类。 注册完这个配置好的类之后，你就可以在内容中像内置 HTML 元素一样使用这个新元素了，比如直接把它加到 DOM 中：
+<my-popup message="Use Angular!"></my-popup>
+
+三、把组件转换成自定义元素
+1. createCustomElement()：支持把 Angular 组件及其依赖转换成自定义元素
+2. NgElementConstructor 接口，并创建了一个构造器类，用于生成该组件的一个自举型实例。
+3.customElements.define() 函数把这个配置好的构造器和相关的自定义元素标签注册到浏览器的 CustomElementRegistry 中。 当浏览器遇到这个已注册元素的标签时，就会使用该构造器来创建一个自定义元素的实例。
+
+四、映射
+1.对于带有 @Input('myInputProp') inputProp 的组件，其对应的自定义元素会带有一个 my-input-prop 属性
+2.于带有 @Output() valueChanged = new EventEmitter() 属性的组件，其相应的自定义元素将会分发名叫 "valueChanged" 的事件，事件中所携带的数据存储在该事件对象的 detail 属性中。 如果你提供了别名，就改用这个别名。比如，@Output('myClick') clicks = new EventEmitter<string>(); 会导致分发名为 "myClick" 事件。
+
+
+五.简单的弹出窗口例子
+
+popup.component.ts 定义了一个简单的弹窗元素，用于显示一条输入消息，附带一些动画和样式。
+popup.service.ts 创建了一个可注入的服务，它提供了两种方式来执行 PopupComponent：作为动态组件或作为自定义元素。注意动态组件的方式需要更多的代码来做搭建工作。
+app.module.ts 把 PopupComponent 添加到模块的 entryComponents 列表中，而从编译过程中排除它，以消除启动时的警告和错误。
+app.component.ts 定义了该应用的根组件，它借助 PopupService 在运行时把这个弹窗添加到 DOM 中。在应用运行期间，根组件的构造函数会把 PopupComponent 转换成自定义元素。
+
+1.common-module-module.ts
+import { CommonModule }        from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { LoadBarComponent } from './load-bar/load-bar.component';
+import { TextCommonComponent } from './text-common/text-common.component';
+import { PopupComponent } from './popup/popup.component';
+import { PopupService } from './popup/popup.service';
+
+const componentsList = [
+  LoadBarComponent,
+  TextCommonComponent,
+  PopupComponent,
+];
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+  ],
+  providers: [PopupService],
+  declarations: [
+    componentsList,
+  ],
+  entryComponents: [PopupComponent],
+  exports:[CommonModule,FormsModule,componentsList],
+})
+
+export class CommonModuleModule  { }
+
+2.login.component.ts
+import { Component, Injector } from '@angular/core';
+import { createCustomElement } from '@angular/elements';
+import { PopupService } from '../../commons/popup/popup.service';
+import { PopupComponent } from '../../commons/popup/popup.component';
+
+@Component({
+  selector: 'login',
+  templateUrl: './login.component.pug',
+  styleUrls: ['./login.component.less'],
+})
+export class LoginComponent {
+  color='';
+  constructor(injector: Injector, public popup: PopupService) {
+    // Convert `PopupComponent` to a custom element.
+    const PopupElement = createCustomElement(PopupComponent, {injector});
+    // Register the custom element with the browser.
+    customElements.define('popup-element', PopupElement);
+  }
+}
+
+3.login.componnent.pug
+h1 我的第一个自定义属性指令
+h4 选择一个高亮的颜色
+div 
+  input(type="radio" name="colors" (click)="color='lightgreen'") 
+  |绿色
+  input(type="radio" name="colors" (click)="color='yellow'") 
+  |绿色
+  input(type="radio" name="colors" (click)="color='cyan'") 
+  |青色
+
+p([appHighlight]="color") 高亮显示 不带默认值
+p([appHighlight]="color" ,defaultColor="violet") 高亮显示 带默认值
+
+
+input(#input='',value="Message")
+button((click)="popup.showAsComponent(input.value)") Show as component
+button((click)="popup.showAsElement(input.value)") Show as element
+
+
+4.popup.component.less
+:host {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #009cff;
+  height: 48px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid black;
+  font-size: 24px;
+}
+
+button {
+  border-radius: 50%;
+}
+
+5.popup.component.pug
+span Popup: {{message}}
+button((click)="closed.next()") &#x2716;
+
+6.popup.component.ts
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+
+@Component({
+  selector: 'my-popup',
+  templateUrl: './popup.component.pug',
+  styleUrls: ['./popup.component.less'],
+  host: {
+    '[@state]': 'state',
+  },
+  animations: [
+    trigger('state', [
+      state('opened', style({transform: 'translateY(0%)'})),
+      state('void, closed', style({transform: 'translateY(100%)', opacity: 0})),
+      transition('* => *', animate('100ms ease-in')),
+    ])
+  ],
+})
+export class PopupComponent {
+  private state: 'opened' | 'closed' = 'closed';
+
+  @Input()
+  set message(message: string) {
+    this._message = message;
+    this.state = 'opened';
+  }
+  get message(): string { return this._message; }
+  _message: string;
+
+  @Output()
+  closed = new EventEmitter();
+}
+
+7.popup.service.ts
+
+import { ApplicationRef, ComponentFactoryResolver, Injectable, Injector } from '@angular/core';
+import { NgElement, WithProperties } from '@angular/elements';
+import { PopupComponent } from './popup.component';
+
+
+@Injectable()
+export class PopupService {
+  constructor(private injector: Injector,
+              private applicationRef: ApplicationRef,
+              private componentFactoryResolver: ComponentFactoryResolver) {}
+
+  // Previous dynamic-loading method required you to set up infrastructure
+  // before adding the popup to the DOM.
+  showAsComponent(message: string) {
+    // Create element
+    const popup = document.createElement('popup-component');
+
+    // Create the component and wire it up with the element
+    const factory = this.componentFactoryResolver.resolveComponentFactory(PopupComponent);
+    const popupComponentRef = factory.create(this.injector, [], popup);
+
+    // Attach to the view so that the change detector knows to run
+    this.applicationRef.attachView(popupComponentRef.hostView);
+
+    // Listen to the close event
+    popupComponentRef.instance.closed.subscribe(() => {
+      document.body.removeChild(popup);
+      this.applicationRef.detachView(popupComponentRef.hostView);
+    });
+
+    // Set the message
+    popupComponentRef.instance.message = message;
+
+    // Add to the DOM
+    document.body.appendChild(popup);
+  }
+
+  // This uses the new custom-element method to add the popup to the DOM.
+  showAsElement(message: string) {
+    // Create element
+    const popupEl: NgElement & WithProperties<PopupComponent> = document.createElement('popup-element') as any;
+
+    // Listen to the close event
+    popupEl.addEventListener('closed', () => document.body.removeChild(popupEl));
+
+    // Set the message
+    popupEl.message = message;
+
+    // Add to the DOM
+    document.body.appendChild(popupEl);
+  }
+}
+
+
+
+
+
+单词
+snippet 片段
+popup 弹出窗口
+
+
+
+{
+  "name": "angular2-item",
+  "version": "1.0.0",
+  "description": "angular2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "./node_modules/.bin/typings install",
+    "dev": "webpack-dev-server --open  --colors --progress --inline --config webpack.dev.js",
+    "build": "webpack --display-optimization-bailout --colors --progress --config webpack.prod.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@angular/animations": "^7.0.0",
+    "@angular/common": "^7.0.0",
+    "@angular/compiler": "^7.0.0",
+    "@angular/core": "^7.0.0",
+    "@angular/elements": "^7.0.0",
+    "@angular/forms": "^7.0.0",
+    "@angular/http": "^7.0.0",
+    "@angular/platform-browser": "^7.0.0",
+    "@angular/platform-browser-dynamic": "^7.0.0",
+    "@angular/router": "^7.0.0",
+    "@angular/upgrade": "^7.0.0",
+    "@ngrx/core": "^1.2.0",
+    "@ngrx/effects": "^6.1.0",
+    "@ngrx/store": "^6.1.0",
+    "@types/jquery": "^3.3.22",
+    "angular": "^1.7.5",
+    "angular-in-memory-web-api": "^0.6.1",
+    "angular-xeditable": "^0.9.0",
+    "bootstrap": "^4.1.3",
+    "bootstrap-table": "^1.12.1",
+    "core-js": "^2.5.7",
+    "file-saver": "^2.0.0-rc.4",
+    "font-awesome": "^4.7.0",
+    "html2canvas": "^1.0.0-alpha.12",
+    "ie-shim": "^0.1.0",
+    "jquery": "^3.3.1",
+    "jspdf": "^1.4.1",
+    "pdfmake": "^0.1.38",
+    "popper.js": "^1.14.4",
+    "reflect-metadata": "^0.1.12",
+    "rxjs": "^6.3.3",
+    "tableexport": "^5.0.2",
+    "ts-helpers": "^1.1.2",
+    "x-editable": "^1.5.1",
+    "xlsx": "^0.14.0",
+    "zone.js": "^0.8.26"
+  },
+  "devDependencies": {
+    "@types/core-js": "^2.5.0",
+    "angular2-router-loader": "^0.3.5",
+    "angular2-template-loader": "^0.6.2",
+    "autoprefixer": "^7.2.5",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-latest": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.17",
+    "compression-webpack-plugin": "^1.1.3",
+    "css-loader": "^0.28.9",
+    "ejs-loader": "^0.3.0",
+    "eslint": "^4.15.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.6.1",
+    "exports-loader": "^0.6.4",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.6",
+    "happypack": "^4.0.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^2.30.1",
+    "html-withimg-loader": "^0.1.16",
+    "image-webpack-loader": "^3.4.2",
+    "jade": "^1.11.0",
+    "jade-loader": "^0.8.0",
+    "jasmine-core": "^2.9.0",
+    "karma": "^2.0.0",
+    "karma-jasmine": "^1.1.1",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^2.0.9",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "node-sass": "^4.7.2",
+    "null-loader": "^0.1.1",
+    "phantomjs-prebuilt": "^2.1.16",
+    "postcss-loader": "^2.0.10",
+    "pug": "^2.0.0-rc.4",
+    "pug-filters": "^2.1.5",
+    "pug-loader": "^2.3.0",
+    "pug-ng-html-loader": "^1.0.10",
+    "raw-loader": "^0.5.1",
+    "reflect-metadata": "^0.1.12",
+    "resolve-url-loader": "^2.2.1",
+    "rimraf": "^2.6.2",
+    "sass-loader": "^6.0.6",
+    "script-loader": "^0.7.2",
+    "style-loader": "^0.19.1",
+    "ts-loader": "^5.2.2",
+    "typescript": "^3.1.3",
+    "typescript-simple-loader": "^0.3.8",
+    "typings": "^2.1.1",
+    "uglify-js": "^3.3.7",
+    "uglifyjs-webpack-plugin": "^1.1.6",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.10.0",
+    "webpack-bundle-analyzer": "^2.9.2",
+    "webpack-dev-server": "^2.11.0",
+    "webpack-merge": "^4.1.1",
+    "webpack-spritesmith": "^0.4.0"
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

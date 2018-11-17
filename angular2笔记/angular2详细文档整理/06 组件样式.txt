@@ -1,0 +1,92 @@
+
+一.特殊的选择器
+1.使用 :host 伪类选择器，用来选择组件宿主元素中的元素（相对于组件模板内部的元素）。
+其实是组件本身
+:host {
+  display: block;
+  border: 1px solid black;
+}
+
+2.同时带有 active CSS 类的时候才会生效。
+:host(.active) {
+  border-width: 3px;
+}
+
+3.:host-context 选择器
+只有当某个祖先元素有 CSS 类 theme-light 时，才会把 background-color 样式应用到组件内部的所有 <h2> 元素中。
+:host-context(.theme-light) h2 {
+  background-color: #eef;
+}
+
+4.:host-context 直接使用的时候貌似只会作用于当前组件
+:host-context {
+  background-color: #eef;
+}
+
+
+二.把样式加载进组件中
+1.styles: ['h1 { font-weight: normal; }']
+2. styleUrls: ['./hero-app.component.css']
+3.template 中直接使用
+01 style 标签中使用
+<style>
+  button {
+    background-color: white;
+    border: 1px solid #777;
+  }
+</style>
+<h3>Controls</h3>
+<button (click)="activate()">Activate</button>
+
+02 link标签中使用
+<link rel="stylesheet" href="../assets/hero-team.component.css">
+
+03.在CSS或less文件中
+@import './hero-details-box.css';
+
+4.引入外部文件
+styleUrls: ['./app.component.scss']
+
+三.控制视图的封装模式：原生 (Native)、仿真 (Emulated) 和无 (None)
+1.CSS样式作用域规则、隔离和保护等
+-ShadowDom 模式使用浏览器原生的 Shadow DOM 实现 支持的浏览器少
+-Native 视图包装模式使用浏览器原生 Shadow DOM 的一个废弃实现
+-Emulated 模式（默认值）通过预处理（并改名）CSS 代码来模拟 Shadow DOM 的行为，以达到把 CSS 样式局限在组件视图中的目的。 
+
+2.通过组件元数据中的 encapsulation 属性来设置组件封装模式：
+encapsulation: ViewEncapsulation.Native
+
+3.仿真 (Emulated)下
+-一个元素在原生封装方式下可能是 Shadow DOM 的宿主，在这里被自动添加上一个 _nghost 属性。 这是组件宿主元素的典型情况。
+-组件视图中的每一个元素，都有一个 _ngcontent 属性，它会标记出该元素是哪个宿主的模拟 Shadow DOM。
+
+
+
+
+
+
+
+
+单词
+host 组件 主人
+emulated 仿真
+few 很少的
+encapsulation 包封
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
