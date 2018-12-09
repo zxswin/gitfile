@@ -1,0 +1,251 @@
+=========================================Crawler文档=========================================
+一.快速上手
+1.安装
+npm install crawler
+
+2.最简单的使用实例
+let Crawler = require("crawler");
+let c = new Crawler({
+  maxConnections: 10,
+  // 这个将会被每个爬行页调用
+  callback: function (error, res, done) {
+    if (error) {
+      console.log(error);
+    } else {
+      let $ = res.$;
+      // $选择器 默认使用 Cheerio 模式选择器 和jquer一样
+      console.log($("title").text()); // 会爬取所有页面的h2内容
+    }
+    done();
+  }
+});
+
+// 队列中只有一个URL 使用默认回调
+c.queue('http://www.w3school.com.cn/');
+
+// 队列中使用一个url数组列表
+c.queue(['https://juejin.im/', 'https://juejin.im/post/5c0a146d5188256f26413f51']);
+
+// 队列中使用自定义的回调和参数
+c.queue([{
+  uri: 'https://juejin.im/books',
+  jQuery: false,
+
+  // 默认回调将不会被启用
+  callback: function (error, res, done) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('抓取到', res.body.length, 'bytes');
+    }
+    done();
+  }
+}]);
+
+// 在不抓取（主要用于测试）的情况下直接排入一些HTML代码
+c.queue([{
+  html: '<p>This is a <strong>test</strong></p>'
+}]);
+
+3.设置访问速度 访问下一条连接的时间间隔
+let Crawler = require("crawler");
+let c = new Crawler({
+  rateLimit: 1000, // 最大连接数会被设置为1
+  callback: function(err, res, done){
+      console.log(res.$("title").text());
+      done();
+  }
+});
+// 在两个任务之间，最小时间间隔为1000（ms）。
+c.queue(['http://www.w3school.com.cn/','https://juejin.im/', 'https://juejin.im/post/5c0a146d5188256f26413f51']);
+
+4.自定义参数
+自定义请求参数不用担心设置的参数出现冗余
+c.queue({
+  uri:"http://www.google.com",
+  parameter1:"value1",
+  parameter2:"value2",
+  parameter3:"value3"
+})
+然后通过res.options访问到自定义设置的参数
+console.log(res.options.parameter1);
+
+res.options打印出的参数如下：
+{ uri: 'http://www.w3school.com.cn/',
+  parameter1: 'value1',
+  parameter2: 'value2',
+  parameter3: 'value3',
+  autoWindowClose: true,
+  forceUTF8: true,
+  gzip: true,
+  incomingEncoding: null,
+  jQuery: true,
+  method: 'GET',
+  priority: 5,
+  referer: false,
+  retries: 3,
+  retryTimeout: 10000,
+  timeout: 15000,
+  callback: [Function: callback],
+  headers: {},
+  release: [Function] }
+
+代码示例：
+let Crawler = require("crawler");
+let c = new Crawler({
+  rateLimit: 1000, // 最大连接数会被设置为1
+  callback: function(err, res, done){
+      console.log(res.options);
+      console.log(res.$("title").text());
+      done();
+  }
+});
+
+c.queue({
+  uri:"http://www.w3school.com.cn/",
+  parameter1:"value1",
+  parameter2:"value2",
+  parameter3:"value3"
+})
+
+
+5.下载像图像、pdf、word等文件，则必须保存原始响应体 可将编码设置为null
+let Crawler = require("crawler");
+let fs = require('mz/fs');
+
+let c = new Crawler({
+    encoding:null,
+    jQuery:false,// 设置false以禁止警告消息。
+    callback:function(err, res, done){
+        if(err){
+            console.error(err.stack);
+        }else{
+          fs.createWriteStream(res.options.filename).write(res.body);
+        }
+        done();
+    }
+});
+
+c.queue({
+    uri:"http://www.w3school.com.cn/ui2017/bg.png",
+    filename:"nodejs-1920x1200bg.png"
+});
+
+6.可以选择回调执行的时机
+let Crawler = require("crawler");
+let c = new Crawler({
+  preRequest: function (options, done) {
+    //options 是请求的参数
+    console.log(options);
+    // 启动请求 执行回调 可以设置执行的时机
+    done();
+  },
+  callback: function (err, res, done) {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(res.statusCode)
+    }
+  }
+});
+
+c.queue({
+  uri: 'http://www.w3school.com.cn/',
+  // 这里将会覆盖 之前定义的preRequest选项
+  preRequest: function (options, done) {
+    setTimeout(function () {
+      console.log(options);
+      done(); // 回调在1s后再执行
+    }, 1000)
+  }
+});
+
+7.跳过Crawler的请求事件 直接请求
+let Crawler = require("crawler");
+let crawler = new Crawler();
+crawler.direct({
+  uri: 'http://www.w3school.com.cn/',
+  skipEventRequest: false, // 默认是true 为false不会触发请求事件
+  callback: function(error, response) {
+      if(error) {
+          console.log(error)
+      } else {
+          console.log(response.statusCode);
+      }
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3.回调处理
+
+
+
+4.并发控制及慢速模式
+
+二.高级功能
+1.自定义参数
+2.使用http代理
+3.处理原始返回数据
+4.分布式爬虫
+5.链式模型
+6.使用POST,GET,PUT等请求方法
+7.使用Cookie
+
+三.参数详细介绍
+1.回调设置
+2.调度参数
+3.重试控制
+4.DOM选项
+5.编码设置
+6.缓存设置
+7.其它
+
+四.Crawler类捕获事件
+1.Event: 'schedule'
+2.Event: 'limiterChange'
+3.Event: 'request'
+4.Event: 'drain'
+
+
+资源：
+1.中文文档地址:
+https://node-crawler.readthedocs.io/zh_CN/latest/
+
+
+
+单词：
+grab 抢先 抓住
+mostly 主要
+slow down 减速
+rateLimit 速率限制
+task 任务
+gap 间隔
+picks 采集 摘
+redundance 冗余
+instead 代替
+override  覆盖
+advanced 先进的
+skip 跳过
+
+
