@@ -175,33 +175,149 @@ crawler.direct({
   }
 });
 
+8.设置访问速率间隙 和 访问链接数
+let Crawler = require("crawler");
+
+let c = new Crawler({
+    rateLimit: 2000,  // 速率限制
+    maxConnections: 1, // 最大链接数
+    callback: function(error, res, done) {
+        if(error) {
+            console.log(error)
+        } else {
+            let $ = res.$;
+            console.log($('title').text())
+        }
+        done();
+    }
+})
+
+// 站点爬取将会按照2000ms的间隙去请求
+c.queue('http://www.somewebsite.com/page/1')
+c.queue('http://www.somewebsite.com/page/2')
+c.queue('http://www.somewebsite.com/page/3')
+
+// 每个站点的爬取将会按照不同代理的限制去执行请求
+c.queue({
+    uri:'http://www.somewebsite.com/page/1',
+    limiter:'proxy_1',
+    proxy:'proxy_1'
+})
+c.queue({
+    uri:'http://www.somewebsite.com/page/2',
+    limiter:'proxy_2',
+    proxy:'proxy_2'
+})
+c.queue({
+    uri:'http://www.somewebsite.com/page/3',
+    limiter:'proxy_3',
+    proxy:'proxy_3'
+})
+c.queue({
+    uri:'http://www.somewebsite.com/page/4',
+    limiter:'proxy_1',
+    proxy:'proxy_1'
+})
+
+9.设置链接速率间隔属性 推荐默认
+var c = new Crawler({});
+c.setLimiterProperty('limiterName', 'propertyName', value)
+
+10.Event: ‘schedule’ 调度事件
+当任务添加了调度事件的时候触发
+crawler.on('schedule',function(options){
+    options.proxy = "http://proxy:port";
+});
+
+11.Event: ‘limiterChange’
+当限制选项值发生改变的时候触发
+
+12.Event: ‘request’
+当准备发送请求的的时候触发
+
+// 发送请求前修改参数示例
+crawler.on('request',function(options){
+    options.qs.timestamp = new Date().getTime();
+});
+
+13.当请求是空的时候触发
+crawler.on('drain',function(){
+    // 释放数据库连接
+    db.end();// 关闭mysql数据库
+});
+
+14.crawler.queue(uri|options)
+输入一个任务并等待执行
+
+15.crawler.queueSize  | Number
+指定请求的数量
+
+16.请求成功回调Callbacks 返回的数据
+callback(error, res, done)
+
+-error 错误信息
+
+-res 包括了 标准IncomingMessage  和 $ 以及其他选项
+-options如下:
+res.statusCode HTTP状态码
+res.body: Buffer  获取是html返回的页面结构 
+res.headers HTTP返回头信息
+res.request HTTP请求头信息
+res.request.uri 请求的url对象
+res.request.method 请求的方式
+res.request.headers 请求头信息
+res.options 实例设置的选项
+$ 返回的HTML 或 XML的类jquery选择器
+
+done 请求执行完毕后执行回调函数
 
 
+17.Schedule options 实例化程序选项 调度程序选项
+options.maxConnections 最大链接池 默认是10
+options.rateLimit 每个请求的访问间隔 默认是 0
+options.priorityRange 可接受的优先级 从0开始 默认是10
+options.priority 优先级 默认是5 数字越低 优先级就越高
+
+18.Retry options 重试选项
+options.retries 当请求失败后的重试数
+options.retryTimeout 每次重试的时间间隔 默认是10000ms
+
+19.Server-side DOM options 是否使用jquery选择器选择DOM
+options.jQuery: Boolean  默认为true
+
+20.Charset encoding 编码 默认是utf-8编码
+
+21.Cache 缓存 
+skipDuplicates 如果是true 跳过已经执行的url 不推荐这么做 最好使用外部的爬行器
+
+22.Http headers
+options.rotateUA: Boolean 默认是false 如果是true UsAgent是一个数组
+options.userAgent: String 如果rotateUA设置为false userAgent是一个数组 将默认使用第一个值
+options.referer: String 
+options.headers: Object 包含了headers各个参数对象
+
+23.使用Cheerio作为DOM选择器
+jQuery: true //(default)
+//OR
+jQuery: 'cheerio'
+//OR
+jQuery: {
+    name: 'cheerio',
+    options: {
+        normalizeWhitespace: true,
+        xmlMode: true
+    }
+}
+
+24.使用JSDOM 作为DOM选择器
+var jsdom = require('jsdom');
+var Crawler = require('crawler');
+
+var c = new Crawler({
+    jQuery: jsdom
+});
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3.回调处理
-
-
-
-4.并发控制及慢速模式
 
 二.高级功能
 1.自定义参数
@@ -228,10 +344,73 @@ crawler.direct({
 4.Event: 'drain'
 
 
+五.爬取网站新闻中心下面的全部文章
+let Crawler = require("crawler");
+let fs = require('mz/fs');
+
+let originBase = 'http://www.liangguoguoji.com';
+let originUrl = 'http://www.liangguoguoji.com/a/news/list_5_';  // 爬取的入口链接
+let pages = 1;
+
+let crawlerUrl = [];
+
+let c = new Crawler({
+  maxConnections: 1, // 最大链接数
+  callback: function (err, res, done) {
+    if (err) {
+      console.log('报错了:', err);
+    } else {
+      let aDoms = res.$('.news-list .news-list01');
+      if(!aDoms.length){
+        // 当列表也不存在的时候终止程序 或进行其他操作
+        return;
+      }
+
+      console.log('aDoms.length',aDoms.length);
+      aDoms.each(function (i, e) {
+        let href = aDoms.eq(i).find('a').eq(0).attr('href');
+        if (typeof href !== 'undefined') {
+          crawlerUrl.push(href);
+        }
+      });
+      crawlerUrlExe();  // 爬取url队列执行
+    }
+    done();
+  }
+});
+
+c.queue(originUrl + pages + '.html');
+
+function crawlerUrlExe() {
+  // 爬取url队列
+  crawlerUrl.forEach((v) => {
+    c.queue([{
+      uri: originBase + v,
+      // 默认回调将不会被启用
+      callback: function (error, res, done) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(res.$('.content-text h2').text());
+        }
+        done();
+      }
+    }]);
+  });
+  crawlerUrl = [];
+  pages++
+  c.queue(originUrl + pages + '.html'); // 爬取下一个列表页
+}
+
+
+
+
 资源：
 1.中文文档地址:
 https://node-crawler.readthedocs.io/zh_CN/latest/
 
+2.官方文档地址：
+http://nodecrawler.org/
 
 
 单词：
@@ -247,5 +426,32 @@ instead 代替
 override  覆盖
 advanced 先进的
 skip 跳过
-
-
+bottleneck 瓶颈
+abide 容忍
+restrictions 约束
+independent 独立的
+worth 值得的 财富
+noticing 介绍 关照
+cluster 串
+recommend 推荐
+unless 除非
+clearly 清楚的
+scheduler 调度程序
+stage 阶段 请求
+drain 排水
+release 释放
+enqueue 排队
+superset 超集
+priority 优先
+retry 重试
+duplicate 复制品
+truthy 诚实的
+robust 精力充沛的
+therefore 因此
+folder  文件夹 折叠机
+mock 模拟的
+rely 依靠 依赖
+alternative 替代方案
+docker 码头工人
+sizzle 表现良好的
+refactoring  重构

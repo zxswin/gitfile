@@ -1,0 +1,179 @@
+==================================WebSocket==================================
+一.什么是WebSocket
+1.WebSocket是HTML5新增的协议，它的目的是在浏览器和服务器之间建立一个不受限的双向通信的通道，比如说，服务器可以在任意时刻发送消息给浏览器。
+2.HTTP协议其实也能实现，比如用轮询或者Comet
+3.HTML5推出了WebSocket标准，让浏览器和服务器之间可以建立无限制的全双工通信，任何一方都可以主动发消息给对方。
+
+4.WebSocket协议
+-WebSocket连接必须由浏览器发起，因为请求协议是一个标准的HTTP请求
+GET ws://localhost:3000/ws/chat HTTP/1.1
+Host: localhost
+Upgrade: websocket
+Connection: Upgrade
+Origin: http://localhost:3000
+Sec-WebSocket-Key: client-random-string
+Sec-WebSocket-Version: 13
+该请求和普通的HTTP请求有几点不同：
+
+GET请求的地址不是类似/path/，而是以ws://开头的地址；
+请求头Upgrade: websocket和Connection: Upgrade表示这个连接将要被转换为WebSocket连接；
+Sec-WebSocket-Key是用于标识这个连接，并非用于加密数据；
+Sec-WebSocket-Version指定了WebSocket的协议版本。
+
+-服务器如果接受该请求，就会返回如下响应：
+该响应代码101表示本次连接的HTTP协议即将被更改，更改后的协议就是Upgrade: websocket指定的WebSocket协议。
+版本号和子协议规定了双方能理解的数据格式，以及是否支持压缩等等。如果仅使用WebSocket的API，就不需要关心这些。
+
+5.WebSocket实现原理
+实际上HTTP协议是建立在TCP协议之上的，TCP协议本身就实现了全双工通信，但是HTTP协议的请求－应答机制限制了全双工通信。WebSocket连接建立以后，其实只是简单规定了一下：接下来，咱们通信就不使用HTTP协议了，直接互相发数据吧。
+浏览器用wss://xxx创建WebSocket连接时，会先通过HTTPS创建安全的连接，然后，该HTTPS连接升级为WebSocket连接，底层通信走的仍然是安全的SSL/TLS协议。
+
+6.服务器端实现WebSocket
+由于WebSocket是一个协议，服务器具体怎么实现，取决于所用编程语言和框架本身。Node.js本身支持的协议包括TCP协议和HTTP协议，要支持WebSocket协议，需要对Node.js提供的HTTPServer做额外的开发。已经有若干基于Node.js的稳定可靠的WebSocket实现，我们直接用npm安装使用即可。
+
+二.一个简单的WebSocket实现案例
+1.安装依赖
+cnpm i ws -S
+
+2.app.js实例代码
+** 服务器端代码
+// 导入WebSocket模块
+const WebSocket = require('ws'); 
+
+// 引用Server类
+const WebSocketServer = WebSocket.Server;
+
+// 实例化
+const wss = new WebSocketServer({
+    port: 3000  // 在3000端口上打开一个WebSocket Server
+});
+
+
+// 如果有WebSocket请求接入 wws对象可以响应connection事件来处理这个WebSocket
+wss.on('connection', function (ws) {
+    console.log(`[SERVER] connection()`);
+    ws.on('message', function (message) {
+        console.log(`[SERVER] Received: ${message}`);  //服务器接收到的信息
+        setTimeout(() => {
+            ws.send(`What's your name?`, (err) => { // 服务器发送信息
+                if (err) {
+                    console.log(`[SERVER] error: ${err}`);
+                }
+            });
+        }, 1000);
+    })
+});
+
+console.log('ws server started at port 3000...');
+
+** 客户端测试代码
+websocket() {
+  // 发起websock请求
+  let count = 0;
+  let ws = new WebSocket('ws://localhost:3000'); // 创建webScoket对象
+  ws.onopen = function () { // 打开webSocket链接
+    console.log(`[CLIENT] open()`);
+    ws.send('Hello!'); // 发送webSocket请求
+  }
+
+  ws.onmessage = function (message) {
+    console.log(`[CLIENT] Received: ${message.data}`);  // 客户端接收到的信息
+    count++;
+    if (count > 3) {
+      ws.send('Goodbye!'); //客户端发送的信息
+      ws.close(); // 关闭webSocket链接
+    } else {
+      setTimeout(() => {
+        ws.send(`Hello, I'm Mr No.${count}!`); // 客户端发送的信息
+      }, 1000);
+    }
+  }
+}
+
+
+3.创建WebSocket连接(测试方法)
+执行JavaScript代码的浏览器Console，依次输入代码：
+// 打开一个WebSocket:
+var ws = new WebSocket('ws://localhost:3000/test');
+// 响应onmessage事件:
+ws.onmessage = function(msg) { console.log(msg); };
+// 给服务器发送一个字符串:
+ws.send('Hello!');
+
+4.同源策略
+从上面的测试可以看出，WebSocket协议本身不要求同源策略（Same-origin Policy），也就是某个地址为http://a.com的网页可以通过WebSocket连接到ws://b.com。
+但是，浏览器会发送Origin的HTTP头给服务器，服务器可以根据Origin拒绝这个WebSocket请求。所以，是否要求同源要看服务器端如何检查。
+
+
+三.编写聊天室
+1.koa 和 WebSocketServer 可以共用一个端口
+2.把WebSocketServer绑定到同一个端口的关键代码是先获取koa创建的http.Server的引用，再根据http.Server创建WebSocketServer：
+
+// koa app的listen()方法返回http.Server:
+let server = app.listen(3000);
+
+// 创建WebSocketServer:
+let wss = new WebSocketServer({
+    server: server
+});
+
+3.配置反向代理
+让 Nginx理解该连接将使用WebSocket协议
+server {
+    listen      80;
+    server_name localhost;
+
+    # 处理静态资源文件:
+    location ^~ /static/ {
+        root /path/to/ws-with-koa;
+    }
+
+    # 处理WebSocket连接:
+    location ^~ /ws/ {
+        proxy_pass         http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header   Upgrade $http_upgrade;
+        proxy_set_header   Connection "upgrade";
+    }
+
+    # 其他所有请求:
+    location / {
+        proxy_pass       http://127.0.0.1:3000;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+
+
+三.webScoket参数
+1.var Socket = new WebSocket(url, [protocol] );
+第一个参数 url, 指定连接的 URL。第二个参数 protocol 是可选的，指定了可接受的子协议。
+
+2.WebSocket 属性
+Socket.readyState	
+只读属性 readyState 表示连接状态，可以是以下值：
+0 - 表示连接尚未建立。
+1 - 表示连接已建立，可以进行通信。
+2 - 表示连接正在进行关闭。
+3 - 表示连接已经关闭或者连接不能打开。
+
+Socket.bufferedAmount	
+只读属性 bufferedAmount 已被 send() 放入正在队列中等待传输，但是还没有发出的 UTF-8 文本字节数。
+
+3.WebSocket 事件
+open	Socket.onopen	连接建立时触发
+message	Socket.onmessage	客户端接收服务端数据时触发
+error	Socket.onerror	通信发生错误时触发
+close	Socket.onclose	连接关闭时触发
+
+4.WebSocket 方法
+Socket.send()	使用连接发送数据
+Socket.close()	关闭连接
+
+
+
+单词
+chat 聊天
+upgrade 升级
+trust 信任

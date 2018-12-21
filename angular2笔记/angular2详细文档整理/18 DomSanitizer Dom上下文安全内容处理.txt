@@ -1,0 +1,150 @@
+一.基本概念
+1.DomSanitizer 可以把值净化为在不同 DOM 上下文中的安全内容，来帮你防范跨站脚本攻击（XSS）类的安全问题。
+2.SecurityContext 指定要净化的上下文
+NONE, //节点
+HTML, // html结构
+STYLE, // 样式
+SCRIPT, // 脚本
+URL, // url
+RESOURCE_URL // script iframe等的src属性
+
+== 简单使用案例
+**pug文件
+.safe-div([innerHtml]="html") // angular 默认会净化插入的值
+**ts文件
+import { Component, SecurityContext } from '@angular/core'; // 引入 SecurityContext模块
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser'; // 引入 DomSanitizer 模块
+
+Component({
+  selector: 'login',
+  templateUrl: './login.component.pug',
+  styleUrls: ['./login.component.less'],
+})
+export class LoginComponent {
+
+  html;
+  constructor( private sanitizer: DomSanitizer) { }
+  ngOnInit() {
+    this.html = this.sanitizer.sanitize(SecurityContext.HTML,
+      "<h1>Sanitize</h1><script>attackerCode()</script>");
+    console.log('this.html', this.html); // <h1>Sanitize</h1>attackerCode()
+  }
+}
+
+3.定义安全值的类型
+import { DomSanitizer, SafeValue, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
+
+SafeValue
+SafeHtml
+SafeStyle
+SafeScript
+SafeUrl
+SafeResourceUrl
+
+== 使用案例
+import { Component, SecurityContext } from '@angular/core';
+import { DomSanitizer, SafeValue, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
+
+
+@Component({
+  selector: 'login',
+  templateUrl: './login.component.pug',
+  styleUrls: ['./login.component.less'],
+})
+export class LoginComponent {
+
+  iframe: SafeResourceUrl; // 设置iframeurl变量并指定其类型为SafeResourceUrl
+
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
+  ngOnInit() {
+    console.log('页面正常');
+    this.iframe =  "https://segmentfault.com/";
+    // bypassSecurityTrustResourceUrl API把url转换为可信任的链接可以用于iframe加载 或 script加载
+    this.iframe = this.sanitizer.bypassSecurityTrustResourceUrl(
+      "https://segmentfault.com/");       
+    // this.iframe =  "https://segmentfault.com/"; 如果这样写是会报错的
+  }
+}
+
+
+二.DomSanitizer 下 常用的API
+1.bypassSecurityTrustHtml 用于转换为可信任的html结构文本 不对其内容进行净化
+
+**pug文件
+.safe-div([innerHtml]="shtml")
+
+** ts文件
+import { Component, SecurityContext } from '@angular/core';
+import { DomSanitizer, SafeValue, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
+
+@Component({
+  selector: 'login',
+  templateUrl: './login.component.pug',
+  styleUrls: ['./login.component.less'],
+})
+export class LoginComponent {
+
+  iframe: SafeResourceUrl; // 设置iframeurl变量并指定其类型为SafeResourceUrl
+  html;
+  shtml: SafeHtml;
+
+  constructor(private sanitizer: DomSanitizer) { }
+  ngOnInit() {
+    console.log('页面正常');
+    this.html='<h1>哈哈哈哈哈哈<h1><script>alert(111)</script>';
+    this.shtml =this.sanitizer.bypassSecurityTrustHtml(this.html); // h1正常显示 但是 script 并没有执行
+  }
+}
+
+2.bypassSecurityTrustStyle 用于style样式的安全值处理
+
+** pug文件
+p([style]="stylely") stylely
+p([style]="sstylely") sstylely
+
+** ts文件
+import { Component, SecurityContext } from '@angular/core';
+import { DomSanitizer, SafeValue, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
+
+
+@Component({
+  selector: 'login',
+  templateUrl: './login.component.pug',
+  styleUrls: ['./login.component.less'],
+})
+export class LoginComponent {
+  stylely;
+  sstylely: SafeStyle;
+
+  constructor(private sanitizer: DomSanitizer) { }
+  ngOnInit() {
+    console.log('页面正常');
+    this.stylely = 'color:red;font-size:30px;'
+    this.sstylely = this.sanitizer.bypassSecurityTrustStyle(this.stylely);
+  }
+}
+
+3.bypassSecurityTrustUrl 处理安全的url 用于图片的src  或 a标签的href属性
+
+4.bypassSecurityTrustResourceUrl  url转换为可信任的链接可以用于iframe加载 或 script加载
+
+三.innerHtml插入的文本展示样式
+** pug文件
+.safe-div([innerHtml]="shtml")
+.safe-div([innerHtml]="html")
+
+** ts文件
+this.html='<h1 style="color: red;">111<h1>';
+this.shtml = this.sanitizer.bypassSecurityTrustHtml(this.html); // h1正常显示 但是 script 并没有执行
+
+单词
+
+sanitizer  消毒杀菌剂
+sanitize 消毒
+escape 逃脱
+abstract 摘要 抽象
+security 安全
+cross 交叉
+potentially 潜在的
+
+
