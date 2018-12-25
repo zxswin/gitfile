@@ -58,6 +58,174 @@ this.http.delete('/api/products/p1').subscribe(v=>{
 });
 
 
+=======请求URL带参数=======
+// http://localhost:8080/api/products?name=koa&password=12345
+this.http.get('/api/products',{
+  params:{
+    // 添加URL上的参数
+    name:'koa',
+    password : '12345',
+  }
+}).subscribe(v=>{
+  console.log('data',v);
+});
+
+//http://localhost:8080/api/products?name=koa&password=12345
+this.http.post('/api/products',{
+  id:"test",
+  manufacturer:"测试数据",
+  name:"测试数据1",
+  price:888888,
+},{
+  params:{
+    // 添加URL上的参数
+    name:'koa',
+    password : '12345',
+  }
+}).subscribe(v=>{
+  console.log('post',v);
+});
+
+
+
+
+二.知识要点
+1.现在 JSON 是默认的数据格式，我们不需要再进行显式的解析。
+http.get(url).subscribe(v=>{
+  // v 默认就是接口返回的默认json格式数据
+})
+
+2.设置查询参数
+import { HttpClient, HttpParams } from "@angular/common/http"; // 需引入HttpParams
+// 设置参数 HttpParams 对象是不可变的，通过 set() 方法可以防止该对象被修改。
+// 每当调用 set() 方法，将会返回包含新值的 HttpParams 对象 需要链式调用才能正确设置
+
+// 通过Set方法设置参数
+const params = new HttpParams().set("_name", "1koa2").set("_password", "10123");
+
+// 通过 fromString 设置参数
+// const params = new HttpParams({fromString: "_page=1&_limit=10"});
+
+// 通过 fromObject 设置参数
+// const params = new HttpParams({ fromObject: { _page: "111", _limit: "1011" } });
+
+// 通过GET方式调用接口 并传入参数 params
+this.http.get('/api/hello',{
+  params
+}).subscribe(v=>{
+  // 接收接口返回的数据
+  console.log('get',v);
+});
+
+3.使用 request API 请求数据
+const params = new HttpParams({ fromObject: { _page: "111", _limit: "1011" } });
+
+this.http.request("GET", "/api/hello", { params }).subscribe(v => {
+  console.log('通过request方法返回的数据',v);
+});
+
+
+4.获取完整响应 响应头 或 响应体均可获取到
+const params = new HttpParams({ fromObject: { _page: "111", _limit: "1011" } });
+
+this.http.request("GET", "/api/hello", { 
+  params , 
+  observe: "response", // observe 属性值为 response 来获取完整的响应对象
+}).subscribe(v => {
+  console.log('通过request方法返回的数据',v);
+});
+
+5.设置响应类型 通过 responseType 属性来设定响应类型
+除了支持 json 和 text 类型外，还支持 arraybuffer 和 blob 类型
+
+const params = new HttpParams({ fromObject: { _page: "111", _limit: "1011" } });
+this.http.request("GET", "/api/hello", { 
+  params , 
+  observe: "response", // observe 属性值为 response 来获取完整的响应对象
+  responseType: "text" , // 通过 responseType 属性来设定响应类型  body响应体变为文本格式
+}).subscribe(v => {
+  console.log('通过request方法返回的数据',v);
+});
+
+6.设置 Http Headers
+const params = new HttpParams({ fromObject: { _page: "111222", _limit: "1011" } });
+const headers = new HttpHeaders().set("token", "iloveangular");
+
+this.http.request("GET", "/api/hello", { 
+  headers, // 设置 Http Headers参数
+  params , 
+  observe: "response", // observe 属性值为 response 来获取完整的响应对象
+}).subscribe(v => {
+  console.log('通过request方法返回的数据',v);
+});
+
+7.发送 Post 请求
+
+const params = new HttpParams({ fromObject: { _page: "111222", _limit: "1011" } });
+const headers = new HttpHeaders().set("token", "iloveangular");
+
+this.http.post('/api/pt', {
+      namep: 'koa2',
+      passwordp: '123',
+    }, {
+        params,
+        headers, // 设置 Http Headers参数
+        observe: "response", // observe 属性值为 response 来获取完整的响应对象
+      }).subscribe(v => {
+        console.log('get', v);
+      });
+
+8.请求异常处理
+import { of } from "rxjs";
+import { catchError } from "rxjs/operators";
+
+this.http.get('/api/hello1', {
+  params
+}).pipe(
+  catchError(error => {
+    console.error("Error catched", error);
+    return of({ description: "Error Value Emitted" }); // 如果有异常会在subscribe中被打印出来
+  })
+)
+.subscribe(v => {
+  console.log('异常测试', v);
+});
+
+
+9.并行发送多个 Http 请求
+10.顺序发送 Http 请求
+
+11.Http 拦截器
+
+12.Http 进度事件
+
+upload(data) {
+  this.http.post('/api/upload', data,{
+    observe: 'events', // 上次进度事件
+    reportProgress: true, // 是否返回进度信息
+  }).subscribe((event: HttpEvent<any>) => {
+    console.log('进度事件', event.type);
+    /* 
+    * event.type = 0 表示 开始发送请求
+    * event.type = 1 表示 响应体接受进度
+    * event.type = 2 表示 响应头接收
+    * event.type = 3 表示 响应体接受完成
+    * event.type = 4 表示 请求完成
+      */
+    if(event.type === 1){
+      console.log('进度事件', event);
+      console.log('event.total ',event['total']); // 发送数据总大小
+      console.log('event.loaded ',event['loaded']); // 接受数据大小 loaded
+      const kbfile = event['total'] / 1024;
+      const kbLoaded = event['loaded'] / 1024;
+      console.log(`文件总大小! ${kbfile}Kb 上传`)
+      console.log(`上传进度! ${kbLoaded}Kb 上传`)
+      let process = event['loaded'] / event['total']  * 100;
+      console.log('process',process);
+      this.processStyle.width = process + '%';  // 显示上传进度
+    }
+  });
+}
 
 
 
@@ -67,18 +235,6 @@ this.http.delete('/api/products/p1').subscribe(v=>{
 2.使用 .pipe() 方法来扩展 Observable 的结果
 3.Observable 在有人订阅之前什么都不会做。必须在调用了subscribe() 才会执行
 4.非纯管道 AsyncPipe 会自动订阅到 Observable，这样你就不用再在组件类中订阅了。
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 单词
@@ -113,6 +269,11 @@ expect 期望
 encapsulation 包装
 collection 收集
 put 放 使……受到影响
+payload 有效载荷
+fake 伪造 骗子
+patch 补丁
+interceptor 拦截器
+implements 工具 执行 使生效
 
 
 
