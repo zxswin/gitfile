@@ -1,0 +1,49 @@
+
+
+
+注意：
+使用 --moduleResolution标记来指定使用哪种模块解析策略。
+使用了 --module AMD | System | ES2015时的默认值为Classic，其它情况时则为Node。
+通过 --traceResolution启用编译器的模块解析跟踪，它会告诉我们在模块解析过程中发生了什么。
+
+
+
+
+单词
+classic 经典的
+resolution 分辨率 解决 决心
+folder 文件夹
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

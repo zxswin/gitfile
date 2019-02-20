@@ -1,0 +1,736 @@
+** 交叉类型
+
+/**
+  * extend函数接受泛型T,U 返回的是T 和 U 的联合类型
+  * @param first 类型是泛型T
+  * @param second 类型是泛型U
+  * 返回值是 T 和 U 的联合类型
+  */
+function extend<T, U>(first: T, second: U): T & U {
+  let result = <T & U>{}; // 类型断言 编译器会跳过 避免报错
+
+  // 把参数类型T, 类型U的属性都添加到result上
+  for (let id in first) {
+    (<any>result)[id] = (<any>first)[id]; // 类型断言 编译器会跳过 避免报错
+  }
+  for (let id in second) {
+    if (!result.hasOwnProperty(id)) {
+      (<any>result)[id] = (<any>second)[id]; // 类型断言 编译器会跳过 避免报错
+    }
+  }
+  return result; // 返回 T 和 U 的联合类型
+}
+
+// 定义一个Person类
+class Person {
+  constructor(public name: string) { }
+}
+
+// 定义一个Loggable接口
+interface Loggable {
+  log(): void;
+}
+
+// 定义一个ConsoleLogger类 实现了 Loggable接口
+class ConsoleLogger implements Loggable {
+  log() {}
+}
+var jim = extend(new Person("Jim"), new ConsoleLogger());
+var n = jim.name; // 可以调用Person类中的name属性
+jim.log(); // 也可以调用ConsoleLogger类中的log() 方法
+
+
+** 联合类型
+/**
+  * 联合类型表示一个值可以是几种类型之一。 
+  * 我们用竖线（ |）分隔每个类型，所以 number | string | boolean表示一个值可以是 number， string，或 boolean。
+*/
+function padLeft(value: string, padding: string | number) {}
+let indentedString = padLeft("Hello world", true); // 编译报错 第二个参数类型必须是 number， string，或 boolean。
+
+/**
+  * 如果一个值是联合类型，我们只能访问此联合类型的所有类型里共有的成员
+  * 访问的实例属性或方法必须是共有的成员 否则报错
+  */
+interface Bird {
+  fly();
+  layEggs();
+}
+
+interface Fish {
+  swim();
+  layEggs();
+}
+
+function getSmallPet(a: Fish | Bird): Fish | Bird {
+  return a;
+}
+
+class SmallBird implements Bird {
+  fly(){};
+  layEggs(){};
+}
+
+let smallBird:SmallBird = new SmallBird();
+let pet = getSmallPet(smallBird);
+pet.layEggs(); // 正确 layEggs 是 Bird类 和 Fish类都有的 实例方法
+pet.fly();    // 错误 fly 的实例属性 不是 Bird类 和 Fish类都存在的
+
+** 类型保护与区分类型
+/**
+  * 类型保护与区分类型
+  * 访问每个非共有的实例属性都会报错
+  * 只能通过断言的方式类防止这种报错
+  */
+
+interface Bird {
+  fly();
+  layEggs();
+}
+
+interface Fish {
+  swim();
+  layEggs();
+}
+
+function getSmallPet(a: Fish | Bird): Fish | Bird {
+  return a;
+}
+
+class SmallBird implements Bird {
+  fly() {
+    console.log('会飞的小鸟');
+  };
+  layEggs() { };
+}
+
+let smallBird: SmallBird = new SmallBird();
+let pet = getSmallPet(smallBird);
+
+// 每一个成员访问都会报错
+if (pet.swim) {
+  pet.swim();
+}
+else if (pet.fly) {
+  pet.fly();
+}
+
+// 使用 断言的方式则不要保持 程序可以正常运行
+if ((<Fish>pet).swim) {
+  (<Fish>pet).swim();
+}
+else {
+  (<Bird>pet).fly();
+}
+
+** 用户自定义的类型保护 通过添加类型谓语
+/**
+  * 要定义一个类型保护，我们只要简单地定义一个函数，它的返回值是一个 类型谓词：
+  * pet is Fish就是类型谓词。 谓词为 parameterName is Type这种形式， parameterName必须是来自于当前函数签名里的一个参数名。
+  */
+
+interface Bird {
+  fly();
+  layEggs();
+}
+
+interface Fish {
+  swim();
+  layEggs();
+}
+
+function getSmallPet(a: Fish | Bird): Fish | Bird {
+  return a;
+}
+
+class SmallBird implements Bird {
+  fly() {
+    console.log('会飞的小鸟');
+  };
+  layEggs() { };
+}
+
+let smallBird: SmallBird = new SmallBird();
+let pet = getSmallPet(smallBird);
+
+/*
+  * 通过定义 isFish的函数进行用户自定义类型保护
+  * pet is Fish 是类型谓语 对类型进行确定
+  */
+
+function isFish(pet: Fish | Bird): pet is Fish {
+  return (<Fish>pet).swim !== undefined; // 这里还是使用了类型断言
+}
+
+// 'swim' 和 'fly' 调用都没有问题了
+
+if (isFish(pet)) {
+  pet.swim();
+}
+else {
+  pet.fly();
+}
+
+
+** typeof类型保护
+/**
+  * typeof类型保护
+  * TypeScript可以将 typeof 识别为一个类型保护。 也就是说我们可以直接在代码里检查类型了。
+  * 只有两种形式能被识别： typeof v === "typename"和 typeof v !== "typename"， 
+  * "typename"必须是 "number"， "string"， "boolean"或 "symbol"。 
+  * TypeScript并不会阻止你与其它字符串比较，语言不会把那些表达式识别为类型保护。
+  */
+
+function padLeft(value: string, padding: string | number) {
+  if (typeof padding === "number") {
+    return Array(padding + 1).join(" ") + value;
+  }
+  if (typeof padding === "string") {
+    return padding + value;
+  }
+  throw new Error(`Expected string or number, got '${padding}'.`);
+}
+
+** instanceof类型保护
+/**
+  * instanceof类型保护
+  * instanceof类型保护是通过构造函数来细化类型的一种方式
+  * instanceof的右侧要求是一个构造函数
+  * 此构造函数的 prototype属性的类型，如果它的类型不为 any的话
+  * 构造签名所返回的类型的联合
+  */
+
+interface Padder {
+  getPaddingString(): string
+}
+
+class SpaceRepeatingPadder implements Padder {
+  constructor(private numSpaces: number) { }
+  getPaddingString() {
+    return Array(this.numSpaces + 1).join(" ");
+  }
+}
+
+class StringPadder implements Padder {
+  constructor(private value: string) { }
+  getPaddingString() {
+    return this.value;
+  }
+}
+
+function getRandomPadder() {
+  return Math.random() < 0.5 ?
+    new SpaceRepeatingPadder(4) :
+    new StringPadder("  ");
+}
+
+// 类型为SpaceRepeatingPadder | StringPadder
+let padder: Padder = getRandomPadder();
+
+if (padder instanceof SpaceRepeatingPadder) {
+  padder; // 类型细化为'SpaceRepeatingPadder'
+}
+if (padder instanceof StringPadder) {
+  padder; // 类型细化为'StringPadder'
+}
+
+** 可选参数类型 包含有undefined
+/**
+  * 可选参数
+  * 使用了 --strictNullChecks，可选参数会被自动地加上 | undefined:
+  */
+
+function f(x: number, y?: number) {
+  return x + (y || 0);
+}
+f(1, 2);
+f(1);
+f(1, undefined);
+f(1, null); // 报错 null类型 不能分配给number | undefined 联合类型
+
+** 可选属性
+/**
+  * 可选属性
+  * 使用了 --strictNullChecks，可选属性会被自动地加上 | undefined:
+  */
+
+class C {
+  a: number;
+  b?: number;
+}
+let c = new C();
+c.a = 12;
+c.a = undefined; // 报错 必填属性是数字类型
+c.b = 13;
+c.b = undefined; // 可选属性可以是undefined
+c.b = null; // 报错 可选属性不能为null类型
+
+
+** 使用类型保护来去除 null
+/**
+  * 第一种处理 类型保护去除null的方法
+  */
+function f(sn: string | null): string {
+  if (sn == null) {
+    return "default";
+  }
+  else {
+    return sn;
+  }
+}
+
+/**
+  * 第二种处理 类型保护去除null的方法 通过短路运算符
+  */
+function f(sn: string | null): string {
+  return sn || "default";
+}
+
+/**
+  * 第三种处理 类型保护去除null的方法 使用类型断言手动去除。 语法是添加 !后缀
+  */
+function fixed(name: string | null): string {
+  function postfix(epithet: string) {
+    return name!.charAt(0) + '.  the ' + epithet; // 通过类型断言手动去除null
+  }
+  name = name || "Bob";
+  return postfix("great");
+}
+
+** 类型别名
+/**
+  * 类型别名会给一个类型起个新名字。
+  * 使用type关键字给类型取别名
+  */
+
+type Name = string;
+type NameResolver = () => string;
+type NameOrResolver = Name | NameResolver;
+function getName(n: NameOrResolver): Name {
+  if (typeof n === 'string') {
+    return n;
+  }
+  else {
+    return n();
+  }
+}
+
+/**
+  * 类型别名也可以是泛型
+  */
+
+type Container<T> = { value: T };
+
+/**
+  * 使用类型别名来在属性里引用自己
+  */
+
+type Tree<T> = {
+  value: T;
+  left: Tree<T>;
+  right: Tree<T>;
+}
+
+
+/**
+  * 类型别名于交叉类型一起使用
+  * 类型别名不能出现在声明右侧的任何地方。
+  */
+
+type LinkedList<T> = T | { next: LinkedList<T> };
+
+interface Person {
+  name: string;
+}
+
+let people: LinkedList<Person> = {
+  name:'',
+};
+let s = people.name;
+
+// 类型别名不能出现在声明右侧的任何地方。
+type Yikes = Array<Yikes>; // 报错了
+
+
+** 接口和类型别名的区别
+/**
+ * 接口 vs. 类型别名
+ * 接口创建了一个新的名字，可以在其它任何地方使用。 将鼠标悬停在 interfaced上，显示它返回的是 Interface
+ * 类型别名并不创建新名字 但悬停在 aliased上时，显示的却是对象字面量类型
+ * 类型别名不能被 extends和 implements（自己也不能 extends和 implements其它类型）
+ * 软件中的对象应该对于扩展是开放的，但是对于修改是封闭的，你应该尽量去使用接口代替类型别名。
+ */
+type Alias = { num: number }
+interface Interface {
+  num: number;
+}
+declare function aliased(arg: Alias): Alias;
+declare function interfaced(arg: Interface): Interface;
+
+** 字符串字面量类型
+/**
+ * 字符串字面量类型
+ * 字符串字面量类型允许你指定字符串必须的固定值。
+ * 使用关键字 type 来实现
+ */
+type Easing = "ease-in" | "ease-out" | "ease-in-out"; // 使用了类型别名
+class UIElement {
+    animate(dx: number, dy: number, easing: Easing) {
+        if (easing === "ease-in") {
+        }
+        else if (easing === "ease-out") {
+        }
+        else if (easing === "ease-in-out") {
+        }
+        else {
+          // 错误 必须是null 或 undefined
+        }
+    }
+}
+
+let button = new UIElement();
+button.animate(0, 0, "ease-in");
+button.animate(0, 0, "uneasy"); // 错误 'uneasy' 不允许在这里出现
+
+** 数字字面量类型
+/**
+ * 数字字面量类型
+ * 当 x与 2进行比较的时候，它的值必须为 1，这就意味着下面的比较检查是非法的。
+ */
+
+function foo(x: number) {
+  if (x !== 1 || x !== 2) {
+    //           ~~~~~~~  逻辑报错 x=1 时候 条件会通过 当非预期效果
+    // 操作符 '!==' 不能运用于类型 '1' and '2'.
+  }
+}
+
+/**
+ * 可辨识联合
+ * 声明要联合的接口。 每个接口都有 kind属性但有不同的字符串字面量类型
+ * kind属性称做 可辨识的特征或 标签。
+  */
+
+interface Square {
+  kind: "square";
+  size: number;
+}
+interface Rectangle {
+  kind: "rectangle";
+  width: number;
+  height: number;
+}
+interface Circle {
+  kind: "circle";
+  radius: number;
+}
+
+type Shape = Square | Rectangle | Circle; // 将各个接口联系在一起
+
+// 使用可辨识联合
+function area(s: Shape) {
+  switch (s.kind) {
+    case "square": return s.size * s.size;
+    case "rectangle": return s.height * s.width;
+    case "circle": return Math.PI * s.radius ** 2;
+  }
+}
+
+
+/**
+ * 完整性检查
+ * 使用 never类型，编译器用它来进行完整性检查：
+  */
+
+interface Square {
+  kind: "square";
+  size: number;
+}
+interface Rectangle {
+  kind: "rectangle";
+  width: number;
+  height: number;
+}
+interface Circle {
+  kind: "circle";
+  radius: number;
+}
+
+type Shape = Square | Rectangle | Circle; // 将各个接口联系在一起
+
+function assertNever(x: never): never {
+  throw new Error("Unexpected object: " + x);
+}
+function area(s: Shape) {
+  switch (s.kind) {
+      case "square": return s.size * s.size;
+      case "rectangle": return s.height * s.width;
+      case "circle": return Math.PI * s.radius ** 2;
+      default: return assertNever(s); //  assertNever检查 s是否为 never类型—即为除去所有可能情况后剩下的类型。
+  }
+}
+
+** 多态的 this类型
+/**
+ * 多态的 this类型
+ * 在计算器的例子里，在每个操作之后都返回 this类型：
+  */
+
+class BasicCalculator {
+  public constructor(protected value: number = 0) { }
+  public currentValue(): number {
+    return this.value;
+  }
+  public add(operand: number): this {
+    this.value += operand;
+    return this; // 返回 this类型
+  }
+  public multiply(operand: number): this {
+    this.value *= operand;
+    return this; // 返回 this类型
+  }
+}
+
+let v = new BasicCalculator(2)
+  .multiply(5)
+  .add(1)
+  .currentValue(); // 表现连贯接口间的继承
+
+
+/**
+ * 使用了 this类型，你可以继承它，新的类可以直接使用之前的方法，不需要做任何的改变。
+  */
+
+class BasicCalculator {
+  public constructor(protected value: number = 0) { }
+  public currentValue(): number {
+    return this.value;
+  }
+  public add(operand: number): this {
+    this.value += operand;
+    return this; // 返回 this类型
+  }
+  public multiply(operand: number): this {
+    this.value *= operand;
+    return this; // 返回 this类型
+  }
+}
+
+// 类使用了 this类型，你可以继承它，新的类可以直接使用之前的方法，不需要做任何的改变。
+class ScientificCalculator extends BasicCalculator {
+  public constructor(value = 0) {
+    super(value);
+  }
+  public sin() {
+    this.value = Math.sin(this.value);
+    return this;
+  }
+}
+
+let v = new ScientificCalculator(2)
+  .multiply(5)
+  .sin()
+  .add(1)
+
+
+** 索引类型
+/**
+ * 索引类型
+ * 
+ * keyof T， 索引类型查询操作符。 
+ * 对于任何类型 T， keyof T的结果为 T上已知的公共属性名的联合。
+ * keyof Person是完全可以与 'name' | 'age'互相替换的。
+ * 
+ *  K extends keyof T  => 'name' | 'age' 字符串字面量  type K = 'name' | 'age'
+ * 
+ * 二个操作符是 T[K]， 索引访问操作符
+  */
+
+
+function pluck<T, K extends keyof T>(o: T, names: K[]): T[K][] {
+  return names.map(n => o[n]);
+}
+
+interface Person {
+  name: string;
+  age: number;
+}
+let person: Person = {
+  name: 'Jarid',
+  age: 35
+};
+let strings: string[] = pluck(person, ['name']); // ok, string[]
+console.log(strings);
+// let strings2: string[] = pluck(person, ['age', 'unknown']); // 报错 unknown 不在 'name' | 'age' 里面
+
+
+/**
+ * 获取对象属性的经典例子
+ */
+interface Person {
+  name: string;
+  age: number;
+}
+let person: Person = {
+  name: 'Jarid',
+  age: 35
+};
+
+function getProperty<T, K extends keyof T>(o: T, name: K): T[K] {
+  return o[name]; // o[name] is of type T[K]
+}
+
+let name: string = getProperty(person, 'name');
+let age: number = getProperty(person, 'age');
+let unknown = getProperty(person, 'unknown'); // 'unknown' 不在 'name' | 'age' 里面
+
+** 索引类型和字符串索引签名
+/**
+ * 索引类型和字符串索引签名
+ */
+
+interface Map<T> {
+  [key: string]: T; // []中表示所有属性
+}
+let keys: keyof Map<number>; // string 字符串索引签名
+let value: Map<number>['foo']; // number 索引签名类型
+
+** 映射类型
+/**
+ * 映射类型
+ * 将一个已知的类型每个属性都变为可选的 或者 其他
+ * type Keys = 'option1' | 'option2';
+   type Flags = { [K in Keys]: boolean };
+
+   等价于
+
+    type Flags = {
+      option1: boolean;
+      option2: boolean;
+    }
+
+ */
+
+interface Person {
+  name: string;
+  age: number;
+}
+
+type Readonly<T> = {
+  readonly [P in keyof T]: T[P];  // 把Person接口下的所有属性均变为只读的
+}
+type Partial<T> = {
+  [P in keyof T]?: T[P];  // 把Person接口下的所有属性均变为可选的
+}
+
+type PersonPartial = Partial<Person>;
+type ReadonlyPerson = Readonly<Person>;
+
+type Keys = 'option1' | 'option2';
+type Flags = { [K in Keys]: boolean };
+
+/**
+ * 映射类型 
+ * 更加通用的版本
+ */
+
+type Nullable<T> = { [P in keyof T]: T[P] | null }
+type Partial<T> = { [P in keyof T]?: T[P] }
+
+/**
+ * 映射类型 
+ * 与 Pick和 Record一同被包含进了TypeScript的标准库 写法
+ */
+
+type Pick<T, K extends keyof T> = {
+  [P in K]: T[P];
+}
+
+type Record<K extends string, T> = {
+  [P in K]: T;
+}
+
+type ThreeStringProps = Record<'prop1' | 'prop2' | 'prop3', string>
+
+** 由映射类型进行推断
+/**
+ * Exclude<T, U> -- 从T中剔除可以赋值给U的类型。
+  Extract<T, U> -- 提取T中可以赋值给U的类型。
+  NonNullable<T> -- 从T中剔除null和undefined。
+  ReturnType<T> -- 获取函数返回值类型。
+  InstanceType<T> -- 获取构造函数类型的实例类型。 
+ */
+
+type T00 = Exclude<"a" | "b" | "c" | "d", "a" | "c" | "f">;  // "b" | "d"  T中不能赋值给U的
+type T01 = Extract<"a" | "b" | "c" | "d", "a" | "c" | "f">;  // "a" | "c"  T中能赋值给U的
+
+type T02 = Exclude<string | number | (() => void), Function>;  // string | number
+type T03 = Extract<string | number | (() => void), Function>;  // () => void
+
+type T04 = NonNullable<string | number | undefined>;  // string | number 排除null 或 undefined
+type T05 = NonNullable<(() => string) | string[] | null | undefined>;  // (() => string) | string[]
+
+function f1(s: string) {
+  return { a: 1, b: s };
+}
+
+class C {
+    x = 0;
+    y = 0;
+}
+
+type T10 = ReturnType<() => string>;  // string  函数的放回值类型
+type T11 = ReturnType<(s: string) => void>;  // void
+type T12 = ReturnType<(<T>() => T)>;  // {}
+type T13 = ReturnType<(<T extends U, U extends number[]>() => T)>;  // number[]
+type T14 = ReturnType<typeof f1>;  // { a: number, b: string }
+type T15 = ReturnType<any>;  // any
+type T16 = ReturnType<never>;  // any
+type T17 = ReturnType<string>;  // Error
+type T18 = ReturnType<Function>;  // Error
+
+type T20 = InstanceType<typeof C>;  // C  // 构造函数实例
+type T21 = InstanceType<any>;  // any
+type T22 = InstanceType<never>;  // any
+type T23 = InstanceType<string>;  // Error
+type T24 = InstanceType<Function>;  // Error
+
+
+
+intersection 交叉
+swim 游泳
+assignable 可分配的
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+intersection 交叉
+
+
+
+
+
+
+
+

@@ -1,0 +1,298 @@
+** 只要相应的属性存在并且类型也是对的就可以
+interface LabelledValue {
+  label: string;
+}
+
+function printLabel(labelledObj: LabelledValue) {
+  console.log(labelledObj.label);
+}
+
+let myObj = { size: 10, label: "Size 10 Object" };
+printLabel(myObj);
+
+** 接口的可选属性
+interface SquareConfig {
+  color?: string;
+  width?: number;
+}
+
+function createSquare(config: SquareConfig): { color: string; area: number } {
+  let newSquare = { color: "white", area: 100 };
+  if (config.color) {
+    newSquare.color = config.color;
+  }
+  if (config.width) {
+    newSquare.area = config.width * config.width;
+  }
+  return newSquare;
+}
+
+let mySquare = createSquare({ color: "black" });
+
+**设置只读属性
+interface Point {
+  readonly x: number;
+  readonly y: number;
+}
+
+** ReadonlyArray 数组创建后不可被修改
+let a: number[] = [1, 2, 3, 4];
+let ro: ReadonlyArray<number> = a;
+ro[0] = 12; // error!
+ro.push(5); // error!
+ro.length = 100; // error!
+a = ro; // error!
+
+** 使用类型断言绕过检测
+interface SquareConfig {
+  color?: string;
+  width?: number;
+}
+function createSquare(config: SquareConfig) {}
+let mySquare = createSquare({ colour: "red", width: 100 }); // 报错
+// 使用类型断言绕过检测 则 不会报错
+let mySquare1 = createSquare({ colour: "red",width: 100, } as SquareConfig);
+
+** 添加一个字符串索引签名 处理接口可能存在额外属性的情况
+interface SquareConfig {
+  color?: string;
+  width?: number;
+  [propName: string]: any; // 添加字符串索引签名 
+}
+function createSquare(config: SquareConfig) {}
+let mySquare = createSquare({ colour: "red", width: 100 }); 
+
+** 定义函数类型的接口 
+interface SearchFunc {
+  (source: string, subString: string): boolean;
+}
+
+let mySearch: SearchFunc = function (source: string, subString: string): boolean {
+  let result = source.search(subString);
+  return result > -1;
+}
+
+** 可索引的类型
+描述那些能够“通过索引得到”的类型，比如a[10]或ageMap["daniel"]
+interface StringArray {
+  [index: number]: string;
+}
+
+let myArray: StringArray;
+myArray = ["Bob", "Fred"];
+
+let myStr: string = myArray[0];
+
+TypeScript支持两种索引签名：字符串和数字
+
+** key类型与索引类型返回值的类型要匹配
+interface NumberDictionary {
+  [index: string]: number;
+  length: number;    // 可以，length是number类型
+  name: string       // 错误，`name`的类型与索引类型返回值的类型不匹配
+}
+
+** 将索引签名设置为只读，这样就防止了给索引赋值：
+interface ReadonlyStringArray {
+  readonly [index: number]: string;
+}
+let myArray: ReadonlyStringArray = ["Alice", "Bob"];
+myArray[2] = "Mallory"; // 报错了
+
+
+** 类实现接口
+interface ClockInterface {
+  currentTime: Date;
+}
+
+class Clock implements ClockInterface {
+  currentTime: Date;
+  constructor(h: number, m: number) { }
+}
+
+** 实现接口中描述的方法 接口只会描述了类的公共部分
+它不会帮你检查类是否具有某些私有成员
+interface ClockInterface {
+  currentTime: Date;
+  setTime(d: Date);
+}
+
+class Clock implements ClockInterface {
+  currentTime: Date;
+  setTime(d: Date) {
+    this.currentTime = d;
+  }
+  constructor(h: number, m: number) { }
+}
+
+** 类静态部分与实例部分的区别
+类实现了一个接口时，只对其实例部分进行类型检查。 
+constructor存在于类的静态部分，所以不在检查的范围内。
+
+interface ClockConstructor {
+  new(hour: number, minute: number): ClockInterface; // 构造函数签名
+}
+interface ClockInterface {
+  tick();
+}
+
+function createClock(ctor: ClockConstructor, hour: number, minute: number): ClockInterface {
+  return new ctor(hour, minute);
+}
+
+class DigitalClock implements ClockInterface {
+  constructor(h: number, m: number) { }
+    tick() {
+    console.log("beep beep");
+  }
+}
+class AnalogClock implements ClockInterface {
+  constructor(h: number, m: number) { }
+  tick() {
+    console.log("tick tock");
+  }
+}
+
+let digital = createClock(DigitalClock, 12, 17);
+let analog = createClock(AnalogClock, 7, 32);
+
+digital.tick();
+analog.tick();
+
+** 继承接口
+interface Shape {
+  color: string;
+}
+
+interface Square extends Shape {
+  sideLength: number;
+}
+
+let square = <Square>{};
+square.color = "blue";
+square.sideLength = 10;
+
+** 一个接口可以继承多个接口，创建出多个接口的合成接口。
+interface Shape {
+  color: string;
+}
+
+interface PenStroke {
+  penWidth: number;
+}
+
+interface Square extends Shape, PenStroke {
+  sideLength: number;
+}
+
+let square = <Square>{};
+square.color = "blue";
+square.sideLength = 10;
+square.penWidth = 5.0;
+
+** 混合类型
+interface Counter {
+  (start: number): string;
+  interval: number;
+  reset(): void;
+}
+
+function getCounter(): Counter {
+  let counter = <Counter>function (start: number) { };
+  counter.interval = 123;
+  counter.reset = function () { };
+  return counter;
+}
+
+let c = getCounter();
+c(10);
+c.reset();
+c.interval = 5.0;
+
+** 接口继承类
+接口同样会继承到类的private和protected成员
+继承了类的接口只能被这个类或其子类所实现（implement）
+必须先去继承对应的来再去实现继承了类的接口
+
+class Control {
+  private state: any;
+}
+
+interface SelectableControl extends Control {
+  select(): void;
+}
+
+class Button extends Control implements SelectableControl {
+  select() { }
+}
+
+class TextBox extends Control {
+  select() { }
+}
+
+// 错误：“Image”类型缺少“state”属性。
+class Image implements SelectableControl {
+  select() { }
+}
+
+class Location {
+
+}
+
+
+
+单词
+bag 袋子
+implement 设施 执行
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,290 @@
+“内部模块”现在称做“命名空间”。 “外部模块”现在则简称为“模块”，
+
+/*
+ * 导出接口
+  */
+export interface StringValidator {}
+
+/*
+ * 导出常量
+  */
+export const numberRegexp = /^[0-9]+$/;
+
+/*
+ * 导出类
+  */
+export class ZipCodeValidator implements StringValidator {}
+
+/*
+ * 导出语句 对导出类重命名
+  */
+class ZipCodeValidator implements StringValidator {}
+export { ZipCodeValidator };
+export { ZipCodeValidator as mainValidator };
+
+/*
+ * 导出原先的验证器但做了重命名
+  */
+export {ZipCodeValidator as RegExpBasedZipCodeValidator} from "./ZipCodeValidator";
+
+/*
+ * 一个模块可以包裹多个模块，并把他们导出的内容联合在一起通过语法：export * from "module"
+  */
+export * from "./StringValidator"; // exports interface StringValidator
+export * from "./LettersOnlyValidator"; // exports class LettersOnlyValidator
+export * from "./ZipCodeValidator";  // exports class ZipCodeValidator
+
+/*
+ * 导入一个模块中的某个导出内容
+  */
+import { ZipCodeValidator } from "./ZipCodeValidator";
+
+/*
+ * 导入内容重命名
+  */
+import { ZipCodeValidator as ZCV } from "./ZipCodeValidator";
+
+/*
+ * 将整个模块导入到一个变量，并通过它来访问模块的导出部分
+  */
+import * as validator from "./ZipCodeValidator";
+let myValidator = new validator.ZipCodeValidator();
+
+/*
+ * 具有副作用的导入模块
+ * 这些模块可能没有任何的导出或用户根本就不关注它的导出
+  */
+
+import "./my-module.js";
+
+/*
+ * default 默认导出
+ * jQuery 案例
+  */
+
+=== JQuery.d.ts ===
+
+declare let $: JQuery;
+export default $;
+
+=== App.ts ===
+import $ from "JQuery";
+$("button.continue").html( "Next Step..." );
+
+/*
+ * 把类标记为默认导出
+  */
+=== ZipCodeValidator.ts ===
+
+export default class ZipCodeValidator {
+    static numberRegexp = /^[0-9]+$/;
+    isAcceptable(s: string) {
+        return s.length === 5 && ZipCodeValidator.numberRegexp.test(s);
+    }
+}
+
+=== Test.ts ===
+
+import validator from "./ZipCodeValidator";
+let myValidator = new validator();
+
+/*
+ * 把函数声明标记为默认导出
+  */
+=== StaticZipCodeValidator.ts ===
+
+const numberRegexp = /^[0-9]+$/;
+export default function (s: string) {
+    return s.length === 5 && numberRegexp.test(s);
+}
+
+=== Test.ts ===
+import validate from "./StaticZipCodeValidator";
+
+let strings = ["Hello", "98052", "101"];
+
+// 使用函数声明
+strings.forEach(s => {
+  console.log(`"${s}" ${validate(s) ? " matches" : " does not match"}`);
+});
+
+/*
+ * default导出也可以是一个值
+  */
+=== OneTwoThree.ts ===
+export default "123";
+
+=== Log.ts ===
+import num from "./OneTwoThree";
+console.log(num); // "123"
+
+/*
+ * 为了支持CommonJS和AMD的exports, TypeScript提供了export =语法。
+ * export = 导出一个模块，则必须使用TypeScript的特定语法import module = require("module")来导入此模块。
+  */
+=== ZipCodeValidator.ts ===
+
+let numberRegexp = /^[0-9]+$/;
+class ZipCodeValidator {
+    isAcceptable(s: string) {
+        return s.length === 5 && numberRegexp.test(s);
+    }
+}
+export = ZipCodeValidator;
+
+=== Test.ts ===
+import zip = require("./ZipCodeValidator");
+let strings = ["Hello", "98052", "101"];
+let validator = new zip();
+strings.forEach(s => {
+  console.log(`"${ s }" - ${ validator.isAcceptable(s) ? "matches" : "does not match" }`);
+});
+
+/*
+ * 导入匹配"*!text"或"json!*"的内容了
+ * 某些模块加载器如SystemJS 和 AMD支持导入非JavaScript内容。
+  */
+
+=== d.ts ===
+declare module "*!text" {
+    const content: string;
+    export default content;
+}
+declare module "json!*" {
+    const value: any;
+    export default value;
+}
+
+
+=== 导入匹配"*!text"或"json!*"的内容了。===
+import fileContent from "./xyz.txt!text";
+import data from "json!http://example.com/data.json";
+console.log(data, fileContent);
+
+
+/*
+ * 主流的库都是 JavaScript 编写的，并不支持类型系统。那么如何让这些第三方库也可以进行类型推导呢？
+ * TypeScript 经过了一系列的摸索，先后提出了 tsd(已废弃)、typings(已废弃)，最终在 TypeScript 2.0 的时候重新整理了类型定义，提出了 DefinitelyTyped。
+ * DefinitelyTyped 就是让你把 "类型定义文件(*.d.ts)"，发布到 npm 中，配合编辑器(或插件)，就能够检测到 JS 库中的静态类型。
+ * 类型定义文件的以 .d.ts 结尾，里面主要用来定义类型
+  */
+
+=== jQuery 的类型定义文件 ===
+// 定义 jQuery 需要用到的类型命名空间
+declare namespace JQuery {
+    // 定义基本使用的类型
+    type Selector = string;
+    type TypeOrArray<T> = T | T[];
+    type htmlString = string;
+}
+
+// 定义 jQuery 接口，jquery 是一个 包含 Element 的集合
+interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement> {
+    length: number;
+    eq(index: number): this;
+
+    // 重载
+    add(selector: JQuery.Selector, context: Element): this;
+    add(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery.htmlString | JQuery): this;
+
+    children(selector?: JQuery.Selector): this;
+    css(propertyName: string): string;
+    html(): string;
+}
+
+// 对模块 jquery 输出接口
+declare module 'jquery' {
+    // module 中要使用 export = 而不是 export default
+    export = jQuery;
+}
+
+
+=== namespace 命名空间的使用 ===
+// 命名空间
+declare namespace Models {
+  type A = number
+  // 子命名空间
+  namespace Config {
+    type A = object
+    type B = string
+  }
+}
+
+type C = Models.Config.A
+
+=== 动态属性 ===
+有些类型的属性名是动态而未知的，例如：
+
+{
+  '10086': {
+    name: '中国移动',
+    website: 'http://www.10086.cn',
+  },
+  '10010': {
+    name: '中国联通',
+    website: 'http://www.10010.com',
+  },
+  '10000': {
+    name: '中国电信',
+    website: 'http://www.189.cn'
+  }
+}
+我们可以使用动态属性名来定义类型：
+
+interface ChinaMobile {
+  name: string;
+  website: string;
+}
+
+interface ChinaMobileList {
+  // 动态属性
+  [phone: string]: ChinaMobile
+}
+
+=== 导入规则 ===
+有类型声明，标准 es module 库：import * as xxxx from '' 或 import xxx from '' 导入
+有类型声明，标准 commonjs 库： import xxx = require('') 导入
+没有类型声明：const xxx = require('') 导入（默认导入为 any 类型）
+
+=== 内置类型定义文件 ===
+设置 types 或 typeings 属性指向捆绑在一起的类型定义文件。 例如包目录如下：
+
+├── lib
+│   ├── main.js
+│   └── main.d.ts # 类型定义文件
+└── package.json
+// pageage.json
+{
+    "name": "demo",
+    "author": "demo project",
+    "version": "1.0.0",
+    "main": "./lib/main.js",
+    // 定义主类型定义文件
+    "types": "./lib/main.d.ts"
+}
+如果主类型定义文件名是 index.d.ts 并且位置在包的根目录里，就不需要使用 types 属性指定了。
+
+├── lib
+│   └── main.js
+├── index.d.ts # 类型定义文件
+└── package.json
+
+
+
+
+
+
+拓展：
+--allowSyntheticDefaultImports	boolean	
+module === "system" 或设置了 
+--esModuleInterop 且 module 不为 es2015 / esnext	
+允许从没有设置默认导出的模块中默认导入。这并不影响代码的输出，仅为了类型检查。
+
+参考文档
+JavaScript 和 TypeScript 交叉口 —— 类型定义文件(*.d.ts)
+https://tasaid.com/blog/20171102225101.html?sgs=juejin
+
+单词
+definitely 肯定的
+declare 声明
+organization 组织

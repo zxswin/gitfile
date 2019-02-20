@@ -1,0 +1,119 @@
+一.泛型的定义
+1.泛型 使组件可以支持多种数据类型
+
+2.案例解析
+function identity(arg: number): number {
+  //arg参数的数据类型必须是数字  返回的数据也必须是数字
+  return arg;
+}
+
+3.使用类型变量
+function identity<T>(arg: T): T {
+  //函数叫做泛型，因为它可以适用于多个类型
+  //T帮助我们捕获用户传入的类型 函数最终也会返回T类型的数据
+  return arg;
+}
+
+//第一中使用泛型的方法
+let output = identity<string>("myString");
+
+//第二种使用 类型推论 泛型的方法 函数会自动帮我们确定 T的类型  这种方式需要编译器的支持
+let output = identity("myString");
+
+二.泛型变量的使用
+//第一种写法
+function loggingIdentity<T>(arg: T[]): T[] {
+  //arg参数为一个元素为T类型的数组  函数最终返回也必须为元素类型为T的数组
+  console.log(arg.length);
+  return arg;
+}
+
+//第二种写法
+function loggingIdentity<T>(arg: Array<T>): Array<T> {
+  //arg参数为一个元素为T类型的数组  函数最终返回也必须为元素类型为T的数组
+  console.log(arg.length);
+  return arg;
+}
+
+
+三.创建泛型接口
+interface GenericIdentityFn<T> {
+    (arg: T): T;
+}
+
+function identity<T>(arg: T): T {
+    return arg;
+}
+
+//GenericIdentityFn<number> 定义了 变量myIdentity 可以接受的数据类型
+let myIdentity: GenericIdentityFn<number> = identity;
+
+四.创建泛型类
+1.泛型类的使用范例
+class GenericNumber<T> {
+    zeroValue: T;
+    add: (x: T, y: T) => T;  //使用箭头函数 参数x为T类型 参数y为T类型 返回的数据类型也为T
+}
+
+let myGenericNumber = new GenericNumber<number>(); //示例化这个类
+myGenericNumber.zeroValue = 0; 
+myGenericNumber.add = function(x, y) { return x + y; }; 
+
+五.泛型约束
+1.类型约束范例
+//创建一个包含 .length属性的接口，使用这个接口和extends关键字来实现约束：
+interface Lengthwise {
+    length: number;
+}
+
+function loggingIdentity<T extends Lengthwise>(arg: T): T {
+    console.log(arg.length);
+    return arg;
+}
+
+loggingIdentity(3);  //报错 传入的参数3并没有 length这个属性
+loggingIdentity({length: 10, value: 3}); //正确 传入的参数 符合约束类型的值
+
+六.在泛型约束中使用类型参数
+1.声明一个类型参数，且它被另一个类型参数所约束
+function create<T>(c: {new(): T; }): T {
+    return new c(); //工厂函数c 最终返回的是T类型
+}
+
+2.一个更高级的例子 
+class BeeKeeper {
+    hasMask: boolean;
+}
+
+class ZooKeeper {
+    nametag: string;
+}
+
+class Animal {
+    numLegs: number;
+}
+
+class Bee extends Animal {
+    keeper: BeeKeeper;
+}
+
+class Lion extends Animal {
+    keeper: ZooKeeper;
+}
+
+function createInstance<A extends Animal>(c: new () => A): A {
+    return new c();
+}
+
+createInstance(Lion).keeper.nametag;  // typechecks!  应该会自动进行类型检测 未验证 貌似会报错
+createInstance(Bee).keeper.hasMask;   // typechecks!  应该会自动进行类型检测 未验证 貌似会报错
+
+
+
+注意：
+1.类有两部分：静态部分和实例部分。 泛型类指的是实例部分的类型，所以类的静态属性不能使用这个泛型类型。
+
+
+单词：
+identity 身份 
+

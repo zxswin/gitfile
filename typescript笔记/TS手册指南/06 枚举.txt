@@ -1,0 +1,146 @@
+
+使用枚举我们可以定义一些带名字的常量。 使用枚举可以清晰地表达意图或创建一组有区别的用例
+
+** 数字枚举
+/*
+ * 默认从0开始自增
+*/
+enum Direction {
+  Up,
+  Down,
+  Left,
+  Right,
+}
+
+console.log(Direction.Up); // 0
+
+/*
+ * 一个值初始化 后面的值会跟着递增
+*/
+
+enum Direction {
+  Up = 1,
+  Down,
+  Left,
+  Right
+}
+console.log(Direction.Down); // 2
+
+** 通过枚举的属性来访问枚举成员，和枚举的名字来访问枚举类型：
+enum Response {
+  No = 0,
+  Yes = 1,
+}
+
+function respond(recipient: string, message: Response): void {
+  console.log(message);  // 1
+}
+
+respond("Princess Caroline", Response.Yes)
+
+
+
+** 字符串枚举
+/*
+ * 每个成员都必须用字符串字面量
+ * 字符串枚举没有自增长的行为
+*/
+enum Direction {
+  Up = "UP",
+  Down = "DOWN",
+  Left = "LEFT",
+  Right = "RIGHT",
+}
+
+** 异构枚举
+/*
+ * 枚举可以混合字符串和数字成员
+ * 不建议这么做
+*/
+enum BooleanLikeHeterogeneousEnum {
+  No = 0,
+  Yes = "YES",
+}
+
+** 运行时的枚举
+/*
+ * 枚举是在运行时真正存在的对象
+*/
+
+enum E {
+  X, Y, Z
+}
+
+function f(obj: { X: number }) {
+  return obj.X;
+}
+
+console.log(f(E)); // 0
+
+
+* 反向映射
+/*
+ * 反向映射，从枚举值得到枚举名字
+ * 不会为字符串枚举成员生成反向映射
+*/
+
+enum Enum {
+  A
+}
+let a = Enum.A;
+let nameOfA = Enum[a]; // "A"
+
+
+
+** const枚举
+
+/*
+ * 并且不同于常规的枚举，它们在编译阶段会被删
+ * 不允许包含计算成员
+*/
+
+const enum Directions {
+  Up,
+  Down,
+  Left,
+  Right
+}
+
+let directions = [Directions.Up, Directions.Down, Directions.Left, Directions.Right];
+console.log(directions);
+
+** 外部枚举
+/*
+ * 外部枚举用来描述已经存在的枚举类型的形状
+ * 没有初始化方法时被当做需要经过计算的
+*/
+
+
+
+applied 应用
+actually 实际上
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,196 @@
+在TypeScript里，有两种兼容性：子类型和赋值。
+
+** 联合数组类型
+(Rhino | Elephant | Snake)[]。
+
+** TypeScript里的类型兼容性是 基于结构子类型 的。
+基于名义类型 的语言，比如C#或Java中
+
+/*
+ *类型的兼容性: 结构类型一致即可赋值成功
+*/
+
+interface Named {
+  name: string;
+}
+
+class Person {
+  name: string;
+}
+
+let p: Named;
+p = new Person(); // 正确 因为 接口Named 和 类Person的结构类型一致
+
+/**
+  * TypeScript结构化类型系统的基本规则是，如果x要兼容y，那么y至少具有与x相同的属性。
+  * y有个额外的location属性，但这不会引发错误。 只有目标类型（这里是Named）的成员会被一一检查是否兼容。
+  */
+
+interface Named {
+  name: string;
+}
+
+let x: Named;
+let y = { name: 'Alice', location: 'Seattle' }; // y的类型被自动推断为{ name: string; location: string; }
+x = y;
+
+
+function greet(n: Named) {
+  console.log('Hello, ' + n.name);
+}
+greet(y); // 正确 因为 y 的类型和greet的参数n的类型是兼容的
+
+** 比较两个函数
+/**
+  * 要查看x是否能赋值给y，首先看它们的参数列表。 x的每个参数必须能在y里找到对应类型的参数。
+  * 注意的是参数的名字相同与否无所谓，只看它们的类型。
+  */
+
+let x = (a: number) => 0;
+let y = (b: number, s: string) => 0;
+
+y = x; // 正确  x的每个参数能在y中找到对应的参数 赋值成功
+x = y; // 错误  y的s参数在 x中不能找到 赋值失败
+
+
+/**
+  * 类型系统强制源函数的返回值类型必须是目标函数返回值类型的子类型。
+  */
+
+let x = () => ({ name: 'Alice' });
+let y = () => ({ name: 'Alice', location: 'Seattle' });
+
+x = y; // 正确  x的返回值必须是y返回值的子类型
+y = x; // 错误  y的返回值必须是x返回值的子类型
+
+** 可选参数及剩余参数
+/**
+  * 当一个函数有剩余参数时，它被当做无限个可选参数。
+  */
+
+function invokeLater(args: any[], callback: (...args: any[]) => void) {
+}
+
+invokeLater([1, 2], (x, y) => console.log(x + ', ' + y));
+
+invokeLater([1, 2], (x?, y?) => console.log(x + ', ' + y));
+
+** 枚举的兼容问题
+/**
+  * 枚举类型与数字类型兼容，并且数字类型与枚举类型兼容。不同枚举类型之间是不兼容的。
+  */
+
+enum Status { Ready, Waiting };
+enum Color { Red, Blue, Green };
+
+let status = Status.Ready;
+status = 1; // 数字类型与枚举类型兼容
+status = Color.Green;  // 报错 不同枚举类型之间是不兼容的
+
+** 类的兼容问题
+/**
+  * 比较两个类类型的对象时，只有实例的成员会被比较。 静态成员和构造函数不在比较的范围内。
+  */
+
+class Animal {
+  feet: number;
+  constructor(name: string, numFeet: number) { }
+}
+
+class Size {
+  feet: number;
+  constructor(numFeet: number) { }
+}
+
+let a: Animal = new  Animal('',1);
+let s: Size = new Size(1);
+
+a = s;  // 成功 a 和 s 均有相同的实例成员feet
+s = a;  // 成功 a 和 s 均有相同的实例成员feet
+
+** 类的私有成员和受保护成员
+/**
+  * 如果目标类型包含一个私有成员，那么源类型必须包含来自同一个类的这个私有成员。
+  */
+
+class Animal {
+  private feet: number; // 私有属性 只能在父类中被访问
+  constructor(name: string, numFeet: number) { }
+}
+
+class Size extends Animal {
+  constructor(numFeet: number) {
+    super('', 1);
+  }
+}
+
+let a: Animal = new Animal('', 1);
+let s: Size = new Size(1);
+
+a = s;  // 成功 a 和 s 均有相同的实例成员feet
+s = a;  // 成功 a 和 s 均有相同的实例成员feet
+
+** 泛型
+/**
+  * x和y是兼容的，因为它们的结构使用类型参数时并没有什么不同。
+  */
+
+  interface Empty<T> {
+}
+let x: Empty<number> = <Empty<number>>{};
+let y: Empty<string> = <Empty<string>>{};;
+
+x = y;  // 它们的结构使用类型参数时并没有什么不同
+
+/**
+  * 对于没指定泛型类型的泛型参数时，会把所有泛型参数当成any比较。 然后用结果类型进行比较，
+  */
+
+interface NotEmpty<T> {
+  data: T;
+}
+let x: NotEmpty<number> = <NotEmpty<number>>{};
+let y: NotEmpty<string> = <NotEmpty<string>>{};
+
+x = y;  // 报错 x 和 y 类型结构中 date的类型不一致 进行结果类型比较的时候出现了不兼容
+
+/**
+  * 对于没指定泛型类型的泛型参数时，会把所有泛型参数当成any比较。 然后用结果类型进行比较，
+  */
+
+let identity = function <T>(x: T): T {
+  return x;
+}
+
+let reverse = function <U>(y: U): U {
+  return y;
+}
+
+identity = reverse;  // 正确 对于没指定泛型类型的泛型参数时，会把所有泛型参数当成any比较。
+
+
+structural 结构的
+infer 推断 暗示
+lack 缺乏 缺少
+unsound 不健全的
+undesirable 不受欢迎的
+alternatives 选择的余地
+presence 出席 仪表
+incompatible 不兼容的
+enforced 强迫的
+wholly 完全的
+invoke 提出或授引
+confusing 令人疑惑的 混淆的
+undiscoverable 不可发现的
+assign 分派 指定
+structure 结构
+compatible 兼容的
+nominal 名义上的
+
+
+
+
+
+
+
+
