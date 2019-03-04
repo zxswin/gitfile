@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "module": "commonjs", // js的模块化类型 nodejs 使用commonjs
+    "target": "es2017", // 要不编译成的那个版本的js文件
+    "outDir": "./dist", // 编译后文件输出到那个文件夹
+    "noImplicitAny": true, // 在表达式和声明上有隐含的 any类型时报错。
+    "removeComments": true, //  删除所有注释，除了以 /!*开头的版权信息。
+    "sourceMap": true, // 生成相应的 .map文件。如index.js文件中写入 //# sourceMappingURL=jquery.min.map
+    "experimentalDecorators": true, // 启用实验性的ES装饰器。
+    "emitDecoratorMetadata": true, // 给源码里的装饰器声明加上设计类型元数据。
+    // 要包含的类型声明文件路径列表。
+    "typeRoots": [
+      "node_modules/@types",
+      "@miaov-types"
+    ]
+  },
+  // 需要编译的TS文件目录
+  "includes": [
+    "app/**/*"
+  ],
+  // 不需要编译的文件目录
+  "exclude": [
+    "node_modules",
+    "dist",
+    "migrations",
+    "seeders",
+    "test"
+  ]
+}
