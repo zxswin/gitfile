@@ -1,0 +1,39 @@
+
+
+
+
+** 热加载：supervisor
+
+** Koa 中间件
+- koa-static-cache 静态文件代理服务
+- koa-router 路由
+- koa-swig 模板引擎
+- koa-bodyparse: body解析
+- koa-multer formData解析
+
+** mysql数据库
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
