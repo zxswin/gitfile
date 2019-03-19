@@ -1,0 +1,10 @@
+.button-operation
+
+    button.button-groud-item(
+      *ngFor="let item of buttonGroupOption",
+      nz-button,nzType="primary",
+      (click)="buttonClick(item.name)",
+      [nzGhost]="item.nzGhost")
+
+      i(nz-icon,[type]="item.icon",theme="outline")
+      | {{item.name}}

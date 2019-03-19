@@ -1,0 +1,82 @@
+.i-top-tool
+  nz-dropdown([nzTrigger]="'click'",[nzClickHide]="false")
+    a.display-inline-flex(nz-dropdown)
+      i(nz-icon,type="appstore", theme="outline",style="font-size:24px;")
+      span(style="margin-left:6px;") 字段显示
+    ul(nz-menu)
+      li(*ngFor="let column of nzTableData.tableData.columnData;",nz-menu-item)
+        label(nz-checkbox,[(ngModel)]="column.checked",(ngModelChange)="showFieldOption.fieldChange($event)") {{column.fieldName}}
+
+nz-table(
+  #nzTable='',
+  nzShowSizeChanger,
+  nzShowQuickJumper,
+  [nzScroll]="nzTableData.nzScroll",
+  [nzFrontPagination]="nzTableData.nzFrontPagination",
+  [nzData]="displayData",
+  [nzLoading]="nzTableData.loading",
+  [nzTotal]="nzTableData.tableData.total",
+  [(nzPageIndex)]="nzTableData.pageIndex",
+  [nzBordered]="nzTableData.nzBordered",
+  [(nzPageSize)]="nzTableData.pageSize",
+  (nzPageIndexChange)="nzTableData.tableData.renderData()",
+  (nzPageSizeChange)="nzTableData.tableData.renderData(true)",)
+
+  thead(*ngIf="showFieldOption.isShowFieldHead",(nzSortChange)="nzTableData.sort.sortEvent($event)",nzSingleSort)
+    tr
+      th(*ngIf="nzTableData.check.isShwo",
+        nzShowCheckbox,
+        nzWidth="100px",
+        [(nzChecked)]="nzTableData.check.allChecked",
+        [nzIndeterminate]="nzTableData.check.indeterminate",
+        nzLeft="0px",
+        (nzCheckedChange)="nzTableData.check.checkAll($event)")
+      ng-container(*ngFor="let column of nzTableData.tableData.columnData; let i=index;")
+        th(*ngIf="column.checked && i==0",
+          nzLeft="100px",
+          style="min-width:100px;",
+          [nzShowSort]="column.sort",
+          [nzShowFilter]="column.filter.isShowFilter",
+          [nzFilters]="column.filter.list",
+          (nzFilterChange)="nzTableData.filter.updateFilter($event,column.field)",
+          [nzSortKey]="column.field") {{column.fieldName}}
+
+        th(*ngIf="column.checked && i!=0",
+          style="min-width:100px;",
+          [nzShowSort]="column.sort",
+          [nzShowFilter]="column.filter.isShowFilter",
+          [nzFilters]="column.filter.list",
+          (nzFilterChange)="nzTableData.filter.updateFilter($event,column.field)",
+          [nzSortKey]="column.field") {{column.fieldName}}
+      th(*ngIf="nzTableData.action",nzRight="0px" ,nzWidth="250px") 操作
+
+  tbody
+    tr(*ngFor="let data of nzTable.data" , (contextmenu)="contextMenu($event,template,data)")
+      td(*ngIf="nzTableData.check.isShwo",
+        nzShowCheckbox,
+        nzLeft="0px",
+        [(nzChecked)]="data.checked",
+        [nzDisabled]="data.disabled",
+        (nzCheckedChange)="nzTableData.check.refreshStatus()")
+
+      ng-container(*ngFor="let column of nzTableData.tableData.columnData; let i=index;")
+        td(*ngIf="column.checked && i==0",nzLeft="100px")
+          a.ellipsis([title]="data[column.field]",style="max-width: 300px;") {{data[column.field]}}
+
+        td(*ngIf="column.checked && i!=0")
+          a.ellipsis([title]="data[column.field]",style="max-width: 300px;") {{data[column.field]}}
+
+      td(*ngIf="nzTableData.action",nzRight="0px")
+        span(*ngFor="let action of nzTableData.action")
+          a(*ngIf="action.isShow",(click)="action.action(data)") {{action.eventName}}
+          nz-divider(*ngIf="action.isShow",nzType="vertical")
+
+      ng-template(#template='')
+        ul.i-contextMenu(nz-menu,nzInDropDown,(nzClick)="close($event)")
+          li(nz-menu-item,
+            *ngFor="let action of nzTableData.action",
+            (click)="action.action(data)",
+            [nzDisabled]="!action.isShow") {{action.eventName}}
+
+
+

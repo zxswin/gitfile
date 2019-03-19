@@ -1,0 +1,10 @@
+.i-topbar.bg-topbar.display-flex([ngClass]="flexTopBar")
+  .icon-logo.i-topbar-logo
+  .i-topbar-tool.display-flex(*ngIf="this.setData.isShow")
+    .i-topbar-icon
+      i.i-topbar-setting(nz-icon,type="setting",theme="outline")
+      span 设置
+
+    .i-topbar-icon((click)="loginout()")
+      i(nz-icon,type="poweroff",theme="outline")
+      span 退出登录

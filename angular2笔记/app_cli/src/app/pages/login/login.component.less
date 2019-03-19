@@ -1,0 +1,63 @@
+.i-login {
+  width: 100%;
+  height: 350px;
+  background: rgba(255,255,255,0.1);
+  position: absolute;
+  top: 50%;
+  margin-top: -175px;
+  input{
+    text-indent: 10px;
+  }
+}
+
+.icon-system_name {
+  margin-right: 50px;
+}
+
+.i-error-info {
+  width:100%;
+  text-align: center;
+  position: absolute;
+  bottom: 10px;
+}
+
+.i-login-contain {
+  width: 500px;
+  height: 350px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  .i-login-head {
+    width:100%;
+    height: 50px;
+    padding:0 30px;
+    line-height: 50px;
+    color: #fff;
+    font-weight: bold;
+  }
+  .i-login-content {
+    width:100%;
+    height: 300px;
+    flex-direction: column; /* 设置flex为垂直方向排列*/
+  }
+  .i-login-input {
+    width:380px;
+    margin-bottom: 20px;
+  }
+  .i-login-verification{
+    flex-direction: row; /* 设置flex为水平方向排列 默认为水平方向 可省略*/
+    input {
+      text-indent: 0;
+    }
+  }
+  .i-verification-code{
+    width:180px;
+    height: 36px;
+    padding-left:10px;
+  }
+  .i-login-button{
+    width:380px;
+  }
+}
+

@@ -1,0 +1,12 @@
+.i-trigger
+  i(class="trigger",nz-icon,[type]="menuConfig.isCollapsed?'menu-unfold':'menu-fold'",(click)="triggerClick()")
+ul(nz-menu,[nzMode]="'inline'",[nzInlineCollapsed]="menuConfig.isCollapsed")
+  li(*ngFor="let menu of menuConfig.menuItems",nz-submenu,
+  [nzOpen]="currentUrl.includes(menu.topLevel[0].url)",
+  (nzOpenChange)="openHandler(menu.topLevel[0].url)"
+  )
+    span(title,[ngClass]="{'ant-menu-submenu-selected': checkRouteState(menu.topLevel[0].url)}",)
+      i(nz-icon,[type]="menu.icon")
+      span {{menu.topLevel[0].title}}
+    ul(*ngFor="let submenu of menu.secondLevel")
+      li(nz-menu-item, (click)="go(submenu.url)",[ngClass]="{'ant-menu-item-selected': checkRouteState(submenu.url)}") {{submenu.title}}

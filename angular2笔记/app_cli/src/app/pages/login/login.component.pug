@@ -1,0 +1,35 @@
+app-top-bar
+.contain-box.bg-login
+  .i-login.display-flex
+    .icon-system_name
+    .i-login-contain
+      .i-login-head.f-size2.bg-color 用户登录
+      .i-login-content.display-flex
+        .i-login-input.i-login-username
+          nz-input-group(nzSize="large",[nzSuffix]="suffixUsernameTemplate",[nzPrefix]="prefixUsernameTemplate")
+            input(type="text",nz-input,placeholder="请输入用户名",[(ngModel)]="username")
+          ng-template(#prefixUsernameTemplate='')
+            i(nz-icon,type="user",style="font-size: 20px;")
+          ng-template(#suffixUsernameTemplate='')
+            i(nz-icon,type="close-circle",(click)="username=null",style="font-size: 18px;",*ngIf="username")
+
+        .i-login-input.i-login-password
+          nz-input-group(nzSize="large",[nzSuffix]="suffixLockTemplate",[nzPrefix]="prefixLockTemplate")
+            input(type="text",nz-input,nzSize="large",placeholder="请输入密码",[(ngModel)]="password")
+          ng-template(#prefixLockTemplate='')
+            i(nz-icon,type="lock",style="font-size: 20px;")
+          ng-template(#suffixLockTemplate='')
+            i(nz-icon,type="close-circle",(click)="password=null",style="font-size: 18px;",*ngIf="password")
+
+        .i-login-input.i-login-verification.display-flex
+          nz-input-group(nzSize="large",[nzSuffix]="suffixVerificationTemplate")
+            input(type="text",nz-input,nzSize="large",placeholder="验证码",[(ngModel)]="verification")
+          ng-template(#suffixVerificationTemplate='')
+            i(nz-icon,type="close-circle",(click)="verification=null",style="font-size: 18px;",*ngIf="verification")
+          .i-verification-code
+            img.display-img(src="../../../static//img//login/verification_code.jpg")
+
+        .i-login-button
+          button(nz-button,nzType="primary",nzSize="large",nzBlock,(click)="login()") 登录
+
+      .i-error-info.error-color.f-size3 用户名或密码错误请检查

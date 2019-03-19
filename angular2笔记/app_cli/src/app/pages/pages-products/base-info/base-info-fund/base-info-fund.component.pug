@@ -1,0 +1,48 @@
+.content
+  app-query-filter([queryFilterData]="queryFilterData",(queryEvent)="onQueryEmit($event)")
+
+  //- button((click)="clickchek()") 点击获取远程加载选中的数据
+  //- button((click)="alertModal()") 通过订阅的方式获取弹出框1
+  //- button((click)="alertModal2()") 通过订阅的方式获取弹出框2
+  //- button((click)="clickchek2()") 点击获取选中的数据
+
+  //- .table-show.border
+  //-   app-show-table([nzTableData]="nzTableData")
+
+  .table-show.border(*ngIf="isContentShow")
+    app-show-table([nzTableData]="tableLocalData")
+
+    app-bottom-button([buttonGroupOption]="buttonGroupOption" , (buttonEvent)="buttonEvent($event)")
+
+.tabs-panel(*ngIf="!isContentShow")
+  .tabs-title
+    p.tabs-title-text 明细
+    .tabs-button-group
+      button( nz-button,nzType="primary", (click)="modifyBtnClick()")
+        i(nz-icon,type="edit",theme="outline")
+        | 修改
+      button( nz-button,nzType="primary", (click)="cancelBtnClick()",nzGhost)
+        i(nz-icon,type="close",theme="outline")
+        | 取消
+
+  nz-tabset([nzType]="'card'")
+    nz-tab(nzTitle="基本信息")
+      .tabs-content
+        p 基本信息
+    nz-tab(nzTitle="其他信息")
+      .tabs-content
+        p 其他信息
+    nz-tab(nzTitle="费率")
+      .tabs-content
+        p 费率
+    nz-tab(nzTitle="表现及风险")
+      .tabs-content
+        p 表现及风险
+    nz-tab(nzTitle="投资组合")
+      .tabs-content
+        p 投资组合
+    nz-tab(nzTitle="定投信息")
+      .tabs-content
+        p 定投信息
+
+

@@ -1,0 +1,15 @@
+nz-select(style="width: 159px",
+          [nzMaxTagPlaceholder]="tagPlaceHolder",
+          [nzMaxMultipleCount]="multipSelectData.nzMaxMultipleCount",
+          [nzMaxTagCount]="multipSelectData.nzMaxTagCount",
+          [nzMode]="multipSelectData.nzMode",
+          [nzAllowClear] = "multipSelectData.nzAllowClear",
+          [nzPlaceHolder]="multipSelectData.nzPlaceHolder",
+          [(ngModel)]="multipSelectData.listOfSelectedValue",
+          (ngModelChange)="multipSelectData.ngModelChange($event)")
+  nz-option(
+    *ngFor="let option of multipSelectData.listOfOption",
+    [nzLabel]="option.label",
+    [nzValue]="option.value")
+
+ng-template(#tagPlaceHolder='')  ...

@@ -1,0 +1,13 @@
+.i-filter.border
+  .i-filter-content(nzSpan="24")
+
+    .filter-input-group(*ngFor="let input of queryFilterData", [ngSwitch]="input.type")
+      label(*ngSwitchCase=" 'input' ",) {{input.label}}
+      input(*ngSwitchCase=" 'input' ",type="text",[(ngModel)]="input.value",nz-input,[placeholder]="input.placeholder")
+
+      label(*ngSwitchCase=" 'sin-select' ",) {{input.label}}
+      div.i-m-select(*ngSwitchCase=" 'sin-select' ")
+        app-input-select([multipSelectData]="input.multipSelectData")
+
+  .i-button
+    button.w110(nz-button,nzType="primary" , (click)="queryData()") 查询

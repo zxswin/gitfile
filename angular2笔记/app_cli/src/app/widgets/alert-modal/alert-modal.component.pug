@@ -1,0 +1,22 @@
+nz-modal([(nzVisible)]="renderData.isVisible",
+        [nzTitle]="modalTitle",
+        nzWidth = "520px",
+        nzWrapClassName="vertical-center-modal"
+        [nzContent]="modalContent",
+        [nzFooter]="modalFooter" ,
+        [nzOkLoading]="isOkLoading",
+        (nzOnCancel)="handleCancel()",
+        (nzOnOk)="handleOk()")
+
+ng-template(#modalTitle='') {{renderData.title}}
+
+ng-template(#modalContent='')
+  div([innerHtml]="contentHtml")
+
+ng-template(#modalFooter='')
+  button(nz-button , nzType="default", (click)="handleCancel()") {{renderData.okText}}
+  button(nz-button , nzType="primary" , (click)="handleOk()" , [nzLoading]="isOkLoading") {{renderData.cancelText}}
+
+
+
+

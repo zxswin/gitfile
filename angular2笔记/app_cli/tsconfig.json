@@ -1,0 +1,32 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./", // 解析非相对模块名的基准目录
+    "outDir": "./dist/out-tsc", // 重定向输出目录。
+    "sourceMap": true, // 生成相应的 .map文件。如js文件中写入 //# sourceMappingURL=jquery.min.map
+    "declaration": false, // 生成相应的 .d.ts文件。
+    "module": "es2015", // js的模块化类型 nodejs 使用commonjs
+    "moduleResolution": "node", // 决定如何处理模块。或者是"Node"对于Node.js/io.js，或者是"Classic"（默认）
+    "emitDecoratorMetadata": true, //  // 给源码里的装饰器声明加上设计类型元数据。
+    "experimentalDecorators": true, // 启用实验性的ES装饰器。
+    "importHelpers": true, // 从 tslib 导入辅助工具函数（比如 __extends， __rest等）
+    "target": "es5", // 要编译成的那个版本的js文件
+    // "allowSyntheticDefaultImports": true, // 允许从没有设置默认导出的模块中默认导入。这并不影响代码的输出，仅为了类型检查。
+    // 要包含的类型声明文件路径列表。
+    "typeRoots": [
+      "node_modules/@types",
+      "@app-types"
+    ],
+    // 编译过程中需要引入的库文件的列表。 可能的值为：  arget ES5：DOM，ES5，ScriptHost
+    "lib": ["es2017", "es2018", "dom"],
+    // 模块名到基于 baseUrl的路径映射的列表
+    "paths": {
+      "@common": ["app/common"],
+      "@common/*": ["app/common/*"],
+    }
+  },
+  // 需要编译的TS文件目录
+  "includes": ["src/**/*"],
+  // 不需要编译的文件目录
+  "exclude": ["node_modules", "dist"]
+}

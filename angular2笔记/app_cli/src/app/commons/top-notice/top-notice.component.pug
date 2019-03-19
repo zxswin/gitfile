@@ -1,0 +1,8 @@
+nz-row.i-notice(nzType="flex")
+    nz-col.i-flex(nzSpan="12")
+      i.i-icon(nz-icon,type="notification",theme="outline")
+      span 通知内容8888
+    nz-col.i-menu-flex(nzSpan="12")
+      i.i-icon(nz-icon,type="home",theme="outline")
+      nz-breadcrumb
+        nz-breadcrumb-item(*ngFor="let item of breadcrumbNavData;") {{item}}

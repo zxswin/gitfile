@@ -1,0 +1,60 @@
+//- //- //- a( [routerLink]="[{ outlets: { popup: ['two'] } }]") 第二路由出口
+//- //- //- br
+//- //- //- a( routerLink="/login" ) 跳转login
+
+//- //- //- div([@routeAnimation]="getAnimationData(routerOutlet)")
+//- //- //-   router-outlet(#routerOutlet="outlet")
+
+//- //- //- router-outlet(name="popup")
+//- //- //- app-top-bar([setData]="topBarData")
+
+//- nz-layout
+//-   nz-header.i-menu-head
+//-     app-top-bar([setData]="topBarData")
+//-   top-notice
+
+//-   nz-content
+//-     nz-row
+//-       nz-col(nzSpan="4")
+//-         menu
+//-       nz-col(nzSpan="20")
+//-         //nz-row
+//-           ul(nz-menu,[nzMode]="'horizontal'",style="line-height: 64px;")
+//-             li(nz-menu-item,nzSelected="true") 链接页面1
+//-             li(nz-menu-item) 链接页面1
+//-             li(nz-menu-item) 链接页面2
+//-             li(nz-menu-item) 链接页面3
+//-             li(nz-menu-item) 链接页面4
+
+//-         nz-row([@routeAnimation]="getAnimationData(routerOutlet)")
+//-           router-outlet(#routerOutlet="outlet")
+
+//-         router-outlet(name="popup")
+
+//-   nz-footer(style="text-align: center; background:#fff;") Ant Design ©2017 Implement By Angular8888
+
+
+nz-layout
+  nz-header.i-topbar-head
+    app-top-bar([setData]="topBarData")
+  nz-layout(style="margin-top:10px;")
+    nz-sider.i-bg-size(nzCollapsible,[(nzCollapsed)]="menuConfig.isCollapsed",[nzTrigger]="null")
+      app-menu([menuConfig]="menuConfig",(collapsEvent)="collapsEvent($event)")
+
+    nz-layout(style="margin-left:10px;")
+      nz-header.i-notice-head
+        app-top-notice
+      nz-content(style="background:#fff;")
+        nz-row([@routeAnimation]="getAnimationData(routerOutlet)")
+          router-outlet(#routerOutlet="outlet")
+        router-outlet(name="popup")
+
+      nz-footer.border-top
+        ul.display-flex
+          li
+            i(nz-icon,type="clock-circle",theme="outline")
+            span 北京时间：10:02
+          li 初始化时间：20190219
+          li 系统状态：正常运行
+          li 登录用户：8888
+          li 营业部：GF Canada（8888）

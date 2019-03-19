@@ -1,0 +1,21 @@
+import { Component, Input }  from '@angular/core';
+
+import { AdComponent }       from './ad.component';
+
+@Component({
+  template: `
+    <div class="hero-profile">
+      <h3>有特色的英雄简介</h3>
+      <h4>{{data.name}}</h4>
+
+      <p>{{data.bio}}</p>
+
+      <strong>租用今天的英雄!</strong>
+    </div>
+  `
+})
+export class HeroProfileComponent implements AdComponent {
+  @Input() data: any;
+}
+
+

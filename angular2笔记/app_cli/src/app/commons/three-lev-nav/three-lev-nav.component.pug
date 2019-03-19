@@ -1,0 +1,4 @@
+nz-row
+  ul(nz-menu,[nzMode]="'horizontal'",style="line-height: 64px;")
+    li(*ngFor="let item of levelThreeNav;",nz-menu-item,(click)="go(item.url)",
+    [ngClass]="{'ant-menu-item-selected': checkRouteState(item.url)}") {{item.title}}
