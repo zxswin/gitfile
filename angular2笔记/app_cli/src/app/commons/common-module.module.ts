@@ -4,15 +4,10 @@ import { MuneComponent } from './menu/menu.component';
 import { ThreeLevNavComponent } from './three-lev-nav/three-lev-nav.component';
 import { TopNoticeComponent } from './top-notice/top-notice.component';
 import { BackTopComponent } from './back-top/back-top.component';
-
-
-import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
-import { registerLocaleData } from '@angular/common';
-import zh from '@angular/common/locales/zh';
+import { FooterComponent } from './footer/footer.component';
 
 import { WidgetsModuleModule } from '../widgets/widgets-module.module';
 
-registerLocaleData(zh);
 
 const componentsList = [
   MuneComponent,
@@ -20,15 +15,12 @@ const componentsList = [
   TopBarComponent,
   TopNoticeComponent,
   BackTopComponent,
+  FooterComponent
 ];
 @NgModule({
-  imports: [
-    WidgetsModuleModule,
-    NgZorroAntdModule],
+  imports: [WidgetsModuleModule],
   declarations: [componentsList],
-  providers: [
-    { provide: NZ_I18N, useValue: zh_CN } // 添加对应的依赖提供商
-  ],
-  exports: [componentsList]
+  providers: [],
+  exports: [componentsList] // 需要对其他模块输出componentsList 这样其他模块才能正常使用 该模块下的组件
 })
 export class CommonModuleModule {}

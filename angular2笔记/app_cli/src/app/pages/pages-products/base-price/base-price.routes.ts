@@ -1,11 +1,11 @@
 import { RouterModule,Routes } from '@angular/router';
-import { BasePriceComponent } from './base-price/base-price.component';
-import { BaseInfoPriceComponent } from './base-price-info/base-price-info.component';
-import { BasePriceHistroyComponent } from './base-price-histroy/base-price-histroy.component';
+import { BasePriceComponent } from './base-price.component';
+import { BaseInfoPriceComponent } from '../base-price-info/base-price-info.component';
+import { BasePriceHistroyComponent } from '../base-price-histroy/base-price-histroy.component';
 
 
 export const routes: Routes = [
-    { path: '' , 
+    { path: '' ,
       component: BasePriceComponent,
       children: [
         {

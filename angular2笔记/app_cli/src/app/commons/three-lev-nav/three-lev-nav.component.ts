@@ -10,7 +10,7 @@ import { Router, Route, ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import { MenuConfig, MenuDataObj, MenuItem } from '@app-types/menu';
 import { MENU_CONFIG } from '../../config/menu-config';
-import { ThreeLevNavServices } from '../three-lev-nav/three-lev-nav.services';
+import { ThreeLevNavService } from '../three-lev-nav/three-lev-nav.service';
 
 @Component({
   selector: 'app-three-nav',
@@ -25,7 +25,7 @@ export class ThreeLevNavComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private location: Location,
-    private threeLevNavServices: ThreeLevNavServices,
+    private threeLevNavService: ThreeLevNavService,
   ) {}
 
   ngOnInit() {
@@ -64,7 +64,7 @@ export class ThreeLevNavComponent implements OnInit {
     /** 渲染三级菜单的数据  */
     this.levelThreeNav = levelThreeData;
     /** 产生面包屑导航的数据流  */
-    this.threeLevNavServices.renderNav(threeLevNavBreadcrumb);
+    this.threeLevNavService.renderNav(threeLevNavBreadcrumb);
   }
 
   /** 点击菜单进行导航  */

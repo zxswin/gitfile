@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit , Inject} from '@angular
 import { Router, Route, ActivatedRoute , Params} from '@angular/router';
 import { Location } from '@angular/common';
 import { MenuConfig } from '@app-types/menu';
+import { MenuService} from './menu.service';
 
 @Component({
   selector: 'app-menu',
@@ -22,6 +23,7 @@ export class MuneComponent implements OnInit {
   currentUrl = '';
 
   constructor(private router: Router,
+              private menuService: MenuService,
               private activatedRoute: ActivatedRoute,
               private location: Location) {}
 
@@ -46,6 +48,8 @@ export class MuneComponent implements OnInit {
   triggerClick() {
     this.menuConfig.isCollapsed = !this.menuConfig.isCollapsed;
     this.collapsEvent.emit(this.menuConfig.isCollapsed);
+    /** 产生菜单面板是否收缩的数据流  */
+    this.menuService.setCollapsed(this.menuConfig.isCollapsed);
   }
 
   /** 菜单展开时候的回调函数  */

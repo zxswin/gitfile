@@ -30,6 +30,6 @@ const componentsList = [
   providers: [
     { provide: NZ_I18N, useValue: zh_CN } // 添加对应的依赖提供商
   ],
-  exports: [CommonModule, FormsModule, componentsList]
+  exports: [CommonModule, FormsModule, NgZorroAntdModule , componentsList] // componentsList 必须对外输出 因为其他模块会用到
 })
 export class WidgetsModuleModule {}

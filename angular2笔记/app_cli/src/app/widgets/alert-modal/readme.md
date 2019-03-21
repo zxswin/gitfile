@@ -46,14 +46,14 @@ export class AlertModalComponent {
     isVisible: false,
   };
 
-  constructor(private alertModalService: AlertModalService) {}
+  constructor(private AlertModalService: AlertModalService) {}
 
   ngOnInit(): void {
 
     /**
      * 订阅弹出框数据流主题 看其他组件产生的最新数据流
       */
-    this.alertModalService.alertModal$.subscribe(renderData => {
+    this.AlertModalService.alertModal$.subscribe(renderData => {
       this.renderData.isVisible = renderData.isVisible;
     }, error => {
       console.log('弹出框出错了: ' + error);
@@ -89,7 +89,7 @@ import { AlertModalService } from '../../../../commons/alert-modal/alert-modal.s
 }) 
 
 export class BaseInfoFundComponent {
-  constructor(private alertModalService: AlertModalService) {}
+  constructor(private AlertModalService: AlertModalService) {}
 
   alertModal() {
 
@@ -97,7 +97,7 @@ export class BaseInfoFundComponent {
     isVisible: true,
   }
 
-  this.alertModalService.render(renderData); // 把最新RenderData的数据加到服务的数据流中
+  this.AlertModalService.render(renderData); // 把最新RenderData的数据加到服务的数据流中
 
   }
 

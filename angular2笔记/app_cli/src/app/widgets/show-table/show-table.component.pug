@@ -33,7 +33,7 @@ nz-table(
         (nzCheckedChange)="nzTableData.check.checkAll($event)")
       ng-container(*ngFor="let column of nzTableData.tableData.columnData; let i=index;")
         th(*ngIf="column.checked && i==0",
-          nzLeft="100px",
+          [nzLeft]="nzTableData.check.isShwo? '88px' : '0px' ",
           style="min-width:100px;",
           [nzShowSort]="column.sort",
           [nzShowFilter]="column.filter.isShowFilter",
@@ -60,7 +60,7 @@ nz-table(
         (nzCheckedChange)="nzTableData.check.refreshStatus()")
 
       ng-container(*ngFor="let column of nzTableData.tableData.columnData; let i=index;")
-        td(*ngIf="column.checked && i==0",nzLeft="100px")
+        td(*ngIf="column.checked && i==0",[nzLeft]="nzTableData.check.isShwo? '88px' : '0px' ")
           a.ellipsis([title]="data[column.field]",style="max-width: 300px;") {{data[column.field]}}
 
         td(*ngIf="column.checked && i!=0")
@@ -72,7 +72,7 @@ nz-table(
           nz-divider(*ngIf="action.isShow",nzType="vertical")
 
       ng-template(#template='')
-        ul.i-contextMenu(nz-menu,nzInDropDown,(nzClick)="close($event)")
+        ul.i-contextMenu(*ngIf="nzTableData.action",nz-menu,nzInDropDown,(nzClick)="close($event)")
           li(nz-menu-item,
             *ngFor="let action of nzTableData.action",
             (click)="action.action(data)",

@@ -6,8 +6,9 @@ import {
   TableData,
   ShowSort,
   Filter,
-  CommonObj
-} from './data-type';
+  CommonObj,
+  TableMethod,
+} from '@app-types/show.table';
 import { HttpService } from '../../services/http.service';
 
 import {
@@ -40,10 +41,15 @@ export class ShowTableComponent implements OnInit {
   nzTableDefaultData: NzTableData = {
     pageIndex: 1, // 当前页码
     pageSize: 10, // 每页展示多少条数据
-    nzScroll: { x: '3000px' }, // 为大于表格宽度的固定值或百分比
+    nzScroll: { x: '1360px' }, // 为大于表格宽度的固定值或百分比
     nzFrontPagination: false, // 是否在前端对数据进行分页 用于本地数据加载
     nzBordered: false, // 是否展示表格边框
     loading: true // 是否显示页面加载中
+  };
+
+  /** 表格对外公用方法默认参数  */
+  tableDefaultMethod: TableMethod = {
+    refresh: () => {},
   };
 
   // 表格复选框的默认参数
@@ -115,6 +121,16 @@ export class ShowTableComponent implements OnInit {
       this.tableDefaultData,
       this.nzTableData.tableData
     );
+
+    /** 表格公用方法初始化  */
+    this.nzTableData.method = Object.assign(
+      {},
+      this.tableDefaultMethod,
+      this.nzTableData.method
+    );
+
+    console.log('this.nzTableData.action' , this.nzTableData.action);
+
     /** 表格数据初始化 */
     this.nzTableData = Object.assign(
       {},
@@ -128,6 +144,7 @@ export class ShowTableComponent implements OnInit {
     this.ngTableFilter(); // 控制表格字段过滤功能
 
     this.fieldShow(); // 控制哪些字段需要展示
+    this.publicMethod(); // 表格对外暴露的公用方法
 
     this.nzTableData.tableData.renderData(); // 表格数据渲染
   }
@@ -223,6 +240,13 @@ export class ShowTableComponent implements OnInit {
           this.nzTableData.tableData.total = data.total; // 这里是数据的总条数 应该是后端接口返回
           this.displayData = data.data; // 获取表格数据
         });
+    };
+  }
+
+  /** 表格对外暴露的公用方法  */
+  publicMethod() {
+    this.nzTableData.method.refresh = () => {
+      this.nzTableData.tableData.renderData(); // 表格数据渲染
     };
   }
 

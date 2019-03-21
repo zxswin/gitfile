@@ -8,7 +8,7 @@ import {
 import { Observable } from 'rxjs/Rx';
 
 // 引入要守卫的组件 可以忽略，仅当需要获取组件中的属性值或方法的时候使用
-import { BaseInfoBundComponent } from '../pages/pages-products/base-info/base-info-bund/base-info-bund.component';
+import { BaseInfoBundComponent } from '../pages/pages-products/base-info-bund/base-info-bund.component';
 
 @Injectable()
 export class CanDeactivateGuard

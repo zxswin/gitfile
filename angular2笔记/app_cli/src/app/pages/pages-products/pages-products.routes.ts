@@ -1,5 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
-import { ProductsShowComponent } from './products-show/products-show.component';
+import { PagesProductsComponent } from './pages-products.component';
 
 import { AuthGuard } from '../../auth/auth.guard'; // 引入守卫服务
 
@@ -8,8 +8,8 @@ import { AuthGuard } from '../../auth/auth.guard'; // 引入守卫服务
 export const routes: Routes = [
   {
     path: '',
-    component: ProductsShowComponent,
-    canActivate: [AuthGuard], //提供路由守卫
+    component: PagesProductsComponent,
+    canActivate: [AuthGuard], // 提供路由守卫
     // 无组件路由：分组路由，而不需要组件，方便添加子组件路由守卫 而不需要每个都去单独添加
     children: [
       {
