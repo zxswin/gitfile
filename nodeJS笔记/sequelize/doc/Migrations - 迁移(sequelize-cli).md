@@ -207,16 +207,72 @@ module.exports = {
 ```
 
 ## 问题
+### 创建
+* 使用model:generate 命令创建  User 表模型 会生成sequelize-cli使用的模型文件 和sequelize使用的模型文件(仅为生成模板功能)
+> node_modules\\.bin\\sequelize model:generate --name User --attributes firstName:string,lastName:string,email:string
+* 创建一个种子文件 (仅为创建一个模板文件)
+> node_modules\.bin\sequelize seed:generate --name demo-user
+
 ### 快速运行
-* 创建数据库
+* 创建数据库(此时创建的数据库字符集和排序规则均为默认, 虽然在config文件中配置但是并没有生效)
 > node_modules\\.bin\\sequelize db:create 
-* 创建表
+* 创建表(创建表的文件需要指定对应字符集 不然中文会出现乱码)
 > node_modules\\.bin\\sequelize db:migrate
-* 添加数据
+* 添加数据(如果数据表已经存在则会对数据进行追加插入)
+> node_modules\\.bin\\sequelize db:seed:all
+
+### 各个文件的作用
+* config 中的文件用于配置
+* migrations 中的文件用于sequelize-cli用于创建数据表
+* models 中的文件是表模型文件用于sequelize获取表模型并进行相关操作 sequelize并不会处理这个文件
+* seeders 中的文件用于sequelize-cli用来往数据表里添加数据
+
+### 两中模型文件
+* sequelize-cli 使用的模型文件的写法 参考 QueryInterface
+* sequelize 使用的模型文件为常规sequelize的语法 用于正常业务逻辑代码中使用
+
+## 实战案例
+
+### 按照必要依赖
+``` json
+"koa": "^2.5.3",  // 用于搭建服务器
+"koa-bodyparser": "^4.2.1", // 用于body参数解析
+"koa-router": "^7.4.0", // 用于处理访问地址路由
+"koa-static": "^5.0.0", // 用于处理静态资源的访问
+"md5": "^2.2.1", // 用于处理md5加密
+"mysql2": "^1.6.1", // 用于处理操作数据库
+"sequelize": "^4.38.1", // 操作数据库
+"sequelize-cli": "^4.1.1" // 数据库迁移 和数据初始化
+
+```
+
+### 生成 User 表模型文件
+> node_modules\\.bin\\sequelize model:generate --name User --attributes title:string
+
+### 生成 Content 表模型文件
+> node_modules\\.bin\\sequelize model:generate --name Content --attributes title:string
+
+### 生成 Comment 表模型文件
+> node_modules\\.bin\\sequelize model:generate --name Comment --attributes title:string
+
+### 生成 Like 表模型文件
+node_modules\\.bin\\sequelize model:generate --name Like --attributes title:string
+
+### TestData 种子文件
+node_modules\.bin\sequelize seed:generate --name test-data
+
+### 快速运行
+* 创建数据库(此时创建的数据库字符集和排序规则均为默认, 虽然在config文件中配置但是并没有生效)
+> node_modules\\.bin\\sequelize db:create 
+* 创建表(创建表的文件需要指定对应字符集 不然中文会出现乱码)
+> node_modules\\.bin\\sequelize db:migrate
+* 添加数据(如果数据表已经存在则会对数据进行追加插入)
 > node_modules\\.bin\\sequelize db:seed:all
 
 
-## 实战案例
+
+
+
 
 
 ## 参考地址
@@ -237,6 +293,8 @@ http://docs.sequelizejs.com/class/lib/query-interface.js~QueryInterface.html
 migration 迁徙
 seeder 播种机
 associate 联合 使……联系
+collate 核对 校对
+reference 引用 参照
 ```
 
 
