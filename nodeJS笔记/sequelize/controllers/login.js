@@ -1,5 +1,7 @@
 /** 引入了所有的数据库model模型  */
-const Models = require("../models");
+const Models = require('../models/');
+const md5 = require('md5');
+const fs = require('fs');
 
 const login = async (ctx, next) => {
   let username = ctx.request.body.username;
@@ -36,11 +38,12 @@ const login = async (ctx, next) => {
     //     httpOnly: true,
     //     signed: true
     // });
+
     ctx.cookies.set('username', user.get('username'), {
-        httpOnly: false
+        httpOnly: false,
     });
 
-    ctx.session.uid = 1;
+    ctx.session.uid = user.get('id');
 
     ctx.body = {
         code: 0,
@@ -51,6 +54,14 @@ const login = async (ctx, next) => {
     }
 };
 
+const loginout = async (ctx, next) => {
+  ctx.session.uid = null;
+  let res
+  res = fs.readFileSync(__dirname + "/../template/login.html", "utf8");
+  ctx.body = res;
+}
+
 module.exports = {
-  "POST /api/login": login //暴露出对于的url及方法
+  "POST /api/login": login, //暴露出对于的url及方法
+  "GET /api/loginout": loginout //暴露出对于的url及方法
 };

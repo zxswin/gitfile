@@ -1,5 +1,5 @@
 /** 引入了所有的数据库model模型  */
-const Models = require("../models");
+const Models = require('../models/');
 
 const like = async (ctx, next) => {
   // 让客户端请求的时候带过来一个凭证
@@ -8,6 +8,8 @@ const like = async (ctx, next) => {
 
   // 根据上面的cookie确定，如果当前请求是一个登录的用户，那么头信息肯定会有当前这个登录用户id
   let uid = ctx.session.uid;
+
+  console.log('uid============' ,uid);
 
   // console.log(contentId, uid);
 
@@ -32,7 +34,7 @@ const like = async (ctx, next) => {
   // SELECT * FROM likes WHERE content_id=1 and user_id=1
   let like = await Models.Likes.findOne({
       where: {
-          [Sequelize.Op.and]: [
+          [Models.Sequelize.Op.and]: [
               {'content_id': contentId},
               {'user_id': uid}
           ]

@@ -1,0 +1,195 @@
+body,
+div,
+ul,
+li,
+ol,
+button {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  color: #333;
+}
+ul,
+li,
+ol {
+  list-style: none;
+}
+body {
+  padding:20px;
+}
+input {
+  border:1px solid #ccc;
+}
+button {
+  padding: 5px;
+  color: #fff;
+  background: rgb(19, 149, 255);
+  display: inline-block;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.contents {
+  width: 1000px;
+  margin: 20px auto;
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.i-content {
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  margin-bottom: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  margin:20px 0;
+}
+.i-content .img {
+  width: 100%;
+  text-align: center;
+}
+.i-content img {
+  display: inline-block;
+}
+.i-content .text {
+  width: 100%;
+  text-align: center;
+}
+
+.c-input {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.c-input input {
+  width: 100%;
+  height: 30px;
+  text-indent: 24px;
+}
+.c-input button {
+  width: 100px;
+  padding: 8px;
+  color: #fff;
+  background: rgb(19, 149, 255);
+  display: inline-block;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  margin-left: 30px;
+}
+
+.contents ul {
+  width: 100%;
+}
+
+.contents ul li {
+  width: 100%;
+  padding: 5px 0;
+  margin-bottom: 5px;
+}
+
+.comment-item {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.user-head {
+  width: 40px;
+  margin-right: 20px;
+}
+.user-head .i-head {
+  width: 40px;
+  height: 40px;
+  background: #ccc;
+  border-radius: 50%;
+}
+
+.user-head .i-name {
+  width: 100%;
+}
+
+.user-comment {
+  width: 100%;
+}
+.i-comment {
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  height: 50px;
+}
+
+.i-operation {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.i-operation button {
+  width: 50px;
+  padding: 5px;
+  color: #fff;
+  background: rgb(19, 149, 255);
+  display: inline-block;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+
+
+.login {
+  width:100%;
+  height:100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login .login-content {
+  width:500px;
+  height:450px;
+  border: 1px solid #ccc;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding:30px;
+  align-content:center;
+}
+
+.login .login-content input {
+  width: 400px;
+  height: 30px;
+  margin-bottom: 15px;
+  text-indent: 14px;
+}
+.login .login-content button {
+  width: 404px;
+  margin:0;
+  padding:10px;
+}
+
+.login p {
+  width: 404px;
+}
+
+#i-goregister , #i-gologin {
+  width: 404px;
+  text-align: right;
+  margin-top:20px;
+  color:rgb(19, 149, 255);
+  cursor: pointer;
+}
+
+#i-goregister:hover , #i-gologin:hover{
+  text-decoration: underline;
+}

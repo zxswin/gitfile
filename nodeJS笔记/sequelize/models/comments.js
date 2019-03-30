@@ -1,52 +1,35 @@
-'use strict';
+"use strict";
 module.exports = (sequelize, Sequelize) => {
-  const Comments = sequelize.define('Comments', {
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: Sequelize.INTEGER
-    },
-    content_id: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      references: {
-        model: "Contents",
-        key: 'id'
+  const Comments = sequelize.define(
+    "Comments",
+    {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      content: {
+        type: Sequelize.STRING(1000),
+        allowNull: false
       }
     },
-    user_id: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      references: {
-        model: "Users",
-        key: 'id'
-      }
-    },
-    content: {
-      type: Sequelize.STRING(1000),
-      allowNull: false
-    },
-    createdAt: {
-      allowNull: false,
-      type: Sequelize.DATE
-    },
-    updatedAt: {
-      allowNull: false,
-      type: Sequelize.DATE
+    {
+      charset: "utf8mb4",
+      collate: "utf8mb4_bin"
     }
-  }, {
-    tableName: 'comments'
-  });
+  );
   Comments.associate = function(models) {
     // associations can be defined here
 
-    Comments.belongsTo(models.Contents, {
-      foreignKey: 'content_id'
+    /** 一个评论对应一个用户  */
+    Comments.belongsTo(models.Users, {
+      foreignKey: "user_id"
     });
 
-    Comments.belongsTo(models.Users, {
-      foreignKey: 'user_id'
+    /** 一个评论对应一个内容  */
+    Comments.belongsTo(models.Contents, {
+      foreignKey: "content_id"
     });
   };
   return Comments;

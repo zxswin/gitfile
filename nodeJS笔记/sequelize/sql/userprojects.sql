@@ -1,0 +1,6 @@
+INSERT INTO `userprojects` VALUES ('2019-3-27 15:33:44', '2019-3-27 15:33:44', 1, 1);
+INSERT INTO `userprojects` VALUES ('2019-3-27 15:33:44', '2019-3-27 15:33:44', 1, 2);
+INSERT INTO `userprojects` VALUES ('2019-3-27 15:33:44', '2019-3-27 15:33:44', 1, 3);
+INSERT INTO `userprojects` VALUES ('2019-3-27 15:33:44', '2019-3-27 15:33:44', 2, 1);
+INSERT INTO `userprojects` VALUES ('2019-3-27 15:33:44', '2019-3-27 15:33:44', 3, 2);
+INSERT INTO `userprojects` VALUES ('2019-3-27 15:33:44', '2019-3-27 15:33:44', 3, 3);

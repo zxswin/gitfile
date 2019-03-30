@@ -1,27 +1,18 @@
-var fn_index = async (ctx, next) => {
-  ctx.response.body = `<h1>Index</h1>
-      <form action="/signin" method="post">
-          <p>Name: <input name="name" value="koa"></p>
-          <p>Password: <input name="password" type="password"></p>
-          <p><input type="submit" value="Submit"></p>
-      </form>`;
-};
+const fs = require('fs');
 
-var fn_signin = async (ctx, next) => {
-  var
-      name = ctx.request.body.name || '',
-      password = ctx.request.body.password || '';
-  console.log(`signin with name: ${name}, password: ${password}`);
-  if (name === 'koa' && password === '12345') {
-      ctx.response.body = `<h1>Welcome, ${name}!</h1>`;
+const index = async (ctx, next) => {
+  let res;
+  
+  if (ctx.session.uid) {
+    res = fs.readFileSync(__dirname + "/../template/contents.html", "utf8");
   } else {
-      ctx.response.body = `<h1>Login failed!</h1>
-      <p><a href="/">Try again</a></p>`;
+    res = fs.readFileSync(__dirname + "/../template/login.html", "utf8");
   }
+
+  console.log("res", res);
+  ctx.body = res;
 };
 
 module.exports = {
-  //暴露出对于的url及方法
-  'GET /login': fn_index,
-  'POST /signin': fn_signin
+  'GET /': index //暴露出对于的url及方法
 };

@@ -9,6 +9,7 @@
   const mime = require('mime'); // 引入依赖
 
   const Session = require('koa-session');
+  const md5 = require('md5');
 
   const app = new Koa();
 

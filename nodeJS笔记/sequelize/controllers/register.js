@@ -1,5 +1,7 @@
 /** 引入了所有的数据库model模型  */
-const Models = require("../models");
+const Models = require('../models/');
+const md5 = require('md5');
+const fs = require('fs');
 
 const register = async (ctx, next) => {
 
@@ -49,6 +51,13 @@ const register = async (ctx, next) => {
   
 };
 
+const toregister = async (ctx, next) => {
+  let res
+  res = fs.readFileSync(__dirname + "/../template/register.html", "utf8");
+  ctx.body = res;
+}
+
 module.exports = {
-  "POST /api/register": register //暴露出对于的url及方法
+  "POST /api/register": register, //暴露出对于的url及方法
+  "GET /api/toregister": toregister //暴露出对于的url及方法
 };
