@@ -1,0 +1,857 @@
+2019-04-03 09:48:45,760 ERROR 19248 [-/127.0.0.1/-/3ms GET /api/contents] nodejs.TypeError: Cannot read property 'findAll' of undefined
+    at Content.getContents (D:\my-item\egg-sequelize\egg-sequelize\app\service\contents.js:7:41)
+    at ContentController.content (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:9:43)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+
+pid: 19248
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 09:49:11,615 ERROR 5780 [-/127.0.0.1/-/24ms GET /api/contents] nodejs.SequelizeDatabaseError: Unknown column 'comments.content' in 'field list'
+    at Query.formatError (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\dialects\mysql\query.js:247:16)
+    at Query.handler [as onResult] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\dialects\mysql\query.js:68:23)
+    at Query.execute (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\commands\command.js:30:14)
+    at Connection.handlePacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:449:32)
+    at PacketParser.Connection.packetParser.p [as onPacket] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:72:12)
+    at PacketParser.executeStart (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\packet_parser.js:75:16)
+    at Socket.Connection.stream.on.data (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:79:25)
+    at Socket.emit (events.js:197:13)
+    at addChunk (_stream_readable.js:288:12)
+    at readableAddChunk (_stream_readable.js:269:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:145:17)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\debuggability.js:411:19)
+    at Promise._then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:232:17)
+    at Promise.then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:125:17)
+    at Function.findAll (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:1595:8)
+    at Content.getContents (D:\my-item\egg-sequelize\egg-sequelize\app\service\contents.js:7:42)
+    at ContentController.content (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:9:43)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+name: "SequelizeDatabaseError"
+parent: {"code":"ER_BAD_FIELD_ERROR","errno":1054,"sqlState":"42S22","sqlMessage":"Unknown column 'comments.content' in 'field list'","sql":"SELECT `contents`.`id`, `contents`.`title`, `contents`.`content`, `contents`.`like_count`, `contents`.`comment_count`, `contents`.`created_at`, `contents`.`updated_at`, `contents`.`user_id`, `comments`.`id` AS `comments.id`, `comments`.`content` AS `comments.content`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;"}
+original: {"code":"ER_BAD_FIELD_ERROR","errno":1054,"sqlState":"42S22","sqlMessage":"Unknown column 'comments.content' in 'field list'","sql":"SELECT `contents`.`id`, `contents`.`title`, `contents`.`content`, `contents`.`like_count`, `contents`.`comment_count`, `contents`.`created_at`, `contents`.`updated_at`, `contents`.`user_id`, `comments`.`id` AS `comments.id`, `comments`.`content` AS `comments.content`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;"}
+sql: "SELECT `contents`.`id`, `contents`.`title`, `contents`.`content`, `contents`.`like_count`, `contents`.`comment_count`, `contents`.`created_at`, `contents`.`updated_at`, `contents`.`user_id`, `comments`.`id` AS `comments.id`, `comments`.`content` AS `comments.content`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;"
+pid: 5780
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:35:20,074 ERROR 14964 [-/127.0.0.1/-/6ms GET /] nodejs.ReferenceError: id is not defined
+    at HomeController.index (D:\my-item\egg-sequelize\egg-sequelize\app\controller\home.js:18:49)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 14964
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:35:25,845 ERROR 14964 [-/127.0.0.1/-/0ms GET /] nodejs.ReferenceError: id is not defined
+    at HomeController.index (D:\my-item\egg-sequelize\egg-sequelize\app\controller\home.js:18:49)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 14964
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:35:48,942 ERROR 14740 [-/127.0.0.1/-/13ms GET /] nodejs.ReferenceError: app is not defined
+    at HomeController.index (D:\my-item\egg-sequelize\egg-sequelize\app\controller\home.js:22:7)
+
+pid: 14740
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:36:01,247 ERROR 14740 [-/127.0.0.1/-/1ms GET /] nodejs.ReferenceError: app is not defined
+    at HomeController.index (D:\my-item\egg-sequelize\egg-sequelize\app\controller\home.js:22:7)
+
+pid: 14740
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:38:10,059 ERROR 704 [-/127.0.0.1/-/13ms GET /] nodejs.TypeError: Cannot read property 'username' of null
+    at HomeController.index (D:\my-item\egg-sequelize\egg-sequelize\app\controller\home.js:26:35)
+
+pid: 704
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:38:18,669 ERROR 704 [-/127.0.0.1/-/2ms GET /] nodejs.TypeError: Cannot read property 'username' of null
+    at HomeController.index (D:\my-item\egg-sequelize\egg-sequelize\app\controller\home.js:26:35)
+
+pid: 704
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:38:40,537 ERROR 704 [-/127.0.0.1/-/2ms GET /] nodejs.TypeError: Cannot read property 'username' of null
+    at HomeController.index (D:\my-item\egg-sequelize\egg-sequelize\app\controller\home.js:26:35)
+
+pid: 704
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:39:40,251 ERROR 16320 [-/127.0.0.1/-/41ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16320
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:41:13,009 ERROR 16320 [-/127.0.0.1/-/8260ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+
+pid: 16320
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:41:13,014 ERROR 16320 [-/127.0.0.1/-/7ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16320
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:42:26,546 ERROR 16968 [-/127.0.0.1/-/49ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:23)
+
+pid: 16968
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:43:47,597 ERROR 16192 [-/127.0.0.1/-/35ms POST /api/login] nodejs.SyntaxError: Identifier 'username' has already been declared
+    at UserController.login (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:8:40)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 16192
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:43:53,286 ERROR 13200 [-/127.0.0.1/-/29ms POST /api/login] nodejs.SyntaxError: Identifier 'username' has already been declared
+    at UserController.login (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:8:40)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 13200
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:44:30,272 ERROR 13200 [-/127.0.0.1/-/3ms POST /api/login] nodejs.SyntaxError: Identifier 'username' has already been declared
+    at UserController.login (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:8:40)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 13200
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:44:38,874 ERROR 8564 [-/127.0.0.1/-/33ms POST /api/login] nodejs.SyntaxError: Identifier 'username' has already been declared
+    at UserController.login (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:8:40)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 8564
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:45:15,974 ERROR 15308 [-/127.0.0.1/-/45ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:43:17)
+
+pid: 15308
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:45:17,076 ERROR 15308 [-/127.0.0.1/-/16ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:43:17)
+
+pid: 15308
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:46:11,798 ERROR 17764 [-/127.0.0.1/-/53ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:43:17)
+
+pid: 17764
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:46:27,060 ERROR 5368 [-/127.0.0.1/-/50ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:43:17)
+
+pid: 5368
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 11:46:54,663 ERROR 15112 [-/127.0.0.1/-/63ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:43:17)
+
+pid: 15112
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:10:54,825 ERROR 18100 nodejs.ClusterClientNoResponseError: client no response in 4985835ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_cluster-client@3.0.1@cluster-client\lib\leader.js:77:23)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ClusterClientNoResponseError"
+pid: 18100
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:22:13,658 ERROR 1676 [-/127.0.0.1/-/62ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 1676
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:23:25,112 ERROR 19052 [-/127.0.0.1/-/41ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 19052
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:23:26,610 ERROR 19052 [-/127.0.0.1/-/8ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 19052
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:23:27,532 ERROR 19052 [-/127.0.0.1/-/9ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 19052
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:23:28,218 ERROR 19052 [-/127.0.0.1/-/7ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 19052
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:23:29,561 ERROR 19052 [-/127.0.0.1/-/7ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 19052
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:23:30,938 ERROR 19052 [-/127.0.0.1/-/6ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 19052
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:23:54,033 ERROR 19052 [-/127.0.0.1/-/13ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 19052
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:24:40,608 ERROR 16908 [-/127.0.0.1/-/40ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16908
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:24:41,971 ERROR 16908 [-/127.0.0.1/-/7ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16908
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:24:42,682 ERROR 16908 [-/127.0.0.1/-/7ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16908
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:24:43,145 ERROR 16908 [-/127.0.0.1/-/6ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16908
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:24:43,794 ERROR 16908 [-/127.0.0.1/-/7ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16908
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:24:52,223 ERROR 16876 [-/127.0.0.1/-/52ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16876
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:24:53,235 ERROR 16876 [-/127.0.0.1/-/8ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16876
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:24:53,914 ERROR 16876 [-/127.0.0.1/-/6ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16876
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:24:54,433 ERROR 16876 [-/127.0.0.1/-/6ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16876
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:24:54,684 ERROR 16876 [-/127.0.0.1/-/6ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16876
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:24:54,883 ERROR 16876 [-/127.0.0.1/-/8ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16876
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:24:55,073 ERROR 16876 [-/127.0.0.1/-/6ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16876
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:24:55,249 ERROR 16876 [-/127.0.0.1/-/6ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16876
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:24:55,441 ERROR 16876 [-/127.0.0.1/-/5ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16876
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:24:55,836 ERROR 16876 [-/127.0.0.1/-/9ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16876
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:24:57,801 ERROR 16876 [-/127.0.0.1/-/6ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16876
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:24:58,402 ERROR 16876 [-/127.0.0.1/-/7ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16876
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 13:25:00,002 ERROR 16876 [-/127.0.0.1/-/6ms POST /api/login] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "data" argument must be one of type string, Buffer, TypedArray, or DataView. Received type number
+    at invalidArrayBufferView (internal/crypto/cipher.js:100:10)
+    at Cipher.update (internal/crypto/cipher.js:157:11)
+    at crypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:78:23)
+    at Keygrip.encrypt (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\keygrip.js:29:12)
+    at Cookies.set (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-cookies@2.2.6@egg-cookies\lib\cookies.js:102:55)
+    at User.login (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:38:17)
+
+pid: 16876
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 15:08:22,713 ERROR 12212 [-/127.0.0.1/-/54ms POST /api/comments] nodejs.ReferenceError: uid is not defined
+    at Content.comment (D:\my-item\egg-sequelize\egg-sequelize\app\service\contents.js:40:83)
+
+pid: 12212
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 16:09:51,397 ERROR 6564 [-/127.0.0.1/-/5ms POST /api/likes] nodejs.ReferenceError: ctx is not defined
+    at Content.like (D:\my-item\egg-sequelize\egg-sequelize\app\service\contents.js:75:15)
+    at ContentController.like (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:21:43)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+
+pid: 6564
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 16:15:19,889 ERROR 16624 [-/127.0.0.1/-/72ms POST /api/login] nodejs.TypeError: ctx.service.users.login is not a function
+    at UserController.login (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:8:40)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 16624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 16:26:14,742 ERROR 18816 [-/127.0.0.1/-/48ms POST /api/login] nodejs.TypeError: ctx.service.login.login is not a function
+    at UserController.login (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:9:40)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 18816
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 16:26:26,505 ERROR 18816 [-/127.0.0.1/-/2ms POST /api/login] nodejs.TypeError: ctx.service.login.login is not a function
+    at UserController.login (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:9:40)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 18816
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 16:28:20,663 ERROR 4792 [-/127.0.0.1/-/18ms POST /api/login] nodejs.TypeError: ctx.service.users.login is not a function
+    at UserController.login (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:9:40)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 4792
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 16:31:21,570 ERROR 15180 [-/127.0.0.1/-/24ms POST /api/login] nodejs.TypeError: ctx.service.usersdd.login is not a function
+    at UserController.login (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:9:42)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 15180
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 16:31:35,151 ERROR 15180 [-/127.0.0.1/-/1ms POST /api/login] nodejs.TypeError: ctx.service.usersdd.login is not a function
+    at UserController.login (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:9:42)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 15180
+hostname: DESKTOP-IGV1BLA
+

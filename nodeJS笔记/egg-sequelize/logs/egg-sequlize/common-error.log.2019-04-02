@@ -1,0 +1,947 @@
+2019-04-01 16:18:48,169 ERROR 17944 [-/127.0.0.1/-/4ms GET /users?limit=10&offset=0] nodejs.TypeError: Cannot read property 'findAll' of undefined
+    at UserController.index (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:13:37)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 17944
+hostname: DESKTOP-IGV1BLA
+
+2019-04-01 16:19:42,910 ERROR 9296 [-/127.0.0.1/-/13ms GET /users?limit=10&offset=0] nodejs.TypeError: Cannot read property 'findAll' of undefined
+    at UsersController.index (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:13:37)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 9296
+hostname: DESKTOP-IGV1BLA
+
+2019-04-01 16:20:21,825 ERROR 9268 [-/127.0.0.1/-/12ms GET /users?limit=10&offset=0] nodejs.TypeError: Cannot read property 'findAll' of undefined
+    at UsersController.index (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:13:37)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 9268
+hostname: DESKTOP-IGV1BLA
+
+2019-04-01 16:21:30,159 ERROR 16392 [-/127.0.0.1/-/12ms GET /users?limit=10&offset=0] nodejs.TypeError: Cannot read property 'findAll' of undefined
+    at UserController.index (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:13:37)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 16392
+hostname: DESKTOP-IGV1BLA
+
+2019-04-01 16:22:17,286 ERROR 12648 [-/127.0.0.1/-/9ms GET /users?limit=10&offset=0] nodejs.TypeError: Cannot read property 'findAll' of undefined
+    at UserController.index (D:\my-item\egg-sequelize\egg-sequelize\app\controller\user.js:13:37)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 12648
+hostname: DESKTOP-IGV1BLA
+
+2019-04-01 17:22:19,220 ERROR 16176 [-/127.0.0.1/-/15ms GET /] nodejs.ReferenceError: ctx is not defined
+    at HomeController.index (D:\my-item\egg-sequelize\egg-sequelize\app\controller\home.js:8:5)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 16176
+hostname: DESKTOP-IGV1BLA
+
+2019-04-01 18:15:31,230 ERROR 15932 [-/127.0.0.1/-/18ms GET /] nodejs.ReferenceError: app is not defined
+    at HomeController.index (D:\my-item\egg-sequelize\egg-sequelize\app\controller\home.js:10:5)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 15932
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 16:05:16,700 ERROR 13420 [-/127.0.0.1/-/29ms GET /users?limit=10&offset=0] nodejs.TypeError: Cannot read property 'list' of undefined
+    at UserController.index (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:14:39)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 13420
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 16:14:22,872 ERROR 1352 [-/127.0.0.1/-/9ms GET /users/2] nodejs.TypeError: Cannot read property 'find' of undefined
+    at UserController.show (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:24:39)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 1352
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 17:18:49,483 ERROR 15876 nodejs.ServerNoResponseError: server 127.0.0.1:52933 no response in 39999ms, maybe the socket is end on the other side. (address: 127.0.0.1:52933)
+    at Timeout._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_tcp-base@3.1.0@tcp-base\lib\base.js:427:21)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ServerNoResponseError"
+pid: 15876
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 17:24:45,334 ERROR 3884 nodejs.ClusterClientNoResponseError: client no response in 415461ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_cluster-client@3.0.1@cluster-client\lib\leader.js:77:23)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ClusterClientNoResponseError"
+pid: 3884
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 17:29:47,141 ERROR 15124 nodejs.ServerNoResponseError: server 127.0.0.1:52933 no response in 40000ms, maybe the socket is end on the other side. (address: 127.0.0.1:52933)
+    at Timeout._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_tcp-base@3.1.0@tcp-base\lib\base.js:427:21)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ServerNoResponseError"
+pid: 15124
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 17:35:49,075 ERROR 3884 nodejs.ClusterClientNoResponseError: client no response in 421937ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_cluster-client@3.0.1@cluster-client\lib\leader.js:77:23)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ClusterClientNoResponseError"
+pid: 3884
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 17:36:15,658 ERROR 7816 [-/127.0.0.1/-/34ms POST /api/users] nodejs.SyntaxError: Identifier 'user' has already been declared
+    at UserController.create (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:40:42)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+
+pid: 7816
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 17:38:49,128 ERROR 14040 [-/127.0.0.1/-/27ms POST /api/users] nodejs.ReferenceError: Models is not defined
+    at User.create (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:86:16)
+    at UserController.create (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:40:42)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+
+pid: 14040
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 17:39:19,721 ERROR 8012 [-/127.0.0.1/-/27ms POST /api/users] nodejs.TypeError: Cannot read property 'findOne' of undefined
+    at User.create (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:86:43)
+    at UserController.create (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:40:42)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+
+pid: 8012
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 17:40:01,045 ERROR 16376 [-/127.0.0.1/-/31ms POST /api/users] nodejs.TypeError: Cannot read property 'find' of undefined
+    at User.create (D:\my-item\egg-sequelize\egg-sequelize\app\service\users.js:86:43)
+    at UserController.create (D:\my-item\egg-sequelize\egg-sequelize\app\controller\users.js:40:42)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+
+pid: 16376
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 18:04:06,517 ERROR 15164 [-/127.0.0.1/-/11ms GET /api/contents] nodejs.SequelizeEagerLoadingError: users is not associated to comments!
+    at Function._getIncludedAssociation (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:583:13)
+    at Function._validateIncludedElement (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:499:53)
+    at options.include.options.include.map.include (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:395:37)
+    at Array.map (<anonymous>)
+    at Function._validateIncludedElements (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:390:39)
+    at Function._validateIncludedElement (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:573:38)
+    at options.include.options.include.map.include (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:395:37)
+    at Array.map (<anonymous>)
+    at Function._validateIncludedElements (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:390:39)
+    at Promise.try.then.then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:1570:14)
+    at tryCatcher (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\util.js:16:23)
+    at Promise._settlePromiseFromHandler (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:512:31)
+    at Promise._settlePromise (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:569:18)
+    at Promise._settlePromise0 (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:614:10)
+    at Promise._settlePromises (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:694:18)
+    at _drainQueueStep (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:138:12)
+    at _drainQueue (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:131:9)
+    at Async._drainQueues (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:147:5)
+    at Immediate.Async.drainQueues [as _onImmediate] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:17:14)
+    at processImmediate (timers.js:637:19)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\debuggability.js:411:19)
+    at Promise._then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:232:17)
+    at Promise.then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:125:17)
+    at Function.findAll (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:1566:8)
+    at Content.getContents (D:\my-item\egg-sequelize\egg-sequelize\app\service\contents.js:7:36)
+    at ContentController.content (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:9:43)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+name: "SequelizeEagerLoadingError"
+pid: 15164
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 18:11:13,293 ERROR 12520 [-/127.0.0.1/-/20ms GET /api/contents] nodejs.SequelizeEagerLoadingError: users is not associated to comments!
+    at Function._getIncludedAssociation (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:583:13)
+    at Function._validateIncludedElement (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:499:53)
+    at options.include.options.include.map.include (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:395:37)
+    at Array.map (<anonymous>)
+    at Function._validateIncludedElements (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:390:39)
+    at Function._validateIncludedElement (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:573:38)
+    at options.include.options.include.map.include (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:395:37)
+    at Array.map (<anonymous>)
+    at Function._validateIncludedElements (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:390:39)
+    at Promise.try.then.then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:1570:14)
+    at tryCatcher (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\util.js:16:23)
+    at Promise._settlePromiseFromHandler (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:512:31)
+    at Promise._settlePromise (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:569:18)
+    at Promise._settlePromise0 (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:614:10)
+    at Promise._settlePromises (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:694:18)
+    at _drainQueueStep (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:138:12)
+    at _drainQueue (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:131:9)
+    at Async._drainQueues (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:147:5)
+    at Immediate.Async.drainQueues [as _onImmediate] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:17:14)
+    at processImmediate (timers.js:637:19)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\debuggability.js:411:19)
+    at Promise._then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:232:17)
+    at Promise.then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:125:17)
+    at Function.findAll (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:1566:8)
+    at Content.getContents (D:\my-item\egg-sequelize\egg-sequelize\app\service\contents.js:7:36)
+    at ContentController.content (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:9:43)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+name: "SequelizeEagerLoadingError"
+pid: 12520
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 18:14:24,420 ERROR 15036 [-/127.0.0.1/-/11ms GET /api/contents] nodejs.SequelizeEagerLoadingError: users is not associated to comments!
+    at Function._getIncludedAssociation (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:583:13)
+    at Function._validateIncludedElement (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:499:53)
+    at options.include.options.include.map.include (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:395:37)
+    at Array.map (<anonymous>)
+    at Function._validateIncludedElements (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:390:39)
+    at Function._validateIncludedElement (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:573:38)
+    at options.include.options.include.map.include (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:395:37)
+    at Array.map (<anonymous>)
+    at Function._validateIncludedElements (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:390:39)
+    at Promise.try.then.then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:1570:14)
+    at tryCatcher (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\util.js:16:23)
+    at Promise._settlePromiseFromHandler (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:512:31)
+    at Promise._settlePromise (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:569:18)
+    at Promise._settlePromise0 (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:614:10)
+    at Promise._settlePromises (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:694:18)
+    at _drainQueueStep (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:138:12)
+    at _drainQueue (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:131:9)
+    at Async._drainQueues (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:147:5)
+    at Immediate.Async.drainQueues [as _onImmediate] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:17:14)
+    at processImmediate (timers.js:637:19)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\debuggability.js:411:19)
+    at Promise._then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:232:17)
+    at Promise.then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:125:17)
+    at Function.findAll (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:1566:8)
+    at Content.getContents (D:\my-item\egg-sequelize\egg-sequelize\app\service\contents.js:7:43)
+    at ContentController.content (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:9:43)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+name: "SequelizeEagerLoadingError"
+pid: 15036
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 18:31:54,331 ERROR 5676 [-/127.0.0.1/-/15ms GET /api/contents] nodejs.SequelizeEagerLoadingError: users is not associated to contents!
+    at Function._getIncludedAssociation (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:583:13)
+    at Function._validateIncludedElement (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:499:53)
+    at options.include.options.include.map.include (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:395:37)
+    at Array.map (<anonymous>)
+    at Function._validateIncludedElements (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:390:39)
+    at Promise.try.then.then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:1570:14)
+    at tryCatcher (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\util.js:16:23)
+    at Promise._settlePromiseFromHandler (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:512:31)
+    at Promise._settlePromise (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:569:18)
+    at Promise._settlePromise0 (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:614:10)
+    at Promise._settlePromises (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:694:18)
+    at _drainQueueStep (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:138:12)
+    at _drainQueue (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:131:9)
+    at Async._drainQueues (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:147:5)
+    at Immediate.Async.drainQueues [as _onImmediate] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:17:14)
+    at processImmediate (timers.js:637:19)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\debuggability.js:411:19)
+    at Promise._then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:232:17)
+    at Promise.then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:125:17)
+    at Function.findAll (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:1566:8)
+    at Content.getContents (D:\my-item\egg-sequelize\egg-sequelize\app\service\contents.js:20:43)
+    at ContentController.content (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:9:43)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+name: "SequelizeEagerLoadingError"
+pid: 5676
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 18:35:27,617 ERROR 7416 [-/127.0.0.1/-/17ms GET /api/contents] nodejs.SequelizeEagerLoadingError: contents is not associated to comments!
+    at Function._getIncludedAssociation (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:583:13)
+    at Function._validateIncludedElement (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:499:53)
+    at options.include.options.include.map.include (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:395:37)
+    at Array.map (<anonymous>)
+    at Function._validateIncludedElements (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:390:39)
+    at Promise.try.then.then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:1570:14)
+    at tryCatcher (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\util.js:16:23)
+    at Promise._settlePromiseFromHandler (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:512:31)
+    at Promise._settlePromise (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:569:18)
+    at Promise._settlePromise0 (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:614:10)
+    at Promise._settlePromises (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:694:18)
+    at _drainQueueStep (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:138:12)
+    at _drainQueue (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:131:9)
+    at Async._drainQueues (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:147:5)
+    at Immediate.Async.drainQueues [as _onImmediate] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\async.js:17:14)
+    at processImmediate (timers.js:637:19)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\debuggability.js:411:19)
+    at Promise._then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:232:17)
+    at Promise.then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:125:17)
+    at Function.findAll (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:1566:8)
+    at Content.getContents (D:\my-item\egg-sequelize\egg-sequelize\app\service\contents.js:30:43)
+    at ContentController.content (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:9:43)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+name: "SequelizeEagerLoadingError"
+pid: 7416
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 18:43:01,885 ERROR 2236 [-/127.0.0.1/-/26ms GET /api/contents] nodejs.SequelizeDatabaseError: Unknown column 'comments.content1' in 'field list'
+    at Query.formatError (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\dialects\mysql\query.js:247:16)
+    at Query.handler [as onResult] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\dialects\mysql\query.js:68:23)
+    at Query.execute (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\commands\command.js:30:14)
+    at Connection.handlePacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:449:32)
+    at PacketParser.Connection.packetParser.p [as onPacket] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:72:12)
+    at PacketParser.executeStart (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\packet_parser.js:75:16)
+    at Socket.Connection.stream.on.data (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:79:25)
+    at Socket.emit (events.js:197:13)
+    at addChunk (_stream_readable.js:288:12)
+    at readableAddChunk (_stream_readable.js:269:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:145:17)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\debuggability.js:411:19)
+    at Promise._then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:232:17)
+    at Promise.then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:125:17)
+    at Function.findAll (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:1595:8)
+    at Content.getContents (D:\my-item\egg-sequelize\egg-sequelize\app\service\contents.js:30:43)
+    at ContentController.content (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:9:43)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+name: "SequelizeDatabaseError"
+parent: {"code":"ER_BAD_FIELD_ERROR","errno":1054,"sqlState":"42S22","sqlMessage":"Unknown column 'comments.content1' in 'field list'","sql":"SELECT `comments`.`id`, `comments`.`content1`, `comments`.`created_at`, `comments`.`updated_at`, `comments`.`user_id`, `comments`.`content_id`, `content`.`id` AS `content.id`, `content`.`title` AS `content.title`, `content`.`content` AS `content.content`, `content`.`like_count` AS `content.like_count`, `content`.`comment_count` AS `content.comment_count`, `content`.`created_at` AS `content.created_at`, `content`.`updated_at` AS `content.updated_at`, `content`.`user_id` AS `content.user_id`, `content->user`.`id` AS `content.user.id`, `content->user`.`username` AS `content.user.username`, `content->user`.`password` AS `content.user.password`, `content->user`.`created_at` AS `content.user.created_at`, `content->user`.`updated_at` AS `content.user.updated_at` FROM `comments` AS `comments` LEFT OUTER JOIN `contents` AS `content` ON `comments`.`content_id` = `content`.`id` LEFT OUTER JOIN `users` AS `content->user` ON `content`.`user_id` = `content->user`.`id`;"}
+original: {"code":"ER_BAD_FIELD_ERROR","errno":1054,"sqlState":"42S22","sqlMessage":"Unknown column 'comments.content1' in 'field list'","sql":"SELECT `comments`.`id`, `comments`.`content1`, `comments`.`created_at`, `comments`.`updated_at`, `comments`.`user_id`, `comments`.`content_id`, `content`.`id` AS `content.id`, `content`.`title` AS `content.title`, `content`.`content` AS `content.content`, `content`.`like_count` AS `content.like_count`, `content`.`comment_count` AS `content.comment_count`, `content`.`created_at` AS `content.created_at`, `content`.`updated_at` AS `content.updated_at`, `content`.`user_id` AS `content.user_id`, `content->user`.`id` AS `content.user.id`, `content->user`.`username` AS `content.user.username`, `content->user`.`password` AS `content.user.password`, `content->user`.`created_at` AS `content.user.created_at`, `content->user`.`updated_at` AS `content.user.updated_at` FROM `comments` AS `comments` LEFT OUTER JOIN `contents` AS `content` ON `comments`.`content_id` = `content`.`id` LEFT OUTER JOIN `users` AS `content->user` ON `content`.`user_id` = `content->user`.`id`;"}
+sql: "SELECT `comments`.`id`, `comments`.`content1`, `comments`.`created_at`, `comments`.`updated_at`, `comments`.`user_id`, `comments`.`content_id`, `content`.`id` AS `content.id`, `content`.`title` AS `content.title`, `content`.`content` AS `content.content`, `content`.`like_count` AS `content.like_count`, `content`.`comment_count` AS `content.comment_count`, `content`.`created_at` AS `content.created_at`, `content`.`updated_at` AS `content.updated_at`, `content`.`user_id` AS `content.user_id`, `content->user`.`id` AS `content.user.id`, `content->user`.`username` AS `content.user.username`, `content->user`.`password` AS `content.user.password`, `content->user`.`created_at` AS `content.user.created_at`, `content->user`.`updated_at` AS `content.user.updated_at` FROM `comments` AS `comments` LEFT OUTER JOIN `contents` AS `content` ON `comments`.`content_id` = `content`.`id` LEFT OUTER JOIN `users` AS `content->user` ON `content`.`user_id` = `content->user`.`id`;"
+pid: 2236
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 18:44:32,695 ERROR 2236 [-/127.0.0.1/-/14ms GET /api/contents] nodejs.SequelizeDatabaseError: Unknown column 'comments.content1' in 'field list'
+    at Query.formatError (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\dialects\mysql\query.js:247:16)
+    at Query.handler [as onResult] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\dialects\mysql\query.js:68:23)
+    at Query.execute (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\commands\command.js:30:14)
+    at Connection.handlePacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:449:32)
+    at PacketParser.Connection.packetParser.p [as onPacket] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:72:12)
+    at PacketParser.executeStart (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\packet_parser.js:75:16)
+    at Socket.Connection.stream.on.data (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:79:25)
+    at Socket.emit (events.js:197:13)
+    at addChunk (_stream_readable.js:288:12)
+    at readableAddChunk (_stream_readable.js:269:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:145:17)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\debuggability.js:411:19)
+    at Promise._then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:232:17)
+    at Promise.then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:125:17)
+    at Function.findAll (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:1595:8)
+    at Content.getContents (D:\my-item\egg-sequelize\egg-sequelize\app\service\contents.js:30:43)
+    at ContentController.content (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:9:43)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+name: "SequelizeDatabaseError"
+parent: {"code":"ER_BAD_FIELD_ERROR","errno":1054,"sqlState":"42S22","sqlMessage":"Unknown column 'comments.content1' in 'field list'","sql":"SELECT `comments`.`id`, `comments`.`content1`, `comments`.`created_at`, `comments`.`updated_at`, `comments`.`user_id`, `comments`.`content_id`, `content`.`id` AS `content.id`, `content`.`title` AS `content.title`, `content`.`content` AS `content.content`, `content`.`like_count` AS `content.like_count`, `content`.`comment_count` AS `content.comment_count`, `content`.`created_at` AS `content.created_at`, `content`.`updated_at` AS `content.updated_at`, `content`.`user_id` AS `content.user_id`, `content->user`.`id` AS `content.user.id`, `content->user`.`username` AS `content.user.username`, `content->user`.`password` AS `content.user.password`, `content->user`.`created_at` AS `content.user.created_at`, `content->user`.`updated_at` AS `content.user.updated_at` FROM `comments` AS `comments` LEFT OUTER JOIN `contents` AS `content` ON `comments`.`content_id` = `content`.`id` LEFT OUTER JOIN `users` AS `content->user` ON `content`.`user_id` = `content->user`.`id`;"}
+original: {"code":"ER_BAD_FIELD_ERROR","errno":1054,"sqlState":"42S22","sqlMessage":"Unknown column 'comments.content1' in 'field list'","sql":"SELECT `comments`.`id`, `comments`.`content1`, `comments`.`created_at`, `comments`.`updated_at`, `comments`.`user_id`, `comments`.`content_id`, `content`.`id` AS `content.id`, `content`.`title` AS `content.title`, `content`.`content` AS `content.content`, `content`.`like_count` AS `content.like_count`, `content`.`comment_count` AS `content.comment_count`, `content`.`created_at` AS `content.created_at`, `content`.`updated_at` AS `content.updated_at`, `content`.`user_id` AS `content.user_id`, `content->user`.`id` AS `content.user.id`, `content->user`.`username` AS `content.user.username`, `content->user`.`password` AS `content.user.password`, `content->user`.`created_at` AS `content.user.created_at`, `content->user`.`updated_at` AS `content.user.updated_at` FROM `comments` AS `comments` LEFT OUTER JOIN `contents` AS `content` ON `comments`.`content_id` = `content`.`id` LEFT OUTER JOIN `users` AS `content->user` ON `content`.`user_id` = `content->user`.`id`;"}
+sql: "SELECT `comments`.`id`, `comments`.`content1`, `comments`.`created_at`, `comments`.`updated_at`, `comments`.`user_id`, `comments`.`content_id`, `content`.`id` AS `content.id`, `content`.`title` AS `content.title`, `content`.`content` AS `content.content`, `content`.`like_count` AS `content.like_count`, `content`.`comment_count` AS `content.comment_count`, `content`.`created_at` AS `content.created_at`, `content`.`updated_at` AS `content.updated_at`, `content`.`user_id` AS `content.user_id`, `content->user`.`id` AS `content.user.id`, `content->user`.`username` AS `content.user.username`, `content->user`.`password` AS `content.user.password`, `content->user`.`created_at` AS `content.user.created_at`, `content->user`.`updated_at` AS `content.user.updated_at` FROM `comments` AS `comments` LEFT OUTER JOIN `contents` AS `content` ON `comments`.`content_id` = `content`.`id` LEFT OUTER JOIN `users` AS `content->user` ON `content`.`user_id` = `content->user`.`id`;"
+pid: 2236
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 18:44:58,926 ERROR 10484 [-/127.0.0.1/-/25ms GET /api/contents] nodejs.SequelizeDatabaseError: Unknown column 'comments.content1' in 'field list'
+    at Query.formatError (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\dialects\mysql\query.js:247:16)
+    at Query.handler [as onResult] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\dialects\mysql\query.js:68:23)
+    at Query.execute (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\commands\command.js:30:14)
+    at Connection.handlePacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:449:32)
+    at PacketParser.Connection.packetParser.p [as onPacket] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:72:12)
+    at PacketParser.executeStart (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\packet_parser.js:75:16)
+    at Socket.Connection.stream.on.data (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:79:25)
+    at Socket.emit (events.js:197:13)
+    at addChunk (_stream_readable.js:288:12)
+    at readableAddChunk (_stream_readable.js:269:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:145:17)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\debuggability.js:411:19)
+    at Promise._then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:232:17)
+    at Promise.then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:125:17)
+    at Function.findAll (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:1595:8)
+    at Content.getContents (D:\my-item\egg-sequelize\egg-sequelize\app\service\contents.js:30:43)
+    at ContentController.content (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:9:43)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+name: "SequelizeDatabaseError"
+parent: {"code":"ER_BAD_FIELD_ERROR","errno":1054,"sqlState":"42S22","sqlMessage":"Unknown column 'comments.content1' in 'field list'","sql":"SELECT `comments`.`id`, `comments`.`content1`, `comments`.`created_at`, `comments`.`updated_at`, `comments`.`user_id`, `comments`.`content_id`, `content`.`id` AS `content.id`, `content`.`title` AS `content.title`, `content`.`content` AS `content.content`, `content`.`like_count` AS `content.like_count`, `content`.`comment_count` AS `content.comment_count`, `content`.`created_at` AS `content.created_at`, `content`.`updated_at` AS `content.updated_at`, `content`.`user_id` AS `content.user_id`, `content->user`.`id` AS `content.user.id`, `content->user`.`username` AS `content.user.username`, `content->user`.`password` AS `content.user.password`, `content->user`.`created_at` AS `content.user.created_at`, `content->user`.`updated_at` AS `content.user.updated_at` FROM `comments` AS `comments` LEFT OUTER JOIN `contents` AS `content` ON `comments`.`content_id` = `content`.`id` LEFT OUTER JOIN `users` AS `content->user` ON `content`.`user_id` = `content->user`.`id`;"}
+original: {"code":"ER_BAD_FIELD_ERROR","errno":1054,"sqlState":"42S22","sqlMessage":"Unknown column 'comments.content1' in 'field list'","sql":"SELECT `comments`.`id`, `comments`.`content1`, `comments`.`created_at`, `comments`.`updated_at`, `comments`.`user_id`, `comments`.`content_id`, `content`.`id` AS `content.id`, `content`.`title` AS `content.title`, `content`.`content` AS `content.content`, `content`.`like_count` AS `content.like_count`, `content`.`comment_count` AS `content.comment_count`, `content`.`created_at` AS `content.created_at`, `content`.`updated_at` AS `content.updated_at`, `content`.`user_id` AS `content.user_id`, `content->user`.`id` AS `content.user.id`, `content->user`.`username` AS `content.user.username`, `content->user`.`password` AS `content.user.password`, `content->user`.`created_at` AS `content.user.created_at`, `content->user`.`updated_at` AS `content.user.updated_at` FROM `comments` AS `comments` LEFT OUTER JOIN `contents` AS `content` ON `comments`.`content_id` = `content`.`id` LEFT OUTER JOIN `users` AS `content->user` ON `content`.`user_id` = `content->user`.`id`;"}
+sql: "SELECT `comments`.`id`, `comments`.`content1`, `comments`.`created_at`, `comments`.`updated_at`, `comments`.`user_id`, `comments`.`content_id`, `content`.`id` AS `content.id`, `content`.`title` AS `content.title`, `content`.`content` AS `content.content`, `content`.`like_count` AS `content.like_count`, `content`.`comment_count` AS `content.comment_count`, `content`.`created_at` AS `content.created_at`, `content`.`updated_at` AS `content.updated_at`, `content`.`user_id` AS `content.user_id`, `content->user`.`id` AS `content.user.id`, `content->user`.`username` AS `content.user.username`, `content->user`.`password` AS `content.user.password`, `content->user`.`created_at` AS `content.user.created_at`, `content->user`.`updated_at` AS `content.user.updated_at` FROM `comments` AS `comments` LEFT OUTER JOIN `contents` AS `content` ON `comments`.`content_id` = `content`.`id` LEFT OUTER JOIN `users` AS `content->user` ON `content`.`user_id` = `content->user`.`id`;"
+pid: 10484
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 18:45:22,012 ERROR 10484 [-/127.0.0.1/-/16ms GET /api/contents] nodejs.SequelizeDatabaseError: Unknown column 'comments.content1' in 'field list'
+    at Query.formatError (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\dialects\mysql\query.js:247:16)
+    at Query.handler [as onResult] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\dialects\mysql\query.js:68:23)
+    at Query.execute (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\commands\command.js:30:14)
+    at Connection.handlePacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:449:32)
+    at PacketParser.Connection.packetParser.p [as onPacket] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:72:12)
+    at PacketParser.executeStart (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\packet_parser.js:75:16)
+    at Socket.Connection.stream.on.data (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:79:25)
+    at Socket.emit (events.js:197:13)
+    at addChunk (_stream_readable.js:288:12)
+    at readableAddChunk (_stream_readable.js:269:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:145:17)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\debuggability.js:411:19)
+    at Promise._then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:232:17)
+    at Promise.then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:125:17)
+    at Function.findAll (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:1595:8)
+    at Content.getContents (D:\my-item\egg-sequelize\egg-sequelize\app\service\contents.js:30:43)
+    at ContentController.content (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:9:43)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+name: "SequelizeDatabaseError"
+parent: {"code":"ER_BAD_FIELD_ERROR","errno":1054,"sqlState":"42S22","sqlMessage":"Unknown column 'comments.content1' in 'field list'","sql":"SELECT `comments`.`id`, `comments`.`content1`, `comments`.`created_at`, `comments`.`updated_at`, `comments`.`user_id`, `comments`.`content_id`, `content`.`id` AS `content.id`, `content`.`title` AS `content.title`, `content`.`content` AS `content.content`, `content`.`like_count` AS `content.like_count`, `content`.`comment_count` AS `content.comment_count`, `content`.`created_at` AS `content.created_at`, `content`.`updated_at` AS `content.updated_at`, `content`.`user_id` AS `content.user_id`, `content->user`.`id` AS `content.user.id`, `content->user`.`username` AS `content.user.username`, `content->user`.`password` AS `content.user.password`, `content->user`.`created_at` AS `content.user.created_at`, `content->user`.`updated_at` AS `content.user.updated_at` FROM `comments` AS `comments` LEFT OUTER JOIN `contents` AS `content` ON `comments`.`content_id` = `content`.`id` LEFT OUTER JOIN `users` AS `content->user` ON `content`.`user_id` = `content->user`.`id`;"}
+original: {"code":"ER_BAD_FIELD_ERROR","errno":1054,"sqlState":"42S22","sqlMessage":"Unknown column 'comments.content1' in 'field list'","sql":"SELECT `comments`.`id`, `comments`.`content1`, `comments`.`created_at`, `comments`.`updated_at`, `comments`.`user_id`, `comments`.`content_id`, `content`.`id` AS `content.id`, `content`.`title` AS `content.title`, `content`.`content` AS `content.content`, `content`.`like_count` AS `content.like_count`, `content`.`comment_count` AS `content.comment_count`, `content`.`created_at` AS `content.created_at`, `content`.`updated_at` AS `content.updated_at`, `content`.`user_id` AS `content.user_id`, `content->user`.`id` AS `content.user.id`, `content->user`.`username` AS `content.user.username`, `content->user`.`password` AS `content.user.password`, `content->user`.`created_at` AS `content.user.created_at`, `content->user`.`updated_at` AS `content.user.updated_at` FROM `comments` AS `comments` LEFT OUTER JOIN `contents` AS `content` ON `comments`.`content_id` = `content`.`id` LEFT OUTER JOIN `users` AS `content->user` ON `content`.`user_id` = `content->user`.`id`;"}
+sql: "SELECT `comments`.`id`, `comments`.`content1`, `comments`.`created_at`, `comments`.`updated_at`, `comments`.`user_id`, `comments`.`content_id`, `content`.`id` AS `content.id`, `content`.`title` AS `content.title`, `content`.`content` AS `content.content`, `content`.`like_count` AS `content.like_count`, `content`.`comment_count` AS `content.comment_count`, `content`.`created_at` AS `content.created_at`, `content`.`updated_at` AS `content.updated_at`, `content`.`user_id` AS `content.user_id`, `content->user`.`id` AS `content.user.id`, `content->user`.`username` AS `content.user.username`, `content->user`.`password` AS `content.user.password`, `content->user`.`created_at` AS `content.user.created_at`, `content->user`.`updated_at` AS `content.user.updated_at` FROM `comments` AS `comments` LEFT OUTER JOIN `contents` AS `content` ON `comments`.`content_id` = `content`.`id` LEFT OUTER JOIN `users` AS `content->user` ON `content`.`user_id` = `content->user`.`id`;"
+pid: 10484
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 18:46:27,176 ERROR 15168 [-/127.0.0.1/-/35ms GET /api/contents] nodejs.SequelizeDatabaseError: Unknown column 'comments.content1' in 'field list'
+    at Query.formatError (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\dialects\mysql\query.js:247:16)
+    at Query.handler [as onResult] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\dialects\mysql\query.js:68:23)
+    at Query.execute (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\commands\command.js:30:14)
+    at Connection.handlePacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:449:32)
+    at PacketParser.Connection.packetParser.p [as onPacket] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:72:12)
+    at PacketParser.executeStart (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\packet_parser.js:75:16)
+    at Socket.Connection.stream.on.data (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:79:25)
+    at Socket.emit (events.js:197:13)
+    at addChunk (_stream_readable.js:288:12)
+    at readableAddChunk (_stream_readable.js:269:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:145:17)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\debuggability.js:411:19)
+    at Promise._then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:232:17)
+    at Promise.then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:125:17)
+    at Function.findAll (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:1595:8)
+    at Content.getContents (D:\my-item\egg-sequelize\egg-sequelize\app\service\contents.js:30:43)
+    at ContentController.content (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:9:43)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+name: "SequelizeDatabaseError"
+parent: {"code":"ER_BAD_FIELD_ERROR","errno":1054,"sqlState":"42S22","sqlMessage":"Unknown column 'comments.content1' in 'field list'","sql":"SELECT `comments`.`id`, `comments`.`content1`, `comments`.`created_at`, `comments`.`updated_at`, `comments`.`user_id`, `comments`.`content_id`, `content`.`id` AS `content.id`, `content`.`title` AS `content.title`, `content`.`content` AS `content.content`, `content`.`like_count` AS `content.like_count`, `content`.`comment_count` AS `content.comment_count`, `content`.`created_at` AS `content.created_at`, `content`.`updated_at` AS `content.updated_at`, `content`.`user_id` AS `content.user_id`, `content->user`.`id` AS `content.user.id`, `content->user`.`username` AS `content.user.username`, `content->user`.`password` AS `content.user.password`, `content->user`.`created_at` AS `content.user.created_at`, `content->user`.`updated_at` AS `content.user.updated_at` FROM `comments` AS `comments` LEFT OUTER JOIN `contents` AS `content` ON `comments`.`content_id` = `content`.`id` LEFT OUTER JOIN `users` AS `content->user` ON `content`.`user_id` = `content->user`.`id`;"}
+original: {"code":"ER_BAD_FIELD_ERROR","errno":1054,"sqlState":"42S22","sqlMessage":"Unknown column 'comments.content1' in 'field list'","sql":"SELECT `comments`.`id`, `comments`.`content1`, `comments`.`created_at`, `comments`.`updated_at`, `comments`.`user_id`, `comments`.`content_id`, `content`.`id` AS `content.id`, `content`.`title` AS `content.title`, `content`.`content` AS `content.content`, `content`.`like_count` AS `content.like_count`, `content`.`comment_count` AS `content.comment_count`, `content`.`created_at` AS `content.created_at`, `content`.`updated_at` AS `content.updated_at`, `content`.`user_id` AS `content.user_id`, `content->user`.`id` AS `content.user.id`, `content->user`.`username` AS `content.user.username`, `content->user`.`password` AS `content.user.password`, `content->user`.`created_at` AS `content.user.created_at`, `content->user`.`updated_at` AS `content.user.updated_at` FROM `comments` AS `comments` LEFT OUTER JOIN `contents` AS `content` ON `comments`.`content_id` = `content`.`id` LEFT OUTER JOIN `users` AS `content->user` ON `content`.`user_id` = `content->user`.`id`;"}
+sql: "SELECT `comments`.`id`, `comments`.`content1`, `comments`.`created_at`, `comments`.`updated_at`, `comments`.`user_id`, `comments`.`content_id`, `content`.`id` AS `content.id`, `content`.`title` AS `content.title`, `content`.`content` AS `content.content`, `content`.`like_count` AS `content.like_count`, `content`.`comment_count` AS `content.comment_count`, `content`.`created_at` AS `content.created_at`, `content`.`updated_at` AS `content.updated_at`, `content`.`user_id` AS `content.user_id`, `content->user`.`id` AS `content.user.id`, `content->user`.`username` AS `content.user.username`, `content->user`.`password` AS `content.user.password`, `content->user`.`created_at` AS `content.user.created_at`, `content->user`.`updated_at` AS `content.user.updated_at` FROM `comments` AS `comments` LEFT OUTER JOIN `contents` AS `content` ON `comments`.`content_id` = `content`.`id` LEFT OUTER JOIN `users` AS `content->user` ON `content`.`user_id` = `content->user`.`id`;"
+pid: 15168
+hostname: DESKTOP-IGV1BLA
+
+2019-04-02 18:47:04,762 ERROR 9816 [-/127.0.0.1/-/30ms GET /api/contents] nodejs.SequelizeDatabaseError: Unknown column 'user->comments.content1' in 'field list'
+    at Query.formatError (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\dialects\mysql\query.js:247:16)
+    at Query.handler [as onResult] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\dialects\mysql\query.js:68:23)
+    at Query.execute (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\commands\command.js:30:14)
+    at Connection.handlePacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:449:32)
+    at PacketParser.Connection.packetParser.p [as onPacket] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:72:12)
+    at PacketParser.executeStart (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\packet_parser.js:75:16)
+    at Socket.Connection.stream.on.data (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_mysql2@1.6.5@mysql2\lib\connection.js:79:25)
+    at Socket.emit (events.js:197:13)
+    at addChunk (_stream_readable.js:288:12)
+    at readableAddChunk (_stream_readable.js:269:11)
+    at Socket.Readable.push (_stream_readable.js:224:10)
+    at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:145:17)
+From previous event:
+    at Promise.longStackTracesCaptureStackTrace [as _captureStackTrace] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\debuggability.js:411:19)
+    at Promise._then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:232:17)
+    at Promise.then (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_bluebird@3.5.3@bluebird\js\release\promise.js:125:17)
+    at Function.findAll (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_sequelize@4.43.1@sequelize\lib\model.js:1595:8)
+    at Content.getContents (D:\my-item\egg-sequelize\egg-sequelize\app\service\contents.js:20:43)
+    at ContentController.content (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:9:43)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xframe (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xframe.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at xssProtection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\xssProtection.js:7:11)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+name: "SequelizeDatabaseError"
+parent: {"code":"ER_BAD_FIELD_ERROR","errno":1054,"sqlState":"42S22","sqlMessage":"Unknown column 'user->comments.content1' in 'field list'","sql":"SELECT `contents`.`id`, `contents`.`title`, `contents`.`content`, `contents`.`like_count`, `contents`.`comment_count`, `contents`.`created_at`, `contents`.`updated_at`, `contents`.`user_id`, `user`.`id` AS `user.id`, `user`.`username` AS `user.username`, `user`.`password` AS `user.password`, `user`.`created_at` AS `user.created_at`, `user`.`updated_at` AS `user.updated_at`, `user->comments`.`id` AS `user.comments.id`, `user->comments`.`content1` AS `user.comments.content1`, `user->comments`.`created_at` AS `user.comments.created_at`, `user->comments`.`updated_at` AS `user.comments.updated_at`, `user->comments`.`user_id` AS `user.comments.user_id`, `user->comments`.`content_id` AS `user.comments.content_id` FROM `contents` AS `contents` LEFT OUTER JOIN `users` AS `user` ON `contents`.`user_id` = `user`.`id` LEFT OUTER JOIN `comments` AS `user->comments` ON `user`.`id` = `user->comments`.`user_id`;"}
+original: {"code":"ER_BAD_FIELD_ERROR","errno":1054,"sqlState":"42S22","sqlMessage":"Unknown column 'user->comments.content1' in 'field list'","sql":"SELECT `contents`.`id`, `contents`.`title`, `contents`.`content`, `contents`.`like_count`, `contents`.`comment_count`, `contents`.`created_at`, `contents`.`updated_at`, `contents`.`user_id`, `user`.`id` AS `user.id`, `user`.`username` AS `user.username`, `user`.`password` AS `user.password`, `user`.`created_at` AS `user.created_at`, `user`.`updated_at` AS `user.updated_at`, `user->comments`.`id` AS `user.comments.id`, `user->comments`.`content1` AS `user.comments.content1`, `user->comments`.`created_at` AS `user.comments.created_at`, `user->comments`.`updated_at` AS `user.comments.updated_at`, `user->comments`.`user_id` AS `user.comments.user_id`, `user->comments`.`content_id` AS `user.comments.content_id` FROM `contents` AS `contents` LEFT OUTER JOIN `users` AS `user` ON `contents`.`user_id` = `user`.`id` LEFT OUTER JOIN `comments` AS `user->comments` ON `user`.`id` = `user->comments`.`user_id`;"}
+sql: "SELECT `contents`.`id`, `contents`.`title`, `contents`.`content`, `contents`.`like_count`, `contents`.`comment_count`, `contents`.`created_at`, `contents`.`updated_at`, `contents`.`user_id`, `user`.`id` AS `user.id`, `user`.`username` AS `user.username`, `user`.`password` AS `user.password`, `user`.`created_at` AS `user.created_at`, `user`.`updated_at` AS `user.updated_at`, `user->comments`.`id` AS `user.comments.id`, `user->comments`.`content1` AS `user.comments.content1`, `user->comments`.`created_at` AS `user.comments.created_at`, `user->comments`.`updated_at` AS `user.comments.updated_at`, `user->comments`.`user_id` AS `user.comments.user_id`, `user->comments`.`content_id` AS `user.comments.content_id` FROM `contents` AS `contents` LEFT OUTER JOIN `users` AS `user` ON `contents`.`user_id` = `user`.`id` LEFT OUTER JOIN `comments` AS `user->comments` ON `user`.`id` = `user->comments`.`user_id`;"
+pid: 9816
+hostname: DESKTOP-IGV1BLA
+
+2019-04-03 08:33:44,872 ERROR 4624 nodejs.ClusterClientNoResponseError: client no response in 49279391ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_cluster-client@3.0.1@cluster-client\lib\leader.js:77:23)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ClusterClientNoResponseError"
+pid: 4624
+hostname: DESKTOP-IGV1BLA
+
