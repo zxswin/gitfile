@@ -76,6 +76,42 @@
       "checkAddress": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
     }
   },
+  "bodyParser": {
+    "jsonLimit": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+    "formLimit": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+    "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+    "encoding": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+    "strict": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+    "queryString": {
+      "arrayLimit": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "depth": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "parameterLimit": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js"
+    }
+  },
+  "multipart": {
+    "mode": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+    "fileExtensions": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+    "autoFields": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
+    "defaultCharset": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
+    "fieldNameSize": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
+    "fieldSize": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
+    "fields": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
+    "fileSize": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
+    "files": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
+    "whitelist": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
+    "tmpdir": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
+    "cleanSchedule": {
+      "cron": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js"
+    }
+  },
+  "middleware": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+  "compress": {
+    "threshold": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+    "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js"
+  },
+  "errorHandler": {
+    "match": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js"
+  },
   "helper": {
     "shtml": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
   },
@@ -111,22 +147,6 @@
   },
   "schedule": {
     "directory": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-schedule@3.6.1@egg-schedule\\config\\config.default.js"
-  },
-  "multipart": {
-    "mode": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
-    "autoFields": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
-    "defaultCharset": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
-    "fieldNameSize": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
-    "fieldSize": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
-    "fields": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
-    "fileSize": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
-    "files": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
-    "fileExtensions": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
-    "whitelist": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
-    "tmpdir": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js",
-    "cleanSchedule": {
-      "cron": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\config.default.js"
-    }
   },
   "development": {
     "watchDirs": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-development@2.4.2@egg-development\\config\\config.default.js",
@@ -173,7 +193,8 @@
     "main": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
     "scripts": {
       "test": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
-      "dev": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js"
+      "dev": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "lint": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js"
     },
     "author": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
     "license": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
@@ -183,8 +204,14 @@
       "egg-validate": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-view-assets": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-view-nunjucks": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "koa-compress": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "koa-is-json": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "md5": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
-      "mysql2": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js"
+      "mysql2": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "mz": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "pump": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "stream-wormhole": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "uuid": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js"
     },
     "devDependencies": {
       "babel-eslint": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
@@ -214,18 +241,6 @@
   },
   "siteFile": {
     "/favicon.ico": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js"
-  },
-  "bodyParser": {
-    "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
-    "encoding": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
-    "formLimit": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
-    "jsonLimit": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
-    "strict": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
-    "queryString": {
-      "arrayLimit": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
-      "depth": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
-      "parameterLimit": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js"
-    }
   },
   "logger": {
     "dir": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",

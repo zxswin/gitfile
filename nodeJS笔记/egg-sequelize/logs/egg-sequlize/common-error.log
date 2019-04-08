@@ -855,3 +855,622 @@ hostname: DESKTOP-IGV1BLA
 pid: 15180
 hostname: DESKTOP-IGV1BLA
 
+2019-04-08 09:54:20,217 ERROR 4524 [-/127.0.0.1/-/76ms GET /api/resimg] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "fd" argument must be of type number. Received type string
+    at Object.readSync (fs.js:491:3)
+    at ContentController.resimg (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:26:27)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compress@3.0.0@koa-compress\index.js:38:11
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+
+pid: 4524
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 09:57:01,727 ERROR 19236 [-/127.0.0.1/-/13ms GET /api/resimg] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "fd" argument must be of type number. Received type string
+    at Object.readSync (fs.js:491:3)
+    at ContentController.resimg (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:26:27)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compress@3.0.0@koa-compress\index.js:38:11
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+
+pid: 19236
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 10:03:08,100 ERROR 16608 [-/127.0.0.1/-/15ms GET /api/resimg] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "fd" argument must be of type number. Received type string
+    at Object.readSync (fs.js:491:3)
+    at Object.readSync (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_graceful-fs@4.1.15@graceful-fs\polyfills.js:137:28)
+    at ContentController.resimg (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:26:27)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compress@3.0.0@koa-compress\index.js:38:11
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+
+pid: 16608
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 10:03:20,203 ERROR 16608 [-/127.0.0.1/-/1ms GET /api/resimg] nodejs.TypeError [ERR_INVALID_ARG_TYPE]: The "fd" argument must be of type number. Received type string
+    at Object.readSync (fs.js:491:3)
+    at Object.readSync (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_graceful-fs@4.1.15@graceful-fs\polyfills.js:137:28)
+    at ContentController.resimg (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:26:27)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compress@3.0.0@koa-compress\index.js:38:11
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+
+pid: 16608
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 10:08:47,145 ERROR 13368 nodejs.unhandledRejectionError: ENOENT: no such file or directory, open 'D:\my-item\egg-sequelize\public\img\nz-zorro.png'
+unhandledRejectionError: ENOENT: no such file or directory, open 'D:\my-item\egg-sequelize\public\img\nz-zorro.png'
+errno: -4058
+code: "ENOENT"
+syscall: "open"
+path: "D:\\my-item\\egg-sequelize\\public\\img\\nz-zorro.png"
+name: "unhandledRejectionError"
+pid: 13368
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 10:09:46,167 ERROR 14248 nodejs.unhandledRejectionError: ENOENT: no such file or directory, open 'D:\my-item\egg-sequelize\public\img\nz-zorro.png'
+unhandledRejectionError: ENOENT: no such file or directory, open 'D:\my-item\egg-sequelize\public\img\nz-zorro.png'
+errno: -4058
+code: "ENOENT"
+syscall: "open"
+path: "D:\\my-item\\egg-sequelize\\public\\img\\nz-zorro.png"
+name: "unhandledRejectionError"
+pid: 14248
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 10:11:20,085 ERROR 5712 nodejs.unhandledRejectionError: ENOENT: no such file or directory, open 'D:\egg-sequelize\app\public\img\nz-zorro.png'
+unhandledRejectionError: ENOENT: no such file or directory, open 'D:\egg-sequelize\app\public\img\nz-zorro.png'
+errno: -4058
+code: "ENOENT"
+syscall: "open"
+path: "D:\\egg-sequelize\\app\\public\\img\\nz-zorro.png"
+name: "unhandledRejectionError"
+pid: 5712
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 10:12:17,081 ERROR 5712 nodejs.unhandledRejectionError: ENOENT: no such file or directory, open 'D:\egg-sequelize\app\public\img\nz-zorro.png'
+unhandledRejectionError: ENOENT: no such file or directory, open 'D:\egg-sequelize\app\public\img\nz-zorro.png'
+errno: -4058
+code: "ENOENT"
+syscall: "open"
+path: "D:\\egg-sequelize\\app\\public\\img\\nz-zorro.png"
+name: "unhandledRejectionError"
+pid: 5712
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 10:12:26,178 ERROR 7420 nodejs.unhandledRejectionError: ENOENT: no such file or directory, open 'D:\my-item\egg-sequelize\egg-sequelize\home.js'
+unhandledRejectionError: ENOENT: no such file or directory, open 'D:\my-item\egg-sequelize\egg-sequelize\home.js'
+errno: -4058
+code: "ENOENT"
+syscall: "open"
+path: "D:\\my-item\\egg-sequelize\\egg-sequelize\\home.js"
+name: "unhandledRejectionError"
+pid: 7420
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 10:15:54,958 ERROR 17628 nodejs.unhandledRejectionError: ENOENT: no such file or directory, open 'D:\my-item\egg-sequelize\egg-sequelize\http:\127.0.0.1:7001\public\img\nz-zorro.png'
+unhandledRejectionError: ENOENT: no such file or directory, open 'D:\my-item\egg-sequelize\egg-sequelize\http:\127.0.0.1:7001\public\img\nz-zorro.png'
+errno: -4058
+code: "ENOENT"
+syscall: "open"
+path: "D:\\my-item\\egg-sequelize\\egg-sequelize\\http:\\127.0.0.1:7001\\public\\img\\nz-zorro.png"
+name: "unhandledRejectionError"
+pid: 17628
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 10:15:57,140 ERROR 17628 nodejs.unhandledRejectionError: ENOENT: no such file or directory, open 'D:\my-item\egg-sequelize\egg-sequelize\http:\127.0.0.1:7001\public\img\nz-zorro.png'
+unhandledRejectionError: ENOENT: no such file or directory, open 'D:\my-item\egg-sequelize\egg-sequelize\http:\127.0.0.1:7001\public\img\nz-zorro.png'
+errno: -4058
+code: "ENOENT"
+syscall: "open"
+path: "D:\\my-item\\egg-sequelize\\egg-sequelize\\http:\\127.0.0.1:7001\\public\\img\\nz-zorro.png"
+name: "unhandledRejectionError"
+pid: 17628
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 10:18:20,487 ERROR 3440 nodejs.unhandledRejectionError: ENOENT: no such file or directory, open 'D:\app\public\img\nz-zorro.png'
+unhandledRejectionError: ENOENT: no such file or directory, open 'D:\app\public\img\nz-zorro.png'
+errno: -4058
+code: "ENOENT"
+syscall: "open"
+path: "D:\\app\\public\\img\\nz-zorro.png"
+name: "unhandledRejectionError"
+pid: 3440
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 10:23:50,129 ERROR 9120 nodejs.unhandledRejectionError: ENOENT: no such file or directory, open 'D:\my-item\egg-sequelize\egg-sequelize\app\controller\home.js\utf8'
+unhandledRejectionError: ENOENT: no such file or directory, open 'D:\my-item\egg-sequelize\egg-sequelize\app\controller\home.js\utf8'
+errno: -4058
+code: "ENOENT"
+syscall: "open"
+path: "D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\controller\\home.js\\utf8"
+name: "unhandledRejectionError"
+pid: 9120
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 10:34:08,347 ERROR 14320 [-/127.0.0.1/-/13ms GET /api/resimg] nodejs.TypeError [ERR_INVALID_CALLBACK]: Callback must be a function
+    at maybeCallback (fs.js:133:9)
+    at Object.readFile (fs.js:282:14)
+    at ContentController.resimg (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:30:8)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compress@3.0.0@koa-compress\index.js:38:11
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+
+pid: 14320
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 10:34:47,680 ERROR 15232 [-/127.0.0.1/-/15ms GET /api/resimg] nodejs.TypeError [ERR_INVALID_CALLBACK]: Callback must be a function
+    at maybeCallback (fs.js:133:9)
+    at Object.readFile (fs.js:282:14)
+    at ContentController.resimg (D:\my-item\egg-sequelize\egg-sequelize\app\controller\contents.js:30:14)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compress@3.0.0@koa-compress\index.js:38:11
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at i18n (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-i18n@2.0.0@egg-i18n\app\middleware\i18n.js:13:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at dta (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\dta.js:12:12)
+
+pid: 15232
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 15:23:42,249 ERROR 9528 [-/127.0.0.1/-/43ms GET /upload] nodejs.Template render error: (D:\my-item\egg-sequelize\egg-sequelize\app\view\upload.nj) [Line 45, Column 40]
+  expected variable end
+  expected variable end
+    at Object._prettifyError (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\lib.js:36:11)
+    at Template.render (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\environment.js:542:21)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\environment.js:366:27
+    at createTemplate (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\environment.js:315:9)
+    at handle (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\environment.js:327:11)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\environment.js:339:9
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\lib.js:280:7)
+    at Object.asyncIter (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\lib.js:286:3)
+    at NunjucksEnvironment.getTemplate (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\environment.js:321:9)
+    at NunjucksEnvironment.render (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\environment.js:360:10)
+    at Promise (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-view-nunjucks@2.2.0@egg-view-nunjucks\lib\view.js:13:25)
+    at new Promise (<anonymous>)
+    at NunjucksView.render (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-view-nunjucks@2.2.0@egg-view-nunjucks\lib\view.js:12:12)
+    at ContextView.[contextView#render] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-view@2.1.2@egg-view\lib\context_view.js:70:23)
+name: "Template render error"
+pid: 9528
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 15:26:59,060 ERROR 18788 [-/127.0.0.1/-/5ms GET /upload] nodejs.Template render error: (D:\my-item\egg-sequelize\egg-sequelize\app\view\upload.nj) [Line 45, Column 40]
+  expected variable end
+  expected variable end
+    at Object._prettifyError (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\lib.js:36:11)
+    at Template.render (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\environment.js:542:21)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\environment.js:366:27
+    at createTemplate (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\environment.js:315:9)
+    at handle (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\environment.js:327:11)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\environment.js:339:9
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\lib.js:280:7)
+    at Object.asyncIter (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\lib.js:286:3)
+    at NunjucksEnvironment.getTemplate (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\environment.js:321:9)
+    at NunjucksEnvironment.render (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_nunjucks@3.2.0@nunjucks\src\environment.js:360:10)
+    at Promise (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-view-nunjucks@2.2.0@egg-view-nunjucks\lib\view.js:13:25)
+    at new Promise (<anonymous>)
+    at NunjucksView.render (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-view-nunjucks@2.2.0@egg-view-nunjucks\lib\view.js:12:12)
+    at ContextView.[contextView#render] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-view@2.1.2@egg-view\lib\context_view.js:70:23)
+name: "Template render error"
+pid: 18788
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 15:50:19,389 ERROR 3984 [-/127.0.0.1/-/48ms POST /api/upload?_csrf=] nodejs.TypeError: Cannot read property 'put' of undefined
+    at module.exports.upload (D:\my-item\egg-sequelize\egg-sequelize\app\controller\upload.js:19:32)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at errorHandler (D:\my-item\egg-sequelize\egg-sequelize\app\middleware\error_handler.js:4:13)
+    at fn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\middleware.js:108:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compress@3.0.0@koa-compress\index.js:38:11
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at multipart (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-multipart@2.4.0@egg-multipart\app\middleware\multipart.js:96:12)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+
+pid: 3984
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 15:55:26,814 ERROR 14160 [-/127.0.0.1/-/34ms POST /api/upload?_csrf=] nodejs.TypeError: Cannot read property 'put' of undefined
+    at module.exports.upload (D:\my-item\egg-sequelize\egg-sequelize\app\controller\upload.js:20:32)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at errorHandler (D:\my-item\egg-sequelize\egg-sequelize\app\middleware\error_handler.js:4:13)
+    at fn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\middleware.js:108:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compress@3.0.0@koa-compress\index.js:38:11
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at multipart (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-multipart@2.4.0@egg-multipart\app\middleware\multipart.js:96:12)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+
+pid: 14160
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 16:13:32,120 ERROR 14160 nodejs.ServerNoResponseError: server 127.0.0.1:49595 no response in 39999ms, maybe the socket is end on the other side. (address: 127.0.0.1:49595)
+    at Timeout._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_tcp-base@3.1.0@tcp-base\lib\base.js:427:21)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ServerNoResponseError"
+pid: 14160
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 16:26:26,343 ERROR 5080 [-/127.0.0.1/-/42ms POST /api/upload?_csrf=] nodejs.TypeError: the multipart request can't be consumed twice
+    at Object.multipart (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-multipart@2.4.0@egg-multipart\app\extend\context.js:53:35)
+    at UploaderController.upload (D:\my-item\egg-sequelize\egg-sequelize\app\controller\upload.js:10:28)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at errorHandler (D:\my-item\egg-sequelize\egg-sequelize\app\middleware\error_handler.js:4:13)
+    at fn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\middleware.js:108:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compress@3.0.0@koa-compress\index.js:38:11
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at multipart (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-multipart@2.4.0@egg-multipart\app\middleware\multipart.js:96:12)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+
+pid: 5080
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 16:30:02,599 ERROR 5080 [-/127.0.0.1/-/7ms POST /api/upload?_csrf=] nodejs.TypeError: the multipart request can't be consumed twice
+    at Object.multipart (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-multipart@2.4.0@egg-multipart\app\extend\context.js:53:35)
+    at UploaderController.upload (D:\my-item\egg-sequelize\egg-sequelize\app\controller\upload.js:10:28)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\utils\index.js:44:21)
+    at Object.classControllerMiddleware (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\controller.js:87:20)
+    at Object.callFn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\utils.js:12:21)
+    at wrappedController (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\egg_router.js:322:18)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at next (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:45:18)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:190:18
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:44:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@3.2.1@koa-compose\index.js:36:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_@eggjs_router@2.0.0@@eggjs\router\lib\router.js:195:33)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at errorHandler (D:\my-item\egg-sequelize\egg-sequelize\app\middleware\error_handler.js:4:13)
+    at fn (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-core@4.16.1@egg-core\lib\loader\mixin\middleware.js:108:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compress@3.0.0@koa-compress\index.js:38:11
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-development@2.4.2@egg-development\app\middleware\egg_loader_trace.js:9:56
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at multipart (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-multipart@2.4.0@egg-multipart\app\middleware\multipart.js:96:12)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+
+pid: 5080
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 16:57:19,440 ERROR 17248 nodejs.ServerNoResponseError: server 127.0.0.1:58717 no response in 40000ms, maybe the socket is end on the other side. (address: 127.0.0.1:58717)
+    at Timeout._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_tcp-base@3.1.0@tcp-base\lib\base.js:427:21)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ServerNoResponseError"
+pid: 17248
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 16:57:26,782 ERROR 18520 nodejs.ClusterClientNoResponseError: client no response in 67341ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_cluster-client@3.0.1@cluster-client\lib\leader.js:77:23)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ClusterClientNoResponseError"
+pid: 18520
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:12:42,686 ERROR 14640 nodejs.EPERMError: EPERM: operation not permitted, watch
+    at FSEvent.FSWatcher._handle.onchange (internal/fs/watchers.js:123:28)
+errno: -4048
+syscall: "watch"
+code: "EPERM"
+filename: null
+dir: "D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\public\\uploads"
+name: "EPERMError"
+pid: 14640
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:13:53,380 ERROR 16812 [-/127.0.0.1/-/29ms POST /api/upload] nodejs.ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+    at Object.accessSync (fs.js:197:3)
+    at UploaderController.upload (D:\my-item\egg-sequelize\egg-sequelize\app\controller\upload.js:28:15)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+errno: -4058
+syscall: "access"
+code: "ENOENT"
+path: "D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\public\\uploads\\2019048"
+name: "ENOENTError"
+pid: 16812
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:16:07,860 ERROR 16812 [-/127.0.0.1/-/8ms POST /api/upload?_csrf=] nodejs.ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+    at Object.accessSync (fs.js:197:3)
+    at UploaderController.upload (D:\my-item\egg-sequelize\egg-sequelize\app\controller\upload.js:28:15)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+errno: -4058
+syscall: "access"
+code: "ENOENT"
+path: "D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\public\\uploads\\2019048"
+name: "ENOENTError"
+pid: 16812
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:16:12,881 ERROR 16812 [-/127.0.0.1/-/11ms POST /api/upload?_csrf=] nodejs.ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+    at Object.accessSync (fs.js:197:3)
+    at UploaderController.upload (D:\my-item\egg-sequelize\egg-sequelize\app\controller\upload.js:28:15)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+errno: -4058
+syscall: "access"
+code: "ENOENT"
+path: "D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\public\\uploads\\2019048"
+name: "ENOENTError"
+pid: 16812
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:16:17,913 ERROR 16812 [-/127.0.0.1/-/12ms POST /api/upload?_csrf=] nodejs.ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+    at Object.accessSync (fs.js:197:3)
+    at UploaderController.upload (D:\my-item\egg-sequelize\egg-sequelize\app\controller\upload.js:28:15)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+errno: -4058
+syscall: "access"
+code: "ENOENT"
+path: "D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\public\\uploads\\2019048"
+name: "ENOENTError"
+pid: 16812
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:22:50,476 ERROR 4736 [-/127.0.0.1/-/26ms POST /api/upload?_csrf=] nodejs.ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+errno: -4058
+code: "ENOENT"
+syscall: "access"
+path: "D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\public\\uploads\\2019048"
+name: "ENOENTError"
+pid: 4736
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:22:55,497 ERROR 4736 [-/127.0.0.1/-/10ms POST /api/upload?_csrf=] nodejs.ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+errno: -4058
+code: "ENOENT"
+syscall: "access"
+path: "D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\public\\uploads\\2019048"
+name: "ENOENTError"
+pid: 4736
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:23:00,527 ERROR 4736 [-/127.0.0.1/-/10ms POST /api/upload?_csrf=] nodejs.ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+errno: -4058
+code: "ENOENT"
+syscall: "access"
+path: "D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\public\\uploads\\2019048"
+name: "ENOENTError"
+pid: 4736
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:24:28,528 ERROR 19820 [-/127.0.0.1/-/26ms POST /api/upload?_csrf=] nodejs.ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+errno: -4058
+code: "ENOENT"
+syscall: "access"
+path: "D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\public\\uploads\\2019048"
+name: "ENOENTError"
+pid: 19820
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:25:14,691 ERROR 1612 [-/127.0.0.1/-/25ms POST /api/upload?_csrf=] nodejs.ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+errno: -4058
+code: "ENOENT"
+syscall: "access"
+path: "D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\public\\uploads\\2019048"
+name: "ENOENTError"
+pid: 1612
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:25:19,716 ERROR 1612 [-/127.0.0.1/-/16ms POST /api/upload?_csrf=] nodejs.ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+errno: -4058
+code: "ENOENT"
+syscall: "access"
+path: "D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\public\\uploads\\2019048"
+name: "ENOENTError"
+pid: 1612
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:25:24,736 ERROR 1612 [-/127.0.0.1/-/6ms POST /api/upload?_csrf=] nodejs.ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+errno: -4058
+code: "ENOENT"
+syscall: "access"
+path: "D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\public\\uploads\\2019048"
+name: "ENOENTError"
+pid: 1612
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:26:30,896 ERROR 14284 [-/127.0.0.1/-/32ms POST /api/upload?_csrf=] nodejs.ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\2019048'
+errno: -4058
+code: "ENOENT"
+syscall: "access"
+path: "D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\public\\uploads\\2019048"
+name: "ENOENTError"
+pid: 14284
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:28:28,230 ERROR 11468 nodejs.ServerNoResponseError: server 127.0.0.1:61083 no response in 40000ms, maybe the socket is end on the other side. (address: 127.0.0.1:61083)
+    at Timeout._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_tcp-base@3.1.0@tcp-base\lib\base.js:427:21)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ServerNoResponseError"
+pid: 11468
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:30:43,817 ERROR 14640 nodejs.ClusterClientNoResponseError: client no response in 195591ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_cluster-client@3.0.1@cluster-client\lib\leader.js:77:23)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ClusterClientNoResponseError"
+pid: 14640
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:30:50,852 ERROR 9632 [-/127.0.0.1/-/107ms POST /api/upload?_csrf=] nodejs.TypeError: date.getFullYear is not a function
+    at UploaderController.upload (D:\my-item\egg-sequelize\egg-sequelize\app\controller\upload.js:24:29)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+
+pid: 9632
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:31:34,496 ERROR 9632 [-/127.0.0.1/-/7ms POST /api/upload?_csrf=] nodejs.TypeError: date.getFullYear is not a function
+    at UploaderController.upload (D:\my-item\egg-sequelize\egg-sequelize\app\controller\upload.js:24:29)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+
+pid: 9632
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:31:40,484 ERROR 2920 [-/127.0.0.1/-/27ms POST /api/upload?_csrf=] nodejs.ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\20190408'
+ENOENTError: ENOENT: no such file or directory, access 'D:\my-item\egg-sequelize\egg-sequelize\app\public\uploads\20190408'
+errno: -4058
+code: "ENOENT"
+syscall: "access"
+path: "D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\public\\uploads\\20190408"
+name: "ENOENTError"
+pid: 2920
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:36:18,607 ERROR 2920 nodejs.ServerNoResponseError: server 127.0.0.1:61083 no response in 40000ms, maybe the socket is end on the other side. (address: 127.0.0.1:61083)
+    at Timeout._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_tcp-base@3.1.0@tcp-base\lib\base.js:427:21)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ServerNoResponseError"
+pid: 2920
+hostname: DESKTOP-IGV1BLA
+
+2019-04-08 17:36:38,849 ERROR 14640 nodejs.ClusterClientNoResponseError: client no response in 80243ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_cluster-client@3.0.1@cluster-client\lib\leader.js:77:23)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ClusterClientNoResponseError"
+pid: 14640
+hostname: DESKTOP-IGV1BLA
+

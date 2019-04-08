@@ -44,6 +44,13 @@ class HomeController extends Controller {
 
     await ctx.render('register');
   }
+
+  /** 渲染文件上传页面  */
+  async upload() {
+    const ctx = this.ctx;
+
+    await ctx.render('upload', { csrf: ctx.csrf });
+  }
 }
 
 module.exports = HomeController;

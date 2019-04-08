@@ -22,13 +22,3 @@ exports.session = {
   httpOnly: true, // 不允许客户端js获取
   encrypt: true, // 进行加密
 };
-
-// /** 加载自定义中间件 */
-// module.exports = {
-//   // 加载 errorHandler 中间件
-//   middleware: [ 'errorHandler' ],
-//   // 只对 /api 前缀的 url 路径生效
-//   errorHandler: {
-//     match: '/api',
-//   },
-// };
