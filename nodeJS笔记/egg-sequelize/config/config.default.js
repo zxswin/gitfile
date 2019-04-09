@@ -32,13 +32,6 @@ module.exports = appInfo => {
     },
   };
 
-  /** 禁用 csrf  要不然 POST DELETE PUT 等请求会有问题 */
-  config.security = {
-    csrf: {
-      enable: false,
-    },
-  };
-
   /** 变更解析时允许的最大长度 */
   config.bodyParser = {
     jsonLimit: '1mb', // 默认为100k
@@ -66,19 +59,28 @@ module.exports = appInfo => {
   };
 
   /** jsonp 设置  */
-  exports.jsonp = {
-    csrf: true, // 对 JSONP 接口开启 CSRF 校验。
+  config.jsonp = {
+    // csrf: true, // 对 JSONP 接口开启 CSRF 校验。
     callback: 'callback', // 识别 query 中的 `callback` 参数
     limit: 100, // 函数名最长为 100 个字符
-    whiteList: /^https?:\/\/test.com\//, // 设置请求白名单
+    // whiteList: /^https?:\/\/test.com\//, // 设置请求白名单
     // whiteList: '.test.com', // 包括了test.com 的所有子域名，包括 test.com 自身
     // whiteList: 'sub.test.com', // sub.test.com 这一个域名。（同时支持 HTTP 和 HTTPS）
     // whiteList: [ 'sub.test.com', 'sub2.test.com' ],
   };
 
+  /** 禁用 csrf  要不然 POST DELETE PUT 等请求会有问题 */
   /** 设置重定向安全的白名单  */
-  exports.security = {
-    domainWhiteList: ['.domain.com'], // 安全白名单，以 . 开头
+  config.security = {
+    csrf: {
+      enable: false,
+    },
+    domainWhiteList: ['http://127.0.0.1'], // 安全白名单，以 . 开头
+  };
+  /** CORS跨域配置  */
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
   };
 
   return config;

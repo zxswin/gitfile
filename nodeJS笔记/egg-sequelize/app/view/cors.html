@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>cors 实现跨域请求</title>
+    <link rel="stylesheet" href="">
+    <script src="../public/js/jquery-3.3.1.js"></script>
+  </head>
+
+  <body>
+    <button id="btn">cors 实现跨域请求</button>
+  </body>
+
+  <script>
+
+    $(function () {
+
+      $('#btn').on('click', function () {
+        console.log('cors 实现跨域请求 执行跨域请求')
+
+        // cors 实现跨域请求
+        $.ajax({
+          url: `http://127.0.0.1:7001/api/cors`, type: 'post', dataType: "json", //数据类型为jsonp
+          success: function (data) {
+            console.log('cors 实现跨域请求', data);
+          },
+          error: function () {
+            console.log('cors 实现跨域请求 失败');
+          }
+        });
+      });
+    });
+  </script>
+
+</html>

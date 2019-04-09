@@ -22,3 +22,15 @@ exports.session = {
   httpOnly: true, // 不允许客户端js获取
   encrypt: true, // 进行加密
 };
+
+// /** 启用jsonp处理插件 不需要再这里配置  */
+// exports.jsonp = {
+//   enable: true,
+//   package: 'egg-jsonp',
+// };
+
+/** 启用CORS处理跨域插件 */
+exports.cors = {
+  enable: true,
+  package: 'egg-cors',
+};

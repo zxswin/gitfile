@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>jsonp 实现跨域请求</title>
+    <link rel="stylesheet" href="">
+    <script src="../public/js/jquery-3.3.1.js"></script>
+  </head>
+
+  <body>
+    <button id="btn">使用jsonp跨域请求资源(普通方式)</button>
+    <button id="btn1">使用jquery ajax 执行jsonp跨域请求资源</button>
+  </body>
+
+  <script>
+
+    function getList() {
+      var js = document.createElement('script'),
+        head = document.getElementsByTagName('head')[0];
+      js.src = 'http://127.0.0.1:7001/api/jsonp?callback=list';
+      head.appendChild(js);
+    }
+
+    function list(data) {
+      console.log('通过jsonp获取到了数据', data);
+    }
+
+    $(function () {
+
+      $('#btn').on('click', function () {
+        console.log('点击执行jsonp跨域请求')
+        getList();
+      });
+
+      $('#btn1').on('click', function () {
+        console.log('点击jquery执行jsonp跨域请求')
+
+        // jsonp跨域请求
+        $.ajax({
+          url: `http://127.0.0.1:7001/api/jsonp`, type: 'get', dataType: "jsonp", //数据类型为jsonp
+          jsonp: "callback", //服务端用于接收callback调用的function名的参数
+          success: function (data) {
+            console.log('通过jquery 实现jsonp数据获取', data);
+          },
+          error: function () {
+            console.log('通过jquery 实现jsonp数据获取 失败');
+          }
+        });
+      });
+    });
+  </script>
+
+</html>

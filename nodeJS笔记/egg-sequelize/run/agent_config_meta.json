@@ -22,59 +22,7 @@
     "mapping": {
       ".nj": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js"
     },
-    "cache": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-view@2.1.2@egg-view\\config\\config.local.js"
-  },
-  "security": {
-    "csrf": {
-      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
-      "useSession": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
-      "ignoreJSON": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
-      "cookieName": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
-      "sessionName": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
-      "headerName": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
-      "bodyName": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
-      "queryName": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
-    },
-    "domainWhiteList": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
-    "protocolWhiteList": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
-    "defaultMiddleware": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
-    "xframe": {
-      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
-      "value": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
-    },
-    "hsts": {
-      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.local.js",
-      "maxAge": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
-      "includeSubdomains": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
-    },
-    "dta": {
-      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
-    },
-    "methodnoallow": {
-      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
-    },
-    "noopen": {
-      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
-    },
-    "nosniff": {
-      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
-    },
-    "referrerPolicy": {
-      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
-      "value": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
-    },
-    "xssProtection": {
-      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
-      "value": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
-    },
-    "csp": {
-      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
-      "policy": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
-    },
-    "ssrf": {
-      "ipBlackList": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
-      "checkAddress": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
-    }
+    "cache": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-view@2.1.2@egg-view\\config\\config.default.js"
   },
   "bodyParser": {
     "jsonLimit": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
@@ -112,13 +60,69 @@
   "errorHandler": {
     "match": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js"
   },
+  "jsonp": {
+    "callback": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+    "limit": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+    "csrf": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-jsonp@2.0.0@egg-jsonp\\config\\config.default.js"
+  },
+  "security": {
+    "csrf": {
+      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+      "useSession": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
+      "ignoreJSON": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
+      "cookieName": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
+      "sessionName": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
+      "headerName": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
+      "bodyName": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
+      "queryName": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
+    },
+    "domainWhiteList": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+    "protocolWhiteList": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
+    "defaultMiddleware": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
+    "xframe": {
+      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
+      "value": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
+    },
+    "hsts": {
+      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
+      "maxAge": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
+      "includeSubdomains": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
+    },
+    "dta": {
+      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
+    },
+    "methodnoallow": {
+      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
+    },
+    "noopen": {
+      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
+    },
+    "nosniff": {
+      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
+    },
+    "referrerPolicy": {
+      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
+      "value": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
+    },
+    "xssProtection": {
+      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
+      "value": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
+    },
+    "csp": {
+      "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
+      "policy": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
+    },
+    "ssrf": {
+      "ipBlackList": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
+      "checkAddress": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
+    }
+  },
+  "cors": {
+    "origin": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+    "allowMethods": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js"
+  },
   "helper": {
     "shtml": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
-  },
-  "jsonp": {
-    "limit": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-jsonp@2.0.0@egg-jsonp\\config\\config.default.js",
-    "callback": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-jsonp@2.0.0@egg-jsonp\\config\\config.default.js",
-    "csrf": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-jsonp@2.0.0@egg-jsonp\\config\\config.default.js"
   },
   "onerror": {
     "errorPageUrl": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-onerror@2.1.0@egg-onerror\\config\\config.default.js",
@@ -133,7 +137,7 @@
     "cookieMaxAge": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-i18n@2.0.0@egg-i18n\\config\\config.default.js"
   },
   "watcher": {
-    "type": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-watcher@3.1.0@egg-watcher\\config\\config.local.js",
+    "type": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-watcher@3.1.0@egg-watcher\\config\\config.unittest.js",
     "eventSources": {
       "default": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-watcher@3.1.0@egg-watcher\\config\\config.default.js",
       "development": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-watcher@3.1.0@egg-watcher\\config\\config.default.js"
@@ -147,13 +151,6 @@
   },
   "schedule": {
     "directory": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-schedule@3.6.1@egg-schedule\\config\\config.default.js"
-  },
-  "development": {
-    "watchDirs": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-development@2.4.2@egg-development\\config\\config.default.js",
-    "ignoreDirs": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-development@2.4.2@egg-development\\config\\config.default.js",
-    "fastReady": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-development@2.4.2@egg-development\\config\\config.default.js",
-    "reloadOnDebug": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-development@2.4.2@egg-development\\config\\config.default.js",
-    "overrideDefault": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-development@2.4.2@egg-development\\config\\config.default.js"
   },
   "logrotator": {
     "filesRotateByHour": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-logrotator@3.0.7@egg-logrotator\\config\\config.default.js",
@@ -177,7 +174,7 @@
     "throwOnUndefined": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-view-nunjucks@2.2.0@egg-view-nunjucks\\config\\config.default.js",
     "trimBlocks": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-view-nunjucks@2.2.0@egg-view-nunjucks\\config\\config.default.js",
     "lstripBlocks": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-view-nunjucks@2.2.0@egg-view-nunjucks\\config\\config.default.js",
-    "cache": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-view-nunjucks@2.2.0@egg-view-nunjucks\\config\\config.local.js"
+    "cache": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-view-nunjucks@2.2.0@egg-view-nunjucks\\config\\config.default.js"
   },
   "validate": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-validate@2.0.2@egg-validate\\config\\config.default.js",
   "env": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
@@ -200,6 +197,7 @@
     "license": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
     "dependencies": {
       "egg": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "egg-cors": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-sequelize": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-validate": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-view-assets": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
@@ -214,8 +212,11 @@
       "uuid": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js"
     },
     "devDependencies": {
+      "assert": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "babel-eslint": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "chai": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-bin": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "egg-mock": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "eslint": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "eslint-config-airbnb": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "eslint-config-egg": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
@@ -247,17 +248,15 @@
     "encoding": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
     "env": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
     "level": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
-    "consoleLevel": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+    "consoleLevel": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.unittest.js",
     "disableConsoleAfterReady": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
     "outputJSON": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
-    "buffer": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+    "buffer": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.unittest.js",
     "appLogName": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
     "coreLogName": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
     "agentLogName": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
     "errorLogName": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
-    "coreLogger": {
-      "consoleLevel": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.local.js"
-    },
+    "coreLogger": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
     "allowDebugAtProd": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js"
   },
   "httpclient": {
