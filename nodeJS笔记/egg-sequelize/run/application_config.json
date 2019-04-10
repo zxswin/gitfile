@@ -98,6 +98,7 @@
         "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-watcher@3.1.0@egg-watcher\\config\\locales",
         "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-schedule@3.6.1@egg-schedule\\config\\locales",
         "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart\\config\\locales",
+        "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-development@2.4.2@egg-development\\config\\locales",
         "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-logrotator@3.0.7@egg-logrotator\\config\\locales",
         "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-static@2.2.0@egg-static\\config\\locales",
         "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-view@2.1.2@egg-view\\config\\locales",
@@ -105,9 +106,7 @@
         "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-view-nunjucks@2.2.0@egg-view-nunjucks\\config\\locales",
         "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-validate@2.0.2@egg-validate\\config\\locales",
         "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-cors@2.2.0@egg-cors\\config\\locales",
-        "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-mock@3.22.1@egg-mock\\config\\locales",
         "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\locales",
-        "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-mock@3.22.1@egg-mock\\lib\\tmp\\config\\locales",
         "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\locales"
       ],
       "queryField": "locale",
@@ -149,6 +148,13 @@
         "cron": "0 30 4 * * *"
       }
     },
+    "development": {
+      "watchDirs": [],
+      "ignoreDirs": [],
+      "fastReady": false,
+      "reloadOnDebug": true,
+      "overrideDefault": false
+    },
     "logrotator": {
       "filesRotateByHour": null,
       "hourDelimiter": "-",
@@ -170,7 +176,7 @@
       "root": [
         "D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\view"
       ],
-      "cache": true,
+      "cache": false,
       "defaultExtension": ".nj",
       "defaultViewEngine": "nunjucks",
       "mapping": {
@@ -190,14 +196,14 @@
       "throwOnUndefined": false,
       "trimBlocks": false,
       "lstripBlocks": false,
-      "cache": true
+      "cache": false
     },
     "validate": {},
     "cors": {
       "origin": "*",
       "allowMethods": "GET,HEAD,PUT,POST,DELETE,PATCH"
     },
-    "env": "unittest",
+    "env": "local",
     "name": "egg-sequlize",
     "keys": "<String len: 30>",
     "proxy": false,
@@ -210,19 +216,29 @@
       "description": "egg-sequlize",
       "main": "index.js",
       "scripts": {
-        "test": "egg-bin test",
+        "start": "egg-scripts start --daemon",
+        "stop": "egg-scripts stop",
         "dev": "egg-bin dev",
+        "test": "egg-bin test",
         "lint": "eslint --fix --ext .js app/**"
       },
       "author": "",
       "license": "ISC",
       "dependencies": {
+        "assert": "^1.4.1",
+        "chai": "^4.2.0",
         "egg": "^2.20.2",
+        "egg-alinode": "^2.0.1",
         "egg-cors": "^2.2.0",
+        "egg-logger": "^2.4.1",
+        "egg-logrotator": "^3.0.7",
+        "egg-mock": "^3.22.1",
+        "egg-scripts": "^2.11.0",
         "egg-sequelize": "^4.3.1",
         "egg-validate": "^2.0.2",
         "egg-view-assets": "^1.4.4",
         "egg-view-nunjucks": "^2.2.0",
+        "formstream": "^1.1.0",
         "koa-compress": "^3.0.0",
         "koa-is-json": "^1.0.0",
         "md5": "^2.2.1",
@@ -233,11 +249,8 @@
         "uuid": "^3.3.2"
       },
       "devDependencies": {
-        "assert": "^1.4.1",
         "babel-eslint": "^10.0.1",
-        "chai": "^4.2.0",
         "egg-bin": "^4.12.1",
-        "egg-mock": "^3.22.1",
         "eslint": "^5.16.0",
         "eslint-config-airbnb": "^17.1.0",
         "eslint-config-egg": "^7.3.1",
@@ -280,17 +293,19 @@
     "logger": {
       "dir": "D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize",
       "encoding": "utf8",
-      "env": "unittest",
+      "env": "local",
       "level": "INFO",
-      "consoleLevel": "WARN",
+      "consoleLevel": "INFO",
       "disableConsoleAfterReady": false,
       "outputJSON": false,
-      "buffer": false,
+      "buffer": true,
       "appLogName": "egg-sequlize-web.log",
       "coreLogName": "egg-web.log",
       "agentLogName": "egg-agent.log",
       "errorLogName": "common-error.log",
-      "coreLogger": {},
+      "coreLogger": {
+        "consoleLevel": "WARN"
+      },
       "allowDebugAtProd": false,
       "type": "application"
     },
@@ -299,19 +314,23 @@
       "dnsCacheLookupInterval": 10000,
       "dnsCacheMaxLength": 1000,
       "request": {
-        "timeout": 5000
+        "timeout": 3000
       },
       "httpAgent": {
         "keepAlive": true,
         "freeSocketTimeout": 4000,
         "maxSockets": 9007199254740991,
-        "maxFreeSockets": 256
+        "maxFreeSockets": 256,
+        "timeout": 30000,
+        "socketActiveTTL": 0
       },
       "httpsAgent": {
         "keepAlive": true,
         "freeSocketTimeout": 4000,
         "maxSockets": 9007199254740991,
-        "maxFreeSockets": 256
+        "maxFreeSockets": 256,
+        "timeout": 30000,
+        "socketActiveTTL": 0
       }
     },
     "meta": {
@@ -327,17 +346,17 @@
       "bodyParser",
       "overrideMethod",
       "session",
-      "clusterAppMock",
       "securities",
-      "i18n"
+      "i18n",
+      "eggLoaderTrace"
     ],
     "workerStartTimeout": 600000,
     "serverTimeout": null,
     "cluster": {
       "listen": {
         "path": "",
-        "port": 7001,
-        "hostname": ""
+        "port": 8080,
+        "hostname": "127.0.0.1"
       }
     },
     "clusterClient": {
@@ -473,16 +492,31 @@
       "path": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-multipart@2.4.0@egg-multipart",
       "version": "2.4.0"
     },
+    "development": {
+      "enable": true,
+      "package": "egg-development",
+      "name": "development",
+      "dependencies": [
+        "watcher"
+      ],
+      "optionalDependencies": [],
+      "env": [
+        "local"
+      ],
+      "from": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\plugin.js",
+      "path": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-development@2.4.2@egg-development",
+      "version": "2.4.2"
+    },
     "logrotator": {
       "enable": true,
-      "package": "egg-logrotator",
       "name": "logrotator",
       "dependencies": [
         "schedule"
       ],
       "optionalDependencies": [],
       "env": [],
-      "from": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\plugin.js",
+      "from": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\plugin.js",
+      "package": "egg-logrotator",
       "path": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-logrotator@3.0.7@egg-logrotator",
       "version": "3.0.7"
     },
@@ -554,15 +588,6 @@
       "from": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\plugin.js",
       "path": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-cors@2.2.0@egg-cors",
       "version": "2.2.0"
-    },
-    "egg-mock": {
-      "enable": true,
-      "path": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-mock@3.22.1@egg-mock",
-      "name": "egg-mock",
-      "dependencies": [],
-      "optionalDependencies": [],
-      "env": [],
-      "version": "3.22.1"
     }
   }
 }

@@ -18,6 +18,7 @@ class ContentController extends Controller {
   /** 对内容进行点赞的接口  */
   async like() {
     const ctx = this.ctx;
+    console.log('app.config.cacheTick================', this.app.config.cluster);
     ctx.body = await ctx.service.example.contents.like(this.ctx.request.body);
   }
 

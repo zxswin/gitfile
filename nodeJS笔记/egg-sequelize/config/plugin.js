@@ -34,3 +34,15 @@ exports.cors = {
   enable: true,
   package: 'egg-cors',
 };
+
+/** 开启日志切割插件  */
+exports.logrotator = {
+  enable: true,
+  package: 'egg-logrotator',
+};
+
+/** 性能监控、安全提醒、故障排查、性能优化 */
+// exports.alinode = {
+//   enable: true,
+//   package: 'egg-alinode',
+// };

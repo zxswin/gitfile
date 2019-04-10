@@ -12,3 +12,315 @@
 2019-04-09 17:12:05,534 INFO 19296 [egg:core] dump config after load, 11ms
 2019-04-09 17:12:05,569 INFO 19296 [egg-watcher:application] watcher start success
 2019-04-09 17:12:05,600 INFO 19296 [egg:core] dump config after ready, 8ms
+2019-04-10 16:13:09,289 INFO 10164 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 16:13:09,360 INFO 10164 [egg-multipart] stream mode enable
+2019-04-10 16:13:10,605 INFO 10164 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 16:13:10,609 INFO 10164 [egg-security] use methodnoallow middleware
+2019-04-10 16:13:10,610 INFO 10164 [egg-security] use noopen middleware
+2019-04-10 16:13:10,611 INFO 10164 [egg-security] use nosniff middleware
+2019-04-10 16:13:10,622 INFO 10164 [egg-security] use xssProtection middleware
+2019-04-10 16:13:10,622 INFO 10164 [egg-security] use xframe middleware
+2019-04-10 16:13:10,623 INFO 10164 [egg-security] use dta middleware
+2019-04-10 16:13:10,623 INFO 10164 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 16:13:10,660 WARN 10164 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 16:13:10,685 INFO 10164 [egg:core] dump config after load, 23ms
+2019-04-10 16:13:10,725 INFO 10164 [egg-watcher:application] watcher start success
+2019-04-10 16:13:10,753 INFO 10164 [egg:core] dump config after ready, 8ms
+2019-04-10 16:13:45,131 INFO 10164 [egg-view-nunjucks] loading templates from ["D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\view"]
+2019-04-10 16:15:59,392 INFO 1304 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 16:15:59,450 INFO 1304 [egg-multipart] stream mode enable
+2019-04-10 16:16:00,027 INFO 1304 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 16:16:00,031 INFO 1304 [egg-security] use methodnoallow middleware
+2019-04-10 16:16:00,032 INFO 1304 [egg-security] use noopen middleware
+2019-04-10 16:16:00,033 INFO 1304 [egg-security] use nosniff middleware
+2019-04-10 16:16:00,034 INFO 1304 [egg-security] use xssProtection middleware
+2019-04-10 16:16:00,035 INFO 1304 [egg-security] use xframe middleware
+2019-04-10 16:16:00,035 INFO 1304 [egg-security] use dta middleware
+2019-04-10 16:16:00,035 INFO 1304 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 16:16:00,048 WARN 1304 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 16:16:00,059 INFO 1304 [egg:core] dump config after load, 9ms
+2019-04-10 16:16:00,102 INFO 1304 [egg-watcher:application] watcher start success
+2019-04-10 16:16:00,130 INFO 1304 [egg:core] dump config after ready, 6ms
+2019-04-10 16:16:33,081 INFO 6624 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 16:16:33,139 INFO 6624 [egg-multipart] stream mode enable
+2019-04-10 16:16:33,709 INFO 6624 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 16:16:33,715 INFO 6624 [egg-security] use methodnoallow middleware
+2019-04-10 16:16:33,716 INFO 6624 [egg-security] use noopen middleware
+2019-04-10 16:16:33,720 INFO 6624 [egg-security] use nosniff middleware
+2019-04-10 16:16:33,721 INFO 6624 [egg-security] use xssProtection middleware
+2019-04-10 16:16:33,723 INFO 6624 [egg-security] use xframe middleware
+2019-04-10 16:16:33,724 INFO 6624 [egg-security] use dta middleware
+2019-04-10 16:16:33,724 INFO 6624 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 16:16:33,744 WARN 6624 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 16:16:33,765 INFO 6624 [egg:core] dump config after load, 16ms
+2019-04-10 16:16:33,829 INFO 6624 [egg-watcher:application] watcher start success
+2019-04-10 16:16:33,867 INFO 6624 [egg:core] dump config after ready, 10ms
+2019-04-10 16:18:46,152 INFO 14412 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 16:18:46,209 INFO 14412 [egg-multipart] stream mode enable
+2019-04-10 16:18:46,782 INFO 14412 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 16:18:46,786 INFO 14412 [egg-security] use methodnoallow middleware
+2019-04-10 16:18:46,787 INFO 14412 [egg-security] use noopen middleware
+2019-04-10 16:18:46,788 INFO 14412 [egg-security] use nosniff middleware
+2019-04-10 16:18:46,789 INFO 14412 [egg-security] use xssProtection middleware
+2019-04-10 16:18:46,790 INFO 14412 [egg-security] use xframe middleware
+2019-04-10 16:18:46,790 INFO 14412 [egg-security] use dta middleware
+2019-04-10 16:18:46,790 INFO 14412 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 16:18:46,803 WARN 14412 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 16:18:46,817 INFO 14412 [egg:core] dump config after load, 11ms
+2019-04-10 16:18:46,860 INFO 14412 [egg-watcher:application] watcher start success
+2019-04-10 16:18:46,888 INFO 14412 [egg:core] dump config after ready, 5ms
+2019-04-10 16:28:26,661 INFO 5984 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 16:28:26,716 INFO 5984 [egg-multipart] stream mode enable
+2019-04-10 16:28:27,293 INFO 5984 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 16:28:27,296 INFO 5984 [egg-security] use methodnoallow middleware
+2019-04-10 16:28:27,298 INFO 5984 [egg-security] use noopen middleware
+2019-04-10 16:28:27,300 INFO 5984 [egg-security] use nosniff middleware
+2019-04-10 16:28:27,300 INFO 5984 [egg-security] use xssProtection middleware
+2019-04-10 16:28:27,301 INFO 5984 [egg-security] use xframe middleware
+2019-04-10 16:28:27,301 INFO 5984 [egg-security] use dta middleware
+2019-04-10 16:28:27,301 INFO 5984 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 16:28:27,313 WARN 5984 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 16:28:27,325 INFO 5984 [egg:core] dump config after load, 9ms
+2019-04-10 16:28:27,366 INFO 5984 [egg-watcher:application] watcher start success
+2019-04-10 16:28:27,396 INFO 5984 [egg:core] dump config after ready, 9ms
+2019-04-10 16:29:22,210 INFO 5984 [egg-view-nunjucks] loading templates from ["D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\view"]
+2019-04-10 17:31:56,125 INFO 3904 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 17:31:56,182 INFO 3904 [egg-multipart] stream mode enable
+2019-04-10 17:31:57,425 INFO 3904 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 17:31:57,428 INFO 3904 [egg-security] use methodnoallow middleware
+2019-04-10 17:31:57,429 INFO 3904 [egg-security] use noopen middleware
+2019-04-10 17:31:57,431 INFO 3904 [egg-security] use nosniff middleware
+2019-04-10 17:31:57,453 INFO 3904 [egg-security] use xssProtection middleware
+2019-04-10 17:31:57,454 INFO 3904 [egg-security] use xframe middleware
+2019-04-10 17:31:57,454 INFO 3904 [egg-security] use dta middleware
+2019-04-10 17:31:57,454 INFO 3904 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 17:31:57,504 WARN 3904 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 17:31:57,548 INFO 3904 [egg:core] dump config after load, 42ms
+2019-04-10 17:31:57,589 INFO 3904 [egg-watcher:application] watcher start success
+2019-04-10 17:31:57,618 INFO 3904 [egg:core] dump config after ready, 8ms
+2019-04-10 17:32:37,856 INFO 14732 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 17:32:37,920 INFO 14732 [egg-multipart] stream mode enable
+2019-04-10 17:32:38,529 INFO 14732 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 17:32:38,533 INFO 14732 [egg-security] use methodnoallow middleware
+2019-04-10 17:32:38,534 INFO 14732 [egg-security] use noopen middleware
+2019-04-10 17:32:38,535 INFO 14732 [egg-security] use nosniff middleware
+2019-04-10 17:32:38,536 INFO 14732 [egg-security] use xssProtection middleware
+2019-04-10 17:32:38,536 INFO 14732 [egg-security] use xframe middleware
+2019-04-10 17:32:38,537 INFO 14732 [egg-security] use dta middleware
+2019-04-10 17:32:38,537 INFO 14732 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 17:32:38,550 WARN 14732 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 17:32:38,562 INFO 14732 [egg:core] dump config after load, 10ms
+2019-04-10 17:32:38,601 INFO 14732 [egg-watcher:application] watcher start success
+2019-04-10 17:32:38,648 INFO 14732 [egg:core] dump config after ready, 7ms
+2019-04-10 17:34:45,055 INFO 16008 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 17:34:45,119 INFO 16008 [egg-multipart] stream mode enable
+2019-04-10 17:34:45,682 INFO 16008 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 17:34:45,686 INFO 16008 [egg-security] use methodnoallow middleware
+2019-04-10 17:34:45,687 INFO 16008 [egg-security] use noopen middleware
+2019-04-10 17:34:45,688 INFO 16008 [egg-security] use nosniff middleware
+2019-04-10 17:34:45,689 INFO 16008 [egg-security] use xssProtection middleware
+2019-04-10 17:34:45,690 INFO 16008 [egg-security] use xframe middleware
+2019-04-10 17:34:45,690 INFO 16008 [egg-security] use dta middleware
+2019-04-10 17:34:45,690 INFO 16008 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 17:34:45,702 WARN 16008 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 17:34:45,714 INFO 16008 [egg:core] dump config after load, 9ms
+2019-04-10 17:34:45,768 INFO 16008 [egg-watcher:application] watcher start success
+2019-04-10 17:34:45,796 INFO 16008 [egg:core] dump config after ready, 8ms
+2019-04-10 17:37:09,160 INFO 6748 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 17:37:09,216 INFO 6748 [egg-multipart] stream mode enable
+2019-04-10 17:37:09,778 INFO 6748 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 17:37:09,782 INFO 6748 [egg-security] use methodnoallow middleware
+2019-04-10 17:37:09,783 INFO 6748 [egg-security] use noopen middleware
+2019-04-10 17:37:09,784 INFO 6748 [egg-security] use nosniff middleware
+2019-04-10 17:37:09,785 INFO 6748 [egg-security] use xssProtection middleware
+2019-04-10 17:37:09,786 INFO 6748 [egg-security] use xframe middleware
+2019-04-10 17:37:09,786 INFO 6748 [egg-security] use dta middleware
+2019-04-10 17:37:09,786 INFO 6748 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 17:37:09,799 WARN 6748 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 17:37:09,810 INFO 6748 [egg:core] dump config after load, 9ms
+2019-04-10 17:37:09,848 INFO 6748 [egg-watcher:application] watcher start success
+2019-04-10 17:37:09,873 INFO 6748 [egg:core] dump config after ready, 7ms
+2019-04-10 17:41:26,654 INFO 5408 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 17:41:26,710 INFO 5408 [egg-multipart] stream mode enable
+2019-04-10 17:41:27,311 INFO 5408 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 17:41:27,316 INFO 5408 [egg-security] use methodnoallow middleware
+2019-04-10 17:41:27,317 INFO 5408 [egg-security] use noopen middleware
+2019-04-10 17:41:27,318 INFO 5408 [egg-security] use nosniff middleware
+2019-04-10 17:41:27,319 INFO 5408 [egg-security] use xssProtection middleware
+2019-04-10 17:41:27,320 INFO 5408 [egg-security] use xframe middleware
+2019-04-10 17:41:27,320 INFO 5408 [egg-security] use dta middleware
+2019-04-10 17:41:27,320 INFO 5408 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 17:41:27,333 WARN 5408 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 17:41:27,346 INFO 5408 [egg:core] dump config after load, 10ms
+2019-04-10 17:41:27,388 INFO 5408 [egg-watcher:application] watcher start success
+2019-04-10 17:41:27,417 INFO 5408 [egg:core] dump config after ready, 8ms
+2019-04-10 17:42:11,180 INFO 16036 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 17:42:11,235 INFO 16036 [egg-multipart] stream mode enable
+2019-04-10 17:42:11,949 INFO 16036 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 17:42:11,956 INFO 16036 [egg-security] use methodnoallow middleware
+2019-04-10 17:42:11,958 INFO 16036 [egg-security] use noopen middleware
+2019-04-10 17:42:11,960 INFO 16036 [egg-security] use nosniff middleware
+2019-04-10 17:42:11,961 INFO 16036 [egg-security] use xssProtection middleware
+2019-04-10 17:42:11,962 INFO 16036 [egg-security] use xframe middleware
+2019-04-10 17:42:11,964 INFO 16036 [egg-security] use dta middleware
+2019-04-10 17:42:11,964 INFO 16036 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 17:42:11,986 WARN 16036 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 17:42:12,009 INFO 16036 [egg:core] dump config after load, 18ms
+2019-04-10 17:42:12,058 INFO 16036 [egg-watcher:application] watcher start success
+2019-04-10 17:42:12,087 INFO 16036 [egg:core] dump config after ready, 7ms
+2019-04-10 17:42:15,557 INFO 10288 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 17:42:15,620 INFO 10288 [egg-multipart] stream mode enable
+2019-04-10 17:42:16,216 INFO 10288 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 17:42:16,220 INFO 10288 [egg-security] use methodnoallow middleware
+2019-04-10 17:42:16,221 INFO 10288 [egg-security] use noopen middleware
+2019-04-10 17:42:16,222 INFO 10288 [egg-security] use nosniff middleware
+2019-04-10 17:42:16,223 INFO 10288 [egg-security] use xssProtection middleware
+2019-04-10 17:42:16,224 INFO 10288 [egg-security] use xframe middleware
+2019-04-10 17:42:16,224 INFO 10288 [egg-security] use dta middleware
+2019-04-10 17:42:16,224 INFO 10288 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 17:42:16,236 WARN 10288 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 17:42:16,251 INFO 10288 [egg:core] dump config after load, 12ms
+2019-04-10 17:42:16,293 INFO 10288 [egg-watcher:application] watcher start success
+2019-04-10 17:42:16,322 INFO 10288 [egg:core] dump config after ready, 7ms
+2019-04-10 17:47:28,776 INFO 8020 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 17:47:28,834 INFO 8020 [egg-multipart] stream mode enable
+2019-04-10 17:47:29,431 INFO 8020 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 17:47:29,435 INFO 8020 [egg-security] use methodnoallow middleware
+2019-04-10 17:47:29,437 INFO 8020 [egg-security] use noopen middleware
+2019-04-10 17:47:29,439 INFO 8020 [egg-security] use nosniff middleware
+2019-04-10 17:47:29,440 INFO 8020 [egg-security] use xssProtection middleware
+2019-04-10 17:47:29,440 INFO 8020 [egg-security] use xframe middleware
+2019-04-10 17:47:29,441 INFO 8020 [egg-security] use dta middleware
+2019-04-10 17:47:29,441 INFO 8020 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 17:47:29,456 WARN 8020 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 17:47:29,470 INFO 8020 [egg:core] dump config after load, 11ms
+2019-04-10 17:47:29,510 INFO 8020 [egg-watcher:application] watcher start success
+2019-04-10 17:47:29,537 INFO 8020 [egg:core] dump config after ready, 7ms
+2019-04-10 17:48:01,151 INFO 15984 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 17:48:01,206 INFO 15984 [egg-multipart] stream mode enable
+2019-04-10 17:48:01,767 INFO 15984 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 17:48:01,771 INFO 15984 [egg-security] use methodnoallow middleware
+2019-04-10 17:48:01,772 INFO 15984 [egg-security] use noopen middleware
+2019-04-10 17:48:01,773 INFO 15984 [egg-security] use nosniff middleware
+2019-04-10 17:48:01,774 INFO 15984 [egg-security] use xssProtection middleware
+2019-04-10 17:48:01,775 INFO 15984 [egg-security] use xframe middleware
+2019-04-10 17:48:01,775 INFO 15984 [egg-security] use dta middleware
+2019-04-10 17:48:01,775 INFO 15984 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 17:48:01,787 WARN 15984 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 17:48:01,800 INFO 15984 [egg:core] dump config after load, 10ms
+2019-04-10 17:48:01,839 INFO 15984 [egg-watcher:application] watcher start success
+2019-04-10 17:48:01,867 INFO 15984 [egg:core] dump config after ready, 7ms
+2019-04-10 18:06:27,268 INFO 13844 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 18:06:27,333 INFO 13844 [egg-multipart] stream mode enable
+2019-04-10 18:06:27,979 INFO 13844 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 18:06:27,983 INFO 13844 [egg-security] use methodnoallow middleware
+2019-04-10 18:06:27,984 INFO 13844 [egg-security] use noopen middleware
+2019-04-10 18:06:27,985 INFO 13844 [egg-security] use nosniff middleware
+2019-04-10 18:06:27,986 INFO 13844 [egg-security] use xssProtection middleware
+2019-04-10 18:06:27,987 INFO 13844 [egg-security] use xframe middleware
+2019-04-10 18:06:27,987 INFO 13844 [egg-security] use dta middleware
+2019-04-10 18:06:27,987 INFO 13844 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 18:06:28,002 WARN 13844 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 18:06:28,017 INFO 13844 [egg:core] dump config after load, 11ms
+2019-04-10 18:06:28,061 INFO 13844 [egg-watcher:application] watcher start success
+2019-04-10 18:06:28,090 INFO 13844 [egg:core] dump config after ready, 6ms
+2019-04-10 18:07:22,994 INFO 12036 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 18:07:23,055 INFO 12036 [egg-multipart] stream mode enable
+2019-04-10 18:07:23,700 INFO 12036 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 18:07:23,704 INFO 12036 [egg-security] use methodnoallow middleware
+2019-04-10 18:07:23,705 INFO 12036 [egg-security] use noopen middleware
+2019-04-10 18:07:23,707 INFO 12036 [egg-security] use nosniff middleware
+2019-04-10 18:07:23,708 INFO 12036 [egg-security] use xssProtection middleware
+2019-04-10 18:07:23,709 INFO 12036 [egg-security] use xframe middleware
+2019-04-10 18:07:23,709 INFO 12036 [egg-security] use dta middleware
+2019-04-10 18:07:23,709 INFO 12036 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 18:07:23,722 WARN 12036 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 18:07:23,733 INFO 12036 [egg:core] dump config after load, 10ms
+2019-04-10 18:07:23,773 INFO 12036 [egg-watcher:application] watcher start success
+2019-04-10 18:07:23,801 INFO 12036 [egg:core] dump config after ready, 9ms
+2019-04-10 18:07:35,932 INFO 16228 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 18:07:35,997 INFO 16228 [egg-multipart] stream mode enable
+2019-04-10 18:07:36,559 INFO 16228 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 18:07:36,563 INFO 16228 [egg-security] use methodnoallow middleware
+2019-04-10 18:07:36,564 INFO 16228 [egg-security] use noopen middleware
+2019-04-10 18:07:36,566 INFO 16228 [egg-security] use nosniff middleware
+2019-04-10 18:07:36,566 INFO 16228 [egg-security] use xssProtection middleware
+2019-04-10 18:07:36,567 INFO 16228 [egg-security] use xframe middleware
+2019-04-10 18:07:36,568 INFO 16228 [egg-security] use dta middleware
+2019-04-10 18:07:36,568 INFO 16228 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 18:07:36,579 WARN 16228 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 18:07:36,590 INFO 16228 [egg:core] dump config after load, 9ms
+2019-04-10 18:07:36,634 INFO 16228 [egg-watcher:application] watcher start success
+2019-04-10 18:07:36,660 INFO 16228 [egg:core] dump config after ready, 6ms
+2019-04-10 18:10:00,662 INFO 12228 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 18:10:00,720 INFO 12228 [egg-multipart] stream mode enable
+2019-04-10 18:10:01,284 INFO 12228 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 18:10:01,288 INFO 12228 [egg-security] use methodnoallow middleware
+2019-04-10 18:10:01,289 INFO 12228 [egg-security] use noopen middleware
+2019-04-10 18:10:01,290 INFO 12228 [egg-security] use nosniff middleware
+2019-04-10 18:10:01,291 INFO 12228 [egg-security] use xssProtection middleware
+2019-04-10 18:10:01,292 INFO 12228 [egg-security] use xframe middleware
+2019-04-10 18:10:01,292 INFO 12228 [egg-security] use dta middleware
+2019-04-10 18:10:01,292 INFO 12228 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 18:10:01,305 WARN 12228 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 18:10:01,316 INFO 12228 [egg:core] dump config after load, 10ms
+2019-04-10 18:10:01,357 INFO 12228 [egg-watcher:application] watcher start success
+2019-04-10 18:10:01,382 INFO 12228 [egg:core] dump config after ready, 6ms
+2019-04-10 18:10:14,646 INFO 7524 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 18:10:14,702 INFO 7524 [egg-multipart] stream mode enable
+2019-04-10 18:10:15,238 INFO 7524 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 18:10:15,241 INFO 7524 [egg-security] use methodnoallow middleware
+2019-04-10 18:10:15,242 INFO 7524 [egg-security] use noopen middleware
+2019-04-10 18:10:15,244 INFO 7524 [egg-security] use nosniff middleware
+2019-04-10 18:10:15,244 INFO 7524 [egg-security] use xssProtection middleware
+2019-04-10 18:10:15,245 INFO 7524 [egg-security] use xframe middleware
+2019-04-10 18:10:15,245 INFO 7524 [egg-security] use dta middleware
+2019-04-10 18:10:15,245 INFO 7524 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 18:10:15,257 WARN 7524 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 18:10:15,271 INFO 7524 [egg:core] dump config after load, 10ms
+2019-04-10 18:10:15,313 INFO 7524 [egg-watcher:application] watcher start success
+2019-04-10 18:10:15,340 INFO 7524 [egg:core] dump config after ready, 7ms
+2019-04-10 18:10:38,955 INFO 7524 [egg-view-nunjucks] loading templates from ["D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\view"]
+2019-04-10 18:22:17,145 INFO 14092 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 18:22:17,206 INFO 14092 [egg-multipart] stream mode enable
+2019-04-10 18:22:17,854 INFO 14092 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 18:22:17,858 INFO 14092 [egg-security] use methodnoallow middleware
+2019-04-10 18:22:17,859 INFO 14092 [egg-security] use noopen middleware
+2019-04-10 18:22:17,861 INFO 14092 [egg-security] use nosniff middleware
+2019-04-10 18:22:17,862 INFO 14092 [egg-security] use xssProtection middleware
+2019-04-10 18:22:17,863 INFO 14092 [egg-security] use xframe middleware
+2019-04-10 18:22:17,864 INFO 14092 [egg-security] use dta middleware
+2019-04-10 18:22:17,864 INFO 14092 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 18:22:17,876 WARN 14092 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 18:22:17,888 INFO 14092 [egg:core] dump config after load, 9ms
+2019-04-10 18:22:17,931 INFO 14092 [egg-watcher:application] watcher start success
+2019-04-10 18:22:17,958 INFO 14092 [egg:core] dump config after ready, 6ms
+2019-04-10 18:22:41,230 INFO 11336 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 18:22:41,295 INFO 11336 [egg-multipart] stream mode enable
+2019-04-10 18:22:41,960 INFO 11336 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 18:22:41,965 INFO 11336 [egg-security] use methodnoallow middleware
+2019-04-10 18:22:41,966 INFO 11336 [egg-security] use noopen middleware
+2019-04-10 18:22:41,968 INFO 11336 [egg-security] use nosniff middleware
+2019-04-10 18:22:41,969 INFO 11336 [egg-security] use xssProtection middleware
+2019-04-10 18:22:41,970 INFO 11336 [egg-security] use xframe middleware
+2019-04-10 18:22:41,971 INFO 11336 [egg-security] use dta middleware
+2019-04-10 18:22:41,971 INFO 11336 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 18:22:41,983 WARN 11336 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 18:22:42,000 INFO 11336 [egg:core] dump config after load, 13ms
+2019-04-10 18:22:42,051 INFO 11336 [egg-watcher:application] watcher start success
+2019-04-10 18:22:42,078 INFO 11336 [egg:core] dump config after ready, 7ms
+2019-04-10 18:23:14,330 INFO 6312 [egg:logger] init all loggers with options: {"dir":"D:\\my-item\\egg-sequelize\\egg-sequelize\\logs\\egg-sequlize","encoding":"utf8","env":"local","level":"INFO","consoleLevel":"INFO","disableConsoleAfterReady":false,"outputJSON":false,"buffer":true,"appLogName":"egg-sequlize-web.log","coreLogName":"egg-web.log","agentLogName":"egg-agent.log","errorLogName":"common-error.log","coreLogger":{"consoleLevel":"WARN"},"allowDebugAtProd":false,"type":"application"}
+2019-04-10 18:23:14,388 INFO 6312 [egg-multipart] stream mode enable
+2019-04-10 18:23:15,038 INFO 6312 [egg-static] starting static serve /public/ -> D:\my-item\egg-sequelize\egg-sequelize\app\public
+2019-04-10 18:23:15,043 INFO 6312 [egg-security] use methodnoallow middleware
+2019-04-10 18:23:15,044 INFO 6312 [egg-security] use noopen middleware
+2019-04-10 18:23:15,045 INFO 6312 [egg-security] use nosniff middleware
+2019-04-10 18:23:15,046 INFO 6312 [egg-security] use xssProtection middleware
+2019-04-10 18:23:15,046 INFO 6312 [egg-security] use xframe middleware
+2019-04-10 18:23:15,047 INFO 6312 [egg-security] use dta middleware
+2019-04-10 18:23:15,047 INFO 6312 [egg-security] compose 6 middlewares into one security middleware
+2019-04-10 18:23:15,062 WARN 6312 [egg-jsonp] SECURITY WARNING!! csrf check and referrer check are both closed!
+2019-04-10 18:23:15,078 INFO 6312 [egg:core] dump config after load, 12ms
+2019-04-10 18:23:15,132 INFO 6312 [egg-watcher:application] watcher start success
+2019-04-10 18:23:15,167 INFO 6312 [egg:core] dump config after ready, 7ms
+2019-04-10 18:24:15,099 INFO 6312 [egg-view-nunjucks] loading templates from ["D:\\my-item\\egg-sequelize\\egg-sequelize\\app\\view"]

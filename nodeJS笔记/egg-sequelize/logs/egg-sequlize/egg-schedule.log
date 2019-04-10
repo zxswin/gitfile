@@ -2,3 +2,186 @@
 2019-04-09 17:12:05,354 INFO 19296 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
 2019-04-09 17:12:05,606 INFO 19296 [Timer] D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js next time will execute after 24474399ms at 2019-04-10 00:00:00.005
 2019-04-09 17:12:05,606 INFO 19296 [Timer] D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js next time will execute after 24475394ms at 2019-04-10 00:00:01.000
+2019-04-10 16:13:09,359 INFO 10164 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 16:13:09,359 INFO 10164 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 16:13:10,760 INFO 14092 [Timer] D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js next time will execute after 28009244ms at 2019-04-11 00:00:00.004
+2019-04-10 16:13:10,761 INFO 14092 [Timer] D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js next time will execute after 28010240ms at 2019-04-11 00:00:01.001
+2019-04-10 16:15:59,449 INFO 1304 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 16:15:59,449 INFO 1304 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 16:15:59,449 INFO 1304 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_hour.js
+2019-04-10 16:16:33,139 INFO 6624 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 16:16:33,139 INFO 6624 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 16:16:33,139 INFO 6624 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_hour.js
+2019-04-10 16:18:46,208 INFO 14412 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 16:18:46,208 INFO 14412 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 16:18:46,208 INFO 14412 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_hour.js
+2019-04-10 16:28:26,715 INFO 5984 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 16:28:26,715 INFO 5984 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 17:31:56,181 INFO 3904 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 17:31:56,181 INFO 3904 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 17:31:56,181 INFO 3904 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js
+2019-04-10 17:31:57,649 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js next time will execute after 23282371ms at 2019-04-11 00:00:00.020
+2019-04-10 17:31:57,649 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js next time will execute after 23283351ms at 2019-04-11 00:00:01.000
+2019-04-10 17:31:57,649 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:32:57.649
+2019-04-10 17:32:37,918 INFO 14732 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 17:32:37,918 INFO 14732 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 17:32:37,918 INFO 14732 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js
+2019-04-10 17:32:57,652 INFO 14732 [Job#1554888777650296136230615861] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:32:57,713 INFO 14732 [Job#1554888777650296136230615861] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 60ms
+2019-04-10 17:32:57,651 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:33:57.651
+2019-04-10 17:33:57,653 INFO 14732 [Job#1554888837652296736243053232] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:33:57,674 INFO 14732 [Job#1554888837652296736243053232] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 21ms
+2019-04-10 17:33:57,652 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:34:57.652
+2019-04-10 17:34:45,117 INFO 16008 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 17:34:45,117 INFO 16008 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 17:34:45,117 INFO 16008 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js
+2019-04-10 17:34:57,653 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:35:57.653
+2019-04-10 17:35:03,164 INFO 16008 [Job#1554888897653297336253016323] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:35:03,290 INFO 16008 [Job#1554888897653297336253016323] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 125ms
+2019-04-10 17:35:57,656 INFO 16008 [Job#1554888957655297936272663924] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:35:57,683 INFO 16008 [Job#1554888957655297936272663924] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 27ms
+2019-04-10 17:35:57,655 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:36:57.655
+2019-04-10 17:36:57,657 INFO 16008 [Job#1554889017656298536286607855] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:36:57,670 INFO 16008 [Job#1554889017656298536286607855] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 13ms
+2019-04-10 17:36:57,656 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:37:57.656
+2019-04-10 17:37:09,215 INFO 6748 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 17:37:09,215 INFO 6748 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 17:37:09,215 INFO 6748 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js
+2019-04-10 17:37:57,658 INFO 6748 [Job#1554889077657299136290101166] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:37:57,722 INFO 6748 [Job#1554889077657299136290101166] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 63ms
+2019-04-10 17:37:57,657 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:38:57.657
+2019-04-10 17:38:57,658 INFO 6748 [Job#1554889137657299736292703747] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:38:57,673 INFO 6748 [Job#1554889137657299736292703747] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 15ms
+2019-04-10 17:38:57,657 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:39:57.657
+2019-04-10 17:39:57,660 INFO 6748 [Job#1554889197659300336310969408] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:39:57,694 INFO 6748 [Job#1554889197659300336310969408] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 33ms
+2019-04-10 17:39:57,659 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:40:57.659
+2019-04-10 17:40:57,659 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:41:57.659
+2019-04-10 17:40:57,660 INFO 6748 [Job#1554889257659300936312153399] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:40:57,680 INFO 6748 [Job#1554889257659300936312153399] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 20ms
+2019-04-10 17:41:26,710 INFO 5408 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 17:41:26,710 INFO 5408 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 17:41:26,710 INFO 5408 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js
+2019-04-10 17:41:57,662 INFO 5408 [Job#15548893176603015363203240010] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:41:57,660 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:42:57.660
+2019-04-10 17:41:57,775 INFO 5408 [Job#15548893176603015363203240010] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 110ms
+2019-04-10 17:42:11,234 INFO 16036 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 17:42:11,234 INFO 16036 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 17:42:11,234 INFO 16036 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js
+2019-04-10 17:42:15,619 INFO 10288 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 17:42:15,619 INFO 10288 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 17:42:15,619 INFO 10288 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js
+2019-04-10 17:42:57,662 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:43:57.662
+2019-04-10 17:42:57,663 INFO 10288 [Job#15548893776613021363379078711] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:42:57,754 INFO 10288 [Job#15548893776613021363379078711] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 88ms
+2019-04-10 17:43:57,663 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:44:57.663
+2019-04-10 17:43:57,663 INFO 10288 [Job#15548894376633027363493775212] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:43:57,679 INFO 10288 [Job#15548894376633027363493775212] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 16ms
+2019-04-10 17:44:57,664 INFO 10288 [Job#15548894976633033363583142513] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:44:57,664 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:45:57.664
+2019-04-10 17:44:57,709 INFO 10288 [Job#15548894976633033363583142513] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 44ms
+2019-04-10 17:45:57,666 INFO 10288 [Job#15548895576653039363752566314] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:45:57,683 INFO 10288 [Job#15548895576653039363752566314] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 17ms
+2019-04-10 17:45:57,665 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:46:57.665
+2019-04-10 17:46:57,666 INFO 10288 [Job#15548896176663045363811875715] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:46:57,687 INFO 10288 [Job#15548896176663045363811875715] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 20ms
+2019-04-10 17:46:57,666 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:47:57.666
+2019-04-10 17:47:28,833 INFO 8020 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 17:47:28,833 INFO 8020 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 17:47:28,833 INFO 8020 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js
+2019-04-10 17:47:57,667 INFO 8020 [Job#15548896776673051363908427516] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:47:57,696 INFO 8020 [Job#15548896776673051363908427516] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 29ms
+2019-04-10 17:47:57,667 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:48:57.667
+2019-04-10 17:48:01,205 INFO 15984 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 17:48:01,205 INFO 15984 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 17:48:01,205 INFO 15984 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js
+2019-04-10 17:48:57,668 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:49:57.667
+2019-04-10 17:48:57,669 INFO 15984 [Job#15548897376673057363947392817] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:48:57,729 INFO 15984 [Job#15548897376673057363947392817] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 57ms
+2019-04-10 17:49:57,670 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:50:57.670
+2019-04-10 17:49:57,670 INFO 15984 [Job#15548897976693063364181074518] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:49:57,690 INFO 15984 [Job#15548897976693063364181074518] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 20ms
+2019-04-10 17:50:57,671 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:51:57.671
+2019-04-10 17:50:57,673 INFO 15984 [Job#15548898576713069364360725419] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:50:57,730 INFO 15984 [Job#15548898576713069364360725419] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 57ms
+2019-04-10 17:51:57,673 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:52:57.673
+2019-04-10 17:51:57,674 INFO 15984 [Job#15548899176733075364555771820] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:51:57,684 INFO 15984 [Job#15548899176733075364555771820] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 10ms
+2019-04-10 17:52:57,673 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:53:57.673
+2019-04-10 17:52:57,674 INFO 15984 [Job#15548899776733081364564495921] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:52:57,708 INFO 15984 [Job#15548899776733081364564495921] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 34ms
+2019-04-10 17:53:57,674 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:54:57.674
+2019-04-10 17:53:57,675 INFO 15984 [Job#15548900376743087364618600122] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:53:57,709 INFO 15984 [Job#15548900376743087364618600122] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 34ms
+2019-04-10 17:54:57,676 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:55:57.676
+2019-04-10 17:54:57,677 INFO 15984 [Job#15548900976753093364734836223] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:54:57,720 INFO 15984 [Job#15548900976753093364734836223] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 43ms
+2019-04-10 17:55:57,677 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:56:57.677
+2019-04-10 17:55:57,677 INFO 15984 [Job#15548901576773099364915293524] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:55:57,712 INFO 15984 [Job#15548901576773099364915293524] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 34ms
+2019-04-10 17:56:57,678 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:57:57.678
+2019-04-10 17:56:57,678 INFO 15984 [Job#15548902176783105365012541825] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:56:57,694 INFO 15984 [Job#15548902176783105365012541825] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 15ms
+2019-04-10 17:57:57,678 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:58:57.678
+2019-04-10 17:57:57,679 INFO 15984 [Job#15548902776783111365031309626] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:57:57,694 INFO 15984 [Job#15548902776783111365031309626] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 15ms
+2019-04-10 17:58:57,679 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 17:59:57.679
+2019-04-10 17:58:57,680 INFO 15984 [Job#15548903376783117365048244727] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:58:57,725 INFO 15984 [Job#15548903376783117365048244727] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 44ms
+2019-04-10 17:59:57,680 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 18:00:57.680
+2019-04-10 17:59:57,681 INFO 15984 [Job#15548903976803123365213049928] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 17:59:57,698 INFO 15984 [Job#15548903976803123365213049928] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 17ms
+2019-04-10 18:00:57,683 INFO 15984 [Job#15548904576813129365374592729] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 18:00:57,682 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 18:01:57.682
+2019-04-10 18:00:57,712 INFO 15984 [Job#15548904576813129365374592729] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 29ms
+2019-04-10 18:01:57,685 INFO 15984 [Job#15548905176833135365609154330] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 18:01:57,702 INFO 15984 [Job#15548905176833135365609154330] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 17ms
+2019-04-10 18:01:57,684 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 18:02:57.684
+2019-04-10 18:02:57,687 INFO 15984 [Job#15548905776853141365808012931] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 18:02:57,720 INFO 15984 [Job#15548905776853141365808012931] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 32ms
+2019-04-10 18:02:57,686 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 18:03:57.686
+2019-04-10 18:03:57,689 INFO 15984 [Job#15548906376883147366056833632] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 18:03:57,708 INFO 15984 [Job#15548906376883147366056833632] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 19ms
+2019-04-10 18:03:57,688 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 18:04:57.688
+2019-04-10 18:04:57,689 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 18:05:57.689
+2019-04-10 18:04:57,689 INFO 15984 [Job#15548906976883153366089164133] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 18:04:57,711 INFO 15984 [Job#15548906976883153366089164133] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 21ms
+2019-04-10 18:05:57,690 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 18:06:57.690
+2019-04-10 18:05:57,691 INFO 15984 [Job#15548907576893159366170760334] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 18:05:57,714 INFO 15984 [Job#15548907576893159366170760334] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 23ms
+2019-04-10 18:06:27,332 INFO 13844 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 18:06:27,332 INFO 13844 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 18:06:27,332 INFO 13844 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js
+2019-04-10 18:06:57,691 INFO 7984 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 60000ms at 2019-04-10 18:07:57.691
+2019-04-10 18:06:57,692 INFO 13844 [Job#15548908176903165366236484435] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js executing by app
+2019-04-10 18:06:57,770 INFO 13844 [Job#15548908176903165366236484435] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute succeed, used 76ms
+2019-04-10 18:07:23,054 INFO 12036 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 18:07:23,054 INFO 12036 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 18:07:23,054 INFO 12036 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js
+2019-04-10 18:07:36,672 INFO 15480 [Timer] D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js next time will execute after 21143334ms at 2019-04-11 00:00:00.006
+2019-04-10 18:07:36,672 INFO 15480 [Timer] D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js next time will execute after 21144328ms at 2019-04-11 00:00:01.000
+2019-04-10 18:07:36,674 INFO 15480 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 3143328ms at 2019-04-10 19:00:00.002
+2019-04-10 18:07:35,996 INFO 16228 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 18:07:35,996 INFO 16228 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 18:07:35,996 INFO 16228 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js
+2019-04-10 18:10:00,720 INFO 12228 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 18:10:00,720 INFO 12228 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 18:10:00,720 INFO 12228 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js
+2019-04-10 18:10:15,353 INFO 16356 [Timer] D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js next time will execute after 20984651ms at 2019-04-11 00:00:00.004
+2019-04-10 18:10:15,353 INFO 16356 [Timer] D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js next time will execute after 20985647ms at 2019-04-11 00:00:01.000
+2019-04-10 18:10:15,355 INFO 16356 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 2984647ms at 2019-04-10 19:00:00.002
+2019-04-10 18:10:14,701 INFO 7524 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 18:10:14,701 INFO 7524 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 18:10:14,701 INFO 7524 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js
+2019-04-10 18:22:17,205 INFO 14092 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 18:22:17,205 INFO 14092 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 18:22:17,205 INFO 14092 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js
+2019-04-10 18:22:41,294 INFO 11336 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 18:22:41,294 INFO 11336 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 18:22:41,294 INFO 11336 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js
+2019-04-10 18:22:42,089 INFO 12148 [Timer] D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js next time will execute after 20237915ms at 2019-04-11 00:00:00.004
+2019-04-10 18:22:42,090 INFO 12148 [Timer] D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js next time will execute after 20238910ms at 2019-04-11 00:00:01.000
+2019-04-10 18:22:42,095 INFO 12148 [Timer] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js next time will execute after 2237910ms at 2019-04-10 19:00:00.005
+2019-04-10 18:23:14,387 INFO 6312 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\clean_log.js
+2019-04-10 18:23:14,387 INFO 6312 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-logrotator@3.0.7@egg-logrotator\app\schedule\rotate_by_file.js
+2019-04-10 18:23:14,387 INFO 6312 [egg-schedule]: register schedule D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js

@@ -4,15 +4,24 @@
   "description": "egg-sequlize",
   "main": "index.js",
   "scripts": {
-    "test": "egg-bin test",
+    "start": "egg-scripts start --daemon",
+    "stop": "egg-scripts stop",
     "dev": "egg-bin dev",
+    "test": "egg-bin test",
     "lint": "eslint --fix --ext .js app/**"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "assert": "^1.4.1",
+    "chai": "^4.2.0",
     "egg": "^2.20.2",
+    "egg-alinode": "^2.0.1",
     "egg-cors": "^2.2.0",
+    "egg-logger": "^2.4.1",
+    "egg-logrotator": "^3.0.7",
+    "egg-mock": "^3.22.1",
+    "egg-scripts": "^2.11.0",
     "egg-sequelize": "^4.3.1",
     "egg-validate": "^2.0.2",
     "egg-view-assets": "^1.4.4",
@@ -28,11 +37,8 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "assert": "^1.4.1",
     "babel-eslint": "^10.0.1",
-    "chai": "^4.2.0",
     "egg-bin": "^4.12.1",
-    "egg-mock": "^3.22.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-egg": "^7.3.1",
