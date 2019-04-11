@@ -68,6 +68,7 @@
   "security": {
     "csrf": {
       "enable": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+      "ignore": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
       "useSession": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
       "ignoreJSON": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
       "cookieName": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
@@ -76,7 +77,7 @@
       "bodyName": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
       "queryName": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
     },
-    "domainWhiteList": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+    "domainWhiteList": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
     "protocolWhiteList": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
     "defaultMiddleware": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js",
     "xframe": {
@@ -143,12 +144,26 @@
       "maxFreeSockets": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js"
     }
   },
+  "logrotator": {
+    "filesRotateByHour": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+    "hourDelimiter": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-logrotator@3.0.7@egg-logrotator\\config\\config.default.js",
+    "filesRotateBySize": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-logrotator@3.0.7@egg-logrotator\\config\\config.default.js",
+    "maxFileSize": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-logrotator@3.0.7@egg-logrotator\\config\\config.default.js",
+    "maxFiles": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-logrotator@3.0.7@egg-logrotator\\config\\config.default.js",
+    "rotateDuration": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-logrotator@3.0.7@egg-logrotator\\config\\config.default.js",
+    "maxDays": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-logrotator@3.0.7@egg-logrotator\\config\\config.default.js"
+  },
   "cluster": {
     "listen": {
       "port": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
       "hostname": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
       "path": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js"
     }
+  },
+  "passportGithub": {
+    "key": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+    "secret": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+    "callbackURL": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-passport-github@1.0.0@egg-passport-github\\config\\config.default.js"
   },
   "helper": {
     "shtml": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
@@ -187,15 +202,6 @@
     "fastReady": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-development@2.4.2@egg-development\\config\\config.default.js",
     "reloadOnDebug": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-development@2.4.2@egg-development\\config\\config.default.js",
     "overrideDefault": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-development@2.4.2@egg-development\\config\\config.default.js"
-  },
-  "logrotator": {
-    "filesRotateByHour": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-logrotator@3.0.7@egg-logrotator\\config\\config.default.js",
-    "hourDelimiter": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-logrotator@3.0.7@egg-logrotator\\config\\config.default.js",
-    "filesRotateBySize": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-logrotator@3.0.7@egg-logrotator\\config\\config.default.js",
-    "maxFileSize": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-logrotator@3.0.7@egg-logrotator\\config\\config.default.js",
-    "maxFiles": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-logrotator@3.0.7@egg-logrotator\\config\\config.default.js",
-    "rotateDuration": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-logrotator@3.0.7@egg-logrotator\\config\\config.default.js",
-    "maxDays": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-logrotator@3.0.7@egg-logrotator\\config\\config.default.js"
   },
   "static": {
     "prefix": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-static@2.2.0@egg-static\\config\\config.default.js",
@@ -236,12 +242,15 @@
     "dependencies": {
       "assert": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "chai": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "cluster-client": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-alinode": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-cors": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-logger": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-logrotator": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-mock": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "egg-passport": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "egg-passport-github": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-scripts": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-sequelize": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-validate": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
@@ -254,6 +263,7 @@
       "mysql2": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "mz": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "pump": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "sdk-base": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "stream-wormhole": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "uuid": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js"
     },

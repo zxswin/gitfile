@@ -69,13 +69,15 @@ module.exports = appInfo => {
     // whiteList: [ 'sub.test.com', 'sub2.test.com' ],
   };
 
-  /** 禁用 csrf  要不然 POST DELETE PUT 等请求会有问题 */
   /** 设置重定向安全的白名单  */
   config.security = {
     csrf: {
-      enable: false,
+      enable: true, // 开启CSRF防护
+      ignore: ctx => ctx.ip === '127.0.0.1', // 不对这个ip地址的cors跨域请求进行csrf校验
     },
-    domainWhiteList: ['http://127.0.0.1'], // 安全白名单，以 . 开头
+    // domainWhiteList: ['.domain.com'] // 安全白名单，以 . 开头
+    // domainWhiteList: ['http://127.0.0.1'],
+    // domainWhiteList: ['http://localhost'],
   };
   /** CORS跨域配置  */
   config.cors = {
@@ -143,9 +145,9 @@ module.exports = appInfo => {
   // };
 
   /** 按小时进行日志切割  */
-  // config.logrotator = {
-  //   filesRotateByHour: [path.join(appInfo.root, 'logs', appInfo.name, 'common-error.log')],
-  // };
+  config.logrotator = {
+    filesRotateByHour: [path.join(appInfo.root, 'logs', appInfo.name, 'common-error.log')],
+  };
 
   /** 启动项配置  */
   config.cluster = {
@@ -162,5 +164,22 @@ module.exports = appInfo => {
   //   appid: '<YOUR_APPID>',
   //   secret: '<YOUR_SECRET>',
   // };
+
+  // config.onerror = {
+  //   // 线上页面发生异常时，重定向到这个页面上
+  //   // errorPageUrl: '/50x.html',
+  //   // 将默认的 HTML 请求的 404 响应重定向到指定的页面
+  //   // notfound: {
+  //   //   pageUrl: '/404.html',
+  //   // },
+  // };
+
+  config.passportGithub = {
+    key: 'your_clientID',
+    secret: 'your_clientSecret',
+    // callbackURL: '/passport/github/callback',
+    // proxy: false,
+  };
+
   return config;
 };

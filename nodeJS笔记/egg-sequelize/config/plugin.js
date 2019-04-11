@@ -35,11 +35,22 @@ exports.cors = {
   package: 'egg-cors',
 };
 
-/** 开启日志切割插件  */
-exports.logrotator = {
+/** 开启Passport登录鉴权  */
+exports.passport = {
   enable: true,
-  package: 'egg-logrotator',
+  package: 'egg-passport',
 };
+
+exports.passportGithub = {
+  enable: true,
+  package: 'egg-passport-github',
+};
+
+/** 开启日志切割插件 内部已经配置 无需在这里再进行配置 */
+// exports.logrotator = {
+//   enable: true,
+//   package: 'egg-logrotator',
+// };
 
 /** 性能监控、安全提醒、故障排查、性能优化 */
 // exports.alinode = {

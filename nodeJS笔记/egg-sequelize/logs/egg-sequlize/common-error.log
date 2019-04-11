@@ -1,0 +1,46 @@
+2019-04-11 18:18:08,235 ERROR 7760 nodejs.ServerNoResponseError: server 127.0.0.1:52537 no response in 40001ms, maybe the socket is end on the other side. (address: 127.0.0.1:52537)
+    at Timeout._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_tcp-base@3.1.0@tcp-base\lib\base.js:427:21)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ServerNoResponseError"
+pid: 7760
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 18:18:24,300 ERROR 7708 nodejs.ClusterClientNoResponseError: client no response in 76061ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_cluster-client@3.0.1@cluster-client\lib\leader.js:77:23)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ClusterClientNoResponseError"
+pid: 7708
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 18:19:22,496 ERROR 16692 [-/127.0.0.1/-/26ms GET /api/loginout] nodejs.ECONNRESETError: read ECONNRESET
+    at TCP.onStreamRead (internal/stream_base_commons.js:162:27)
+errno: "ECONNRESET"
+code: "ECONNRESET"
+syscall: "read"
+headerSent: true
+name: "ECONNRESETError"
+pid: 16692
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 18:19:22,501 ERROR 16692 [-/127.0.0.1/-/22ms GET /api/loginout] nodejs.ECONNRESETError: read ECONNRESET
+    at TCP.onStreamRead (internal/stream_base_commons.js:162:27)
+errno: "ECONNRESET"
+code: "ECONNRESET"
+syscall: "read"
+headerSent: true
+name: "ECONNRESETError"
+pid: 16692
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 18:19:22,518 ERROR 16692 [-/127.0.0.1/-/15ms GET /api/loginout] nodejs.ECONNRESETError: read ECONNRESET
+    at TCP.onStreamRead (internal/stream_base_commons.js:162:27)
+errno: "ECONNRESET"
+code: "ECONNRESET"
+syscall: "read"
+headerSent: true
+name: "ECONNRESETError"
+pid: 16692
+hostname: DESKTOP-IGV1BLA
+

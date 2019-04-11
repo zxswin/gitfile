@@ -15,12 +15,15 @@
   "dependencies": {
     "assert": "^1.4.1",
     "chai": "^4.2.0",
+    "cluster-client": "^3.0.1",
     "egg": "^2.20.2",
     "egg-alinode": "^2.0.1",
     "egg-cors": "^2.2.0",
     "egg-logger": "^2.4.1",
     "egg-logrotator": "^3.0.7",
     "egg-mock": "^3.22.1",
+    "egg-passport": "^2.0.1",
+    "egg-passport-github": "^1.0.0",
     "egg-scripts": "^2.11.0",
     "egg-sequelize": "^4.3.1",
     "egg-validate": "^2.0.2",
@@ -33,6 +36,7 @@
     "mysql2": "^1.6.5",
     "mz": "^2.7.0",
     "pump": "^3.0.0",
+    "sdk-base": "^3.5.1",
     "stream-wormhole": "^1.1.0",
     "uuid": "^3.3.2"
   },

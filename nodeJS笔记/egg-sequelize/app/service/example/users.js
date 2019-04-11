@@ -43,6 +43,8 @@ class User extends Service {
     // 设置session
     ctx.session.uid = user.get('id');
 
+    ctx.rotateCsrfSecret(); // 更新csrfToken
+
     return {
       code: 0,
       data: {

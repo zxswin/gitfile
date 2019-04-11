@@ -5,6 +5,7 @@ const path = require('path');
 class ContentController extends Controller {
   /* 获取内容信息接口  */
   async content() {
+    console.log('检查该请求是否已授权============', this.ctx.isAuthenticated());
     const ctx = this.ctx;
     ctx.body = await ctx.service.example.contents.getContents();
   }

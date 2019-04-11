@@ -53,4 +53,12 @@ module.exports = app => {
 
   /** 测试用例  */
   router.get('/api/test', controller.example.home.test);
+
+  /** 挂载鉴权路由  */
+  app.passport.mount('github');
+
+  // 上面的 mount 是语法糖，等价于
+  // const github = app.passport.authenticate('github', {});
+  // router.get('/passport/github', github);
+  // router.get('/passport/github/callback', github);
 };

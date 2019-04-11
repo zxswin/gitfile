@@ -91,3 +91,517 @@
 2019-04-10 18:23:15,153 INFO 6312 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
 2019-04-10 18:24:15,312 INFO 6312 [egg-sequelize](4ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
 2019-04-10 18:24:17,413 INFO 6312 [egg-sequelize](4ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:04:27,575 INFO 5012 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 09:07:04,397 INFO 13828 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 09:09:12,480 INFO 15040 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 09:21:17,476 INFO 15780 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 09:21:23,125 INFO 15780 [egg-sequelize](98ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:21:30,701 INFO 15780 [egg-sequelize](2ms) Executed (default): SELECT `id`, `username`, `password`, `created_at`, `updated_at` FROM `users` AS `users` WHERE `users`.`username` = 'bbb' LIMIT 1;
+2019-04-11 09:21:30,860 INFO 15780 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:21:43,457 INFO 15780 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:21:43,613 INFO 15780 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:22:33,616 INFO 15780 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:22:40,176 INFO 15780 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:22:41,656 INFO 15780 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:22:41,809 INFO 15780 [egg-sequelize](5ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:22:41,974 INFO 15780 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:22:42,129 INFO 15780 [egg-sequelize](4ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:22:42,285 INFO 15780 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:22:42,479 INFO 15780 [egg-sequelize](6ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:22:42,609 INFO 15780 [egg-sequelize](4ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:22:42,777 INFO 15780 [egg-sequelize](6ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:22:42,925 INFO 15780 [egg-sequelize](6ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:22:43,074 INFO 15780 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:22:43,210 INFO 15780 [egg-sequelize](4ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:22:43,393 INFO 15780 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:22:43,546 INFO 15780 [egg-sequelize](6ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:22:43,693 INFO 15780 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:22:43,883 INFO 15780 [egg-sequelize](7ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:23:00,414 INFO 15780 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:23:00,988 INFO 15780 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:23:01,219 INFO 15780 [egg-sequelize](5ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:23:01,358 INFO 15780 [egg-sequelize](7ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:23:01,517 INFO 15780 [egg-sequelize](5ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:23:01,721 INFO 15780 [egg-sequelize](4ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:23:02,154 INFO 15780 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:23:02,665 INFO 15780 [egg-sequelize](5ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:23:02,844 INFO 15780 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:23:03,019 INFO 15780 [egg-sequelize](17ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:23:03,169 INFO 15780 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:23:03,330 INFO 15780 [egg-sequelize](6ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:23:03,516 INFO 15780 [egg-sequelize](12ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:23:18,903 INFO 15780 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:23:19,077 INFO 15780 [egg-sequelize](8ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:23:19,249 INFO 15780 [egg-sequelize](8ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 09:23:20,834 INFO 15780 [egg-sequelize](3ms) Executed (default): SELECT `id`, `title`, `content`, `like_count`, `comment_count`, `created_at`, `updated_at`, `user_id` FROM `contents` AS `contents` WHERE `contents`.`id` = '1';
+2019-04-11 09:23:20,917 INFO 15780 [egg-sequelize](79ms) Executed (default): SELECT `id`, `created_at`, `updated_at`, `content_id`, `user_id` FROM `likes` AS `likes` WHERE (`likes`.`content_id` = '1' AND `likes`.`user_id` = 3) LIMIT 1;
+2019-04-11 09:23:24,075 INFO 15780 [egg-sequelize](1ms) Executed (default): SELECT `id`, `title`, `content`, `like_count`, `comment_count`, `created_at`, `updated_at`, `user_id` FROM `contents` AS `contents` WHERE `contents`.`id` = '1';
+2019-04-11 09:23:24,080 INFO 15780 [egg-sequelize](1ms) Executed (default): SELECT `id`, `created_at`, `updated_at`, `content_id`, `user_id` FROM `likes` AS `likes` WHERE (`likes`.`content_id` = '1' AND `likes`.`user_id` = 3) LIMIT 1;
+2019-04-11 10:00:00,828 INFO 15780 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 10:03:43,969 INFO 5732 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 10:03:58,346 INFO 444 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 10:04:58,620 INFO 11656 [egg-sequelize](2ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 10:59:23,604 INFO 11888 [egg-sequelize](2ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 11:00:00,170 INFO 11888 [egg-sequelize](4ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 11:01:08,003 INFO 13868 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 11:02:35,091 INFO 9116 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 11:07:51,424 INFO 11492 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 11:18:32,436 INFO 11492 [egg-sequelize](5ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 11:22:21,953 INFO 6092 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 11:22:36,837 INFO 1288 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 11:23:29,744 INFO 11044 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 11:24:46,169 INFO 16152 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 11:25:51,688 INFO 4536 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 12:00:00,078 INFO 4536 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 13:00:00,062 INFO 4536 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 14:00:00,081 INFO 4536 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 15:00:00,096 INFO 4536 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:00:00,070 INFO 4536 [egg-sequelize](7ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:01:49,359 INFO 16228 [egg-sequelize](2ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 16:02:23,922 INFO 16228 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:02:28,403 INFO 16228 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:02:47,423 INFO 8712 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 16:02:59,158 WARN 8712 [-/127.0.0.1/-/28ms POST /api/login] invalid csrf token. See https://eggjs.org/zh-cn/core/security.html#安全威胁csrf的防范
+2019-04-11 16:02:59,202 WARN 8712 [-/127.0.0.1/-/70ms POST /api/login] nodejs.ForbiddenError: invalid csrf token
+    at Object.throw (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa@2.7.0@koa\lib\context.js:97:11)
+    at Object.assertCsrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\app\extend\context.js:157:17)
+    at csrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\csrf.js:31:9)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at overrideMethod (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-override@3.0.0@koa-override\index.js:38:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at bodyParser (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-bodyparser@4.2.1@koa-bodyparser\index.js:86:11)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+message: "invalid csrf token"
+headers: {"Access-Control-Allow-Origin":"*","vary":"Origin"}
+pid: 8712
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 16:03:51,234 INFO 9676 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 16:03:56,733 WARN 9676 [-/127.0.0.1/-/31ms POST /api/login] invalid csrf token. See https://eggjs.org/zh-cn/core/security.html#安全威胁csrf的防范
+2019-04-11 16:03:56,739 WARN 9676 [-/127.0.0.1/-/37ms POST /api/login] nodejs.ForbiddenError: invalid csrf token
+    at Object.throw (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa@2.7.0@koa\lib\context.js:97:11)
+    at Object.assertCsrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\app\extend\context.js:157:17)
+    at csrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\csrf.js:31:9)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at overrideMethod (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-override@3.0.0@koa-override\index.js:38:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at bodyParser (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-bodyparser@4.2.1@koa-bodyparser\index.js:86:11)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+message: "invalid csrf token"
+headers: {"Access-Control-Allow-Origin":"*","vary":"Origin"}
+pid: 9676
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 16:05:09,678 INFO 11176 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 16:05:35,899 INFO 9160 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 16:14:35,614 INFO 9160 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:17:32,471 INFO 9160 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:17:36,075 INFO 9160 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:17:44,414 WARN 9160 [-/127.0.0.1/-/19ms POST /api/login] invalid csrf token. See https://eggjs.org/zh-cn/core/security.html#安全威胁csrf的防范
+2019-04-11 16:17:44,419 WARN 9160 [-/127.0.0.1/-/24ms POST /api/login] nodejs.ForbiddenError: invalid csrf token
+    at Object.throw (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa@2.7.0@koa\lib\context.js:97:11)
+    at Object.assertCsrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\app\extend\context.js:157:17)
+    at csrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\csrf.js:31:9)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at overrideMethod (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-override@3.0.0@koa-override\index.js:38:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at bodyParser (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-bodyparser@4.2.1@koa-bodyparser\index.js:86:11)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+message: "invalid csrf token"
+headers: {"Access-Control-Allow-Origin":"*","vary":"Origin"}
+pid: 9160
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 16:19:10,936 INFO 9160 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:19:16,434 INFO 9160 [egg-sequelize](1ms) Executed (default): SELECT `id`, `username`, `password`, `created_at`, `updated_at` FROM `users` AS `users` WHERE `users`.`username` = 'bbb' LIMIT 1;
+2019-04-11 16:19:16,638 INFO 9160 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:20:05,900 INFO 9160 [egg-sequelize](2ms) Executed (default): SELECT `id`, `title`, `content`, `like_count`, `comment_count`, `created_at`, `updated_at`, `user_id` FROM `contents` AS `contents` WHERE `contents`.`id` = '1';
+2019-04-11 16:20:05,907 INFO 9160 [egg-sequelize](2ms) Executed (default): SELECT `id`, `created_at`, `updated_at`, `content_id`, `user_id` FROM `likes` AS `likes` WHERE (`likes`.`content_id` = '1' AND `likes`.`user_id` = 3) LIMIT 1;
+2019-04-11 16:20:08,996 INFO 9160 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:21:01,582 INFO 9160 [egg-sequelize](1ms) Executed (default): SELECT `id`, `username`, `password`, `created_at`, `updated_at` FROM `users` AS `users` WHERE `users`.`username` = 'bbb' LIMIT 1;
+2019-04-11 16:21:01,715 INFO 9160 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:21:10,003 INFO 9160 [egg-sequelize](1ms) Executed (default): SELECT `id`, `title`, `content`, `like_count`, `comment_count`, `created_at`, `updated_at`, `user_id` FROM `contents` AS `contents` WHERE `contents`.`id` = '1';
+2019-04-11 16:21:10,062 INFO 9160 [egg-sequelize](45ms) Executed (default): SELECT `id`, `comment`, `created_at`, `updated_at`, `user_id`, `content_id` FROM `comments` AS `comments` WHERE (`comments`.`content_id` = '1' AND `comments`.`user_id` = 3) LIMIT 1;
+2019-04-11 16:22:05,430 INFO 9160 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:22:12,393 INFO 9160 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:23:03,181 INFO 9160 [egg-sequelize](2ms) Executed (default): SELECT `id`, `username`, `password`, `created_at`, `updated_at` FROM `users` AS `users` WHERE `users`.`username` = 'bbb' LIMIT 1;
+2019-04-11 16:23:03,313 INFO 9160 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:24:00,804 INFO 9160 [egg-sequelize](1ms) Executed (default): SELECT `id`, `title`, `content`, `like_count`, `comment_count`, `created_at`, `updated_at`, `user_id` FROM `contents` AS `contents` WHERE `contents`.`id` = '1';
+2019-04-11 16:24:00,810 INFO 9160 [egg-sequelize](2ms) Executed (default): SELECT `id`, `comment`, `created_at`, `updated_at`, `user_id`, `content_id` FROM `comments` AS `comments` WHERE (`comments`.`content_id` = '1' AND `comments`.`user_id` = 3) LIMIT 1;
+2019-04-11 16:25:24,785 INFO 9160 [egg-sequelize](8ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:25:31,300 INFO 9160 [egg-sequelize](1ms) Executed (default): SELECT `id`, `title`, `content`, `like_count`, `comment_count`, `created_at`, `updated_at`, `user_id` FROM `contents` AS `contents` WHERE `contents`.`id` = '1';
+2019-04-11 16:25:31,306 INFO 9160 [egg-sequelize](2ms) Executed (default): SELECT `id`, `created_at`, `updated_at`, `content_id`, `user_id` FROM `likes` AS `likes` WHERE (`likes`.`content_id` = '1' AND `likes`.`user_id` = 3) LIMIT 1;
+2019-04-11 16:27:45,036 INFO 9160 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:27:47,449 INFO 9160 [egg-sequelize](1ms) Executed (default): SELECT `id`, `title`, `content`, `like_count`, `comment_count`, `created_at`, `updated_at`, `user_id` FROM `contents` AS `contents` WHERE `contents`.`id` = '1';
+2019-04-11 16:27:47,453 INFO 9160 [egg-sequelize](1ms) Executed (default): SELECT `id`, `created_at`, `updated_at`, `content_id`, `user_id` FROM `likes` AS `likes` WHERE (`likes`.`content_id` = '1' AND `likes`.`user_id` = 3) LIMIT 1;
+2019-04-11 16:31:06,729 INFO 9160 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:31:21,335 INFO 9160 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:32:10,443 INFO 9160 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:32:10,641 INFO 9160 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:32:12,213 INFO 9160 [egg-sequelize](1ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:32:15,081 INFO 9160 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:32:15,246 INFO 9160 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:36:25,238 WARN 9160 [-/127.0.0.1/-/1ms POST /api/cors] missing csrf token. See https://eggjs.org/zh-cn/core/security.html#安全威胁csrf的防范
+2019-04-11 16:37:01,696 WARN 9160 [-/127.0.0.1/-/36459ms POST /api/cors] nodejs.ForbiddenError: missing csrf token
+    at Object.throw (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa@2.7.0@koa\lib\context.js:97:11)
+    at Object.assertCsrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\app\extend\context.js:148:17)
+    at csrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\csrf.js:31:9)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at overrideMethod (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-override@3.0.0@koa-override\index.js:38:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at bodyParser (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-bodyparser@4.2.1@koa-bodyparser\index.js:86:11)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+message: "missing csrf token"
+headers: {"Access-Control-Allow-Origin":"*","vary":"Origin"}
+pid: 9160
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 16:37:01,703 WARN 9160 [-/127.0.0.1/-/1ms POST /api/cors] missing csrf token. See https://eggjs.org/zh-cn/core/security.html#安全威胁csrf的防范
+2019-04-11 16:37:01,710 WARN 9160 [-/127.0.0.1/-/7ms POST /api/cors] nodejs.ForbiddenError: missing csrf token
+    at Object.throw (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa@2.7.0@koa\lib\context.js:97:11)
+    at Object.assertCsrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\app\extend\context.js:148:17)
+    at csrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\csrf.js:31:9)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at overrideMethod (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-override@3.0.0@koa-override\index.js:38:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at bodyParser (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-bodyparser@4.2.1@koa-bodyparser\index.js:86:11)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+message: "missing csrf token"
+headers: {"Access-Control-Allow-Origin":"*","vary":"Origin"}
+pid: 9160
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 16:37:01,725 ERROR 9160 [-/undefined/-/6ms GET /api/jsonp] nodejs.ECONNRESETError: read ECONNRESET
+    at TCP.onStreamRead (internal/stream_base_commons.js:162:27)
+errno: "ECONNRESET"
+code: "ECONNRESET"
+syscall: "read"
+headerSent: true
+name: "ECONNRESETError"
+pid: 9160
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 16:37:22,834 INFO 17312 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 16:42:27,525 WARN 17312 [-/127.0.0.1/-/3ms POST /api/cors] missing csrf token. See https://eggjs.org/zh-cn/core/security.html#安全威胁csrf的防范
+2019-04-11 16:42:27,529 WARN 17312 [-/127.0.0.1/-/8ms POST /api/cors] nodejs.ForbiddenError: missing csrf token
+    at Object.throw (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa@2.7.0@koa\lib\context.js:97:11)
+    at Object.assertCsrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\app\extend\context.js:148:17)
+    at csrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\csrf.js:31:9)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at overrideMethod (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-override@3.0.0@koa-override\index.js:38:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at bodyParser (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-bodyparser@4.2.1@koa-bodyparser\index.js:86:11)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+message: "missing csrf token"
+headers: {"Access-Control-Allow-Origin":"*","vary":"Origin"}
+pid: 17312
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 16:43:35,956 WARN 17312 [-/127.0.0.1/-/0ms POST /api/cors] missing csrf token. See https://eggjs.org/zh-cn/core/security.html#安全威胁csrf的防范
+2019-04-11 16:43:35,959 WARN 17312 [-/127.0.0.1/-/4ms POST /api/cors] nodejs.ForbiddenError: missing csrf token
+    at Object.throw (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa@2.7.0@koa\lib\context.js:97:11)
+    at Object.assertCsrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\app\extend\context.js:148:17)
+    at csrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\csrf.js:31:9)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at overrideMethod (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-override@3.0.0@koa-override\index.js:38:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at bodyParser (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-bodyparser@4.2.1@koa-bodyparser\index.js:86:11)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+message: "missing csrf token"
+headers: {"Access-Control-Allow-Origin":"*","vary":"Origin"}
+pid: 17312
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 16:48:13,892 INFO 17312 [egg-sequelize](1ms) Executed (default): SELECT `id`, `username`, `password`, `created_at`, `updated_at` FROM `users` AS `users` WHERE `users`.`username` = 'bbb' LIMIT 1;
+2019-04-11 16:48:14,050 INFO 17312 [egg-sequelize](4ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:48:17,485 INFO 17312 [egg-sequelize](2ms) Executed (default): SELECT `id`, `title`, `content`, `like_count`, `comment_count`, `created_at`, `updated_at`, `user_id` FROM `contents` AS `contents` WHERE `contents`.`id` = '1';
+2019-04-11 16:48:17,490 INFO 17312 [egg-sequelize](2ms) Executed (default): SELECT `id`, `created_at`, `updated_at`, `content_id`, `user_id` FROM `likes` AS `likes` WHERE (`likes`.`content_id` = '1' AND `likes`.`user_id` = 3) LIMIT 1;
+2019-04-11 16:49:22,743 WARN 17312 [-/127.0.0.1/-/1ms POST /api/cors] missing csrf token. See https://eggjs.org/zh-cn/core/security.html#安全威胁csrf的防范
+2019-04-11 16:49:22,745 WARN 17312 [-/127.0.0.1/-/3ms POST /api/cors] nodejs.ForbiddenError: missing csrf token
+    at Object.throw (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa@2.7.0@koa\lib\context.js:97:11)
+    at Object.assertCsrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\app\extend\context.js:148:17)
+    at csrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\csrf.js:31:9)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at overrideMethod (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-override@3.0.0@koa-override\index.js:38:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at bodyParser (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-bodyparser@4.2.1@koa-bodyparser\index.js:86:11)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+message: "missing csrf token"
+headers: {"Access-Control-Allow-Origin":"*","vary":"Origin"}
+pid: 17312
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 16:50:46,520 INFO 10064 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 16:50:50,190 WARN 10064 [-/127.0.0.1/-/9ms POST /api/cors] missing csrf token. See https://eggjs.org/zh-cn/core/security.html#安全威胁csrf的防范
+2019-04-11 16:50:50,194 WARN 10064 [-/127.0.0.1/-/14ms POST /api/cors] nodejs.ForbiddenError: missing csrf token
+    at Object.throw (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa@2.7.0@koa\lib\context.js:97:11)
+    at Object.assertCsrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\app\extend\context.js:148:17)
+    at csrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\csrf.js:31:9)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at overrideMethod (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-override@3.0.0@koa-override\index.js:38:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at bodyParser (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-bodyparser@4.2.1@koa-bodyparser\index.js:86:11)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+message: "missing csrf token"
+headers: {"Access-Control-Allow-Origin":"*","vary":"Origin"}
+pid: 10064
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 16:50:56,575 WARN 10064 [-/127.0.0.1/-/1ms POST /api/cors] missing csrf token. See https://eggjs.org/zh-cn/core/security.html#安全威胁csrf的防范
+2019-04-11 16:50:56,578 WARN 10064 [-/127.0.0.1/-/3ms POST /api/cors] nodejs.ForbiddenError: missing csrf token
+    at Object.throw (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa@2.7.0@koa\lib\context.js:97:11)
+    at Object.assertCsrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\app\extend\context.js:148:17)
+    at csrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\csrf.js:31:9)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at overrideMethod (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-override@3.0.0@koa-override\index.js:38:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at bodyParser (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-bodyparser@4.2.1@koa-bodyparser\index.js:86:11)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+message: "missing csrf token"
+headers: {"Access-Control-Allow-Origin":"*","vary":"Origin"}
+pid: 10064
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 16:51:03,265 WARN 10064 [-/127.0.0.1/-/1ms POST /api/cors] missing csrf token. See https://eggjs.org/zh-cn/core/security.html#安全威胁csrf的防范
+2019-04-11 16:51:03,270 WARN 10064 [-/127.0.0.1/-/6ms POST /api/cors] nodejs.ForbiddenError: missing csrf token
+    at Object.throw (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa@2.7.0@koa\lib\context.js:97:11)
+    at Object.assertCsrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\app\extend\context.js:148:17)
+    at csrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\csrf.js:31:9)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at overrideMethod (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-override@3.0.0@koa-override\index.js:38:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at bodyParser (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-bodyparser@4.2.1@koa-bodyparser\index.js:86:11)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+message: "missing csrf token"
+headers: {"Access-Control-Allow-Origin":"*","vary":"Origin"}
+pid: 10064
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 16:52:37,903 INFO 9120 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 16:52:42,484 WARN 9120 [-/127.0.0.1/-/10ms POST /api/cors] missing csrf token. See https://eggjs.org/zh-cn/core/security.html#安全威胁csrf的防范
+2019-04-11 16:52:42,490 WARN 9120 [-/127.0.0.1/-/15ms POST /api/cors] nodejs.ForbiddenError: missing csrf token
+    at Object.throw (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa@2.7.0@koa\lib\context.js:97:11)
+    at Object.assertCsrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\app\extend\context.js:148:17)
+    at csrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\csrf.js:31:9)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at overrideMethod (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-override@3.0.0@koa-override\index.js:38:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at bodyParser (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-bodyparser@4.2.1@koa-bodyparser\index.js:86:11)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+message: "missing csrf token"
+headers: {"Access-Control-Allow-Origin":"http://127.0.0.1","vary":"Origin"}
+pid: 9120
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 16:55:00,638 INFO 14724 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 16:55:04,925 INFO 14724 [egg-sequelize](5ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:55:06,647 INFO 14724 [egg-sequelize](1ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:55:21,229 INFO 14724 [egg-sequelize](1ms) Executed (default): SELECT `id`, `username`, `password`, `created_at`, `updated_at` FROM `users` AS `users` WHERE `users`.`username` = 'bbb' LIMIT 1;
+2019-04-11 16:55:21,387 INFO 14724 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 16:55:26,236 INFO 14724 [egg-sequelize](2ms) Executed (default): SELECT `id`, `title`, `content`, `like_count`, `comment_count`, `created_at`, `updated_at`, `user_id` FROM `contents` AS `contents` WHERE `contents`.`id` = '1';
+2019-04-11 16:55:26,243 INFO 14724 [egg-sequelize](1ms) Executed (default): SELECT `id`, `created_at`, `updated_at`, `content_id`, `user_id` FROM `likes` AS `likes` WHERE (`likes`.`content_id` = '1' AND `likes`.`user_id` = 3) LIMIT 1;
+2019-04-11 16:57:08,710 INFO 9852 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 16:57:37,336 INFO 15948 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 16:57:52,187 INFO 16596 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 16:57:57,249 WARN 16596 [-/127.0.0.1/-/8ms POST /api/cors] missing csrf token. See https://eggjs.org/zh-cn/core/security.html#安全威胁csrf的防范
+2019-04-11 16:57:57,255 WARN 16596 [-/127.0.0.1/-/14ms POST /api/cors] nodejs.ForbiddenError: missing csrf token
+    at Object.throw (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa@2.7.0@koa\lib\context.js:97:11)
+    at Object.assertCsrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\app\extend\context.js:148:17)
+    at csrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\csrf.js:31:9)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at overrideMethod (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-override@3.0.0@koa-override\index.js:38:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at bodyParser (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-bodyparser@4.2.1@koa-bodyparser\index.js:86:11)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+message: "missing csrf token"
+headers: {"Access-Control-Allow-Origin":"*","vary":"Origin"}
+pid: 16596
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 17:00:00,084 INFO 16596 [egg-sequelize](4ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 17:01:15,200 INFO 16952 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 17:01:19,820 INFO 16952 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 17:01:25,170 INFO 16952 [egg-sequelize](2ms) Executed (default): SELECT `id`, `username`, `password`, `created_at`, `updated_at` FROM `users` AS `users` WHERE `users`.`username` = 'bbb' LIMIT 1;
+2019-04-11 17:01:25,329 INFO 16952 [egg-sequelize](5ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 17:01:29,172 INFO 16952 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 17:07:53,297 INFO 17044 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 17:08:01,013 WARN 17044 [-/127.0.0.1/-/7ms POST /api/cors] missing csrf token. See https://eggjs.org/zh-cn/core/security.html#安全威胁csrf的防范
+2019-04-11 17:08:01,020 WARN 17044 [-/127.0.0.1/-/13ms POST /api/cors] nodejs.ForbiddenError: missing csrf token
+    at Object.throw (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa@2.7.0@koa\lib\context.js:97:11)
+    at Object.assertCsrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\app\extend\context.js:148:17)
+    at csrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\csrf.js:31:9)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at overrideMethod (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-override@3.0.0@koa-override\index.js:38:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at bodyParser (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-bodyparser@4.2.1@koa-bodyparser\index.js:86:11)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+message: "missing csrf token"
+headers: {"Access-Control-Allow-Origin":"*","vary":"Origin"}
+pid: 17044
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 17:08:04,464 WARN 17044 [-/127.0.0.1/-/2ms POST /api/cors] missing csrf token. See https://eggjs.org/zh-cn/core/security.html#安全威胁csrf的防范
+2019-04-11 17:08:04,467 WARN 17044 [-/127.0.0.1/-/5ms POST /api/cors] nodejs.ForbiddenError: missing csrf token
+    at Object.throw (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa@2.7.0@koa\lib\context.js:97:11)
+    at Object.assertCsrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\app\extend\context.js:148:17)
+    at csrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\csrf.js:31:9)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at overrideMethod (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-override@3.0.0@koa-override\index.js:38:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at bodyParser (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-bodyparser@4.2.1@koa-bodyparser\index.js:86:11)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+message: "missing csrf token"
+headers: {"Access-Control-Allow-Origin":"*","vary":"Origin"}
+pid: 17044
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 17:08:04,630 WARN 17044 [-/127.0.0.1/-/0ms POST /api/cors] missing csrf token. See https://eggjs.org/zh-cn/core/security.html#安全威胁csrf的防范
+2019-04-11 17:08:04,636 WARN 17044 [-/127.0.0.1/-/5ms POST /api/cors] nodejs.ForbiddenError: missing csrf token
+    at Object.throw (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa@2.7.0@koa\lib\context.js:97:11)
+    at Object.assertCsrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\app\extend\context.js:148:17)
+    at csrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\csrf.js:31:9)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at overrideMethod (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-override@3.0.0@koa-override\index.js:38:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at bodyParser (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-bodyparser@4.2.1@koa-bodyparser\index.js:86:11)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+message: "missing csrf token"
+headers: {"Access-Control-Allow-Origin":"*","vary":"Origin"}
+pid: 17044
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 17:08:44,474 INFO 9344 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 17:09:51,710 WARN 9344 [-/127.0.0.1/-/8ms POST /api/cors] missing csrf token. See https://eggjs.org/zh-cn/core/security.html#安全威胁csrf的防范
+2019-04-11 17:09:51,717 WARN 9344 [-/127.0.0.1/-/14ms POST /api/cors] nodejs.ForbiddenError: missing csrf token
+    at Object.throw (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa@2.7.0@koa\lib\context.js:97:11)
+    at Object.assertCsrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\app\extend\context.js:148:17)
+    at csrf (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-security@2.5.0@egg-security\lib\middlewares\csrf.js:31:9)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at overrideMethod (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-override@3.0.0@koa-override\index.js:38:12)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at bodyParser (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-bodyparser@4.2.1@koa-bodyparser\index.js:86:11)
+    at processTicksAndRejections (internal/process/next_tick.js:81:5)
+message: "missing csrf token"
+headers: {"Access-Control-Allow-Origin":"*","vary":"Origin"}
+pid: 9344
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 17:10:38,170 INFO 16672 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 17:13:04,117 INFO 5952 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 17:13:36,446 INFO 11356 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 17:15:09,055 INFO 15796 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 17:15:38,930 INFO 2588 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 17:18:11,349 INFO 10076 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 17:18:28,257 INFO 16764 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 18:10:17,350 INFO 3464 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 18:10:30,072 INFO 3464 [egg-sequelize](4ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 18:10:54,950 INFO 3464 [egg-sequelize](5ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 18:11:32,531 INFO 16772 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 18:11:33,540 INFO 16772 [egg-sequelize](3ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 18:11:46,247 INFO 16772 [egg-sequelize](6ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 18:12:09,457 INFO 3084 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 18:12:55,382 INFO 6224 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 18:13:06,047 INFO 7096 [egg-sequelize](2ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 18:13:48,243 INFO 7760 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 18:18:24,529 INFO 7760 [egg-sequelize](8ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;
+2019-04-11 18:18:26,621 INFO 8624 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 18:18:41,862 INFO 16692 [egg-sequelize](1ms) Executed (default): SELECT 1+1 AS result
+2019-04-11 18:19:22,500 ERROR 16692 [-/127.0.0.1/-/26ms GET /api/loginout] nodejs.ECONNRESETError: read ECONNRESET
+    at TCP.onStreamRead (internal/stream_base_commons.js:162:27)
+errno: "ECONNRESET"
+code: "ECONNRESET"
+syscall: "read"
+headerSent: true
+name: "ECONNRESETError"
+pid: 16692
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 18:19:22,503 ERROR 16692 [-/127.0.0.1/-/22ms GET /api/loginout] nodejs.ECONNRESETError: read ECONNRESET
+    at TCP.onStreamRead (internal/stream_base_commons.js:162:27)
+errno: "ECONNRESET"
+code: "ECONNRESET"
+syscall: "read"
+headerSent: true
+name: "ECONNRESETError"
+pid: 16692
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 18:19:22,521 ERROR 16692 [-/127.0.0.1/-/15ms GET /api/loginout] nodejs.ECONNRESETError: read ECONNRESET
+    at TCP.onStreamRead (internal/stream_base_commons.js:162:27)
+errno: "ECONNRESET"
+code: "ECONNRESET"
+syscall: "read"
+headerSent: true
+name: "ECONNRESETError"
+pid: 16692
+hostname: DESKTOP-IGV1BLA
+
+2019-04-11 18:19:22,672 INFO 16692 [egg-sequelize](2ms) Executed (default): SELECT `contents`.`id`, `contents`.`content`, `contents`.`title`, `contents`.`like_count`, `comments`.`id` AS `comments.id`, `comments`.`comment` AS `comments.comment`, `comments->user`.`id` AS `comments.user.id`, `comments->user`.`username` AS `comments.user.username` FROM `contents` AS `contents` LEFT OUTER JOIN `comments` AS `comments` ON `contents`.`id` = `comments`.`content_id` LEFT OUTER JOIN `users` AS `comments->user` ON `comments`.`user_id` = `comments->user`.`id`;

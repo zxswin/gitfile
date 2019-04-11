@@ -17,12 +17,42 @@
 
     $(function () {
 
+      /** 设置网站cookie  */
+      let arr1 = document
+        .cookie
+        .split('; ');
+      arr1 = arr1.map(item => {
+        let arr2 = item.split('='); // ['uid', 1]
+        return {
+          [arr2[0]]: arr2[1]
+        };
+      });
+      let cookie = Object.assign({}, ...arr1);
+      console.log(cookie);
+
+      let csrftoken = cookie.csrfToken;
+
+      function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return /^(GET|HEAD|OPTIONS|TRACE)$/.test(method);
+      }
+      $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+          console.log('this', this);
+          console.log('settings.type', settings.type); // POST
+          console.log('this.crossDomain', this.crossDomain); // false 是否跨域
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader('x-csrf-token', csrftoken);
+          }
+        }
+      });
+
       $('#btn').on('click', function () {
         console.log('cors 实现跨域请求 执行跨域请求')
 
         // cors 实现跨域请求
         $.ajax({
-          url: `http://127.0.0.1:7001/api/cors`, type: 'post', dataType: "json", //数据类型为jsonp
+          url: `http://127.0.0.1:8080/api/cors`, type: 'post', dataType: "json", //数据类型为jsonp
           success: function (data) {
             console.log('cors 实现跨域请求', data);
           },

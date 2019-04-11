@@ -1,6 +1,33 @@
 $(function() {
   console.log('项目启动', $);
   console.log('document.cookie', document.cookie);
+  /** 设置网站cookie  */
+  let arr1 = document.cookie.split('; ');
+  arr1 = arr1.map(item => {
+    let arr2 = item.split('='); // ['uid', 1]
+    return {
+      [arr2[0]]: arr2[1],
+    };
+  });
+  let cookie = Object.assign({}, ...arr1);
+  console.log(cookie);
+
+  let csrftoken = cookie.csrfToken;
+
+  function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return /^(GET|HEAD|OPTIONS|TRACE)$/.test(method);
+  }
+  $.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+      console.log('this', this);
+      console.log('settings.type', settings.type); // POST
+      console.log('this.crossDomain', this.crossDomain); // false 是否跨域
+      if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+        xhr.setRequestHeader('x-csrf-token', csrftoken);
+      }
+    },
+  });
 
   getContents();
 
