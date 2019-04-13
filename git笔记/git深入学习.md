@@ -258,8 +258,6 @@ git push origin dev
 
 ## git reset 回退到指定版本
 
-- reset 只能回退本地不能回退远程(指针指回指定版本)
-
 ```bash
 reset是指将HEAD指针指到指定提交，历史记录中不会出现放弃的提交记录
 $ git reset --hard HEAD^ //上一个版本就是HEAD^，上上一个版本就是HEAD^^，上100个版本写成HEAD~100。
@@ -288,7 +286,187 @@ git push origin master
 
 ## 分支管理
 
-- Git 之 hotfix 热修复分支
+- Git 之 hotfix 热修复分支(就是拉一个分支然后修复 bug 再合并回去)
+
+## git 补丁
+
+- 运用场景：需要同步两个 git 版本库的代码的时候运用
+  一个 git 版本库生成补丁文件 , 另一版本库将补丁打入
+
+###方案一： git format-patch 生成的 Git 专用.patch 文件。
+
+- 生成 patch
+  .patch 文件带有记录文件改变的内容，也带有 commit 记录信息,每个 commit 对应一个 patch 文件。
+
+```bash
+# git format-patch 【commit sha1 id】-n
+# n指从sha1 id对应的commit开始算起n个提交。
+git format-patch   0ea77b9e060c877b66c13f3571381ca11e8bd385 -2
+# 生成指定某次提交的补丁文件
+git format-patch   0ea77b9e060c877b66c13f3571381ca11e8bd385 -1
+# 某两次提交之间的所有patch:
+# git format-patch 【commit sha1 id】..【commit sha1 id】
+git format-patch  2a2fb4539925bfa4a141fe492d9828d030f7c8a8..89aebfcc73bdac8054be1a242598610d8ed5f3c8
+# 生成的补丁文件存放在工作区中
+
+```
+
+- 运用 patch
+
+```bash
+# 检查patch是否能正常打入:
+# git apply --check 【path/to/xxx.patch】
+git apply --check patch/0001-2.patch
+
+# 打入patch
+# git apply 【path/to/xxx.patch】
+git apply patch/0001-2.patch
+
+# 或者 git  am 【path/to/xxx.patch】
+git  am patch/0001-2.patch
+
+# 解决冲突
+# 自动合入 patch 中不冲突的代码改动，同时保留冲突的部分：
+# 生成后缀为 .rej 的文件，保存没有合并进去的部分的内容，可以参考这个进行冲突解决。
+git  apply --reject  patch/0001-2.patch
+# 解决完冲突后删除后缀为 .rej 的文件，并执行git add.添加改动到暂存区.
+# 接着执行git am --resolved或者git am --continue
+# 执行git am --skip跳过此次冲突，
+# 也可以执行git am --abort回退打入patch的动作，还原到操作前的状态。
+
+# 添加修改内容
+git add .
+# 推送到远程仓库
+git push origin master
+
+```
+
+### 方案二 ： git diff 生成的 UNIX 标准补丁.diff 文件
+
+- .diff 文件只是记录文件改变的内容，不带有 commit 记录信息,多个 commit 可以合并成一个 diff 文件。
+
+```bash
+# 创建diff文件的常用方法
+# git diff  【commit sha1 id】 【commit sha1 id】 >  【diff文件名】
+git diff  2a2fb4539925bfa4a141fe492d9828d030f7c8a8  89aebfcc73bdac8054be1a242598610d8ed5f3c8 > patch.diff
+
+
+# 应用打入diff补丁
+# 检查diff是否能正常打入:
+git apply --check 【path/to/xxx.diff】
+
+# 打入补丁
+git apply 【path/to/xxx.diff】
+
+# 解决冲突
+# 自动合入 diff 中不冲突的代码改动，同时保留冲突的部分：
+# 生成后缀为 .rej 的文件，保存没有合并进去的部分的内容，可以参考这个进行冲突解决。
+git  apply --reject  【path/to/xxx.diff】
+
+# 解决完冲突后删除后缀为 .rej 的文件，并执行git add.添加改动到暂存区.
+# 接着执行git am --resolved或者git am --continue
+# 执行git am --skip跳过此次冲突，
+# 也可以执行git am --abort回退打入patch的动作，还原到操作前的状态。
+
+# 添加修改内容
+git add .
+# 推送到远程仓库
+git push origin master
+
+```
+
+## git 钩子
+
+- Git 钩子是指在特定的 Git 动作（如：git commit、 git push ）下被触发的脚本。而钩子主要被分为两种：
+  客户端钩子
+  服务端钩子
+
+- Git 的钩子不管客户端钩子还是服务端钩子，都是放在当前项目的 .git/hooks 目录下。
+  .git 目录是不会被提交到服务器上的，所以放置在 .git/hooks 目录中的客户端脚本也不会被提交。
+  如果想让别人也使用你的钩子需要一种策略来偷偷的安装这个钩子或者在服务端放置实现这个钩子的功能
+
+### 本地钩子
+
+```bash
+# pre-commit 脚本在每次你运行 git commit 命令时
+pre-commit
+# prepare-commit-msg 钩子在 pre-commit 钩子在文本编辑器中生成提交信息之后被调用
+prepare-commit-msg
+# commit-msg 钩子和 prepare-commit-msg 钩子很像，但它会在用户输入提交信息之后被调用。
+commit-msg
+# post-commit 钩子在 commit-msg 钩子之后立即被运行 。
+post-commit
+# post-checkout 钩子和 post-commit 钩子很像，但它在你用 git checkout 查看引用的时候被调用。
+post-checkout
+# pre-rebase 钩子在 git rebase 发生更改之前运行，确保不会有什么糟糕的事情发生。
+pre-rebase
+```
+
+### 使用 node 写一个拒绝提交没有被解决的冲突的文件
+
+```js
+// .git/hooks/pre-commit
+#!/usr/bin/env node
+// 在 commit 之前检查是否有冲突，如果有冲突就 process.exit(1)
+
+const execSync = require('child_process').execSync
+
+// git 对所有冲突的地方都会生成下面这种格式的信息，所以写个检测冲突文件的正则
+const isConflictRegular = '^<<<<<<<\\s|^=======$|^>>>>>>>\\s'
+
+let results
+
+try {
+  // git grep 命令会执行 perl 的正则匹配所有满足冲突条件的文件
+  results = execSync(`git grep -n -P "${isConflictRegular}"`, {
+    encoding: 'utf-8'
+  })
+} catch (e) {
+  console.log('没有发现冲突，等待 commit')
+  process.exit(0)
+}
+
+if (results) {
+  console.error('发现冲突，请解决后再提交，冲突文件：')
+  console.error(results.trim())
+  process.exit(1)
+}
+
+process.exit(0)
+```
+
+### 每个成员都通过 npm start 命令开启服务的时候安装钩子
+
+```js
+const fs = require('fs')
+
+// 判断是否已经存在 pre-commit，不存在就读取 pre-commit.sh 并写入
+if (!fs.existsSync('.git/hooks/pre-commit')) {
+  if (!fs.existsSync('.git/hooks/')) {
+    fs.mkdirSync('.git/hooks/')
+  }
+
+  let preCommitFile = fs.readFileSync('./pre-commit.sh')
+
+  fs.writeFileSync('.git/hooks/pre-commit', preCommitFile, {
+    encoding: 'utf8',
+    mode: 0o777
+  })
+}
+```
+
+## Git 提交引用和引用日志
+
+- 引用以一段普通的文本存在于 .git/refs 目录中，
+- 特殊的引用
+
+```bash
+HEAD – 当前所在的提交或分支。
+FETCH_HEAD – 远程仓库中 fetch 到的最新一次提交。
+ORIG_HEAD – HEAD 的备份引用，避免损坏。
+MERGE_HEAD – 你通过 git merge 并入当前分支的引用（们）。
+CHERRY_PICK_HEAD – 你 cherry pick 使用的引用。
+```
 
 ## 单词
 
@@ -314,4 +492,6 @@ pull 拉
 revert 恢复
 abort 终止
 apply 运用 申请
+patch 补丁
+
 ```
