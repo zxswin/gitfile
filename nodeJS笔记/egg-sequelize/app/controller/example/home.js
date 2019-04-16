@@ -1,12 +1,28 @@
 const Controller = require('egg').Controller;
 
 class HomeController extends Controller {
+  /** 强制创建表格  */
+  async sync() {
+    // 强制同步所有模型 强制创建表
+    const ctx = this.ctx;
+
+    await ctx.model.sync({ force: true });
+    ctx.body = '表创建成功';
+  }
+
   /** 渲染主页  */
   async index() {
     const ctx = this.ctx;
 
-    // 强制同步所有模型 强制创建表
-    // await ctx.model.sync({force: true});
+    console.log('/ 渲染 ctx.isAuthenticated()============================', ctx.isAuthenticated());
+
+    if (ctx.isAuthenticated()) {
+      // 当前用户已经授权登录了
+      console.log('/ 渲染 当前用户已经授权登录了11111111111111111111');
+      const data = { username: ctx.user.name };
+      // 渲染内容页面
+      return ctx.render('contents', data);
+    }
 
     /* 渲染一个模板, 路径与'app/view'相关` */
     // 获取cookies
@@ -56,6 +72,12 @@ class HomeController extends Controller {
   async test() {
     const ctx = this.ctx;
     ctx.body = 'hello world';
+  }
+
+  /** websocket 测试前端页面渲染  */
+  async websocket() {
+    const ctx = this.ctx;
+    return ctx.render('websocket');
   }
 }
 

@@ -170,10 +170,64 @@
       "origin": "*",
       "allowMethods": "GET,HEAD,PUT,POST,DELETE,PATCH"
     },
+    "passportWeibo": {
+      "key": "a",
+      "secret": "<String len: 1>",
+      "callbackURL": "/passport/weibo/callback"
+    },
+    "passportTwitter": {
+      "key": "g",
+      "secret": "<String len: 1>",
+      "callbackURL": "/passport/twitter/callback"
+    },
     "passportGithub": {
-      "key": "your_clientID",
-      "secret": "<String len: 17>",
+      "key": "b7a9c170da074ce5e43f",
+      "secret": "<String len: 40>",
       "callbackURL": "/passport/github/callback"
+    },
+    "passportBitbucket": {
+      "key": "e",
+      "secret": "<String len: 1>",
+      "callbackURL": "/passport/bitbucket/callback"
+    },
+    "io": {
+      "init": {},
+      "namespace": {
+        "/": {
+          "connectionMiddleware": [],
+          "packetMiddleware": []
+        },
+        "/ptop": {
+          "connectionMiddleware": [
+            "authp"
+          ],
+          "packetMiddleware": []
+        },
+        "/chat": {
+          "connectionMiddleware": [
+            "auth"
+          ],
+          "packetMiddleware": [
+            "packet"
+          ]
+        }
+      },
+      "redis": {
+        "host": "127.0.0.1",
+        "port": 6379
+      }
+    },
+    "redis": {
+      "default": {},
+      "app": true,
+      "agent": false,
+      "supportTimeCommand": true,
+      "client": {
+        "port": 6379,
+        "host": "127.0.0.1",
+        "password": "<String len: 0>",
+        "db": 0
+      }
     },
     "env": "local",
     "name": "egg-sequlize",
@@ -188,9 +242,9 @@
       "description": "egg-sequlize",
       "main": "index.js",
       "scripts": {
-        "start": "egg-scripts start --daemon",
+        "start": "egg-scripts start --daemon --sticky",
         "stop": "egg-scripts stop",
-        "dev": "egg-bin dev",
+        "dev": "egg-bin dev --daemon --sticky",
         "test": "egg-bin test",
         "lint": "eslint --fix --ext .js app/**"
       },
@@ -207,9 +261,14 @@
         "egg-logrotator": "^3.0.7",
         "egg-mock": "^3.22.1",
         "egg-passport": "^2.0.1",
+        "egg-passport-bitbucket": "^1.0.0",
         "egg-passport-github": "^1.0.0",
+        "egg-passport-twitter": "^1.0.0",
+        "egg-passport-weibo": "^1.0.0",
+        "egg-redis": "^2.3.1",
         "egg-scripts": "^2.11.0",
         "egg-sequelize": "^4.3.1",
+        "egg-socket.io": "^4.1.5",
         "egg-validate": "^2.0.2",
         "egg-view-assets": "^1.4.4",
         "egg-view-nunjucks": "^2.2.0",
@@ -221,6 +280,7 @@
         "mz": "^2.7.0",
         "pump": "^3.0.0",
         "sdk-base": "^3.5.1",
+        "socket.io-client": "^2.2.0",
         "stream-wormhole": "^1.1.0",
         "uuid": "^3.3.2"
       },
@@ -557,6 +617,32 @@
       "path": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-passport@2.0.1@egg-passport",
       "version": "2.0.1"
     },
+    "passportWeibo": {
+      "enable": true,
+      "package": "egg-passport-weibo",
+      "name": "passportWeibo",
+      "dependencies": [
+        "passport"
+      ],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\plugin.js",
+      "path": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-passport-weibo@1.0.0@egg-passport-weibo",
+      "version": "1.0.0"
+    },
+    "passportTwitter": {
+      "enable": true,
+      "package": "egg-passport-twitter",
+      "name": "passportTwitter",
+      "dependencies": [
+        "passport"
+      ],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\plugin.js",
+      "path": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-passport-twitter@1.0.0@egg-passport-twitter",
+      "version": "1.0.0"
+    },
     "passportGithub": {
       "enable": true,
       "package": "egg-passport-github",
@@ -569,6 +655,43 @@
       "from": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\plugin.js",
       "path": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-passport-github@1.0.0@egg-passport-github",
       "version": "1.0.0"
+    },
+    "passportBitbucket": {
+      "enable": true,
+      "package": "egg-passport-bitbucket",
+      "name": "passportBitbucket",
+      "dependencies": [
+        "passport"
+      ],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\plugin.js",
+      "path": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-passport-bitbucket@1.0.0@egg-passport-bitbucket",
+      "version": "1.0.0"
+    },
+    "io": {
+      "enable": true,
+      "package": "egg-socket.io",
+      "name": "io",
+      "dependencies": [
+        "session"
+      ],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\plugin.js",
+      "path": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-socket.io@4.1.5@egg-socket.io",
+      "version": "4.1.5"
+    },
+    "redis": {
+      "enable": true,
+      "package": "egg-redis",
+      "name": "redis",
+      "dependencies": [],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\plugin.js",
+      "path": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-redis@2.3.1@egg-redis",
+      "version": "2.3.1"
     }
   }
 }

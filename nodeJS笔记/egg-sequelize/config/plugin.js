@@ -41,9 +41,24 @@ exports.passport = {
   package: 'egg-passport',
 };
 
+exports.passportWeibo = {
+  enable: true,
+  package: 'egg-passport-weibo',
+};
+
+exports.passportTwitter = {
+  enable: true,
+  package: 'egg-passport-twitter',
+};
+
 exports.passportGithub = {
   enable: true,
   package: 'egg-passport-github',
+};
+
+exports.passportBitbucket = {
+  enable: true,
+  package: 'egg-passport-bitbucket',
 };
 
 /** 开启日志切割插件 内部已经配置 无需在这里再进行配置 */
@@ -57,3 +72,15 @@ exports.passportGithub = {
 //   enable: true,
 //   package: 'egg-alinode',
 // };
+
+/** 开启 egg-socket.io 插件  */
+exports.io = {
+  enable: true,
+  package: 'egg-socket.io',
+};
+
+/** 启动 redis */
+exports.redis = {
+  enable: true,
+  package: 'egg-redis',
+};

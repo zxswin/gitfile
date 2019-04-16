@@ -19,10 +19,12 @@ module.exports = {
           {
             username: 'Kimoo',
             password: md5('123456'),
+            provider: '站内用户',
           },
           {
             username: 'Reci',
             password: md5('123321'),
+            provider: '站内用户',
           },
         ],
         {},

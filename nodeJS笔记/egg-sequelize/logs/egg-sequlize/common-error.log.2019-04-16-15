@@ -1,0 +1,14 @@
+2019-04-16 15:00:17,478 ERROR 13528 [-/127.0.0.1/-/13ms GET /socket.io/?room=demo&userId=client_0.46055343748799005&EIO=3&transport=websocket] null
+2019-04-16 15:03:51,220 ERROR 13244 [-/127.0.0.1/-/12ms GET /socket.io/?room=demo&userId=client_0.11011639541884821&EIO=3&transport=websocket] null
+2019-04-16 15:04:32,866 ERROR 6980 [-/127.0.0.1/-/15ms GET /socket.io/?room=demo&userId=client_0.4490346254297326&EIO=3&transport=websocket] null
+2019-04-16 15:06:02,047 ERROR 8340 [-/127.0.0.1/-/18ms GET /socket.io/?room=demo&userId=client_0.4763447666239422&EIO=3&transport=websocket] null
+2019-04-16 15:06:04,864 ERROR 8340 [-/127.0.0.1/-/13ms GET /socket.io/?room=demo&userId=client_0.8451039419517343&EIO=3&transport=websocket] null
+2019-04-16 15:06:54,158 ERROR 4868 [-/127.0.0.1/-/17ms GET /socket.io/?room=demo&userId=client_0.1128526940269099&EIO=3&transport=websocket] null
+2019-04-16 15:14:23,986 ERROR 7244 [-/127.0.0.1/-/14ms GET /socket.io/?room=demo&userId=client_0.11651358124927502&EIO=3&transport=websocket] null
+2019-04-16 15:29:18,861 ERROR 6560 [-/127.0.0.1/-/19ms GET /socket.io/?room=demo&userId=client_0.12514291574161085&EIO=3&transport=websocket] null
+2019-04-16 15:29:26,620 ERROR 6560 [-/127.0.0.1/-/7ms GET /socket.io/?room=demo&userId=client_0.256943585012259&EIO=3&transport=websocket] null
+2019-04-16 15:30:58,977 ERROR 6560 [-/127.0.0.1/-/4801ms GET /socket.io/?room=demo&userId=client_0.8648992319377944&EIO=3&transport=websocket] null
+2019-04-16 15:31:05,682 ERROR 12312 [-/127.0.0.1/-/12ms GET /socket.io/?room=demo&userId=client_0.5978529858763599&EIO=3&transport=websocket] null
+2019-04-16 15:32:29,982 ERROR 4636 [-/127.0.0.1/-/19ms GET /socket.io/?room=demo&userId=client_0.3733069211030924&EIO=3&transport=websocket] null
+2019-04-16 15:32:36,717 ERROR 4636 [-/127.0.0.1/-/14ms GET /socket.io/?room=demo&userId=client_0.4069805864356406&EIO=3&transport=websocket] null
+2019-04-16 15:32:39,501 ERROR 4636 [-/127.0.0.1/-/9ms GET /socket.io/?room=demo&userId=client_0.5267189068486218&EIO=3&transport=websocket] null

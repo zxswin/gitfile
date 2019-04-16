@@ -160,10 +160,58 @@
       "path": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js"
     }
   },
+  "passportWeibo": {
+    "key": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+    "secret": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+    "callbackURL": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-passport-weibo@1.0.0@egg-passport-weibo\\config\\config.default.js"
+  },
   "passportGithub": {
     "key": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
     "secret": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
     "callbackURL": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-passport-github@1.0.0@egg-passport-github\\config\\config.default.js"
+  },
+  "passportBitbucket": {
+    "key": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+    "secret": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+    "callbackURL": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-passport-bitbucket@1.0.0@egg-passport-bitbucket\\config\\config.default.js"
+  },
+  "passportTwitter": {
+    "key": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+    "secret": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+    "callbackURL": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-passport-twitter@1.0.0@egg-passport-twitter\\config\\config.default.js"
+  },
+  "io": {
+    "namespace": {
+      "/ptop": {
+        "connectionMiddleware": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+        "packetMiddleware": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js"
+      },
+      "/chat": {
+        "connectionMiddleware": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+        "packetMiddleware": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js"
+      },
+      "/": {
+        "connectionMiddleware": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-socket.io@4.1.5@egg-socket.io\\config\\config.default.js",
+        "packetMiddleware": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-socket.io@4.1.5@egg-socket.io\\config\\config.default.js"
+      }
+    },
+    "redis": {
+      "host": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+      "port": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js"
+    },
+    "init": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-socket.io@4.1.5@egg-socket.io\\config\\config.default.js"
+  },
+  "redis": {
+    "client": {
+      "port": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+      "host": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+      "password": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js",
+      "db": "D:\\my-item\\egg-sequelize\\egg-sequelize\\config\\config.default.js"
+    },
+    "default": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-redis@2.3.1@egg-redis\\config\\config.default.js",
+    "app": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-redis@2.3.1@egg-redis\\config\\config.default.js",
+    "agent": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-redis@2.3.1@egg-redis\\config\\config.default.js",
+    "supportTimeCommand": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-redis@2.3.1@egg-redis\\config\\config.default.js"
   },
   "helper": {
     "shtml": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg-security@2.5.0@egg-security\\config\\config.default.js"
@@ -250,9 +298,14 @@
       "egg-logrotator": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-mock": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-passport": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "egg-passport-bitbucket": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-passport-github": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "egg-passport-twitter": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "egg-passport-weibo": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "egg-redis": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-scripts": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-sequelize": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "egg-socket.io": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-validate": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-view-assets": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "egg-view-nunjucks": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
@@ -264,6 +317,7 @@
       "mz": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "pump": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "sdk-base": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
+      "socket.io-client": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "stream-wormhole": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js",
       "uuid": "D:\\my-item\\egg-sequelize\\egg-sequelize\\node_modules\\_egg@2.20.2@egg\\config\\config.default.js"
     },

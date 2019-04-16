@@ -1,0 +1,28 @@
+2019-04-12 16:50:59,644 ERROR 15068 [Job#1555056000010253329897627261] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute error. { ResponseTimeoutError: Response timeout for 3000ms, GET http://127.0.0.1:8080/api/contents -1 (connected: true, keepalive socket: false, agent status: {"createSocketCount":1,"createSocketErrorCount":0,"closeSocketCount":1,"errorSocketCount":0,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+    at Timeout._onTimeout (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_urllib@2.33.2@urllib\lib\urllib.js:869:15)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+  name: 'ResponseTimeoutError',
+  requestId: 1,
+  data: undefined,
+  path: '/api/contents',
+  status: -1,
+  headers: {},
+  res:
+   { status: -1,
+     statusCode: -1,
+     statusMessage: null,
+     headers: {},
+     size: 0,
+     aborted: false,
+     rt: 3059602,
+     keepAliveSocket: false,
+     data: undefined,
+     requestUrls: [ 'http://127.0.0.1:8080/api/contents' ],
+     timing: null,
+     remoteAddress: '127.0.0.1',
+     remotePort: 8080,
+     socketHandledRequests: 1,
+     socketHandledResponses: 0 } }
+2019-04-12 16:50:59,646 ERROR 15068 [Job#1555056000010253329897627261] D:\my-item\egg-sequelize\egg-sequelize\app\schedule\update_cache.js execute failed, used 3059629ms

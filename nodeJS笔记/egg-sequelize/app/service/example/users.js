@@ -76,6 +76,8 @@ class User extends Service {
       ctx.cookies.set('username', null);
     }
 
+    ctx.logout(); // 退出，将第三方授权登录的用户信息从 session 中清除
+
     return {
       code: 0,
       data: null,
@@ -107,6 +109,7 @@ class User extends Service {
     let username = body.username.trim();
     let password = body.password.trim();
     let repassword = body.repassword.trim();
+    let provider = '站内用户';
 
     /** 用户名或密码不能为空  */
     if (username === '' || password === '' || repassword === '') {
@@ -144,6 +147,7 @@ class User extends Service {
     let newUser = await this.ctx.model.Users.build({
       username,
       password: md5(password),
+      provider: provider,
     }).save();
 
     res = {

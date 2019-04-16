@@ -193,3 +193,8 @@ button {
 #i-gologin:hover {
   text-decoration: underline;
 }
+
+#oauth-login {
+  width: 404px;
+  margin-bottom: 10px;
+}

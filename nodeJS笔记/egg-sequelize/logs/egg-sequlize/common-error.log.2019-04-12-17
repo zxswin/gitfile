@@ -1,0 +1,16 @@
+2019-04-12 17:27:25,817 ERROR 7596 nodejs.ServerNoResponseError: server 127.0.0.1:60682 no response in 39999ms, maybe the socket is end on the other side. (address: 127.0.0.1:60682)
+    at Timeout._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_tcp-base@3.1.0@tcp-base\lib\base.js:427:21)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ServerNoResponseError"
+pid: 7596
+hostname: DESKTOP-IGV1BLA
+
+2019-04-12 17:29:08,974 ERROR 14768 nodejs.ClusterClientNoResponseError: client no response in 163155ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_cluster-client@3.0.1@cluster-client\lib\leader.js:77:23)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ClusterClientNoResponseError"
+pid: 14768
+hostname: DESKTOP-IGV1BLA
+

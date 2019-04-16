@@ -37,12 +37,12 @@ $(function() {
   });
 
   /** 强制创建所有模型表  */
-  $('#api-sync').on('click', function() {
+  $('#api-sync,#sync-table').on('click', function() {
     console.log('强制创建表');
     $.ajax({
       url: `/api/sync`,
       dataType: 'json',
-      method: 'GET',
+      method: 'post',
       success: function(data) {
         console.log('成功创建表', data);
       },
@@ -152,6 +152,30 @@ $(function() {
   /** 跳转到用户注册  */
   $('#user-register,#i-goregister').on('click', function() {
     window.location.href = '/register';
+  });
+
+  /** WebSocket 通讯测试 */
+  $('#websocket').on('click', function() {
+    let count = 0;
+    let ws = new WebSocket('ws://127.0.0.1:8080/chat'); // 创建webScoket对象
+    ws.onopen = function() {
+      // 打开webSocket链接
+      console.log(`[CLIENT] open()`);
+      ws.send('Hello!'); // 发送webSocket请求
+    };
+
+    ws.onmessage = function(message) {
+      console.log(`[CLIENT] Received: ${message.data}`); // 客户端接收到的信息
+      count++;
+      if (count > 3) {
+        ws.send('Goodbye!'); // 客户端发送的信息
+        ws.close(); // 关闭webSocket链接
+      } else {
+        setTimeout(() => {
+          ws.send(`Hello, I'm Mr No.${count}!`); // 客户端发送的信息
+        }, 1000);
+      }
+    };
   });
 });
 

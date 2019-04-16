@@ -174,11 +174,54 @@ module.exports = appInfo => {
   //   // },
   // };
 
+  config.passportWeibo = {
+    key: 'a',
+    secret: 'b',
+  };
+
   config.passportGithub = {
-    key: 'your_clientID',
-    secret: 'your_clientSecret',
-    // callbackURL: '/passport/github/callback',
-    // proxy: false,
+    key: 'b7a9c170da074ce5e43f',
+    secret: '65699d679cc5ec8d7bfb980e711b93219a860fd8',
+  };
+
+  config.passportBitbucket = {
+    key: 'e',
+    secret: 'f',
+  };
+
+  config.passportTwitter = {
+    key: 'g',
+    secret: 'h',
+  };
+
+  config.io = {
+    namespace: {
+      /** 实现p2p聊天  */
+      '/ptop': {
+        connectionMiddleware: ['authp'],
+        packetMiddleware: [], // 针对消息的处理暂时不实现
+      },
+      /** websocket测试  */
+      '/chat': {
+        connectionMiddleware: ['auth'],
+        packetMiddleware: ['packet'],
+      },
+    },
+    // cluster 模式下，通过 redis 实现数据共享
+    redis: {
+      host: '127.0.0.1',
+      port: 6379,
+    },
+  };
+
+  // 可选
+  config.redis = {
+    client: {
+      port: 6379,
+      host: '127.0.0.1',
+      password: '',
+      db: 0,
+    },
   };
 
   return config;

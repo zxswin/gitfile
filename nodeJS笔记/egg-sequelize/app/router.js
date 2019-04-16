@@ -55,10 +55,38 @@ module.exports = app => {
   router.get('/api/test', controller.example.home.test);
 
   /** 挂载鉴权路由  */
+
+  app.router.get('/passport', controller.example.passport.render);
+
+  app.passport.mount('weibo');
   app.passport.mount('github');
+  app.passport.mount('bitbucket');
+  app.passport.mount('twitter');
 
   // 上面的 mount 是语法糖，等价于
   // const github = app.passport.authenticate('github', {});
   // router.get('/passport/github', github);
   // router.get('/passport/github/callback', github);
+
+  /** 强制创建所有表格
+   * 运行种子文件 npx sequelize db:seed:all
+   */
+  router.post('/api/sync', controller.example.home.sync);
+
+  /** websocket p2p聊天室  */
+  // app.io.of('/')
+  // app.io.route('chat', app.io.controller.chat.index);
+
+  // app.io.of('/')
+  // app.io.route('chat', app.io.controller.chat.index);
+
+  // app.io.of('/chat')
+  /** websocket 通讯测试  */
+  app.io.of('/chat').route('chat', app.io.controller.chat.index);
+
+  /** websocket P2P聊天  */
+  app.io.of('/ptop').route('exchange', app.io.controller.nsp.exchange);
+
+  /** websocket前端页面渲染  */
+  router.get('/websocket', controller.example.home.websocket);
 };

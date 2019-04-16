@@ -1,0 +1,937 @@
+2019-04-15 17:07:28,687 ERROR 13008 nodejs.TypeError: Cannot set property 'parsingHeadersStart' of undefined (uncaughtException throw 1 times on pid:13008)
+    at IncomingMessage.resetHeadersTimeoutOnReqEnd (_http_server.js:750:32)
+    at IncomingMessage.emit (events.js:197:13)
+    at endReadableNT (_stream_readable.js:1129:12)
+    at processTicksAndRejections (internal/process/next_tick.js:76:17)
+
+pid: 13008
+hostname: DESKTOP-IGV1BLA
+
+2019-04-15 17:07:28,700 ERROR 13008 nodejs.TypeError: Cannot read property 'say' of undefined
+    at D:\my-item\egg-sequelize\egg-sequelize\app\io\middleware\auth.js:3:40
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at module.exports (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\connectionMiddlewareInit.js:14:3)
+    at Array.nsp.use (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\io.js:121:7)
+    at run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:124:11)
+    at Namespace.run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:136:3)
+    at Namespace.add (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:164:8)
+    at Client.doConnect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:97:20)
+    at Client.connect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:66:17)
+    at Server.onconnection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\index.js:435:10)
+    at Server.emit (events.js:197:13)
+    at Server.handshake (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\server.js:338:8)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\server.js:232:12
+    at Server.checkRequest (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\index.js:76:51)
+    at Server.verify (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\server.js:168:17)
+    at Server.handleRequest (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\server.js:222:8)
+    at Server.<anonymous> (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\server.js:466:14)
+    at Server.emit (events.js:197:13)
+    at parserOnIncoming (_http_server.js:682:12)
+
+pid: 13008
+hostname: DESKTOP-IGV1BLA
+
+2019-04-15 17:08:11,741 ERROR 2700 nodejs.TypeError: Cannot set property 'parsingHeadersStart' of undefined (uncaughtException throw 1 times on pid:2700)
+    at IncomingMessage.resetHeadersTimeoutOnReqEnd (_http_server.js:750:32)
+    at IncomingMessage.emit (events.js:197:13)
+    at endReadableNT (_stream_readable.js:1129:12)
+    at processTicksAndRejections (internal/process/next_tick.js:76:17)
+
+pid: 2700
+hostname: DESKTOP-IGV1BLA
+
+2019-04-15 17:08:11,755 ERROR 2700 nodejs.TypeError: Cannot read property 'say' of undefined
+    at D:\my-item\egg-sequelize\egg-sequelize\app\io\middleware\auth.js:3:40
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at module.exports (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\connectionMiddlewareInit.js:14:3)
+    at Array.nsp.use (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\io.js:121:7)
+    at run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:124:11)
+    at Namespace.run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:136:3)
+    at Namespace.add (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:164:8)
+    at Client.doConnect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:97:20)
+    at Client.connect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:66:17)
+    at Server.onconnection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\index.js:435:10)
+    at Server.emit (events.js:197:13)
+    at Server.handshake (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\server.js:338:8)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\server.js:232:12
+    at Server.checkRequest (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\index.js:76:51)
+    at Server.verify (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\server.js:168:17)
+    at Server.handleRequest (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\server.js:222:8)
+    at Server.<anonymous> (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\server.js:466:14)
+    at Server.emit (events.js:197:13)
+    at parserOnIncoming (_http_server.js:682:12)
+
+pid: 2700
+hostname: DESKTOP-IGV1BLA
+
+2019-04-15 17:09:45,452 ERROR 12756 nodejs.ClusterClientNoResponseError: client no response in 76798ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_cluster-client@3.0.1@cluster-client\lib\leader.js:77:23)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ClusterClientNoResponseError"
+pid: 12756
+hostname: DESKTOP-IGV1BLA
+
+2019-04-15 17:20:41,257 ERROR 11276 nodejs.TypeError: Cannot set property 'parsingHeadersStart' of undefined (uncaughtException throw 1 times on pid:11276)
+    at IncomingMessage.resetHeadersTimeoutOnReqEnd (_http_server.js:750:32)
+    at IncomingMessage.emit (events.js:197:13)
+    at endReadableNT (_stream_readable.js:1129:12)
+    at processTicksAndRejections (internal/process/next_tick.js:76:17)
+
+pid: 11276
+hostname: DESKTOP-IGV1BLA
+
+2019-04-15 17:20:41,269 ERROR 11276 nodejs.TypeError: Cannot read property 'say' of undefined
+    at D:\my-item\egg-sequelize\egg-sequelize\app\io\middleware\auth.js:3:40
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at module.exports (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\connectionMiddlewareInit.js:14:3)
+    at Array.nsp.use (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\io.js:121:7)
+    at run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:124:11)
+    at Namespace.run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:136:3)
+    at Namespace.add (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:164:8)
+    at Client.doConnect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:97:20)
+    at Client.connect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:66:17)
+    at Server.onconnection (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\index.js:435:10)
+    at Server.emit (events.js:197:13)
+    at Server.handshake (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\server.js:338:8)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\server.js:232:12
+    at Server.checkRequest (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\index.js:76:51)
+    at Server.verify (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\server.js:168:17)
+    at Server.handleRequest (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\server.js:222:8)
+    at Server.<anonymous> (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\server.js:466:14)
+    at Server.emit (events.js:197:13)
+    at parserOnIncoming (_http_server.js:682:12)
+
+pid: 11276
+hostname: DESKTOP-IGV1BLA
+
+2019-04-15 17:24:45,213 ERROR 11904 nodejs.TypeError: Cannot set property 'parsingHeadersStart' of undefined (uncaughtException throw 1 times on pid:11904)
+    at IncomingMessage.resetHeadersTimeoutOnReqEnd (_http_server.js:750:32)
+    at IncomingMessage.emit (events.js:197:13)
+    at endReadableNT (_stream_readable.js:1129:12)
+    at processTicksAndRejections (internal/process/next_tick.js:76:17)
+
+pid: 11904
+hostname: DESKTOP-IGV1BLA
+
+2019-04-15 17:35:26,002 ERROR 15316 nodejs.TypeError: Cannot set property 'parsingHeadersStart' of undefined (uncaughtException throw 1 times on pid:15316)
+    at IncomingMessage.resetHeadersTimeoutOnReqEnd (_http_server.js:750:32)
+    at IncomingMessage.emit (events.js:197:13)
+    at endReadableNT (_stream_readable.js:1129:12)
+    at processTicksAndRejections (internal/process/next_tick.js:76:17)
+
+pid: 15316
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:33:44,066 ERROR 2624 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 1 times on pid:2624)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 2624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:33:44,121 ERROR 2624 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 2 times on pid:2624)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 2624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:33:45,328 ERROR 2624 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 3 times on pid:2624)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 2624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:33:45,356 ERROR 2624 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 4 times on pid:2624)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 2624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:33:46,699 ERROR 2624 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 5 times on pid:2624)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 2624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:33:46,726 ERROR 2624 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 6 times on pid:2624)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 2624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:33:48,306 ERROR 2624 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 7 times on pid:2624)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 2624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:33:48,326 ERROR 2624 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 8 times on pid:2624)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 2624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:33:50,302 ERROR 2624 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 9 times on pid:2624)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 2624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:33:50,331 ERROR 2624 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 10 times on pid:2624)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 2624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:33:53,005 ERROR 2624 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 11 times on pid:2624)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 2624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:33:53,037 ERROR 2624 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 12 times on pid:2624)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 2624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:33:56,858 ERROR 2624 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 13 times on pid:2624)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 2624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:33:56,894 ERROR 2624 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 14 times on pid:2624)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 2624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:02,699 ERROR 2624 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 15 times on pid:2624)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 2624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:02,733 ERROR 2624 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 16 times on pid:2624)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 2624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:11,921 ERROR 2624 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 17 times on pid:2624)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 2624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:11,955 ERROR 2624 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 18 times on pid:2624)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 2624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:16,278 ERROR 13648 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 1 times on pid:13648)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 13648
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:16,322 ERROR 13648 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 2 times on pid:13648)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 13648
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:17,527 ERROR 13648 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 3 times on pid:13648)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 13648
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:17,553 ERROR 13648 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 4 times on pid:13648)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 13648
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:18,896 ERROR 13648 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 5 times on pid:13648)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 13648
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:18,927 ERROR 13648 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 6 times on pid:13648)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 13648
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:20,506 ERROR 13648 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 7 times on pid:13648)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 13648
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:20,538 ERROR 13648 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 8 times on pid:13648)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 13648
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:22,497 ERROR 13648 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 9 times on pid:13648)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 13648
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:22,532 ERROR 13648 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 10 times on pid:13648)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 13648
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:25,185 ERROR 13648 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 11 times on pid:13648)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 13648
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:25,221 ERROR 13648 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 12 times on pid:13648)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 13648
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:29,058 ERROR 13648 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 13 times on pid:13648)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 13648
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:29,100 ERROR 13648 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 14 times on pid:13648)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 13648
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:34,934 ERROR 13648 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 15 times on pid:13648)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 13648
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:34,961 ERROR 13648 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 16 times on pid:13648)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 13648
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:44,176 ERROR 13648 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 17 times on pid:13648)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 13648
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 11:34:44,206 ERROR 13648 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 18 times on pid:13648)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 13648
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:37:23,227 ERROR 17352 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 1 times on pid:17352)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 17352
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:37:23,574 ERROR 17352 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 2 times on pid:17352)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 17352
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:37:24,821 ERROR 17352 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 3 times on pid:17352)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 17352
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:37:24,833 ERROR 17352 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 4 times on pid:17352)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 17352
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:37:26,177 ERROR 17352 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 5 times on pid:17352)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 17352
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:37:26,204 ERROR 17352 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 6 times on pid:17352)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 17352
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:37:27,810 ERROR 17352 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 7 times on pid:17352)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 17352
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:37:27,834 ERROR 17352 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 8 times on pid:17352)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 17352
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:37:29,843 ERROR 17352 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 9 times on pid:17352)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 17352
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:37:29,875 ERROR 17352 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 10 times on pid:17352)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 17352
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:37:32,568 ERROR 17352 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 11 times on pid:17352)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 17352
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:37:32,599 ERROR 17352 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 12 times on pid:17352)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 17352
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:37:36,428 ERROR 17352 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 13 times on pid:17352)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 17352
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:37:36,474 ERROR 17352 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 14 times on pid:17352)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 17352
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:37:42,290 ERROR 17352 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 15 times on pid:17352)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 17352
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:37:42,322 ERROR 17352 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 16 times on pid:17352)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 17352
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:37:51,536 ERROR 17352 nodejs.ECONNREFUSEDError: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379 (uncaughtException throw 17 times on pid:17352)
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1104:14)
+errno: "ECONNREFUSED"
+code: "ECONNREFUSED"
+syscall: "connect"
+address: "127.0.0.1"
+port: 6379
+name: "ECONNREFUSEDError"
+pid: 17352
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:46:38,303 ERROR 11188 nodejs.TypeError: Cannot read property 'get' of undefined
+    at D:\my-item\egg-sequelize\egg-sequelize\app\io\middleware\authp.js:32:37
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at module.exports (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\connectionMiddlewareInit.js:14:3)
+    at Array.nsp.use (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\io.js:121:7)
+    at run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:124:11)
+    at Namespace.run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:136:3)
+    at Namespace.add (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:164:8)
+    at Client.doConnect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:97:20)
+    at Client.connect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:66:17)
+    at Client.ondecoded (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:209:10)
+    at Decoder.Emitter.emit (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_component-emitter@1.2.1@component-emitter\index.js:133:20)
+    at Decoder.add (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io-parser@3.3.0@socket.io-parser\index.js:251:12)
+    at Client.ondata (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:195:18)
+    at Socket.emit (events.js:189:13)
+    at Socket.onPacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\socket.js:109:14)
+    at XHR.emit (events.js:189:13)
+    at XHR.Transport.onPacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\transport.js:105:8)
+    at callback (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\transports\polling.js:208:10)
+    at Object.exports.decodePayload (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io-parser@2.1.3@engine.io-parser\lib\index.js:309:18)
+
+pid: 11188
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:46:59,888 ERROR 11188 nodejs.TypeError: Cannot read property 'get' of undefined
+    at D:\my-item\egg-sequelize\egg-sequelize\app\io\middleware\authp.js:32:37
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at module.exports (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\connectionMiddlewareInit.js:14:3)
+    at Array.nsp.use (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\io.js:121:7)
+    at run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:124:11)
+    at Namespace.run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:136:3)
+    at Namespace.add (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:164:8)
+    at Client.doConnect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:97:20)
+    at Client.connect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:66:17)
+    at Client.ondecoded (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:209:10)
+    at Decoder.Emitter.emit (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_component-emitter@1.2.1@component-emitter\index.js:133:20)
+    at Decoder.add (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io-parser@3.3.0@socket.io-parser\index.js:251:12)
+    at Client.ondata (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:195:18)
+    at Socket.emit (events.js:189:13)
+    at Socket.onPacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\socket.js:109:14)
+    at XHR.emit (events.js:189:13)
+    at XHR.Transport.onPacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\transport.js:105:8)
+    at callback (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\transports\polling.js:208:10)
+    at Object.exports.decodePayload (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io-parser@2.1.3@engine.io-parser\lib\index.js:309:18)
+
+pid: 11188
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:48:48,010 ERROR 11188 nodejs.TypeError: Cannot read property 'get' of undefined
+    at D:\my-item\egg-sequelize\egg-sequelize\app\io\middleware\authp.js:32:37
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at module.exports (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\connectionMiddlewareInit.js:14:3)
+    at Array.nsp.use (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\io.js:121:7)
+    at run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:124:11)
+    at Namespace.run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:136:3)
+    at Namespace.add (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:164:8)
+    at Client.doConnect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:97:20)
+    at Client.connect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:66:17)
+    at Client.ondecoded (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:209:10)
+    at Decoder.Emitter.emit (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_component-emitter@1.2.1@component-emitter\index.js:133:20)
+    at Decoder.add (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io-parser@3.3.0@socket.io-parser\index.js:251:12)
+    at Client.ondata (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:195:18)
+    at Socket.emit (events.js:189:13)
+    at Socket.onPacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\socket.js:109:14)
+    at XHR.emit (events.js:189:13)
+    at XHR.Transport.onPacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\transport.js:105:8)
+    at callback (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\transports\polling.js:208:10)
+    at Object.exports.decodePayload (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io-parser@2.1.3@engine.io-parser\lib\index.js:309:18)
+
+pid: 11188
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:50:02,018 ERROR 3664 nodejs.ClusterClientNoResponseError: client no response in 76978ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_cluster-client@3.0.1@cluster-client\lib\leader.js:77:23)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ClusterClientNoResponseError"
+pid: 3664
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:50:32,512 ERROR 11188 nodejs.TypeError: Cannot read property 'get' of undefined
+    at D:\my-item\egg-sequelize\egg-sequelize\app\io\middleware\authp.js:32:37
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at module.exports (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\connectionMiddlewareInit.js:14:3)
+    at Array.nsp.use (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\io.js:121:7)
+    at run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:124:11)
+    at Namespace.run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:136:3)
+    at Namespace.add (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:164:8)
+    at Client.doConnect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:97:20)
+    at Client.connect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:66:17)
+    at Client.ondecoded (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:209:10)
+    at Decoder.Emitter.emit (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_component-emitter@1.2.1@component-emitter\index.js:133:20)
+    at Decoder.add (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io-parser@3.3.0@socket.io-parser\index.js:251:12)
+    at Client.ondata (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:195:18)
+    at Socket.emit (events.js:189:13)
+    at Socket.onPacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\socket.js:109:14)
+    at XHR.emit (events.js:189:13)
+    at XHR.Transport.onPacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\transport.js:105:8)
+    at callback (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\transports\polling.js:208:10)
+    at Object.exports.decodePayload (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io-parser@2.1.3@engine.io-parser\lib\index.js:309:18)
+
+pid: 11188
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:50:53,031 ERROR 16624 nodejs.TypeError: Cannot read property 'get' of undefined
+    at D:\my-item\egg-sequelize\egg-sequelize\app\io\middleware\authp.js:32:37
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at module.exports (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\connectionMiddlewareInit.js:14:3)
+    at Array.nsp.use (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\io.js:121:7)
+    at run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:124:11)
+    at Namespace.run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:136:3)
+    at Namespace.add (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:164:8)
+    at Client.doConnect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:97:20)
+    at Client.connect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:66:17)
+    at Client.ondecoded (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:209:10)
+    at Decoder.Emitter.emit (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_component-emitter@1.2.1@component-emitter\index.js:133:20)
+    at Decoder.add (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io-parser@3.3.0@socket.io-parser\index.js:251:12)
+    at Client.ondata (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:195:18)
+    at Socket.emit (events.js:189:13)
+    at Socket.onPacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\socket.js:109:14)
+    at XHR.emit (events.js:189:13)
+    at XHR.Transport.onPacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\transport.js:105:8)
+    at callback (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\transports\polling.js:208:10)
+    at Object.exports.decodePayload (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io-parser@2.1.3@engine.io-parser\lib\index.js:309:18)
+
+pid: 16624
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:52:17,967 ERROR 14052 nodejs.TypeError: Cannot read property 'get' of undefined
+    at D:\my-item\egg-sequelize\egg-sequelize\app\io\middleware\authp.js:32:37
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at module.exports (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\connectionMiddlewareInit.js:14:3)
+    at Array.nsp.use (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\io.js:121:7)
+    at run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:124:11)
+    at Namespace.run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:136:3)
+    at Namespace.add (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:164:8)
+    at Client.doConnect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:97:20)
+    at Client.connect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:66:17)
+    at Client.ondecoded (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:209:10)
+    at Decoder.Emitter.emit (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_component-emitter@1.2.1@component-emitter\index.js:133:20)
+    at Decoder.add (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io-parser@3.3.0@socket.io-parser\index.js:251:12)
+    at Client.ondata (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:195:18)
+    at Socket.emit (events.js:189:13)
+    at Socket.onPacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\socket.js:109:14)
+    at XHR.emit (events.js:189:13)
+    at XHR.Transport.onPacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\transport.js:105:8)
+    at callback (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\transports\polling.js:208:10)
+    at Object.exports.decodePayload (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io-parser@2.1.3@engine.io-parser\lib\index.js:309:18)
+
+pid: 14052
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 13:53:26,006 ERROR 14292 nodejs.TypeError: nsp.adapter.remoteDisconnect is not a function
+    at tick (D:\my-item\egg-sequelize\egg-sequelize\app\io\middleware\authp.js:25:19)
+    at D:\my-item\egg-sequelize\egg-sequelize\app\io\middleware\authp.js:38:7
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at session (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-session@5.10.1@koa-session\index.js:41:13)
+    at dispatch (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:42:32)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_koa-compose@4.1.0@koa-compose\index.js:34:12
+    at module.exports (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\connectionMiddlewareInit.js:14:3)
+    at Array.nsp.use (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_egg-socket.io@4.1.5@egg-socket.io\lib\io.js:121:7)
+    at run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:124:11)
+    at Namespace.run (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:136:3)
+    at Namespace.add (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\namespace.js:164:8)
+    at Client.doConnect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:97:20)
+    at Client.connect (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:66:17)
+    at Client.ondecoded (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:209:10)
+    at Decoder.Emitter.emit (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_component-emitter@1.2.1@component-emitter\index.js:133:20)
+    at Decoder.add (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io-parser@3.3.0@socket.io-parser\index.js:251:12)
+    at Client.ondata (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_socket.io@2.2.0@socket.io\lib\client.js:195:18)
+    at Socket.emit (events.js:189:13)
+    at Socket.onPacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\socket.js:109:14)
+    at XHR.emit (events.js:189:13)
+    at XHR.Transport.onPacket (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\transport.js:105:8)
+    at callback (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_engine.io@3.3.2@engine.io\lib\transports\polling.js:208:10)
+
+pid: 14292
+hostname: DESKTOP-IGV1BLA
+
+2019-04-16 14:18:41,445 ERROR 17268 [-/127.0.0.1/-/11ms GET /socket.io/?EIO=3&transport=polling&t=Meap2kE] null
+2019-04-16 14:19:31,708 ERROR 17268 [-/127.0.0.1/-/3ms GET /socket.io/?EIO=3&transport=polling&t=MeapE_e] null
+2019-04-16 14:21:33,514 ERROR 17268 [-/127.0.0.1/-/3ms GET /socket.io/?EIO=3&transport=polling&t=Meapikp] null
+2019-04-16 14:24:02,936 ERROR 14328 [-/127.0.0.1/-/11ms GET /socket.io/?EIO=3&transport=polling&t=MeaqHD2] null
+2019-04-16 14:30:09,712 ERROR 14328 [-/127.0.0.1/-/3ms GET /socket.io/?EIO=3&transport=polling&t=MeargmO] null
+2019-04-16 14:30:12,823 ERROR 14328 [-/127.0.0.1/-/1ms GET /socket.io/?EIO=3&transport=polling&t=MearhXF] null
+2019-04-16 14:33:34,270 ERROR 7560 [-/127.0.0.1/-/32ms GET /socket.io/?EIO=3&transport=polling&t=MeasShh] null
+2019-04-16 14:38:19,249 ERROR 7560 [-/127.0.0.1/-/5ms GET /socket.io/?room=demo&userId=client_0.6424487096112856&EIO=3&transport=websocket] null
+2019-04-16 14:38:23,216 ERROR 7560 [-/127.0.0.1/-/3ms GET /socket.io/?room=demo&userId=client_0.4717340059374906&EIO=3&transport=websocket] null
+2019-04-16 14:38:49,103 ERROR 7560 [-/127.0.0.1/-/2ms GET /socket.io/?room=demo&userId=client_0.571940205255703&EIO=3&transport=websocket] null
+2019-04-16 14:44:20,019 ERROR 2740 [-/127.0.0.1/-/14ms GET /socket.io/?room=demo&userId=client_0.48880317077525226&EIO=3&transport=websocket] null
+2019-04-16 14:44:34,381 ERROR 2740 [-/127.0.0.1/-/6ms GET /socket.io/?room=demo&userId=client_0.6095289699709094&EIO=3&transport=websocket] null
+2019-04-16 14:49:34,052 ERROR 3788 [-/127.0.0.1/-/13ms GET /socket.io/?room=demo&userId=client_0.8747317879674956&EIO=3&transport=websocket] null
+2019-04-16 14:49:48,140 ERROR 3788 [-/127.0.0.1/-/3464ms GET /socket.io/?room=demo&userId=client_0.8725397089532996&EIO=3&transport=websocket] null
+2019-04-16 14:51:44,372 ERROR 3788 [-/127.0.0.1/-/4ms GET /socket.io/?room=demo&userId=client_0.3658775531151466&EIO=3&transport=websocket] null
+2019-04-16 14:52:09,821 ERROR 16044 [-/127.0.0.1/-/14ms GET /socket.io/?room=demo&userId=client_0.7460194516333549&EIO=3&transport=websocket] null
+2019-04-16 14:52:22,481 ERROR 16044 [-/127.0.0.1/-/5ms GET /socket.io/?room=demo&userId=client_0.5521559351959422&EIO=3&transport=websocket] null
+2019-04-16 14:57:15,981 ERROR 4868 [-/127.0.0.1/-/17ms GET /socket.io/?room=demo&userId=client_0.6203390850493897&EIO=3&transport=websocket] null
+2019-04-16 14:57:30,291 ERROR 4868 [-/127.0.0.1/-/19ms GET /socket.io/?room=demo&userId=client_0.5244213374346052&EIO=3&transport=websocket] null
+2019-04-16 14:57:57,800 ERROR 16028 [-/127.0.0.1/-/11ms GET /socket.io/?room=demo&userId=client_0.5880891543611899&EIO=3&transport=websocket] null
+2019-04-16 14:59:51,040 ERROR 13528 [-/127.0.0.1/-/16ms GET /socket.io/?room=demo&userId=client_0.3846612785303465&EIO=3&transport=websocket] null

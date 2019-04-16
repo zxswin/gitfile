@@ -1,0 +1,35 @@
+2019-04-12 18:50:10,941 ERROR 13248 nodejs.ClusterClientNoResponseError: client no response in 70427ms exceeding maxIdleTime 60000ms, maybe the connection is close on other side.
+    at Timeout.Leader._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_cluster-client@3.0.1@cluster-client\lib\leader.js:77:23)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ClusterClientNoResponseError"
+pid: 13248
+hostname: DESKTOP-IGV1BLA
+
+2019-04-12 18:50:10,939 ERROR 12344 nodejs.ServerNoResponseError: server 127.0.0.1:51430 no response in 40001ms, maybe the socket is end on the other side. (address: 127.0.0.1:51430)
+    at Timeout._heartbeatTimer.setInterval [as _onTimeout] (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_tcp-base@3.1.0@tcp-base\lib\base.js:427:21)
+    at listOnTimeout (timers.js:327:15)
+    at processTimers (timers.js:271:5)
+name: "ServerNoResponseError"
+pid: 12344
+hostname: DESKTOP-IGV1BLA
+
+2019-04-12 18:50:17,304 ERROR 12588 [-/127.0.0.1/-/538ms GET /passport/github/callback?code=0bfd33c561af42fa7338] nodejs.TokenError: The code passed is incorrect or expired.
+    at Strategy.OAuth2Strategy.parseErrorResponse (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_passport-oauth2@1.5.0@passport-oauth2\lib\strategy.js:358:12)
+    at Strategy.OAuth2Strategy._createOAuthError (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_passport-oauth2@1.5.0@passport-oauth2\lib\strategy.js:405:16)
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_passport-oauth2@1.5.0@passport-oauth2\lib\strategy.js:175:45
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_passport-github@1.1.0@passport-github\lib\strategy.js:77:16
+    at D:\my-item\egg-sequelize\egg-sequelize\node_modules\_oauth@0.9.15@oauth\lib\oauth2.js:209:7
+    at passBackControl (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_oauth@0.9.15@oauth\lib\oauth2.js:134:9)
+    at IncomingMessage.<anonymous> (D:\my-item\egg-sequelize\egg-sequelize\node_modules\_oauth@0.9.15@oauth\lib\oauth2.js:157:7)
+    at IncomingMessage.emit (events.js:202:15)
+    at endReadableNT (_stream_readable.js:1129:12)
+    at processTicksAndRejections (internal/process/next_tick.js:76:17)
+name: "TokenError"
+message: "The code passed is incorrect or expired."
+code: "bad_verification_code"
+uri: "https://developer.github.com/apps/managing-oauth-apps/troubleshooting-oauth-app-access-token-request-errors/#bad-verification-code"
+status: 500
+pid: 12588
+hostname: DESKTOP-IGV1BLA
+

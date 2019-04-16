@@ -11,6 +11,10 @@ module.exports = app => {
         type: CHAR(32),
         allowNull: false,
       },
+      provider: {
+        type: STRING(20),
+        allowNull: false,
+      },
     },
     {
       charset: 'utf8mb4',

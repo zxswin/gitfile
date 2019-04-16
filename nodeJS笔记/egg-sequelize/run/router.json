@@ -280,6 +280,45 @@
       "GET"
     ],
     "paramNames": [],
+    "path": "/passport",
+    "regexp": "/^\\/passport(?:\\/(?=$))?$/",
+    "stack": [
+      "wrappedController"
+    ]
+  },
+  {
+    "name": null,
+    "methods": [
+      "HEAD",
+      "GET"
+    ],
+    "paramNames": [],
+    "path": "/passport/weibo",
+    "regexp": "/^\\/passport\\/weibo(?:\\/(?=$))?$/",
+    "stack": [
+      "wrappedController"
+    ]
+  },
+  {
+    "name": null,
+    "methods": [
+      "HEAD",
+      "GET"
+    ],
+    "paramNames": [],
+    "path": "/passport/weibo/callback",
+    "regexp": "/^\\/passport\\/weibo\\/callback(?:\\/(?=$))?$/",
+    "stack": [
+      "wrappedController"
+    ]
+  },
+  {
+    "name": null,
+    "methods": [
+      "HEAD",
+      "GET"
+    ],
+    "paramNames": [],
     "path": "/passport/github",
     "regexp": "/^\\/passport\\/github(?:\\/(?=$))?$/",
     "stack": [
@@ -295,6 +334,83 @@
     "paramNames": [],
     "path": "/passport/github/callback",
     "regexp": "/^\\/passport\\/github\\/callback(?:\\/(?=$))?$/",
+    "stack": [
+      "wrappedController"
+    ]
+  },
+  {
+    "name": null,
+    "methods": [
+      "HEAD",
+      "GET"
+    ],
+    "paramNames": [],
+    "path": "/passport/bitbucket",
+    "regexp": "/^\\/passport\\/bitbucket(?:\\/(?=$))?$/",
+    "stack": [
+      "wrappedController"
+    ]
+  },
+  {
+    "name": null,
+    "methods": [
+      "HEAD",
+      "GET"
+    ],
+    "paramNames": [],
+    "path": "/passport/bitbucket/callback",
+    "regexp": "/^\\/passport\\/bitbucket\\/callback(?:\\/(?=$))?$/",
+    "stack": [
+      "wrappedController"
+    ]
+  },
+  {
+    "name": null,
+    "methods": [
+      "HEAD",
+      "GET"
+    ],
+    "paramNames": [],
+    "path": "/passport/twitter",
+    "regexp": "/^\\/passport\\/twitter(?:\\/(?=$))?$/",
+    "stack": [
+      "wrappedController"
+    ]
+  },
+  {
+    "name": null,
+    "methods": [
+      "HEAD",
+      "GET"
+    ],
+    "paramNames": [],
+    "path": "/passport/twitter/callback",
+    "regexp": "/^\\/passport\\/twitter\\/callback(?:\\/(?=$))?$/",
+    "stack": [
+      "wrappedController"
+    ]
+  },
+  {
+    "name": null,
+    "methods": [
+      "POST"
+    ],
+    "paramNames": [],
+    "path": "/api/sync",
+    "regexp": "/^\\/api\\/sync(?:\\/(?=$))?$/",
+    "stack": [
+      "wrappedController"
+    ]
+  },
+  {
+    "name": null,
+    "methods": [
+      "HEAD",
+      "GET"
+    ],
+    "paramNames": [],
+    "path": "/websocket",
+    "regexp": "/^\\/websocket(?:\\/(?=$))?$/",
     "stack": [
       "wrappedController"
     ]
