@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="/static/js/jquery.min.js"></script>
+    <title>网络聊天室</title>
+  </head>
+  <body>
+    <p>{{ name }}</p>
+    <button id="signin">登入</button>
+    <button id="signout">退出</button>
+    <input type="text" id="mes" placeholder="请输入信息" />
+    <button id="go">发送消息</button>
+  </body>
+  <script>
+    $(function() {
+      console.log('{{ name }}');
+      let ws = null;
+      // 点击按钮发送信息
+      $('#go').on('click', function() {
+        console.log('已经点击了发送消息按钮');
+        // 客户端发送的信息
+        if (ws) {
+          ws.send($('#mes').val());
+        }
+      });
+
+      // 点击按钮登入
+      $('#signin').on('click', function() {
+        console.log('点击了登入按钮');
+        $.ajax({
+          url: '/wsin',
+          method: 'post',
+          dataType: 'json',
+          data: { name: '{{ name }}' },
+          success: function(data) {
+            if (data.code === 0) {
+              console.log('登录成功');
+              webSocket();
+            }
+          }
+        });
+      });
+
+      // 点击按钮退出
+      $('#signout').on('click', function() {
+        console.log('点击了退出按钮');
+        $.ajax({
+          url: '/wsout',
+          method: 'get',
+          success: function(data) {
+            if (data.code === 0) {
+              console.log('退出成功');
+              if (ws) {
+                ws.send('Goodbye!'); //客户端发送的信息
+                ws.close(); // 关闭webSocket链接
+              }
+            }
+          }
+        });
+      });
+
+      function webSocket() {
+        // 创建webScoket对象 此时就会去连接到服务器
+        // ws 请求的所有连接均会触发websocket 如ws://127.0.0.1:3000/ws
+        ws = new WebSocket('ws://127.0.0.1:3000');
+
+        // 客户端接收到的信息
+        ws.onmessage = function(message) {
+          console.log(`接收到了服务端端发送过来的消息: ${message.data}`);
+        };
+
+        // 关闭websocket
+        ws.onclose = function(evt) {
+          console.log('关闭websocket');
+        };
+
+        // websocket 发生错误
+        ws.onerror = function(code, msg) {
+          console.log('websocket 发生错误');
+        };
+      }
+    });
+  </script>
+</html>
