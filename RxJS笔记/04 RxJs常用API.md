@@ -1469,6 +1469,144 @@ example.subscribe({
 // complete
 ```
 
+- distinct 用 distinct 后，只要有重複出现的值就会被过滤掉。
+
+```js
+/**
+ * 简单用法
+ * 当我们用 distinct 后，只要有重複出现的值就会被过滤掉
+  source : --a--b--c--a--b|
+              distinct()
+  example: --a--b--c------|
+ */
+var source = Rx.Observable.from(['a', 'b', 'c', 'a', 'b']).zip(
+  Rx.Observable.interval(300),
+  (x, y) => x
+);
+var example = source.distinct();
+
+example.subscribe({
+  next: value => {
+    console.log(value);
+  },
+  error: err => {
+    console.log('Error: ' + err);
+  },
+  complete: () => {
+    console.log('complete');
+  }
+});
+// a
+// b
+// c
+// complete
+
+/**
+ * distinct 的参数使用回调
+ * callback function 会传入一个接收到的元素，并回传我们真正希望比对的值
+ */
+var source = Rx.Observable.from([
+  { value: 'a' },
+  { value: 'b' },
+  { value: 'c' },
+  { value: 'a' },
+  { value: 'c' }
+]).zip(Rx.Observable.interval(300), (x, y) => x);
+// 参数使用了回调函数
+var example = source.distinct(x => {
+  // 返回希望对比的值
+  return x.value;
+});
+
+example.subscribe({
+  next: value => {
+    console.log(value);
+  },
+  error: err => {
+    console.log('Error: ' + err);
+  },
+  complete: () => {
+    console.log('complete');
+  }
+});
+// {value: "a"}
+// {value: "b"}
+// {value: "c"}
+// complete
+
+/**
+ * 实际上 distinct() 会在背地裡建立一个 Set，当接收到元素时会先去判断 Set 内是否有相同的值，
+ * 如果有就不送出，如果没有则存到 Set 并送出。 一个无限的 observable 裡，这样很可能会让 Set 越来越大
+ * 传入第二个参数 flushes observable 用来清除暂存的资料
+
+  source : --a--b--c--a--c|
+  flushes: ------------0---...
+          distinct(null, flushes);
+  example: --a--b--c-----c|
+
+ */
+var source = Rx.Observable.from(['a', 'b', 'c', 'a', 'c']).zip(
+  Rx.Observable.interval(300),
+  (x, y) => x
+);
+var flushes = Rx.Observable.interval(1300);
+// 1300毫秒后发送出c 并清空之前存储在set中的值
+var example = source.distinct(null, flushes);
+
+example.subscribe({
+  next: value => {
+    console.log(value);
+  },
+  error: err => {
+    console.log('Error: ' + err);
+  },
+  complete: () => {
+    console.log('complete');
+  }
+});
+// a
+// b
+// c
+// c
+// complete
+```
+
+- distinctUntilChanged
+
+```js
+/**
+ * distinctUntilChanged 跟 distinct 一样会把相同的元素过滤掉，是一个比较常用的方法
+ * 但 distinctUntilChanged 只会跟最后一次送出的元素比较，不会每个都比
+ * distinctUntilChanged 只会暂存一个元素，并在收到元素时跟暂存的元素比对，
+ * 如果一样就不送出，如果不一样就把暂存的元素换成刚接收到的新元素并送出。
+  source : --a--b--c--c--b|
+            distinctUntilChanged()
+  example: --a--b--c-----b|
+ */
+var source = Rx.Observable.from(['a', 'b', 'c', 'c', 'b']).zip(
+  Rx.Observable.interval(300),
+  (x, y) => x
+);
+var example = source.distinctUntilChanged();
+
+example.subscribe({
+  next: value => {
+    console.log(value);
+  },
+  error: err => {
+    console.log('Error: ' + err);
+  },
+  complete: () => {
+    console.log('complete');
+  }
+});
+// a
+// b
+// c
+// b
+// complete
+```
+
 ## RxJs 运用场景
 
 - 实现优酷视频滚动缩小拖动效果
@@ -1522,4 +1660,882 @@ mouseDown
     video.style.top = pos.y + 'px';
     video.style.left = pos.x + 'px';
   });
+```
+
+## 错误处理相关的操作符（非同步错误处理方法）
+
+- catch 是很常见的非同步错误处理方法
+
+```js
+/**
+ * 当错误发生后就会进到 catch 并重新处理一个新的 observable，
+ * 触发错误后之前的流会被中断，给用catch中新的 observable
+ * 我们可以利用这个新的 observable 来送出我们想送的值。
+  source : ----a----b----c----d----2|
+          map(x => x.toUpperCase())
+          ----a----b----c----d----X|
+          catch(error => Rx.Observable.of('h'))
+  example: ----a----b----c----d----h|     
+  */
+var source = Rx.Observable.from(['a', 'b', 'c', 'd', 2]).zip(
+  Rx.Observable.interval(500),
+  (x, y) => x
+);
+
+var example = source
+  .map(x => x.toUpperCase())
+  .catch(error => Rx.Observable.of('h')); //  catch 可以回传一个 observable 来送出新的值
+
+example.subscribe({
+  next: value => {
+    console.log(value);
+  },
+  error: err => {
+    console.log('Error: ' + err);
+  },
+  complete: () => {
+    console.log('complete');
+  }
+});
+```
+
+- retry 一个 observable 发生错误时，重新尝试就可以用 retry 这个方法
+
+```js
+/**
+ * retry 不带参数 则表示无限次重新尝试直到成功
+ * retry(1)可以带上一个数字 表示捕获错误的时候需要尝试的次数
+  source : ----a----b----c----d----2|
+          map(x => x.toUpperCase())
+          ----a----b----c----d----X|
+                  retry(1)
+  example: ----a----b----c----d--------a----b----c----d----X|
+ */
+var source = Rx.Observable.from(['a', 'b', 'c', 'd', 2]).zip(
+  Rx.Observable.interval(500),
+  (x, y) => x
+);
+
+var example = source.map(x => x.toUpperCase()).retry(1);
+
+example.subscribe({
+  next: value => {
+    console.log(value);
+  },
+  error: err => {
+    console.log('Error: ' + err);
+  },
+  complete: () => {
+    console.log('complete');
+  }
+});
+// a
+// b
+// c
+// d
+// a
+// b
+// c
+// d
+// Error: TypeError: x.toUpperCase is not a function
+```
+
+- retryWhen
+
+```js
+/**
+ * 示例：错误的 observable 送出错误延迟 1 秒 再从新订阅之前的observable
+ *  retryWhen 的callback 有一个参数会传入一个 observable，这个 observable 不是原本的 observable(example)
+ * 而是例外事件送出的错误所组成的一个 observable
+ * 可以对这个由错误所组成的 observable 做操作，等到这次的处理完成后就会重新订阅我们原本的 observable。
+ *  这个observalbe 预设是无限的，如果我们把它结束，原本的 observable 也会跟著结束。
+  source : ----a----b----c----d----2|
+          map(x => x.toUpperCase())
+          ----a----b----c----d----X|
+          retryWhen(errorObs => errorObs.delay(1000))
+  example: ----a----b----c----d-------------------a----b----c----d----...
+ */
+var source = Rx.Observable.from(['a', 'b', 'c', 'd', 2]).zip(
+  Rx.Observable.interval(500),
+  (x, y) => x
+);
+
+var example = source
+  .map(x => x.toUpperCase())
+  .retryWhen(errorObs => errorObs.delay(1000)); // 并等到这个 observable 操作完后再重新订阅一次原本的 observable。
+
+example.subscribe({
+  next: value => {
+    console.log(value);
+  },
+  error: err => {
+    console.log('Error: ' + err);
+  },
+  complete: () => {
+    console.log('complete');
+  }
+});
+```
+
+- repeat
+
+```js
+/**
+ * repeat不给参数让他无限循环 则表示无限循环
+ * epeat 的行为跟 retry 基本一致，只是 retry 只有在例外发生时才触发，画成 Marble Diagram 如下
+  source : ----a----b----c|
+              repeat(1)
+  example: ----a----b----c----a----b----c|
+ */
+var source = Rx.Observable.from(['a', 'b', 'c']).zip(
+  Rx.Observable.interval(500),
+  (x, y) => x
+);
+
+var example = source.repeat(1);
+
+example.subscribe({
+  next: value => {
+    console.log(value);
+  },
+  error: err => {
+    console.log('Error: ' + err);
+  },
+  complete: () => {
+    console.log('complete');
+  }
+});
+
+// a
+// b
+// c
+// a
+// b
+// c
+// complete
+
+/** 可以用于处理轮询事务  */
+const title = document.getElementById('title');
+
+var source = Rx.Observable.from(['a', 'b', 'c', 'd', 2])
+  .zip(Rx.Observable.interval(500), (x, y) => x)
+  .map(x => x.toUpperCase());
+// 通常 source 会是建立即时同步的连线，像是 web socket
+
+// 第二个参数obs 表示原来的observable
+var example = source.catch((error, obs) =>
+  Rx.Observable.empty()
+    .startWith('连线发生错误： 5秒后重连')
+    .concat(obs.delay(5000))
+);
+
+example.subscribe({
+  next: value => {
+    title.innerText = value;
+  },
+  error: err => {
+    console.log('Error: ' + err);
+  },
+  complete: () => {
+    console.log('complete');
+  }
+});
+```
+
+## 处理 Higher Order Observable
+
+- Higher Order Observable 就是指一个 Observable 送出的元素还是一个 Observable
+
+- concatAll()
+
+```js
+/**
+ * concatAll 不管两个 observable 送出的时间多么相近，一定会先处理前一个 observable 再处理下一个。
+click  : ---------c-c------------------c--.. 
+        map(e => Rx.Observable.interval(1000))
+source : ---------o-o------------------o--..
+                   \ \                  \
+                    \ ----0----1----2|   ----0----1----2|
+                     ----0----1----2|
+                     concatAll()
+example: ----------------0----1----2----0----1----2--..
+  */
+var click = Rx.Observable.fromEvent(document.body, 'click');
+var source = click.map(e => Rx.Observable.interval(1000).take(3));
+
+var example = source.concatAll();
+example.subscribe({
+  next: value => {
+    console.log(value);
+  },
+  error: err => {
+    console.log('Error: ' + err);
+  },
+  complete: () => {
+    console.log('complete');
+  }
+});
+```
+
+- switch()
+
+```js
+/**
+ * 每当有新的 observable 送出就会直接把旧的 observable 退订(unsubscribe)，永远只处理最新的 observable!
+click  : ---------c-c------------------c--.. 
+        map(e => Rx.Observable.interval(1000))
+source : ---------o-o------------------o--..
+                   \ \                  \----0----1--...
+                    \ ----0----1----2----3----4--...
+                     ----0----1----2----3----4--...
+                     switch()
+example: -----------------0----1----2--------0----1--...
+ */
+var click = Rx.Observable.fromEvent(document.body, 'click');
+var source = click.map(e => Rx.Observable.interval(1000));
+
+var example = source.switch();
+example.subscribe({
+  next: value => {
+    console.log(value);
+  },
+  error: err => {
+    console.log('Error: ' + err);
+  },
+  complete: () => {
+    console.log('complete');
+  }
+});
+```
+
+- mergeAll()
+
+```js
+/**
+ * 把二维的 observable 转成一维的，并且能够同时处理所有的 observable
+click  : ---------c-c------------------c--..
+        map(e => Rx.Observable.interval(1000))
+source : ---------o-o------------------o--..
+                   \ \                  \----0----1--...
+                    \ ----0----1----2----3----4--...
+                     ----0----1----2----3----4--...
+                     switch()
+example: ----------------00---11---22---33---(04)4--...
+ */
+var click = Rx.Observable.fromEvent(document.body, 'click');
+var source = click.map(e => Rx.Observable.interval(1000));
+
+var example = source.mergeAll();
+example.subscribe({
+  next: value => {
+    console.log(value);
+  },
+  error: err => {
+    console.log('Error: ' + err);
+  },
+  complete: () => {
+    console.log('complete');
+  }
+});
+
+/**
+ * mergeAll 可以传入一个数值，这个数值代表他可以同时处理的 observable 数量
+ * 前面两个 observabel 可以被并行处理，但第三个 observable 必须等到第一个 observable 结束后，才会开始。
+click  : ---------c-c----------o----------.. 
+        map(e => Rx.Observable.interval(1000))
+source : ---------o-o----------c----------..
+                   \ \          \----0----1----2|     
+                    \ ----0----1----2|  
+                     ----0----1----2|
+                     mergeAll(2)
+example: ----------------00---11---22---0----1----2--..
+ */
+var click = Rx.Observable.fromEvent(document.body, 'click');
+var source = click.map(e => Rx.Observable.interval(1000).take(3));
+
+var example = source.mergeAll(2); // 利用这个参数来决定要同时处理几个 observable
+example.subscribe({
+  next: value => {
+    console.log(value);
+  },
+  error: err => {
+    console.log('Error: ' + err);
+  },
+  complete: () => {
+    console.log('complete');
+  }
+});
+```
+
+- concatMap()
+
+```js
+/**
+ * concatMap 其实就是 map 加上 concatAll 的简化写法
+ *  concatMap 也会先处理前一个送出的 observable 再处理下一个 observable
+source : -----------c--c------------------...
+        concatMap(c => Rx.Observable.interval(100).take(3))
+example: -------------0-1-2-0-1-2---------...
+ */
+var source = Rx.Observable.fromEvent(document.body, 'click');
+
+var example = source.concatMap(e => Rx.Observable.interval(100).take(3));
+
+example.subscribe({
+  next: value => {
+    console.log(value);
+  },
+  error: err => {
+    console.log('Error: ' + err);
+  },
+  complete: () => {
+    console.log('complete');
+  }
+});
+
+/**
+ * concatMap 还有第二个参数是一个 selector callback，这个 callback 会传入四个参数，分别是
+ * 外部 observable 送出的元素
+ * 内部 observable 送出的元素
+ * 外部 observable 送出元素的 index
+ * 内部 observable 送出元素的 index
+ */
+function getPostData() {
+  return fetch('https://jsonplaceholder.typicode.com/posts/1').then(res =>
+    res.json()
+  );
+}
+var source = Rx.Observable.fromEvent(document.body, 'click');
+
+var example = source.concatMap(
+  e => Rx.Observable.from(getPostData()),
+  (e, res, eIndex, resIndex) => res.title
+);
+
+example.subscribe({
+  next: value => {
+    console.log(value);
+  },
+  error: err => {
+    console.log('Error: ' + err);
+  },
+  complete: () => {
+    console.log('complete');
+  }
+});
+```
+
+- switchMap 其实就是 map 加上 switch 简化的写法
+
+```js
+/**
+ * 每次都只处理最新发送出来的observable 并取消订阅之前的
+ * switchMap 跟 concatMap 一样有第二个参数 selector callback 可用来回传我们要的值，这部分的行为跟 concatMap 是一样的
+source : -----------c--c-----------------...
+        concatMap(c => Rx.Observable.interval(100).take(3))
+example: -------------0--0-1-2-----------...
+ */
+var source = Rx.Observable.fromEvent(document.body, 'click');
+
+var example = source.switchMap(e => Rx.Observable.interval(100).take(3));
+
+example.subscribe({
+  next: value => {
+    console.log(value);
+  },
+  error: err => {
+    console.log('Error: ' + err);
+  },
+  complete: () => {
+    console.log('complete');
+  }
+});
+```
+
+- mergeMap 其实就是 map 加上 mergeAll 简化的写法
+
+```js
+/**
+ * 平行处理每次发送出来的observable
+source : -----------c-c------------------...
+        concatMap(c => Rx.Observable.interval(100).take(3))
+example: -------------0-(10)-(21)-2----------...
+  */
+var source = Rx.Observable.fromEvent(document.body, 'click');
+
+var example = source.mergeMap(e => Rx.Observable.interval(100).take(3));
+
+example.subscribe({
+  next: value => {
+    console.log(value);
+  },
+  error: err => {
+    console.log('Error: ' + err);
+  },
+  complete: () => {
+    console.log('complete');
+  }
+});
+
+/**
+ * mergeMap 也能传入第二个参数 selector callback，这个 selector callback 跟 concatMap 第二个参数也是完全一样的，
+ * 但 mergeMap 的重点是我们可以传入第三个参数，来限制并行处理的数量
+ */
+function getPostData() {
+  return fetch('https://jsonplaceholder.typicode.com/posts/1').then(res =>
+    res.json()
+  );
+}
+var source = Rx.Observable.fromEvent(document.body, 'click');
+
+var example = source.mergeMap(
+  e => Rx.Observable.from(getPostData()),
+  (e, res, eIndex, resIndex) => res.title,
+  3
+);
+
+example.subscribe({
+  next: value => {
+    console.log(value);
+  },
+  error: err => {
+    console.log('Error: ' + err);
+  },
+  complete: () => {
+    console.log('complete');
+  }
+});
+```
+
+- switchMap, mergeMap, concatMap 的特点
+
+```js
+/**
+ * 这三个 operators 可以把第一个参数所回传的 promise 物件直接转成 observable，
+ * 这样我们就不用再用 Rx.Observable.from 转一次
+ * concatMap 适合少数要一次一次完成到底的的 UI 动画或特别的 HTTP request 行为。
+ * switchMap 用在只要最后一次行为的结果，适合绝大多数的使用情境。
+ * mergeMap 用在并行处理多个 observable，适合需要并行处理的行为，像是多个 I/O 的并行处理。
+ * 建议初学者不确定选哪一个时，使用 switchMap
+ */
+function getPersonData() {
+  return fetch('https://jsonplaceholder.typicode.com/posts/1').then(res =>
+    res.json()
+  );
+}
+var source = Rx.Observable.fromEvent(document.body, 'click');
+
+var example = source.concatMap(e => getPersonData());
+//直接回传 promise 物件
+
+example.subscribe({
+  next: value => {
+    console.log(value);
+  },
+  error: err => {
+    console.log('Error: ' + err);
+  },
+  complete: () => {
+    console.log('complete');
+  }
+});
+```
+
+## 把一般的 Observable 转成 Higher Order Observable 的 operators。
+
+- window
+
+```js
+/**
+ * 计算一秒钟内触发了几次 click 事件
+source : ---------0---------1---------2--...
+click  : --cc---cc----c-c----------------...
+                    window(source)
+example: o--------o---------o---------o--..
+         \        \         \         \
+          -cc---cc|---c-c---|---------|--..
+                    count()
+       : o--------o---------o---------o--
+         \        \         \         \
+          -------4|--------2|--------0|--..
+                    switch()
+       : ---------4---------2---------0--... 
+ */
+var click = Rx.Observable.fromEvent(document, 'click');
+var source = Rx.Observable.interval(1000);
+var example = click.window(source); // 每次点击都还输出一个source流
+
+example
+  .map(innerObservable => innerObservable.count())
+  .switch() // 值执行最后一个流
+  .subscribe(console.log);
+```
+
+- windowCount
+- windowTime
+- windowToggle
+
+```js
+/**
+ * windowToggle 不像 window 只能控制内部 observable 的结束，windowToggle 可以传入两个参数，
+ * 第一个是开始的 observable，第二个是一个 callback 可以回传一个结束的 observable
+source   : ----0----1----2----3----4----5--...
+
+mouseDown: -------D------------------------...
+mouseUp  : ---------------------------U----...
+
+        windowToggle(mouseDown, () => mouseUp)
+
+         : -------o-------------------------...
+                  \
+                   -1----2----3----4--|
+                   switch()
+example  : ---------1----2----3----4---------...                                     
+
+ */
+var source = Rx.Observable.interval(1000);
+var mouseDown = Rx.Observable.fromEvent(document, 'mousedown');
+var mouseUp = Rx.Observable.fromEvent(document, 'mouseup');
+
+var example = source.windowToggle(mouseDown, () => mouseUp).switch();
+
+example.subscribe(console.log);
+```
+
+- windowWhen
+
+* groupBy 它可以帮我们把相同条件的元素拆分成一个 Observable
+
+```js
+/**
+ * 传入了一个 callback function 并回传 groupBy 的条件，就能区分每个元素到不同的 Observable 中
+
+source : ---0---1---2---3---4|
+             groupBy(x => x % 2)
+example: ---o---o------------|
+            \   \
+            \   1-------3----|
+            0-------2-------4|
+
+ */
+var source = Rx.Observable.interval(300).take(5);
+
+var example = source.groupBy(x => x % 2);
+
+example.subscribe(console.log);
+
+// GroupObservable { key: 0, ...}
+// GroupObservable { key: 1, ...}
+
+/**
+ * 将每个人的分数作加总再送出
+source : --o--o--o--o--o--o|
+
+groupBy(person => person.name)
+
+      : --i--------i------|
+          \        \
+          \         o--o--o|
+          o--o--o--|
+
+      map(group => group.reduce(...))
+
+      : --i---------i------|
+          \         \
+          o|        o|
+
+            mergeAll()
+example: --o---------o------|           
+ */
+var people = [
+  { name: 'Anna', score: 100, subject: 'English' },
+  { name: 'Anna', score: 90, subject: 'Math' },
+  { name: 'Anna', score: 96, subject: 'Chinese' },
+  { name: 'Jerry', score: 80, subject: 'English' },
+  { name: 'Jerry', score: 100, subject: 'Math' },
+  { name: 'Jerry', score: 90, subject: 'Chinese' }
+];
+var source = Rx.Observable.from(people).zip(
+  Rx.Observable.interval(300),
+  (x, y) => x
+);
+
+var example = source
+  .groupBy(person => person.name)
+  .map(group =>
+    group.reduce((acc, curr) => ({
+      name: curr.name,
+      score: curr.score + acc.score
+    }))
+  )
+  .mergeAll();
+
+example.subscribe(console.log);
+// { name: "Anna", score: 286 }
+// { name: 'Jerry', score: 270 }
+```
+
+## subject 相关
+
+- multicast
+
+```js
+/**
+ * multicast 可以用来挂载 subject 并回传一个可连结(connectable)的 observable
+ */
+
+var source = Rx.Observable.interval(1000)
+  .take(3)
+  .multicast(new Rx.Subject()); // 订阅其实都是订阅到 subject 上
+
+var observerA = {
+  next: value => console.log('A next: ' + value),
+  error: error => console.log('A error: ' + error),
+  complete: () => console.log('A complete!')
+};
+
+var observerB = {
+  next: value => console.log('B next: ' + value),
+  error: error => console.log('B error: ' + error),
+  complete: () => console.log('B complete!')
+};
+
+source.subscribe(observerA); // subject.subscribe(observerA)
+
+source.connect(); // source.subscribe(subject) 执行 connect() 后才会真的用 subject 订阅 sourc
+
+setTimeout(() => {
+  source.subscribe(observerB); // subject.subscribe(observerB)
+}, 1000);
+
+/**
+ * 要把 connect() 回传的 subscription 退订才会真正停止 observable 的执行
+ */
+var source = Rx.Observable.interval(1000)
+  .do(x => console.log('send: ' + x))
+  .multicast(new Rx.Subject()); // 无限的 observable
+
+var observerA = {
+  next: value => console.log('A next: ' + value),
+  error: error => console.log('A error: ' + error),
+  complete: () => console.log('A complete!')
+};
+
+var observerB = {
+  next: value => console.log('B next: ' + value),
+  error: error => console.log('B error: ' + error),
+  complete: () => console.log('B complete!')
+};
+
+var subscriptionA = source.subscribe(observerA);
+
+var realSubscription = source.connect();
+
+var subscriptionB;
+setTimeout(() => {
+  subscriptionB = source.subscribe(observerB);
+}, 1000);
+
+setTimeout(() => {
+  subscriptionA.unsubscribe();
+  subscriptionB.unsubscribe();
+  // 这裡虽然 A 跟 B 都退订了，但 source 还会继续送元素
+}, 5000);
+
+setTimeout(() => {
+  realSubscription.unsubscribe();
+  // 这裡 source 才会真正停止送元素
+}, 7000);
+```
+
+- refCount
+
+```js
+/**
+ * refCount 必须搭配 multicast 一起使用，他可以建立一个只要有订阅就会自动 connect 的 observable
+ * 当 source 一被 observerA 订阅时(订阅数从 0 变成 1)，就会立即执行并发送元素，我们就不需要再额外执行 connect。
+ */
+
+var source = Rx.Observable.interval(1000)
+  .do(x => console.log('send: ' + x))
+  .multicast(new Rx.Subject())
+  .refCount();
+
+var observerA = {
+  next: value => console.log('A next: ' + value),
+  error: error => console.log('A error: ' + error),
+  complete: () => console.log('A complete!')
+};
+
+var observerB = {
+  next: value => console.log('B next: ' + value),
+  error: error => console.log('B error: ' + error),
+  complete: () => console.log('B complete!')
+};
+
+var subscriptionA = source.subscribe(observerA);
+// 订阅数 0 => 1
+
+var subscriptionB;
+setTimeout(() => {
+  subscriptionB = source.subscribe(observerB);
+  // 订阅数 0 => 2
+}, 1000);
+
+/**
+ * 退订时只要订阅数变成 0 就会自动停止发送
+ */
+var source = Rx.Observable.interval(1000)
+  .do(x => console.log('send: ' + x))
+  .multicast(new Rx.Subject())
+  .refCount();
+
+var observerA = {
+  next: value => console.log('A next: ' + value),
+  error: error => console.log('A error: ' + error),
+  complete: () => console.log('A complete!')
+};
+
+var observerB = {
+  next: value => console.log('B next: ' + value),
+  error: error => console.log('B error: ' + error),
+  complete: () => console.log('B complete!')
+};
+
+var subscriptionA = source.subscribe(observerA);
+// 订阅数 0 => 1
+
+var subscriptionB;
+setTimeout(() => {
+  subscriptionB = source.subscribe(observerB);
+  // 订阅数 0 => 2
+}, 1000);
+
+setTimeout(() => {
+  subscriptionA.unsubscribe(); // 订阅数 2 => 1
+  subscriptionB.unsubscribe(); // 订阅数 1 => 0，source 停止发送元素
+}, 5000);
+```
+
+- publish
+
+```js
+/**
+ * multicast(new Rx.Subject()) 很常用到，我们有一个简化的写法那就是 publish
+ * 下面两段代码是等价的
+ */
+var source = Rx.Observable.interval(1000)
+  .publish()
+  .refCount();
+
+var source = Rx.Observable.interval(1000)
+  .multicast(new Rx.Subject())
+  .refCount();
+
+/**
+ * 加上 Subject 的三种变形 publishReplay
+ */
+var source = Rx.Observable.interval(1000)
+  .publishReplay(1)
+  .refCount();
+
+var source = Rx.Observable.interval(1000)
+  .multicast(new Rx.ReplaySubject(1))
+  .refCount();
+
+/**
+ * 加上 Subject 的三种变形 publishBehavior
+ */
+var source = Rx.Observable.interval(1000)
+  .publishBehavior(0)
+  .refCount();
+
+var source = Rx.Observable.interval(1000)
+  .multicast(new Rx.BehaviorSubject(0))
+  .refCount();
+
+/**
+ * 加上 Subject 的三种变形 publishLast
+ */
+var source = Rx.Observable.interval(1000)
+  .publishLast()
+  .refCount();
+
+var source = Rx.Observable.interval(1000)
+  .multicast(new Rx.AsyncSubject(1))
+  .refCount();
+```
+
+- share
+
+```js
+/**
+ *  publish + refCount 可以在简写成 share
+ */
+var source = Rx.Observable.interval(1000).share();
+
+var source = Rx.Observable.interval(1000)
+  .publish()
+  .refCount();
+
+var source = Rx.Observable.interval(1000)
+  .multicast(new Rx.Subject())
+  .refCount();
+```
+
+## rxjs 处理事务示例
+
+- 自动完成 (Auto Complete)
+
+```js
+/**
+ * 需求分析
+ * 准备 input#search 以及 ul#suggest-list 的 HTML 与 CSS
+ * 在 input#search 输入文字时，等待 100 毫秒再无输入，就发送 HTTP Request
+ * 当 Response 还没回来时，使用者又输入了下一个文字就捨弃前一次的并再发送一次新的 Request
+ * 接受到 Response 之后显示建议选项
+ * 滑鼠点击后取代 input#search 的文字
+ */
+
+/** 第一步，取得需要的 DOM 物件  */
+const searchInput = document.getElementById('search');
+const suggestList = document.getElementById('suggest-list');
+
+/** 第二步，建立所需的 Observable  */
+const keyword = Rx.Observable.fromEvent(searchInput, 'input');
+const selectItem = Rx.Observable.fromEvent(suggestList, 'click');
+
+/** 渲染ul选择列表  */
+const render = (suggestArr = []) => {
+  suggestList.innerHTML = suggestArr
+    .map(item => '<li>' + item + '</li>')
+    .join('');
+};
+
+/**调用接口 */
+function getSuggestList(value) {
+  return fetch('https://jsonplaceholder.typicode.com/posts/1', {
+    value: value
+  }).then(res => res.json());
+}
+
+/** ul列表的点击事件 */
+selectItem
+  .filter(e => e.target.matches('li'))
+  .map(e => e.target.innerText)
+  .subscribe(text => {
+    searchInput.value = text;
+    render();
+  });
+
+/** 关键词搜索  */
+keyword
+  .filter(e => e.target.value.length > 2) // 两个关键字以上才会去调用接口
+  .debounceTime(100) // 停止输入后延迟100ms发送
+  .switchMap(
+    // 只执行最新的observable 并 取消订阅之前的
+    e => Rx.Observable.from(getSuggestList(e.target.value)).retry(3), // 如果接口不通则重新试3次
+    (e, res) => res[1] // 要回传的值
+  )
+  .subscribe(list => render(list));
 ```
