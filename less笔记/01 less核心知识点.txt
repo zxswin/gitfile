@@ -1,0 +1,882 @@
+一.起步
+1.cnpm install less -g # 全局安装
+2.编译
+-- lessc 1.less # 把编译结果打印到控制台
+-- lessc 1.less 2.css # 编译结果生成指定的文件
+
+二.基本使用
+1.变量
+-- 示例
+@width: 10px;
+@height: @width + 10px;
+
+#header {
+  width: @width;
+  height: @height;
+}
+
+-- 可以看成是一个字符串 并作为类名来使用
+@my-selector: banner;
+
+.@{my-selector} {
+  font-weight: bold;
+  line-height: 40px;
+  margin: 0 auto;
+}
+
+-- 当做一个图片的路径前缀
+@images: "../img";
+
+body {
+  color: #444;
+  background: url("@{images}/white-sand.png");
+}
+
+2.混合
+/* 公用样式 */
+/* .bordered() 加上括号后就不会被编译了 */
+.bordered {
+  border-top: dotted 1px black;
+  border-bottom: solid 2px black;
+}
+
+#menu a {
+  color: #111;
+  .bordered(); /* 引用公用样式 */
+}
+
+.post a {
+  color: red;
+  .bordered(); /* 引用公用样式 */
+}
+
+3.嵌套
+#header {
+  color: black;
+  .navigation {
+    font-size: 12px;
+  }
+  .logo {
+    width: 300px;
+  }
+}
+
+4.&符号 用于对伪类选择器进行嵌套
+.clearfix {
+  display: block;
+  zoom: 1;
+
+  &:after {
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}
+
+5.嵌套@media 的使用
+.component {
+  width: 300px;
+  @media (min-width: 768px) {
+    width: 600px;
+  }
+  @media (min-width: 1280px) {
+    width: 800px;
+  }
+}
+
+6.运算
+// 数字会被转换成相同的单位
+@conversion-1: 5cm + 10mm; //  6cm
+@conversion-2: 2 - 3cm - 5mm; //  -1.5cm
+
+// 不能转换单位的情况 以左边的单位为主 加减法可以转换单位
+@incompatible-units: 2 + 5px - 3cm; // result is 4px
+
+// 乘法和除法不能转换单位
+@base: 2cm * 3mm; // result is 6cm
+
+// 变量运算的例子
+@base: 5%;
+@filler: @base * 2; //  10%
+@other: @base + @filler; // 15%
+
+// 对颜色进行计算
+@color: #224488 / 2; //results in #112244
+background-color: #112244 + #111; // result is #223355
+
+7.calc() 特例
+@var: 50vh/2;
+width: calc(50% + (@var - 20px));  // result is calc(50% + (25vh - 20px))
+
+8.转义(3.5以上很多都不需要转义了)
+~号进行转义
+
+@min768: ~"(min-width: 768px)"; /*进行转义 因为有()等特殊字符*/
+.element {
+  @media @min768 {
+    font-size: 1.2rem;
+  }
+}
+
+@min768: (min-width: 768px); /*可以这么写但是编译器会报错*/
+.element {
+  @media @min768 {
+    font-size: 1.2rem;
+  }
+}
+
+9.函数
+@base: #f04615;
+@width: 0.5;
+
+.class {
+  width: percentage(@width);  /* 50% */
+  color: saturate(@base, 5%); /* 饱和度增加5% */
+  background-color: spin(lighten(@base, 25%), 8);  /* 颜色亮度降低 25% 并且色相值增加 8  */
+}
+
+10.名称空间和访问器
+/* 定义了一共公用的样式 括号去掉变成普通的样式也可以被下面的a使用  */
+/* 当有括号的时候是不会被编译出来的 */
+#bundle() {
+  .button {
+    display: block;
+    border: 1px solid black;
+    background-color: grey;
+    &:hover {
+      background-color: white;
+    }
+  }
+}
+
+#header a {
+  color: orange;
+  #bundle.button();  // 也可以写成这样 #bundle > .button
+}
+
+11.Maps
+
+# 3.5以上使用 编译器会报错
+#colors() {
+  primary: blue;
+  secondary: green;
+}
+
+.button {
+  color: #colors[primary];
+  border: 1px solid #colors[secondary];
+}
+
+12.作用域（Scope）
+
+会一级一级往上找 直到找到父级
+
+@var: red;
+
+#page {
+  @var: white;
+  #header {
+    color: @var; // white
+  }
+}
+
+13.注释（Comments）
+/* 一个块注释
+ * style comment! */
+@var: red;
+
+// 这一行被注释掉了！
+@var: white;
+
+14.导入（Importing）
+果导入的文件是 .less 扩展名，则可以将扩展名省略掉：
+@import "library"; // library.less
+@import "typo.css";
+
+
+二.新用法 编译器可能会标红报错(**表示会报错)
+1**.$color 类中的变量
+.widget {
+  color: #efefef;
+  background-color: $color; /* background-color: #efefef; */
+}
+
+2.&号新用法
+.button {
+  &-ok { /* .button-ok */
+    background-image: url("ok.png");
+  }
+  &-cancel { /* .button-ok */
+    background-image: url("cancel.png");
+  }
+
+  &-custom { /* .button-custom */
+    background-image: url("custom.png");
+  }
+}
+
+3.拓展使用其他类的样式 .inline , nav ul
+nav ul {
+  &:extend(.inline); /* 使用.inline的样式 */
+  background: blue;
+}
+.inline {
+  color: red;
+}
+
+== 可以是.some-class:extend(.bucket tr)这种写法
+.bucket {
+  tr { 
+    color: blue;
+  }
+}
+.some-class:extend(.bucket tr) {
+  font-size:12px;
+}
+
+== 共用和test相关的所有样式
+.a.b.test,
+.test.c {
+  color: orange;
+}
+.test {
+  &:hover {
+    color: green;
+  }
+}
+
+.replacement:extend(.test all) {} /* 共用和test相关的所有样式 */
+
+3.带默认参数的用法
+.foo (@bg: #f5f5f5, @color: #900) {
+  background: @bg;
+  color: @color;
+}
+.unimportant {
+  .foo();
+}
+.important {
+  .foo() !important;
+}
+
+4.@arguments 的使用方法
+.box-shadow(@x: 0; @y: 0; @blur: 1px; @color: #000) {
+  -webkit-box-shadow: @arguments;
+     -moz-box-shadow: @arguments;
+          box-shadow: @arguments;
+}
+.big-block {
+  .box-shadow(2px; 5px);
+}
+
+三.函数的使用
+1.杂项函数
+** color 转换为颜色值
+color("#aaa"); #aaa
+
+** image-size 获取图片尺寸 目前只有在node环境下可用
+image-size("file.png");  10px 10px
+
+** image-width 获取图片的宽度 目前只有在node环境下可用
+image-width("file.png"); 10px
+
+** image-height 获取图片的高度
+image-height("file.png"); 10px
+
+** convert 单位的转换
+
+convert(9s, "ms") // 9000ms
+convert(14cm, mm) // 140mm
+convert(8, mm) // 8
+
+** data-uri把引用的资源 转换为 base64编码
+data-uri('../data/image.jpg');  url('data:image/jpeg;base64,bm90IGFjdHVhbGx5IGEganBlZyBmaWxlCg==');
+data-uri('image/jpeg;base64', '../data/image.jpg'); url('data:image/jpeg;base64,bm90IGFjdHVhbGx5IGEganBlZyBmaWxlCg==');
+data-uri('image/svg+xml;charset=UTF-8', 'image.svg'); url("data:image/svg+xml;charset=UTF-8,%3Csvg%3E%3Ccircle%20r%3D%229%22%2F%3E%3C%2Fsvg%3E");
+
+** default 没有找到其他匹配项的情况下执行
+.mixin(1) {x: 11}
+.mixin(2) {y: 22}
+.mixin(@x) when (default()) {z: @x}
+
+div {
+  .mixin(3); // z: 3;
+}
+
+div.special {
+  .mixin(1); // x: 11;
+}
+
+
+.mixin(@value) when (ispixel(@value)) {width: @value}  // ispixel() 确保value的单位是px
+.mixin(@value) when not(default())    {padding: (@value / 5)} // 至少有一个匹配项的时候才会去调用
+
+div-1 {
+  .mixin(100px); // width: 100px; padding: 20px;
+}
+
+div-2 {
+  /* ... */
+  .mixin(100%); // 没匹配到 为空
+}
+
+div {
+  .m(@x) when (default()), not(default())    {always: @x}  // 两种写法效果是一样的
+  .m(@x) when (default()) and not(default()) {never:  @x}  // 两种写法效果是一样的
+
+  .m(1); // OK  always: 1;
+}
+
+== default的高级用法
+.x {
+  .m(red) {case-1: darkred}
+  .m(blue) {case-2: darkblue}
+  .m(@x) when (iscolor(@x)) and (default())  {default-color: @x}
+  .m('foo') {case-1: I am 'foo'}
+  .m('bar') {case-2: I am 'bar'}
+  .m(@x) when (isstring(@x)) and (default()) {default-string: and I am the default}
+
+  &-blue  {.m(blue)} // case-2: #00008b;
+  &-green {.m(green)} // default-color: #008000;
+  &-foo   {.m('foo')} // case-1: I am 'foo';
+  &-baz   {.m('baz')} // default-string: and I am the default;
+}
+
+** unit 单位转换 
+unit(5, px) 5px
+unit(5em) 5
+
+** get-unit 获取单位
+get-unit(5px) px
+get-unit(5) 空
+
+** svg-gradient
+div {
+  @list: red, green 30%, blue;
+  background-image: svg-gradient(to right, @list);
+}
+
+2.字符串函数
+** escape 编码转换
+escape('a=1') a%3D1
+
+** e 替换 ~"value" 语法 (因为有些语法Less并不识别)
+filter: e("ms:alwaysHasItsOwnSyntax.For.Stuff()");  filter: ms:alwaysHasItsOwnSyntax.For.Stuff();
+
+
+** % format 格式化
+format-a-d: %("repetitions: %a file: %d", 1 + 2, "directory/file.less");
+format-a-d-upper: %('repetitions: %A file: %D', 1 + 2, "directory/file.less");
+format-s: %("repetitions: %s file: %s", 1 + 2, "directory/file.less");
+format-s-upper: %('repetitions: %S file: %S', 1 + 2, "directory/file.less");
+
+输出为：
+
+format-a-d: "repetitions: 3 file: "directory/file.less"";
+format-a-d-upper: "repetitions: 3 file: %22directory%2Ffile.less%22";
+format-s: "repetitions: 3 file: directory/file.less";
+format-s-upper: "repetitions: 3 file: directory%2Ffile.less";
+
+** replace
+replace("Hello, Mars?", "Mars\?", "Earth!");  // "Hello, Earth!";
+replace("One + one = 4", "one", "2", "gi"); // "2 + 2 = 4";
+replace('This is a string.', "(string)\.$", "new $1."); // 'This is a new string.';
+replace(~"bar-1", '1', '2'); // bar-2;
+
+3.列表函数
+
+** length 返回用逗号或空格分隔的字符数
+length(1px solid #0080ff); 
+
+@list: "banana", "tomato", "potato", "peach";
+n: length(@list); // n: 4;
+
+** extract 提取 指定位置的字符
+extract(8px dotted red, 2);  // dotted
+
+@list: apple, pear, coconut, orange;
+value: extract(@list, 3); // coconut
+
+4.数学函数
+** ceil 向上取整
+ceil(2.4) 3
+
+** floor 向下取整
+floor(2.6) 2
+
+** percentage 转换为百分比
+percentage(0.5) 50%
+
+** round 四舍五入
+round(1.67)  2
+round(1.67, 1)  1.7
+
+** sqrt 计算平方根 会保留单位
+sqrt(25cm) 5cm
+sqrt(18.6%) 4.312771730569565%;
+
+** abs 计算绝对值 会保留单位
+abs(25cm) 25cm
+abs(-18.6%) 18.6%;
+
+** sin 计算正弦值
+sin(1); // 0.8414709848078965 sine of 1 radian
+sin(1deg); // 0.01745240643728351 sine of 1 degree
+sin(1grad); // 0.015707317311820675 sine of 1 gradian
+
+** asin 计算反正弦
+
+asin(-0.8414709848078965) // -1rad
+asin(0) // 0rad
+asin(2) // NaNrad
+
+** cos 计算余弦
+cos(1) // 0.5403023058681398 cosine of 1 radian
+cos(1deg) // 0.9998476951563913 cosine of 1 degree
+cos(1grad) // 0.9998766324816606 cosine of 1 gradian
+
+** acos 计算反余弦
+acos(0.5403023058681398) // 1rad
+acos(1) // 0rad
+acos(2) // NaNrad
+
+** tan 计算正切值
+tan(1) // 1.5574077246549023 tangent of 1 radian
+tan(1deg) // 0.017455064928217585 tangent of 1 degree
+tan(1grad) // 0.015709255323664916 tangent of 1 gradian
+
+** atan 计算反正切值
+atan(-1.5574077246549023) // -1rad
+atan(0) // 0rad
+round(atan(22), 6) // 1.525373rad arctangent of 22 rounded to 6 decimal places 
+
+** pi 返回圆周率π
+pi() 3.141592653589793
+
+** pow 计算加权数 n次方
+pow(0cm, 0px) // 1cm
+pow(25, -2) // 0.0016
+pow(25, 0.5) // 5
+pow(-25, 0.5) // NaN
+pow(-25%, -0.5) // NaN%
+
+** mod 取模运算 会忽略第二个参数的单位
+
+mod(0cm, 0px) // NaNcm;
+mod(11cm, 6px); // 5cm
+mod(-26%, -5); // -1%;
+
+** min 取多个值中的最小值 可以加单位
+min(5, 10); 5
+min(3px, 42px, 1px, 16px);  1px
+
+** max 取多个值中的最大值 可以加单位
+max(5, 10); 5
+max(3%, 42%, 1%, 16%); 42%
+
+5.类型函数
+** isnumber 判断一个值是否为数字 如果是返回true 如果不是返回false   
+isnumber(#ff0);     // false
+isnumber(blue);     // false
+isnumber("string"); // false
+isnumber(1234);     // true
+isnumber(56px);     // true
+isnumber(7.8%);     // true
+isnumber(keyword);  // false
+isnumber(url(...)); // false
+
+** isstring 判断一个值是否是字符串 如果是返回true 如果不是返回false 
+isstring(#ff0);     // false
+isstring(blue);     // false
+isstring("string"); // true
+isstring(1234);     // false
+isstring(56px);     // false
+isstring(7.8%);     // false
+isstring(keyword);  // false
+isstring(url(...)); // false
+
+** iscolor 判断一个值是不是颜色值 如果是返回true 如果不是返回false 
+iscolor(#ff0);     // true
+iscolor(blue);     // true
+iscolor("string"); // false
+iscolor(1234);     // false
+iscolor(56px);     // false
+iscolor(7.8%);     // false
+iscolor(keyword);  // false
+iscolor(url(...)); // false
+
+** iskeyword 判断一个值是不是keyword 如果是返回true 如果不是返回false 
+iskeyword(#ff0);     // false
+iskeyword(blue);     // false
+iskeyword("string"); // false
+iskeyword(1234);     // false
+iskeyword(56px);     // false
+iskeyword(7.8%);     // false
+iskeyword(keyword);  // true
+iskeyword(url(...)); // false
+
+** isurl 判断一个值是不是url 如果是返回true 如果不是返回false 
+isurl(#ff0);     // false
+isurl(blue);     // false
+isurl("string"); // false
+isurl(1234);     // false
+isurl(56px);     // false
+isurl(7.8%);     // false
+isurl(keyword);  // false
+isurl(url(...)); // true
+
+** ispixel 判断一个值是不是px值 如果是返回true 如果不是返回false 
+ispixel(#ff0);     // false
+ispixel(blue);     // false
+ispixel("string"); // false
+ispixel(1234);     // false
+ispixel(56px);     // true
+ispixel(7.8%);     // false
+ispixel(keyword);  // false
+ispixel(url(...)); // false
+
+** isem 判断一个值是不是em值 如果是返回true 如果不是返回false 
+isem(#ff0);     // false
+isem(blue);     // false
+isem("string"); // false
+isem(1234);     // false
+isem(56px);     // false
+isem(7.8em);    // true
+isem(keyword);  // false
+isem(url(...)); // false
+
+** ispercentage 判断一个值是不是百分比值 如果是返回true 如果不是返回false 
+ispercentage(#ff0);     // false
+ispercentage(blue);     // false
+ispercentage("string"); // false
+ispercentage(1234);     // false
+ispercentage(56px);     // false
+ispercentage(7.8%);     // true
+ispercentage(keyword);  // false
+ispercentage(url(...)); // false
+
+** isunit 判断一个值是不是指定单位的值 如果是返回true 如果不是返回false 
+isunit(11px, px);  // true
+isunit(2.2%, px);  // false
+isunit(33px, rem); // false
+isunit(4rem, rem); // true
+isunit(56px, "%"); // false
+isunit(7.8%, '%'); // true
+isunit(1234, em);  // false
+isunit(#ff0, pt);  // false
+isunit("mm", mm);  // false
+
+** 判断一个值是不是规律集 如果是返回true 如果不是返回false 
+
+@rules: {
+    color: red;
+}
+
+isruleset(@rules);   // true
+isruleset(#ff0);     // false
+isruleset(blue);     // false
+isruleset("string"); // false
+isruleset(1234);     // false
+isruleset(56px);     // false
+isruleset(7.8%);     // false
+isruleset(keyword);  // false
+isruleset(url(...)); // false
+
+6.颜色定义函数
+** rgb 根据红绿蓝颜色值生成颜色字面量
+rgb(90, 129, 32) #5a8120
+
+** rgba 生成一个透明的颜色值
+rgba(90, 129, 32, 0.5) rgba(90, 129, 32, 0.5)
+
+** argb 用一个十六进制数表示一个颜色值
+argb(rgba(90, 23, 148, 0.5));  #805a1794
+
+** hsl 根据亮度和饱和度来生成不透明颜色
+hsl(90, 100%, 50%)  #80ff00
+@new: hsl(hue(@old), 45%, 90%); # 新颜色会具备自己和老颜色的包含度和亮度
+
+** hsla 根据亮度和饱和度来生成透明颜色
+hsl(90, 100%, 50%, 0.5) rgba(128, 255, 0, 0.5)
+
+** hsv
+hsv(90, 100%, 50%) #408000
+
+** hsva
+hsva(90, 100%, 50%, 0.5) rgba(64, 128, 0, 0.5)
+
+7.颜色通道函数
+** hue 色调
+hue(hsl(90, 100%, 50%))  90
+
+** saturation 饱和度 
+saturation(hsl(90, 100%, 50%))  100%
+
+** lightness 亮度
+lightness(hsl(90, 100%, 50%)) 50%
+
+** hsvhue
+hsvhue(hsv(90, 100%, 50%)) 90
+
+** hsvsaturation
+hsvsaturation(hsv(90, 100%, 50%)) 100%
+
+** hsvvalue
+hsvvalue(hsv(90, 100%, 50%)) 50%
+
+** red 红色通道值
+red(rgb(10, 20, 30)) 10
+
+** green 绿色通道值
+green(rgb(10, 20, 30))
+
+** blue 蓝色通道值
+blue(rgb(10, 20, 30)) 30
+
+** 0.5
+alpha(rgba(10, 20, 30, 0.5)) 0.5
+
+** luma
+luma(rgb(100, 200, 30)) 44%
+ 
+** luminance
+luminance(rgb(100, 200, 30))  65%
+
+
+8.颜色操作函数
+
+** saturate
+saturate(hsl(90, 80%, 50%), 20%) 
+#80ff00 // hsl(90, 100%, 50%)  变浅了
+
+** desaturate
+desaturate(hsl(90, 80%, 50%), 20%)
+#80cc33 // hsl(90, 60%, 50%) 变深了
+
+** lighten
+lighten(hsl(90, 80%, 50%), 20%)
+#b3f075 // hsl(90, 80%, 70%) 变亮了
+
+** darken
+darken(hsl(90, 80%, 50%), 20%)
+#4d8a0f // hsl(90, 80%, 30%) 变暗了
+
+** fadein
+fadein(hsla(90, 90%, 50%, 0.5), 10%)
+rgba(128, 242, 13, 0.6) // hsla(90, 90%, 50%, 0.6)
+
+** fadeout
+fadeout(hsla(90, 90%, 50%, 0.5), 10%)
+rgba(128, 242, 13, 0.4) // hsla(90, 90%, 50%, 0.4)
+
+** fade
+fade(hsl(90, 90%, 50%), 10%)
+rgba(128, 242, 13, 0.1) //hsla(90, 90%, 50%, 0.1)
+
+** spin
+spin(hsl(10, 90%, 50%), 30) // #f2a60d // hsl(40, 90%, 50%)
+spin(hsl(10, 90%, 50%), -30) // #f20d59 // hsl(340, 90%, 50%)
+
+**mix 
+mix(#ff0000, #0000ff, 50%) // #800080
+mix(rgba(100,0,0,1.0), rgba(0,100,0,0.5), 50%) // rgba(75, 25, 0, 0.75)
+
+**tint 变浅了 
+no-alpha: tint(#007fff, 50%);  // no-alpha: #80bfff;
+with-alpha: tint(rgba(00,0,255,0.5), 50%); // with-alpha: rgba(191, 191, 255, 0.75);
+
+
+**shade 变得阴暗
+no-alpha: shade(#007fff, 50%);  // no-alpha: #004080;
+with-alpha: shade(rgba(00,0,255,0.5), 50%); // with-alpha: rgba(0, 0, 64, 0.75);
+
+** greyscale 灰度级
+greyscale(hsl(90, 90%, 50%)) //  #808080 // hsl(90, 0%, 50%) 变灰
+
+** contrast 对比度
+p {
+    a: contrast(#bbbbbb);
+    b: contrast(#222222, #101010);
+    c: contrast(#222222, #101010, #dddddd);
+    d: contrast(hsl(90, 100%, 50%), #000000, #ffffff, 30%);
+    e: contrast(hsl(90, 100%, 50%), #000000, #ffffff, 80%);
+}
+
+p {
+    a: #000000 // black
+    b: #ffffff // white
+    c: #dddddd
+    d: #000000 // black
+    e: #ffffff // white
+}
+
+
+9.颜色混合函数
+** multiply
+multiply(#ff6600, #000000); // 两种颜色相乘 变灰
+
+** screen 和乘的相反 结果颜色变亮了
+screen(#ff6600, #000000);
+
+** overlay  亮的更亮 暗的更暗了
+overlay(#ff6600, #000000);
+
+** softlight 类似于叠加
+softlight(#ff6600, #333333); 
+
+** hardlight
+hardlight(#ff6600, #000000);
+
+** difference 白色会产生颜色反转 黑色没有变化
+difference(#ff6600, #000000);
+
+** exclusion
+exclusion(#ff6600, #000000);
+
+** average 计算两种颜色的平均值
+average(#ff6600, #000000);
+
+** negation 结果颜色会更亮
+negation(#ff6600, #000000);
+
+单词：
+saturate 浸透 饱和
+invoke 借助
+directive 指令
+compress 压缩
+lean 瘦的 简洁的
+pretty 漂亮的 相当
+explanatory 说明的
+variable 变量
+mixing 混合
+nest 鸟巢 嵌套 筑巢
+ability 能力
+instead 代替
+combination 合作 联合体
+concise 简洁的 
+mimics 模拟
+structure 结构
+bundle 捆绑
+pseudo 伪 假的
+classic 典型的
+represent 代表 表现
+bubbling 气泡
+remains 遗留
+convert 转变
+subtracting 减法
+multiplication 乘法
+division 除法
+stated 定期的 规定
+calc 计算
+spin 纺纱 旋转的行为
+percentage 百分比
+accessors 访问器 存取器
+map 地图 绘制
+scope 范围
+depth 深度
+guide 指导
+parses从语法上描述或分析( parse的第三人称单数 )
+represent 表现 体现
+become 变成
+dimension 尺寸
+convert 转换
+compatible 兼容的
+falls back to 回退到
+given 确定的
+determine 决定 确定
+correct 正确的
+guess 推测 猜测
+suffix 后缀
+available 可用的 有效的
+guard 守卫
+condition 条件 环境
+match 比赛 匹配
+otherwise 否则 另外
+detect 查明 发现
+potential 潜在的
+conflict 冲突
+since 来自 自从
+depend 依赖
+recursively 递归的
+advanced 先进的 高级的
+available 可用的
+expression 表现 表达
+regular 有规律的 整齐的 常规的
+interpret 解释 体现
+dimension 尺寸 单位 
+omitted 遗漏;省略
+gradient 梯度
+generate 形成，造成; 产生（后代）
+remaining  剩余的
+ellipse 椭圆
+separate 分离
+supplied 提供
+identifiers 标识符
+applies 运用
+encoded 编码的
+common 普通的
+quotes 引用 引号
+implementation 成就 贯彻
+behavior 行为 态度
+expect 期望 怀孕
+proprietary 专门的
+recognize 识别
+accept 承认 接受 同意
+% format 格式化
+symbol 符号 象征
+letter 信件 字母
+contain 包容 容纳
+percentage 百分比
+combination 合作 联合体 
+whole 整体的
+placed into 放入
+release 释放
+pattern 模式
+integer 整数
+comma 逗号
+extract 提取
+round 圆形 
+decimal 十进制 小数的
+square 平方 正方形
+calculate 计算
+absolute 绝对的
+sine 正弦函数
+assume 假定
+radians 弧度
+tan 棕褐色的
+tangent 切线
+raise 提升 提高
+handle 手柄 处理 操作
+negative 消极的 负数的 否定 拒绝
+evaluate 评价 评估
+being 存在
+opaque 不透明的
+literal 照字面的 愿意的
+transparent 透明的
+hex 十六进制
+representation 表现
+saturation 饱和度
+lightness 亮度
+degrees 深度 
+extract 提取
+hue 色调
+perceptual 感性
+brightness 亮度 明亮
+contrast 对比
+luminance 亮度
+in addition to除…之外
+desaturate 去饱和
+darken 变暗
+spin 旋转 
+tint 浅色 色彩 色调 
+shade 阴影 
+overlay 覆盖
+exclusion 拒接 排除
+negation 否决
+
+
+
+
