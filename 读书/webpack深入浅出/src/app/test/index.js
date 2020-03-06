@@ -1,5 +1,7 @@
 /** index.ts文件  */
 
+/* global $ _*/
+
 import './index.less';
 import * as Data from '../../asset/data/data.json';
 
@@ -8,6 +10,11 @@ console.log('ddd8880000111', $('body'));
 console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 console.log(_);
 $('.img-svg').html('<p>88888888888888</p>');
+
+/** 1  */
+// 111
+// 111
+/** 11*/
 
 // function getComponent() {
 //   return import(/* webpackChunkName: "show" */ './show')
@@ -28,11 +35,13 @@ $('.img-svg').html('<p>88888888888888</p>');
 //   });
 // });
 
-function component() {
-  var element = document.createElement('div');
+/** 1  */
 
-  var button = document.createElement('button');
-  var br = document.createElement('br');
+function component() {
+  const element = document.createElement('div');
+
+  const button = document.createElement('button');
+  const br = document.createElement('br');
 
   button.innerHTML = 'Click me and look at the console!';
   element.innerHTML = 'aaa';
@@ -41,9 +50,9 @@ function component() {
 
   // Note that because a network request is involved, some indication
   // of loading would need to be shown in a production-level site/app.
-  button.onclick = e =>
+  button.onclick = () =>
     import(/* webpackChunkName: "b" */ './b').then(module => {
-      var print = module.default;
+      const print = module.default;
 
       print();
     });

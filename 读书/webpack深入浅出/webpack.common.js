@@ -7,7 +7,7 @@ const SpritesmithPlugin = require('webpack-spritesmith');
 module.exports = {
   entry: {
     main: './src/app/index/index.ts',
-    vendor: ['jquery', 'lodash'] // 需要提取的库文件列表
+    vendor: ['jquery', 'lodash'], // 需要提取的库文件列表
   },
   plugins: [
     // 生成第一个html文件
@@ -18,32 +18,32 @@ module.exports = {
         // 压缩HTML文件
         removeComments: true, // 移除HTML中的注释
         collapseWhitespace: true, // 删除空白符与换行符
-        minifyCSS: true // 压缩内联css
+        minifyCSS: true, // 压缩内联css
       },
-      template: './src/app/index/index.html' //模板地址
+      template: './src/app/index/index.html', // 模板地址
     }),
 
     // 当遇到了至少一处用到 lodash 变量的模块实例，自动lodash package包引入进来
     new webpack.ProvidePlugin({
       _: 'lodash',
-      $: 'jquery'
+      $: 'jquery',
     }),
     // 生成雪碧图
     new SpritesmithPlugin({
       src: {
         cwd: path.resolve(__dirname, 'src/asset/ico'),
-        glob: '*.png'
+        glob: '*.png',
       },
       target: {
         image: path.resolve(__dirname, 'src/asset/sprites/sprite.png'),
-        css: path.resolve(__dirname, 'src/asset/sprites/sprite.css')
+        css: path.resolve(__dirname, 'src/asset/sprites/sprite.css'),
       },
       apiOptions: {
-        cssImageRef: '../../asset/sprites/sprite.png'
-      }
+        cssImageRef: '../../asset/sprites/sprite.png',
+      },
     }),
     // 开启 Scope Hoisting 作用域提升功能
-    new webpack.optimize.ModuleConcatenationPlugin()
+    new webpack.optimize.ModuleConcatenationPlugin(),
   ],
   module: {
     rules: [
@@ -51,13 +51,13 @@ module.exports = {
       {
         test: /\.jsx?$/,
         use: 'babel-loader',
-        include: path.resolve(__dirname, 'src')
+        include: path.resolve(__dirname, 'src'),
       },
       // 解析ts文件
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        include: path.resolve(__dirname, 'src')
+        include: path.resolve(__dirname, 'src'),
       },
       // 解析less文件
       {
@@ -66,14 +66,14 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              esModule: true
-            }
+              esModule: true,
+            },
           },
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
           {
             loader: 'postcss-loader',
@@ -83,19 +83,19 @@ module.exports = {
               plugins: [
                 require('postcss-preset-env')({
                   browsers: 'last 5 versions',
-                  autoprefixer: { grid: true }
-                })
-              ]
-            }
+                  autoprefixer: { grid: true },
+                }),
+              ],
+            },
           },
           {
             loader: 'less-loader',
             options: {
-              sourceMap: true
-            }
-          }
+              sourceMap: true,
+            },
+          },
         ],
-        include: path.resolve(__dirname, 'src')
+        include: path.resolve(__dirname, 'src'),
       },
 
       // 解析css文件
@@ -105,16 +105,16 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              esModule: true
-            }
+              esModule: true,
+            },
           },
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true
-            }
-          }
-        ]
+              sourceMap: true,
+            },
+          },
+        ],
       },
       // 图片资源的解析
       {
@@ -124,14 +124,14 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 8192,
-              esModule: false // 这里设置为false 不然html-loader解析的图片是 [object Module]
-            }
+              esModule: false, // 这里设置为false 不然html-loader解析的图片是 [object Module]
+            },
           },
           {
-            loader: 'image-webpack-loader'
-          }
+            loader: 'image-webpack-loader',
+          },
         ],
-        include: path.resolve(__dirname, 'src')
+        include: path.resolve(__dirname, 'src'),
       },
 
       // svg,字体等资源的解析
@@ -141,14 +141,14 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              esModule: false // 这里设置为false 不然html-loader解析的图片是 [object Module]
-            }
+              esModule: false, // 这里设置为false 不然html-loader解析的图片是 [object Module]
+            },
           },
           {
-            loader: 'image-webpack-loader'
-          }
+            loader: 'image-webpack-loader',
+          },
         ],
-        include: path.resolve(__dirname, 'src')
+        include: path.resolve(__dirname, 'src'),
       },
 
       // 解析html文件
@@ -157,36 +157,36 @@ module.exports = {
         use: {
           loader: 'html-loader',
           options: {
-            attrs: ['img:src', ':data-src']
-          }
+            attrs: ['img:src', ':data-src'],
+          },
         },
-        include: path.resolve(__dirname, 'src')
+        include: path.resolve(__dirname, 'src'),
       },
 
       // 解析csv|tsv|xml
       {
         test: /\.(csv|tsv)$/,
         use: ['csv-loader'],
-        include: path.resolve(__dirname, 'src')
+        include: path.resolve(__dirname, 'src'),
       },
       {
         test: /\.xml$/,
         use: ['xml-loader'],
-        include: path.resolve(__dirname, 'src')
-      }
-    ]
+        include: path.resolve(__dirname, 'src'),
+      },
+    ],
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
     // 使用绝对路径指明第三方模块的存放位置,已减少搜索步骤
     modules: [path.resolve(__dirname, 'node_modules')],
     // 针对npm中的第三方模块优先采用jsnext:main中指向es6模块化语法的文件
-    mainFields: ['jsnext:main', 'main', 'browser']
+    mainFields: ['jsnext:main', 'main', 'browser'],
   },
   optimization: {
     // 提取样板(boilerplate)文件
     runtimeChunk: {
-      name: 'manifest'
+      name: 'manifest',
     },
     splitChunks: {
       // 选择要进行分割的包 可选值： all（推荐）, async(默认，只分隔异步代码), and initial(只分割同步代码)
@@ -216,9 +216,9 @@ module.exports = {
           test: /[\\/]node_modules[\\/]/,
           minChunks: 1, // 被多少个模块重复引用的时候进行提取操作
           // 默认缓存组的优先级(priotity)是负数 默认自定义缓存组优先级为0
-          priority: -10
-        }
-      }
-    }
-  }
+          priority: -10,
+        },
+      },
+    },
+  },
 };

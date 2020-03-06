@@ -18,30 +18,30 @@ const DevConfig = {
     // 防止文件更新太快而导致重新编译频率太快,默认300ms
     aggregateTimeout: 300,
     // 询问文件是否变化 默认每秒询问1000次
-    poll: 1000
+    poll: 1000,
   },
   // 生成map文件的形式
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
-    hot: true
+    hot: true,
   },
   plugins: [
     // 模块热替换 一般mode: 'development',的时候会自动配置
     new webpack.HotModuleReplacementPlugin(),
     // 抽离出单独的css文件
     new MiniCssExtractPlugin({
-      filename: '[name].css'
+      filename: '[name].css',
     }),
     // 设置环境变量
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
-    })
+      'process.env.NODE_ENV': JSON.stringify('development'),
+    }),
   ],
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'dist')
-  }
+    path: path.resolve(__dirname, 'dist'),
+  },
 };
 
 module.exports = merge(common, DevConfig);

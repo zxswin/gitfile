@@ -1,5 +1,5 @@
 /** index.ts文件  */
-
+/* global $ _*/
 import './index.less';
 import * as Data from '../../asset/data/data.json';
 
@@ -8,21 +8,37 @@ console.log('ddd8880000111', $('body'));
 console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 console.log(_);
 $('.img-svg').html('<p>88888888888888</p>');
+let ccc = 1;
+if (ccc === 0) {
+  let ac = 0;
+  console.log(ac);
+}
+const person = { a: 1, b: 2 };
+
+if (person) true;
+
+function aaaac(a) {
+  console.log(a);
+}
+
+aaaac(1);
+
+/** 1  */
 
 function component() {
-  var element = document.createElement('div');
+  const element = document.createElement('div');
 
-  var button = document.createElement('button');
-  var br = document.createElement('br');
+  const button = document.createElement('button');
+  const br = document.createElement('br');
 
   button.innerHTML = 'Click me and look at the console!';
   element.innerHTML = 'aaa';
   element.appendChild(br);
   element.appendChild(button);
 
-  button.onclick = e =>
+  button.onclick = () =>
     import(/* webpackChunkName: "b" */ './b').then(module => {
-      var print = module.default;
+      const print = module.default;
 
       print();
     });

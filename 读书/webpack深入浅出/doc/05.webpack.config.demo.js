@@ -27,7 +27,7 @@ module.exports = {
     // 浏览器开发者工具里显示的源码模块的名称
     devtollModuleFilenameTemplate: 'webpack:///[resource-path]',
     // 异步加载跨域的资源的使用方式
-    crossOriginLoading: false
+    crossOriginLoading: false,
   },
 
   // 配置模块相关
@@ -43,27 +43,27 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              url: true
-            }
-          }
-        ]
-      }
+              url: true,
+            },
+          },
+        ],
+      },
     ],
     // 不用解析和处理的模块
     noParse: [
-      /special-library\.js$/ // 使用正则匹配
-    ]
+      /special-library\.js$/, // 使用正则匹配
+    ],
   },
 
   // 配置插件
   plugins: [
     new CommonsChunkPlugin({
       name: 'common',
-      chunks: ['a', 'b']
-    })
+      chunks: ['a', 'b'],
+    }),
   ],
 
-  //配置寻找模块的规则
+  // 配置寻找模块的规则
   resolve: {
     // 寻找模块的根目录,为array类型,默认以node_modules为根目录
     modules: ['node_modules', path.resolve(__dirname, 'app')],
@@ -72,28 +72,26 @@ module.exports = {
     // 模块别名配置,用于映射模块
     alias: {
       module: 'new-module',
-      'only-module$': 'new-module'
+      'only-module$': 'new-module',
     },
     // 是否跟随文件的软连接去搜寻模块的路径
     symlinks: true,
     // 模块的描述文件
     descriptionFiles: ['package.json'],
     // 模块的描述文件里描述入口的文件的字段名
-    mainFields: ['main']
+    mainFields: ['main'],
     // 是否强制导入语句写明文件后缀
   },
 
   // 输出文件的性能检查配置
   performance: {
     hints: 'warning', // 有性能问题的时候输出警告
-    hints: 'error', // 有性能问题的时候输出错误
-    hints: false, // 关闭性能检查
     maxAssetSize: 200000, // 最大文件大小
     maxEntrypointSize: 400000, // 最大入口文件的大小
     assetFilter: function(assetFilename) {
       // 过滤要检查的文件
       return assetFilename.endsWith('.css') || assetFilename.endsWith('.js');
-    }
+    },
   },
 
   // 配置source-map的类型
@@ -104,7 +102,7 @@ module.exports = {
   target: 'web', // 浏览器默认
   // 使用来自JS运行环境提供的全局变量
   externals: {
-    jquery: 'jQuery'
+    jquery: 'jQuery',
   },
 
   // 控制台输出日志控制
@@ -113,13 +111,13 @@ module.exports = {
     colors: true,
     errors: true,
     errorDetails: true,
-    hash: true
+    hash: true,
   },
   // DevServer相关的配置
   devServer: {
     // 代理到后端服务接口
     proxy: {
-      '/api': 'http://localhost:3000'
+      '/api': 'http://localhost:3000',
     },
     // 配置DevServer HTTP服务器的文件根目录
     contentBase: PushSubscription.join(__dirname, 'public'),
@@ -130,7 +128,7 @@ module.exports = {
     // 是否开启模块热替换功能
     hot: true,
     // 是否开启https模式
-    https: false
+    https: false,
   },
 
   // 是否捕抓webpack构建的性能信息,分析是什么原因导致构建性能不佳
@@ -146,6 +144,6 @@ module.exports = {
     // 监听到变化后300ms再执行动作
     aggregateTimeout: 300,
     // 询问系统指定文件有没有发生变化,默认每秒询问1000次
-    poll: 1000
-  }
+    poll: 1000,
+  },
 };

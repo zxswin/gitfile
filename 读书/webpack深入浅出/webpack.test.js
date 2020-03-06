@@ -8,48 +8,48 @@ module.exports = {
   mode: 'development',
   entry: {
     main: './src/app/test/index.js',
-    vendor: ['jquery', 'lodash'] // 需要提取的库文件列表
+    vendor: ['jquery', 'lodash'], // 需要提取的库文件列表
   },
   // 生成map文件的形式
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
-    hot: true
+    hot: true,
   },
   plugins: [
     // 生成第一个html文件
     new HtmlWebpackPlugin({
       filename: 'index.html',
       title: 'index页面',
-      template: './src/app/test/index.html' //模板地址
+      template: './src/app/test/index.html', // 模板地址
     }),
 
     // 当遇到了至少一处用到 lodash 变量的模块实例，自动lodash package包引入进来
     new webpack.ProvidePlugin({
       _: 'lodash',
-      $: 'jquery'
+      $: 'jquery',
     }),
 
     // 模块热替换 一般mode: 'development',的时候会自动配置
     new webpack.HotModuleReplacementPlugin(),
     // 抽离出单独的css文件
     new MiniCssExtractPlugin({
-      filename: '[name].css'
+      filename: '[name].css',
     }),
     // 生成雪碧图
     new SpritesmithPlugin({
       src: {
         cwd: path.resolve(__dirname, 'src/asset/ico'),
-        glob: '*.png'
+        glob: '*.png',
       },
       target: {
         image: path.resolve(__dirname, 'src/asset/sprites/sprite.png'),
-        css: path.resolve(__dirname, 'src/asset/sprites/sprite.css')
+        css: path.resolve(__dirname, 'src/asset/sprites/sprite.css'),
       },
       apiOptions: {
-        cssImageRef: '../../asset/sprites/sprite.png'
-      }
-    })
+        cssImageRef: '../../asset/sprites/sprite.png',
+      },
+    }),
   ],
   module: {
     rules: [
@@ -57,14 +57,14 @@ module.exports = {
       {
         test: /\.jsx?$/,
         use: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       // 解析ts文件
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
         include: path.resolve(__dirname, 'src'),
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       // 解析less文件
       {
@@ -73,14 +73,14 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              esModule: true
-            }
+              esModule: true,
+            },
           },
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
           {
             loader: 'postcss-loader',
@@ -90,18 +90,18 @@ module.exports = {
               plugins: [
                 require('postcss-preset-env')({
                   browsers: 'last 5 versions',
-                  autoprefixer: { grid: true }
-                })
-              ]
-            }
+                  autoprefixer: { grid: true },
+                }),
+              ],
+            },
           },
           {
             loader: 'less-loader',
             options: {
-              sourceMap: true
-            }
-          }
-        ]
+              sourceMap: true,
+            },
+          },
+        ],
       },
 
       // 解析css文件
@@ -111,16 +111,16 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              esModule: true
-            }
+              esModule: true,
+            },
           },
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true
-            }
-          }
-        ]
+              sourceMap: true,
+            },
+          },
+        ],
       },
       // 图片资源的解析
       {
@@ -130,14 +130,14 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 8192,
-              esModule: false
-            }
+              esModule: false,
+            },
           },
           {
-            loader: 'image-webpack-loader'
-          }
+            loader: 'image-webpack-loader',
+          },
         ],
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
 
       // svg,字体等资源的解析
@@ -147,14 +147,14 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              esModule: false // 这里设置为false 不然html-loader解析的图片是 [object Module]
-            }
+              esModule: false, // 这里设置为false 不然html-loader解析的图片是 [object Module]
+            },
           },
           {
-            loader: 'image-webpack-loader'
-          }
+            loader: 'image-webpack-loader',
+          },
         ],
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
 
       // 解析html文件
@@ -163,32 +163,32 @@ module.exports = {
         use: {
           loader: 'html-loader',
           options: {
-            attrs: ['img:src', ':data-src']
-          }
+            attrs: ['img:src', ':data-src'],
+          },
         },
-        include: path.resolve(__dirname, 'src')
+        include: path.resolve(__dirname, 'src'),
       },
 
       // 解析csv|tsv|xml
       {
         test: /\.(csv|tsv)$/,
         use: ['csv-loader'],
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.xml$/,
         use: ['xml-loader'],
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
   resolve: {
-    extensions: ['.js']
+    extensions: ['.js'],
   },
   optimization: {
     // 提取样板(boilerplate)文件
     runtimeChunk: {
-      name: 'manifest'
+      name: 'manifest',
     },
     splitChunks: {
       // 选择要进行分割的包 可选值： all（推荐）, async(默认，只分隔异步代码), and initial(只分割同步代码)
@@ -218,13 +218,13 @@ module.exports = {
           test: /[\\/]node_modules[\\/]/,
           minChunks: 1, // 被多少个模块重复引用的时候进行提取操作
           // 默认缓存组的优先级(priotity)是负数 默认自定义缓存组优先级为0
-          priority: -10
-        }
-      }
-    }
+          priority: -10,
+        },
+      },
+    },
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'dist')
-  }
+    path: path.resolve(__dirname, 'dist'),
+  },
 };
