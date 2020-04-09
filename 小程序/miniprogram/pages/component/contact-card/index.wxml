@@ -1,0 +1,17 @@
+<mark-box markData="{{markData}}" bind:maskClick="closeMask">
+  <view slot="center" class="detail-content" catch:tap="contentClick">
+    <!-- 关闭按钮 -->
+    <icon class="mask-close" type="clear" size="40" bind:tap="closeMask" />
+    <!-- 生成截图按钮 -->
+    <button class="mask-btn flex-block" type="primary" plain="{{true}}" bind:tap="saveImage">
+      <icon type="download" size="30" />
+      <view>保存截图并复制卖家微信号</view>
+    </button>
+    <!-- 主要内容区域 -->
+    <view class="card-content">
+      <scroll-view scroll-y="true" class="order-content">
+        <canvas class="content-canvas" style="width:{{canvasParam.width}}; height:{{canvasParam.height}};" canvas-id="contentCanvas"></canvas>
+      </scroll-view>
+    </view>
+  </view>
+</mark-box>

@@ -1,0 +1,27 @@
+{
+  "name": "miniprogram-ts-quickstart",
+  "version": "1.0.0",
+  "scripts": {
+    "compile": "./node_modules/typescript/bin/tsc",
+    "tsc": "node ./node_modules/typescript/lib/tsc.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "miniprogram-api-promise": "^1.0.4",
+    "miniprogram-api-typings": "^2.8.3-1",
+    "miniprogram-barrage": "^1.0.1",
+    "miniprogram-computed": "^2.1.1",
+    "vant-weapp": "^0.5.23",
+    "weui-miniprogram": "^0.2.0"
+  },
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "devDependencies": {
+    "typescript": "^3.7.2"
+  },
+  "description": ""
+}

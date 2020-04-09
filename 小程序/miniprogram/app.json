@@ -1,0 +1,72 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/preferential/preferential",
+    "pages/mine/mine"
+  ],
+  "subpackages": [
+    {
+      "root": "subpages",
+      "name": "packA",
+      "pages": ["cat/cat"]
+    },
+    {
+      "root": "indepages",
+      "name": "independents",
+      "pages": ["detail-view/detail-view"],
+      "independent": true
+    }
+  ],
+  "preloadRule": {
+    "pages/index/index": {
+      "network": "all",
+      "packages": ["packA"]
+    }
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "潮味生鲜",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": false
+  },
+  "debug": true,
+  "tabBar": {
+    "color": "#909195",
+    "selectedColor": "#07c160",
+    "backgroundColor": "#fff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "选品",
+        "iconPath": "src/icons/tab/dp.png",
+        "selectedIconPath": "src/icons/tab/dp_s.png"
+      },
+      {
+        "pagePath": "pages/preferential/preferential",
+        "text": "特惠套餐",
+        "iconPath": "src/icons/tab/tc.png",
+        "selectedIconPath": "src/icons/tab/tc_s.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "src/icons/tab/mine.png",
+        "selectedIconPath": "src/icons/tab/mine_s.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+
+  "usingComponents": {
+    "counter": "/pages/component/counter/index",
+    "detail-view": "/pages/component/detail-view/index",
+    "settle-view": "/pages/component/settle-view/index",
+    "settle-form": "/pages/component/settle-form/index",
+    "contact-card": "/pages/component/contact-card/index",
+    "shop-car": "/pages/component/shop-car/index",
+    "mark-box": "/pages/component/mark-box/index"
+  }
+}

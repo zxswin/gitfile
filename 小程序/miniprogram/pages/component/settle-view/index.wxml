@@ -1,0 +1,77 @@
+<mark-box markData="{{markData}}" bind:maskClick="closeMask">
+  <view slot="center" class="detail-content" catch:tap="contentClick">
+    <!-- 关闭按钮 -->
+    <icon class="mask-close" type="clear" size="40" bind:tap="closeMask" />
+    <!-- 主要内容区域 -->
+    <view class="settle-info">
+      <!-- 地址及联系方式区域 -->
+      <view class="settle-info-wrap">
+        <view class="info-title">联系方式</view>
+        <view class="info-detail flex-block">
+          <view class="info-field">姓名：</view>
+          <view class="info-content">{{clientInfo.name}}</view>
+        </view>
+        <view class="info-detail flex-block">
+          <view class="info-field">手机号码：</view>
+          <view class="info-content">{{clientInfo.phoneNum}}</view>
+        </view>
+        <view class="info-detail">
+          <view class="info-field">收货地址：</view>
+          <view class="info-content">
+            {{clientInfo.region}}{{clientInfo.address}}(邮编:{{clientInfo.postcode}})
+          </view>
+        </view>
+      </view>
+      <!-- 订单明细信息 -->
+      <view class="order-info-wrap">
+        <!-- <view class="info-title">结算明细</view> -->
+        <scroll-view scroll-y="true" class="order-info-scroll">
+          <view class="info-title">订单明细</view>
+          <!-- 订单 -->
+          <view wx:for="{{orderList}}" wx:key="name" class="order-detail flex-block">
+            <view class="order-name">{{item.name}}({{item.standards}})</view>
+            <view class="order-amount">{{item.amount}} * {{item.price}}</view>
+            <view class="order-price">{{item.totalPrice}}元</view>
+          </view>
+          <!-- 价格总计 -->
+          <view class="order-detail flex-block">
+            <view class="order-name">商品总计</view>
+            <view class="order-amount"></view>
+            <view class="order-price sum-price">{{totalPrice}}元</view>
+          </view>
+          <!-- 费用列表 -->
+          <view wx:for="{{fearList}}" wx:key="fearType" class="order-detail flex-block">
+            <view class="order-name" style="width:75%">{{item.fearType}}({{item.fearRemark}})</view>
+            <view class="order-price sum-price">+{{item.fearValue}}元</view>
+          </view>
+          <!-- 优惠信息 -->
+          <view wx:for="{{couponList}}" wx:key="couponType" class="order-detail flex-block">
+            <view class="order-name" style="width:75%">
+              {{item.couponType}}({{item.couponRemark}})
+            </view>
+            <view class="order-price sum-price red">-{{item.couponValue}}元</view>
+          </view>
+          <!-- 商品总价 -->
+          <view class="order-detail flex-block">
+            <view class="order-name" style="width:75%">结算价</view>
+            <view class="order-price sum-price">{{clearPrice}}元</view>
+          </view>
+          <!-- 备注信息 -->
+          <view class="order-remark">
+            <view class="info-title">备注</view>
+            <view>{{clientInfo.remark}}</view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+    <!-- 底部固定按钮 -->
+    <view class="settle-bottom-pay">
+      <!-- 价格 -->
+      <view class="settle-pay-price">{{clearPrice}}元</view>
+      <!-- 支付 -->
+      <view class="settle-pay-button" bind:tap="showScreenshot">生成订单截图</view>
+    </view>
+  </view>
+</mark-box>
+<!-- 生成画布截图 -->
+<contact-card wx:if="{{isShowScreenshot}}" screenshotData="{{screenshotData}}" bind:close="closeCanvasView"></contact-card>

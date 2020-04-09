@@ -1,0 +1,13 @@
+<view class="counter-contain">
+  <view class="counter-l">
+    <view wx:if="{{counterData.currentNum || !counterData.onlyShowAdd}}" class="counter-minus" bind:tap="minusTap"></view>
+  </view>
+  <view class="counter-m">
+    <view wx:if="{{counterData.currentNum || !counterData.onlyShowAdd}}" class="counter-num">
+      {{counterData.currentNum}}
+    </view>
+  </view>
+  <view class="counter-r">
+    <view class="counter-add" bind:tap="addTap"></view>
+  </view>
+</view>

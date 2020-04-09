@@ -1,0 +1,131 @@
+/** 详情弹出层  */
+.detail-content {
+  background: #fff;
+  width: 90%;
+  height: 90%;
+  border-radius: 20rpx;
+  position: relative;
+  overflow: hidden;
+}
+.mask-close {
+  position: absolute;
+  top: 10rpx;
+  right: 10rpx;
+  z-index: 100;
+}
+
+/** 结算模块包裹层  */
+.settle-info-wrap {
+  font-size: 28rpx;
+  padding: 20rpx;
+}
+
+.info-title {
+  font-weight: bold;
+  border-bottom: 2rpx solid #ccc;
+  padding: 10rpx;
+  margin-bottom: 10rpx;
+  font-size: 32rpx;
+}
+
+.info-detail {
+  padding: 10rpx 10rpx 0 10rpx;
+}
+.info-field {
+  margin-bottom: 10rpx;
+}
+
+/** 订单明细信息  */
+
+.order-info-wrap {
+  padding: 20rpx;
+}
+
+.order-info-scroll {
+  height: 50vh;
+  font-size: 28rpx;
+}
+.order-detail {
+  color: #000;
+  border-bottom: 2rpx solid #ccc;
+  justify-content: space-between;
+  padding: 10rpx 0;
+}
+
+.order-detail:last-child {
+  margin-bottom: 20rpx;
+}
+
+.order-remark {
+  padding-top: 10rpx;
+  padding-bottom: 50rpx;
+}
+
+.remark-textarea {
+  height: 200rpx;
+}
+
+.order-name {
+  width: 50%;
+  margin-right: 20rpx;
+}
+
+.order-amount {
+  width: 25%;
+  text-align: center;
+}
+.order-price {
+  width: 25%;
+  text-align: right;
+}
+
+.sum-price {
+  font-weight: bold;
+  font-size: 36rpx;
+}
+
+/** 底部固定按钮  */
+.settle-bottom-pay {
+  height: 100rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  box-shadow: 0 0 0, /*左边阴影*/ 0 0 0, /*上边阴影*/ 2rpx 2rpx 20rpx #888888,
+    /*右边阴影*/ 0 0 0; /*下边阴影*/
+}
+.settle-pay-price {
+  color: #000;
+  font-weight: bold;
+  font-size: 40rpx;
+  text-align: left;
+  height: 100%;
+  width: 60%;
+  padding-left: 10rpx;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.settle-pay-button {
+  background: #07c160;
+  color: #fff;
+  width: 40%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/** 通用样式  */
+.flex-block {
+  display: flex;
+  justify-items: flex-start;
+  align-items: center;
+}
+
+.red {
+  color: #f00;
+}

@@ -1,0 +1,52 @@
+<mark-box markData="{{markData}}" bind:maskClick="maskClick">
+  <view slot="bottom" class="shop-box">
+    <!-- 购物车列表 -->
+    <view class="shop-list" animation="{{shopListAnimation}}" catch:tap="shopboxClick">
+      <!-- 清空购物车 -->
+      <view class="shop-list-header display-flex">
+        <!-- 图标 -->
+        <view class="list-header-icon"></view>
+        <!-- 文字 -->
+        <view class="list-header-text" bind:tap="clearShopCar">清空购物车</view>
+      </view>
+      <!-- 购物车列表 -->
+      <scroll-view scroll-y="true" class="scroll-orderList">
+        <!-- 购物车列表项 -->
+        <view wx:for="{{shopCarData.shopList}}" wx:key="index" class="shop-list-body display-flex">
+          <!-- 产品名称及描述 -->
+          <view class="list-body-des">
+            <!-- 主标题 -->
+            <view class="body-des-maintitle text-overflow">{{item.title}}</view>
+            <!-- 副标题 -->
+            <view class="body-des-subtitle text-overflow">{{item.standards}}</view>
+          </view>
+          <!-- 产品价格 -->
+          <view class="list-body-price">{{item.counterData.totalPrice}}</view>
+          <!-- 计算器 -->
+          <view class="list-body-counter">
+            <counter counterData="{{item.counterData}}" data-index="{{index}}" bind:counterdata="onShopCounterClick"></counter>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    <!-- 结算栏 -->
+    <view class="shop-settle-box display-flex" animation="{{settleAnimation}}" catch:tap="shopboxClick">
+      <!-- 购物数量及价格 -->
+      <view class="settle-box-info">
+        <!-- 购物车 -->
+        <view class="box-info-shopcar display-flex" bind:tap="shopBagClick">
+          <!-- 购物车图标 -->
+          <image class="info-shopcar-icon" src="../../../src/icons/icons/shopping_cart.png" mode="aspectFit" />
+          <!-- 购物车文字 -->
+          <view class="info-shopcar-text">购物车</view>
+          <!-- 购物数量 -->
+          <view class="info-shopcar-amount">{{shopAmounts}}</view>
+        </view>
+        <!-- 结算价格 -->
+        <view class="box-info-clearprice">{{clearPrices}}</view>
+      </view>
+      <!-- 结算按钮 -->
+      <view class="settle-box-btn" bind:tap="settleBtnClick">结算</view>
+    </view>
+  </view>
+</mark-box>

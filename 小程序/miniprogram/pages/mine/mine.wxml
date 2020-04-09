@@ -1,0 +1,92 @@
+<!-- 顶部头像部分 -->
+<view class="mine-head display-flex">
+  <view class="mine-head-content">
+    <view class="mine-head-img">
+      <open-data type="userAvatarUrl" lang="zh_CN"></open-data>
+    </view>
+    <view class="mine-heea-text">
+      <open-data type="userNickName" lang="zh_CN"></open-data>
+    </view>
+  </view>
+</view>
+<!-- 我的订单 -->
+<view class="wrap-box">
+  <view class="content-wrap">
+    <!-- 标题 -->
+    <view class="mine-order-head display-flex">
+      <view class="order-head-title">我的订单</view>
+      <view class="order-head-queryall">全部订单</view>
+    </view>
+    <!-- 相关图标展示 -->
+    <view class="icon-content display-flex">
+      <!-- 待支付 -->
+      <view class="icon-item operation-icon">
+        <image class="order-state-icon" src="../../src/order/wait-pay.png" mode="aspectFit" />
+        <view class="icon-text">待支付</view>
+      </view>
+      <!-- 待发货 -->
+      <view class="icon-item operation-icon">
+        <image class="order-state-icon" src="../../src/order/wait-goods.png" mode="aspectFit" />
+        <view class="icon-text">待发货</view>
+      </view>
+      <!-- 已发货 -->
+      <view class="icon-item operation-icon">
+        <image class="order-state-icon" src="../../src/order/already-goods.png" mode="aspectFit" />
+        <view class="icon-text">已发货</view>
+      </view>
+      <!-- 待评论 -->
+      <view class="icon-item operation-icon">
+        <image class="order-state-icon" src="../../src/order/wait-evaluate.png" mode="aspectFit" />
+        <view class="icon-text">待评论</view>
+      </view>
+      <!-- 退换货 -->
+      <view class="icon-item operation-icon">
+        <image class="order-state-icon" src="../../src/order/wait-replacement.png" mode="aspectFit" />
+        <view class="icon-text">退换货</view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 收藏及地址相关 -->
+<view class="wrap-box">
+  <view class="content-wrap">
+    <!-- 相关图标展示 -->
+    <view class="icon-content display-flex">
+      <!-- 我的收藏 -->
+      <view class="icon-item">
+        <image class="order-state-icon" src="../../src/operation/mine-collection.png" mode="aspectFit" />
+        <view class="icon-text ">我的收藏</view>
+      </view>
+      <!-- 浏览记录 -->
+      <view class="icon-item">
+        <image class="order-state-icon" src="../../src/operation/browse-record.png" mode="aspectFit" />
+        <view class="icon-text ">浏览记录</view>
+      </view>
+      <!-- 优惠券 -->
+      <view class="icon-item">
+        <image class="order-state-icon" src="../../src/operation/coupon-icon.png" mode="aspectFit" />
+        <view class="icon-text ">优惠券</view>
+      </view>
+      <!-- 实名认证 -->
+      <view class="icon-item">
+        <image class="order-state-icon" src="../../src/operation/real-name.png" mode="aspectFit" />
+        <view class="icon-text ">实名认证</view>
+      </view>
+      <!-- 在线客服 -->
+      <view class="icon-item">
+        <image class="order-state-icon" src="../../src/operation/online-service.png" mode="aspectFit" />
+        <view class="icon-text ">在线客服</view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 购物车组件 -->
+<shop-car wx:if="{{shopCarData.isShowShopSettle}}" shopCarData="{{shopCarData}}" bind:shopCarDataChange="shopCarDataChange" bind:shopCarHide="shopCarHide" bind:settleBtnClick="settleBtnClick"></shop-car>
+<!-- 缩小版的购物车挂件 -->
+<view wx:if="{{!shopCarData.isShowShopSettle && shopCarData.shopList.length}}" class="shop-widgets display-flex" bind:tap="showShopCarMarkBox">
+  <image class="shop-widgets-icon" src="../../src/icons/icons/shopping_cart.png" mode="aspectFit" />
+</view>
+<!-- 用户信息收集 -->
+<settle-form wx:if="{{isShowGetClient}}" bind:close="closePopup" bind:getClientInfo="getClientInfo"></settle-form>
+<!-- 结算弹出层 -->
+<settle-view wx:if="{{isShowSettle}}" clientInfo="{{clientInfo}}" shopList="{{shopCarData.shopList}}" bind:close="closePopup"></settle-view>

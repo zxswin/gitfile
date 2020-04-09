@@ -1,0 +1,19 @@
+/**app.wxss**/
+/* @import "../node_modules/weui-miniprogram/miniprogram_dist/icon/icon.wxss"; */
+
+/* @import "miniprogram_npm/weui-miniprogram/weui-wxss/dist/style/weui.wxss"; */
+/* @import "miniprogram_npm/weui-miniprogram/icon/icon.js" */
+
+page {
+  background-color: #fff;
+}
+
+.container {
+  font-size: 24rpx;
+}
+
+.display-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

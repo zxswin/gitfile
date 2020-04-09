@@ -1,0 +1,59 @@
+<!-- index.wxml -->
+<view class="container">
+  <!-- 顶部 -->
+  <view class="i-top">潮味生鲜线上选购平台</view>
+  <!-- 滚动区 -->
+  <view class="i-content">
+    <!-- 滚动菜单 -->
+    <view class="i-left">
+      <scroll-view scroll-y="true" class="scroll-view" scroll-into-view="{{type}}" scroll-with-animation="{{true}}" scroll-anchoring="{{true}}" bindscroll="menuScroll">
+        <view wx:for="{{menuConfig}}" wx:key="type" id="{{item.type}}" class="scroll-view-item menu-item-l {{type===item.type?'menu-l-active':''}}" data-type="{{item.type}}" bind:tap="menuTap">
+          <image src="{{item.src}}" mode="aspectFit" />
+          <text>{{item.title}}</text>
+        </view>
+      </scroll-view>
+    </view>
+    <!-- 滚动产品列表 -->
+    <view class="i-right">
+      <scroll-view wx:if="{{produceLists}}" scroll-y="true" class="scroll-view" scroll-into-view="{{listAnchorId}}" scroll-with-animation="{{true}}" scroll-anchoring="{{true}}" bindscroll="produceListScroll" bindscrolltolower="scrolltolower">
+        <view wx:for="{{produceLists}}" wx:key="typeId" id="{{ item.type + item.id}}" data-item="{{item}}" class="list-item" bind:tap="navigateToDetail">
+          <view class="list-item-l">
+            <image class="item-l-img" src="{{item.thumbnail}}" mode="aspectFit" />
+            <view class="show-sellout" wx:if="{{!item.stock}}">已售罄</view>
+          </view>
+          <view class="list-item-r">
+            <view class="item-r-text">
+              <text>{{item.title}}</text>
+            </view>
+            <view class="item-r-des">
+              <text>{{item.describe}}</text>
+            </view>
+            <view class="item-r-pri">
+              <view class="r-pri-num">
+                <text>{{item.price}}元</text>
+              </view>
+              <view class="r-pri-button">
+                <button class="pri-btn" data-index="{{index}}" data-item="{{item}}" type="primary" size="mini" catch:tap="choose">
+                  <text>选购</text>
+                  <text wx:if="{{item.count}}" class="i-count">{{item.count}}</text>
+                </button>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>
+<!-- 购物车组件 -->
+<shop-car wx:if="{{shopCarData.isShowShopSettle}}" shopCarData="{{shopCarData}}" bind:shopCarDataChange="shopCarDataChange" bind:shopCarHide="shopCarHide" bind:settleBtnClick="settleBtnClick"></shop-car>
+<!-- 缩小版的购物车挂件 -->
+<view wx:if="{{!shopCarData.isShowShopSettle && shopCarData.shopList.length}}" class="shop-widgets display-flex" bind:tap="showShopCarMarkBox">
+  <image class="shop-widgets-icon" src="../../src/icons/icons/shopping_cart.png" mode="aspectFit" />
+</view>
+<!-- 详情弹出框 -->
+<detail-view wx:if="{{isShowDetail}}" detailData="{{currentDetail}}" counterData="{{counterData}}" bind:close="closeDetailView" bind:addShopCar="addShopCar"></detail-view>
+<!-- 结算弹出层 -->
+<settle-view wx:if="{{isShowSettle}}" clientInfo="{{clientInfo}}" shopList="{{shopCarData.shopList}}" bind:close="closeDetailView"></settle-view>
+<!-- 用户信息收集 -->
+<settle-form wx:if="{{isShowGetClient}}" bind:close="closeDetailView" bind:getClientInfo="getClientInfo"></settle-form>

@@ -1,0 +1,98 @@
+.detail-contain {
+  width: 100%;
+  padding: 0 20rpx;
+}
+.swiper-content {
+  margin-bottom: 20rpx;
+}
+.detail-swiper {
+  height: 400rpx;
+}
+.detail-text {
+  margin-bottom: 20rpx;
+}
+.detail-text .d-text-box {
+  margin-bottom: 10rpx;
+}
+.detail-title {
+  font-size: 30rpx;
+  color: #000;
+}
+.detail-sub-title {
+  font-size: 24rpx;
+  color: #888888;
+}
+.detail-dsc {
+  font-size: 24rpx;
+  color: #888888;
+  line-height: 36rpx;
+}
+
+/** 规格选择  */
+.detail-type {
+  margin: 10rpx 0;
+  color: #888888;
+}
+.d-type-title {
+  font-size: 28rpx;
+  padding: 10rpx 0;
+}
+.settle-l-pri {
+  font-size: 40rpx;
+  color: #07c160;
+  margin-bottom: 10rpx;
+}
+.settle-l-dsc {
+  font-size: 24rpx;
+}
+
+/** 产品详情图片展示部分  */
+.detail-img-show {
+  padding: 20rpx 0;
+}
+.detail-img-title {
+  font-size: 30rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  padding-left: 40rpx;
+  border-left: 10rpx solid #07c160;
+  color: #333;
+}
+
+.detail-img-img {
+  margin-bottom: 20rpx;
+  width: 100%;
+}
+
+.detail-scroll-view {
+  height: 80%;
+  padding-bottom: 20rpx;
+}
+
+/** 底部固定按钮区域  */
+.flex-button {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  background: #fff;
+  padding-bottom: 40rpx;
+}
+
+.bottom-btn {
+  background: #07c160;
+  color: #fff;
+  height: 80rpx;
+  font-size: 36rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95vw;
+}
+
+.bottom-btn:not([size='mini']) {
+  width: 95vw;
+  min-height: 80rpx;
+}

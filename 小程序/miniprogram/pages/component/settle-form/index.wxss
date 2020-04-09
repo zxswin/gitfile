@@ -1,0 +1,73 @@
+/** 表单提交  */
+.form-content {
+  padding: 40rpx 20rpx;
+  font-size: 30rpx;
+  background: #fff;
+  width: 90vw;
+  height: 90vh;
+  border-radius: 20rpx;
+  position: relative;
+  overflow: hidden;
+}
+.mask-close {
+  position: absolute;
+  top: 10rpx;
+  right: 10rpx;
+  z-index: 1000;
+}
+.form-scroll {
+  height: 90vh;
+}
+.list-title {
+  font-weight: bold;
+  font-size: 32rpx;
+  margin-bottom: 20rpx;
+}
+.form-picker {
+  width: 100%;
+}
+.list-sub-title {
+  margin-bottom: 16rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+}
+.i-request::before {
+  content: '*';
+  color: red;
+  margin-right: 10rpx;
+}
+.request-tip {
+  margin-left: 20rpx;
+}
+
+.address-detail {
+  margin-bottom: 20rpx;
+}
+.address-picker {
+  border: 1px solid #ccc;
+  padding: 20rpx;
+}
+.address-input {
+  border: 1px solid #ccc;
+  padding: 20rpx;
+}
+.button-wrap {
+  margin-top: 40rpx;
+}
+
+.button-submit:not([size='mini']) {
+  width: 100%;
+  padding: 10rpx;
+  margin: 0 auto;
+  padding: 20rpx 0;
+}
+/** 通用样式  */
+.flex-block {
+  display: flex;
+  justify-items: flex-start;
+  align-items: center;
+}
+
+.red {
+  color: #f00;
+}

@@ -1,0 +1,89 @@
+page {
+  background-color: #f7f7f7;
+  color: #000;
+}
+
+/** 公用部分  */
+
+.wrap-box {
+  padding: 0 20rpx;
+  background: #f7f7f7;
+  margin-bottom: 20rpx;
+}
+.content-wrap {
+  background: #fff;
+  padding: 30rpx;
+}
+
+.icon-content {
+  justify-content: space-between;
+}
+.icon-item {
+  text-align: center;
+}
+.icon-text {
+  font-size: 28rpx;
+}
+
+/** 头像部分  */
+.mine-head {
+  background: #07c160;
+  height: 30vh;
+  margin-bottom: 20rpx;
+}
+.mine-head-content {
+  font-size: 32rpx;
+  color: #fff;
+}
+.mine-heea-text {
+  text-align: center;
+  font-weight: bold;
+}
+.mine-head-img {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+  margin-bottom: 10rpx;
+  border: 10rpx solid rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+}
+
+/** 订单部分 */
+.mine-order-head {
+  justify-content: space-between;
+  margin-bottom: 40rpx;
+}
+.order-head-title {
+  color: #000;
+  font-size: 36rpx;
+}
+.order-head-queryall {
+  color: #888;
+  font-size: 28rpx;
+}
+.order-state-icon {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+/** 收藏部分  */
+.operation-icon {
+  margin-right: 50rpx;
+}
+
+/** 购物车挂件  */
+.shop-widgets {
+  position: fixed;
+  bottom: 100rpx;
+  left: 40rpx;
+  width: 100rpx;
+  height: 100rpx;
+  border: 2rpx solid #07c160;
+  background: #fff;
+  border-radius: 50%;
+  z-index: 100;
+}
+.shop-widgets-icon {
+  width: 60rpx;
+  height: 60rpx;
+}

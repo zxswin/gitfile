@@ -1,0 +1,6 @@
+<view class="mark-box content-{{markData.position}}" bind:tap="markClick">
+  <view wx:if="{{markData.position === 'bottom'}}" class="content-contain" style="top:{{markData.top}};">
+    <slot name="bottom"></slot>
+  </view>
+  <slot wx:if="{{markData.position === 'center'}}" name="center"></slot>
+</view>

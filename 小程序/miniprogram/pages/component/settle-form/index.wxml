@@ -1,0 +1,67 @@
+<mark-box markData="{{markData}}" bind:maskClick="closeMask">
+  <view slot="center" class="form-content" catch:tap="contentClick">
+    <!-- 关闭按钮 -->
+    <icon class="mask-close" type="clear" size="40" bind:tap="closeMask" />
+    <scroll-view scroll-y="true" class="form-scroll">
+      <!-- 填写表单 -->
+      <view class="address">
+        <!-- 填写姓名及手机号码 -->
+        <view class="address-detail">
+          <view class="form-picker">
+            <view class="list-sub-title i-request flex-block">
+              <view class="sub-title-text">客户姓名:</view>
+              <view wx:if="{{!clientInfo.name && isSubmitClick}}" class="request-tip red">
+                不得为空
+              </view>
+            </view>
+            <input class="address-input" value="{{clientInfo.name}}" placeholder="请填写姓名" data-inputKey="name" bindblur="inputBlur" />
+          </view>
+        </view>
+        <view class="address-detail">
+          <label>
+            <view class="list-sub-title i-request flex-block">
+              <view class="sub-title-text">手机号码：</view>
+              <view wx:if="{{!clientInfo.phoneNum && isSubmitClick}}" class="request-tip red">
+                不得为空
+              </view>
+            </view>
+            <input class="address-input" type="number" value="{{clientInfo.phoneNum}}" placeholder="请填写手机号码" data-inputKey="phoneNum" bindblur="inputBlur" />
+          </label>
+        </view>
+        <!-- 填写地址 -->
+        <view class="address-detail">
+          <view class="list-sub-title i-request flex-block">
+            <view class="sub-title-text">省市区:</view>
+            <view wx:if="{{!clientInfo.region && isSubmitClick}}" class="request-tip red">
+              不得为空
+            </view>
+          </view>
+          <picker mode="region" class="form-picker" bindchange="regionChange" value="{{clientInfo.regionList}}">
+            <input class="address-input" value="{{clientInfo.region}}" disabled="{{true }}" placeholder="请点击选择所在地区" />
+          </picker>
+        </view>
+        <view class="address-detail">
+          <label>
+            <view class="list-sub-title i-request flex-block">
+              <view class="sub-title-text">街道地址：</view>
+              <view wx:if="{{!clientInfo.address && isSubmitClick}}" class="request-tip red">
+                不得为空
+              </view>
+            </view>
+            <input class="address-input" value="{{clientInfo.address}}" placeholder="请填写街道地址" data-inputKey="address" bindblur="inputBlur" />
+          </label>
+        </view>
+        <view class="address-detail">
+          <label>
+            <view class="list-sub-title">订单备注：</view>
+            <input class="address-input" value="{{clientInfo.remark}}" placeholder="订单备注选填" data-inputKey="remark" bindblur="inputBlur" />
+          </label>
+        </view>
+        <!-- 确认提交按钮 -->
+        <view class="address-detail button-wrap">
+          <button class="button-submit" type="primary" bind:tap="submitClick">确认提交</button>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</mark-box>

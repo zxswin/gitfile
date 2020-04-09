@@ -1,0 +1,6 @@
+<!-- 这是自定义组件的内部WXML结构 -->
+<view class="inner">{{innerText}}</view>
+<slot></slot>
+<view bind:tap="customMethod">{{text}}</view>
+<text>{{sum}}</text>
+<button bindtap="onTap">点击这个按钮将触发“myevent”事件</button>

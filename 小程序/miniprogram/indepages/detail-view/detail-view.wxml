@@ -1,0 +1,39 @@
+<!-- 详情展示 -->
+<view class="detail-contain">
+  <scroll-view scroll-y="true" class="detail-scroll-view">
+    <!-- 轮播图 -->
+    <view class="swiper-content">
+      <swiper class="detail-swiper" indicator-dots="{{true}}" autoplay="{{true}}" circular="{{true}}">
+        <swiper-item wx:for="{{detailData.swiper}}" wx:key="id" item-id="{{item.id}}">
+          <view class="swiper-item">
+            <image src="{{item.src}}" mode="aspectFit" />
+          </view>
+        </swiper-item>
+      </swiper>
+    </view>
+    <!-- 产品标题及简介 -->
+    <view class="detail-text">
+      <view class="detail-title d-text-box">{{detailData.describe.title}}</view>
+      <view class="detail-sub-title d-text-box">{{detailData.describe.subTitle}}</view>
+      <view class="detail-dsc d-text-box">{{detailData.describe.detailInfo}}</view>
+    </view>
+    <!-- 产品描述 -->
+    <view class="detail-img-show">
+      <view class="detail-img-title">商品整体展示</view>
+      <image class="detail-img-img" src="./src/swiper01.jpg" mode="aspectFit" />
+    </view>
+    <view class="detail-img-show">
+      <view class="detail-img-title">商品烹饪展示</view>
+      <image class="detail-img-img" src="./src/swiper01.jpg" mode="aspectFit" />
+    </view>
+    <view class="detail-img-show">
+      <view class="detail-img-title">商品细节展示</view>
+      <image class="detail-img-img" src="./src/swiper01.jpg" mode="aspectFit" />
+    </view>
+  </scroll-view>
+</view>
+<!-- 跳转按钮固定于底部 -->
+<view class="flex-button">
+  <!-- 进入商城购买按钮 -->
+  <button class="bottom-btn" bind:tap="toShop">进入商城购买</button>
+</view>
