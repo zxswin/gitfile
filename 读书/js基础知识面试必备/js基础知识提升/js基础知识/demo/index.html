@@ -5,14 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>代码实例</title>
     <style>
-      .error {
-        border: 5px solid #f00;
+      .ul {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: red;
       }
     </style>
   </head>
-  <body>
-    <input type="text" validate rule="max:12,min:3" />
-    <input type="text" validate rule="max:3,isNumber" />
+
+  <body class="red father">
+    <div></div>
+    <span class="son">兄弟节点</span>
+    <ul class="ul">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+    </ul>
+    <button class="btn"><i>iii</i>后盾人</button>
+    <img data-index="index" class="img" src="./img/1.jpg" title="a" alt="b" />
   </body>
-  <script src="index.js"></script>
+  <script src="./index.js"></script>
 </html>
